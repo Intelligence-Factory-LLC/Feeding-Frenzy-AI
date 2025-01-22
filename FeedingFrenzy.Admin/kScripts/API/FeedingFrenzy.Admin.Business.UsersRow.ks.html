@@ -1,0 +1,510 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">User</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>User</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+
+				<h3>User</h3>
+				<br>
+
+
+				<h3>Properties</h3>
+				<table class="Grid table table-striped table-bordered datatables dataTable">
+					<tr>
+
+						<th></th>
+
+
+						<th kcs:SortColumn="PropertyName">
+							Property Name
+						</th>
+
+						<th kcs:SortColumn="FriendlyPropertyName">
+							Friendly Property Name
+						</th>
+
+						<th kcs:SortColumn="TypeID">
+							Type
+						</th>
+
+						<th kcs:SortColumn="">
+							Unique
+						</th>
+						<th kcs:SortColumn="">
+							Nullable
+						</th>
+
+						<th kcs:SortColumn="">
+							Default
+						</th>
+
+						<th kcs:SortColumn="">
+							Natural Key
+						</th>
+
+
+					</tr>
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							UserID
+						</td>
+						<td>
+							User ID
+						</td>
+						<td>
+							ID
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							IsEnabled
+						</td>
+						<td>
+							Enabled
+						</td>
+						<td>
+							Boolean
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td>1</td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							DateCreated
+						</td>
+						<td>
+							Date Created
+						</td>
+						<td>
+							DateCreated
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							LastUpdated
+						</td>
+						<td>
+							Last Updated
+						</td>
+						<td>
+							LastUpdated
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Data
+						</td>
+						<td>
+							Data
+						</td>
+						<td>
+							Data
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Email
+						</td>
+						<td>
+							Email
+						</td>
+						<td>
+							Email
+						</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td></td>
+						<td>Yes</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Phone
+						</td>
+						<td>
+							Phone
+						</td>
+						<td>
+							Phone
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Password
+						</td>
+						<td>
+							Password
+						</td>
+						<td>
+							Text
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							HasLoggedIn
+						</td>
+						<td>
+							Has Logged In
+						</td>
+						<td>
+							Boolean
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td>0</td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							LastLoginDate
+						</td>
+						<td>
+							Last Login Date
+						</td>
+						<td>
+							DateTime
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							IsLockedOut
+						</td>
+						<td>
+							Is Locked Out
+						</td>
+						<td>
+							Boolean
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td>0</td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							InvitationCode
+						</td>
+						<td>
+							Invitation Code
+						</td>
+						<td>
+							String
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							InvitationExpiration
+						</td>
+						<td>
+							Invitation Expiration
+						</td>
+						<td>
+							DateTime
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							IsInvited
+						</td>
+						<td>
+							Is Invited
+						</td>
+						<td>
+							Boolean
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td>0</td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							InvitedDate
+						</td>
+						<td>
+							Invited Date
+						</td>
+						<td>
+							DateTime
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							FirstName
+						</td>
+						<td>
+							First Name
+						</td>
+						<td>
+							String
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							LastName
+						</td>
+						<td>
+							Last Name
+						</td>
+						<td>
+							String
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+				</table>
+
+				<h3>Relationships</h3>
+				<table class="Grid table table-striped table-bordered datatables dataTable">
+					<tr>
+
+						<th></th>
+
+
+						<th kcs:SortColumn="PropertyName">
+							Relationship Name
+						</th>
+
+						<th kcs:SortColumn="FriendlyPropertyName">
+							Friendly Property Name
+						</th>
+
+
+					</tr>
+
+					
+					<tr>
+						<td></td>
+						
+						<td>
+
+							<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">Authorizations</a>
+
+						</td>
+						<td>
+							A one-to-many relationship from User -> Authorizations
+						</td>
+						
+						
+						
+					</tr>
+					
+					<tr>
+						<td></td>
+						
+						
+						
+						<td>
+							<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRoles</a>
+
+						</td>
+						<td>
+							A one-to-many relationship from User -> UserRoles
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td></td>
+						
+						
+						<td>
+							<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentative</a>
+						</td>
+						<td>
+							A one-to-one relationship from User -> SalesRepresentatives
+						</td>
+						
+						
+					</tr>
+					
+
+				</table>
+
+			</div>
+			<div class="card-footer">
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+        <%})
+
+        }%>
+
+        

@@ -1,0 +1,17 @@
+{
+	ObjectName : "File",
+	ObjectsName : "Files",
+
+	
+	
+	FriendlyObjectName : "File",
+	FriendlyObjectsName : "Files",
+	
+	ObjectsUrl : "files",
+	DetailsUrl : "file",
+	EditUrl : "file-edit",
+	InsertUrl : "file-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeedingFrenzy.Data\FeedingFrenzy.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BasicUtilities">
+      <HintPath>..\..\BuffalyNet6\lib\BasicUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="kScript">
+      <HintPath>..\..\BuffalyNet6\lib\kScript.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Cache">
+      <HintPath>..\..\BuffalyNet6\lib\RooTrax.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Common">
+      <HintPath>..\..\BuffalyNet6\lib\RooTrax.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Common.DB">
+      <HintPath>..\..\BuffalyNet6\lib\RooTrax.Common.DB.dll</HintPath>
+    </Reference>
+    <Reference Include="WebAppUtilities">
+      <HintPath>..\..\BuffalyNet6\lib\WebAppUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

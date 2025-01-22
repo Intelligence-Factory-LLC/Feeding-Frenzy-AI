@@ -1,0 +1,1205 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">Sources</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/sources" "/JsonWs/FeedingFrenzy.Admin.Business.Sources.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.Sources.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.CopySource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopySource">
+
+				<h3>Sources.CopySource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/copy-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopySource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/copy-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceID" kcs:FieldName="SourceID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopySource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/copy-source
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: SourceID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopySourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopySourceClick()
+										{
+											var oObj = BlindUnbind("divCopySource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/copy-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.CopySourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopySource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopySource">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopySource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.GetOrInsertSource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetOrInsertSource">
+
+				<h3>Sources.GetOrInsertSource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/get-or-insert-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetOrInsertSource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/get-or-insert-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SourcesRow.ks.html&Class=SimpleApiHarnessPage">SourcesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			strCampaign
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtstrCampaign" kcs:FieldName="strCampaign" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetOrInsertSource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/get-or-insert-source
+
+## Returns
+SourcesRow
+
+## Parameters 
+
+	Name: strCampaign, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetOrInsertSourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetOrInsertSourceClick()
+										{
+											var oObj = BlindUnbind("divGetOrInsertSource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/get-or-insert-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.GetOrInsertSourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetOrInsertSource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetOrInsertSource">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetOrInsertSource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.GetSource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSource">
+
+				<h3>Sources.GetSource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/get-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/get-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SourcesRow.ks.html&Class=SimpleApiHarnessPage">SourcesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceID" kcs:FieldName="SourceID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/get-source
+
+## Returns
+SourcesRow
+
+## Parameters 
+
+	Name: SourceID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSourceClick()
+										{
+											var oObj = BlindUnbind("divGetSource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/get-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.GetSourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSource">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.GetSourceBySourceName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSourceBySourceName">
+
+				<h3>Sources.GetSourceBySourceName</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/get-source-by-source-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSourceBySourceName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/get-source-by-source-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SourcesRow.ks.html&Class=SimpleApiHarnessPage">SourcesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceName" kcs:FieldName="SourceName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSourceBySourceName
+
+## Url
+/api/feedingfrenzy.admin.business/sources/get-source-by-source-name
+
+## Returns
+SourcesRow
+
+## Parameters 
+
+	Name: SourceName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSourceBySourceNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSourceBySourceNameClick()
+										{
+											var oObj = BlindUnbind("divGetSourceBySourceName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/get-source-by-source-name")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.GetSourceBySourceNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSourceBySourceName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSourceBySourceName">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSourceBySourceName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.GetSources</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSources">
+
+				<h3>Sources.GetSources</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/get-sources</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSources">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/get-sources" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SourcesRow.ks.html&Class=SimpleApiHarnessPage">SourcesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSources
+
+## Url
+/api/feedingfrenzy.admin.business/sources/get-sources
+
+## Returns
+SourcesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSourcesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSourcesClick()
+										{
+											var oObj = BlindUnbind("divGetSources");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/get-sources")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.GetSourcesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSources", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSources">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSources" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.InsertSource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSource">
+
+				<h3>Sources.InsertSource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/insert-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertSource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/insert-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceName" kcs:FieldName="SourceName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertSource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/insert-source
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: SourceName, Type: String
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertSourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertSourceClick()
+										{
+											var oObj = BlindUnbind("divInsertSource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/insert-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.InsertSourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertSource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSource">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertSource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.RemoveSource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveSource">
+
+				<h3>Sources.RemoveSource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/remove-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveSource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/remove-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceID" kcs:FieldName="SourceID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveSource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/remove-source
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SourceID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveSourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveSourceClick()
+										{
+											var oObj = BlindUnbind("divRemoveSource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/remove-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.RemoveSourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveSource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveSource">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveSource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.UpdateSource</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSource">
+
+				<h3>Sources.UpdateSource</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/update-source</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateSource">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/update-source" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceID" kcs:FieldName="SourceID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceName" kcs:FieldName="SourceName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateSource
+
+## Url
+/api/feedingfrenzy.admin.business/sources/update-source
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SourceID, Type: ID
+
+	Name: SourceName, Type: String
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateSourceClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateSourceClick()
+										{
+											var oObj = BlindUnbind("divUpdateSource");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/update-source")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.UpdateSourceObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateSource", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSource">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateSource" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Sources.UpdateSourceData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSourceData">
+
+				<h3>Sources.UpdateSourceData</h3>
+				<p>/api/feedingfrenzy.admin.business/sources/update-source-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateSourceData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sources/update-source-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Source ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSourceID" kcs:FieldName="SourceID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateSourceData
+
+## Url
+/api/feedingfrenzy.admin.business/sources/update-source-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SourceID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateSourceDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateSourceDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateSourceData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sources/update-source-data")
+																		Sources.Url = oObj.BaseUrl;
+
+																	Sources.UpdateSourceDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateSourceData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSourceData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateSourceData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

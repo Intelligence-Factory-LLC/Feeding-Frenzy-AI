@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AuthorizeNet" Version="2.0.3" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeedingFrenzy.Common\FeedingFrenzy.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BasicUtilities">
+      <HintPath>..\lib\BasicUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="WebAppUtilities">
+      <HintPath>..\lib\WebAppUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

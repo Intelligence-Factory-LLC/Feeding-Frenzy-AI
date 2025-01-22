@@ -1,0 +1,1080 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">LeadNoteTypes</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/lead-note-types" "/JsonWs/FeedingFrenzy.Admin.Business.LeadNoteTypes.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.LeadNoteTypes.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.CopyLeadNoteType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadNoteType">
+
+				<h3>LeadNoteTypes.CopyLeadNoteType</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/copy-lead-note-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyLeadNoteType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/copy-lead-note-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyLeadNoteType
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/copy-lead-note-type
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: LeadNoteTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyLeadNoteTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyLeadNoteTypeClick()
+										{
+											var oObj = BlindUnbind("divCopyLeadNoteType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/copy-lead-note-type")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.CopyLeadNoteTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyLeadNoteType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadNoteType">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyLeadNoteType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.GetLeadNoteType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteType">
+
+				<h3>LeadNoteTypes.GetLeadNoteType</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadNoteType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadNoteTypesRow.ks.html&Class=SimpleApiHarnessPage">LeadNoteTypesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadNoteType
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type
+
+## Returns
+LeadNoteTypesRow
+
+## Parameters 
+
+	Name: LeadNoteTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadNoteTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadNoteTypeClick()
+										{
+											var oObj = BlindUnbind("divGetLeadNoteType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.GetLeadNoteTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadNoteType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteType">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadNoteType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.GetLeadNoteTypeByLeadNoteTypeName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteTypeByLeadNoteTypeName">
+
+				<h3>LeadNoteTypes.GetLeadNoteTypeByLeadNoteTypeName</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type-by-lead-note-type-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadNoteTypeByLeadNoteTypeName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type-by-lead-note-type-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadNoteTypesRow.ks.html&Class=SimpleApiHarnessPage">LeadNoteTypesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeName" kcs:FieldName="LeadNoteTypeName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadNoteTypeByLeadNoteTypeName
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type-by-lead-note-type-name
+
+## Returns
+LeadNoteTypesRow
+
+## Parameters 
+
+	Name: LeadNoteTypeName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadNoteTypeByLeadNoteTypeNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadNoteTypeByLeadNoteTypeNameClick()
+										{
+											var oObj = BlindUnbind("divGetLeadNoteTypeByLeadNoteTypeName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-type-by-lead-note-type-name")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.GetLeadNoteTypeByLeadNoteTypeNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadNoteTypeByLeadNoteTypeName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteTypeByLeadNoteTypeName">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadNoteTypeByLeadNoteTypeName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.GetLeadNoteTypes</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteTypes">
+
+				<h3>LeadNoteTypes.GetLeadNoteTypes</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-types</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadNoteTypes">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-types" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadNoteTypesRow.ks.html&Class=SimpleApiHarnessPage">LeadNoteTypesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadNoteTypes
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-types
+
+## Returns
+LeadNoteTypesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadNoteTypesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadNoteTypesClick()
+										{
+											var oObj = BlindUnbind("divGetLeadNoteTypes");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/get-lead-note-types")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.GetLeadNoteTypesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadNoteTypes", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadNoteTypes">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadNoteTypes" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.InsertLeadNoteType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadNoteType">
+
+				<h3>LeadNoteTypes.InsertLeadNoteType</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/insert-lead-note-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertLeadNoteType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/insert-lead-note-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeName" kcs:FieldName="LeadNoteTypeName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertLeadNoteType
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/insert-lead-note-type
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: LeadNoteTypeName, Type: String
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertLeadNoteTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertLeadNoteTypeClick()
+										{
+											var oObj = BlindUnbind("divInsertLeadNoteType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/insert-lead-note-type")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.InsertLeadNoteTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertLeadNoteType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadNoteType">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertLeadNoteType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.RemoveLeadNoteType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadNoteType">
+
+				<h3>LeadNoteTypes.RemoveLeadNoteType</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/remove-lead-note-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveLeadNoteType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/remove-lead-note-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveLeadNoteType
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/remove-lead-note-type
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadNoteTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveLeadNoteTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveLeadNoteTypeClick()
+										{
+											var oObj = BlindUnbind("divRemoveLeadNoteType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/remove-lead-note-type")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.RemoveLeadNoteTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveLeadNoteType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadNoteType">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveLeadNoteType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.UpdateLeadNoteType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadNoteType">
+
+				<h3>LeadNoteTypes.UpdateLeadNoteType</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadNoteType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeName" kcs:FieldName="LeadNoteTypeName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadNoteType
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadNoteTypeID, Type: ID
+
+	Name: LeadNoteTypeName, Type: String
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadNoteTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadNoteTypeClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadNoteType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.UpdateLeadNoteTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadNoteType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadNoteType">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadNoteType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadNoteTypes.UpdateLeadNoteTypeData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadNoteTypeData">
+
+				<h3>LeadNoteTypes.UpdateLeadNoteTypeData</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadNoteTypeData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Note Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadNoteTypeData
+
+## Url
+/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadNoteTypeID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadNoteTypeDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadNoteTypeDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadNoteTypeData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-note-types/update-lead-note-type-data")
+																		LeadNoteTypes.Url = oObj.BaseUrl;
+
+																	LeadNoteTypes.UpdateLeadNoteTypeDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadNoteTypeData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadNoteTypeData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadNoteTypeData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

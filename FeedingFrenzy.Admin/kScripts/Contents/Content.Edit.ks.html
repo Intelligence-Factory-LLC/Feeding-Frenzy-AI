@@ -1,0 +1,181 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using ContentsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Contents.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Contents.GetContent (ObjectID)))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.EditPanel 
+{
+	(declare ContentID (ObjectID))
+	(returnex{%>
+		<div class="form-horizontal row-border Inputs" kcs:ObjectName="Content">
+							
+				
+			<div class="form-group">
+				<label class="col-sm-3 control-label">
+					Content ID
+				</label>
+				<div class="col-sm-6">
+						
+						
+								
+							<input type="text" kcs:FieldName="ContentID" class="InputString form-control" readonly="readonly" value="<%ContentID%>"/>							
+							
+						
+				</div>
+			</div>
+				
+							
+				
+			<div class="form-group">
+				<label class="col-sm-3 control-label">
+					Content Name
+				</label>
+				<div class="col-sm-6">
+						
+						
+							
+							<input type="text" id="txtContentName" kcs:FieldName="ContentName" class="InputString form-control" maxlength="255" />
+							
+						
+				</div>
+			</div>
+				
+							
+				
+			<div class="form-group">
+				<label class="col-sm-3 control-label">
+					Content
+				</label>
+				<div class="col-sm-6">
+						
+						<a href="javascript:void(0)" onclick="OnEditHTML()">HTML</a> | <a href="javascript:void(0)" onclick="OnEditCode()">Code</a>
+						
+							
+						<textarea id="txtContent" kcs:FieldName="Content" class="InputText form-control" style="min-height: 50vh"></textarea>
+							
+						
+				</div>
+			</div>
+				
+							
+				
+			<div class="form-group">
+				<label class="col-sm-3 control-label">
+					Data
+				</label>
+				<div class="col-sm-6">
+						
+						
+							
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+				</div>
+			</div>
+				
+									
+		</div>
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectEditPage.AdditionalCommands
+{
+	(returnex{%>
+		<button id="btnUpdateAndStay" class="btn btn-primary waves-effect waves-light m-1" onclick="OnUpdateAndStay()"><i class="fa fa-file-code"></i> Save <%ifnot (UseShortButtonNames) (FriendlyObjectName)%> &amp; Stay</button>
+
+		<script type="text/javascript">
+			function OnUpdateAndStay() {
+				Contents.UpdateContentObject(UnbindContent());
+			}
+
+
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.key === 's') {
+				event.preventDefault(); // Prevent the default browser behavior of saving the webpage
+				UserMessages.DisplayNow("success", "Your changes are being saved...");
+				document.getElementById('btnUpdateAndStay').click(); // Trigger the button's click event
+			}
+		});
+		</script>
+
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectEditPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript" src="/js/tinymceconfig.js?v=2"></script>
+<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+<script src="/js/plugins/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<style>
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+      }
+    </style>
+	<script type="text/javascript">
+
+		var bEditCode = false;
+		var bEditHtml = false; 
+
+		function OnEditCode()
+		{
+			window.editor = CodeMirror.fromTextArea(document.getElementById('txtContent'), {
+				mode: "htmlmixed",
+				indentWithTabs: true,
+				smartIndent: true,
+				lineNumbers: true,
+				matchBrackets: true,
+				autofocus: true
+			});
+
+			bEditCode = true;
+			bEditHtml = false;
+		}
+
+		function OnEditHTML()
+		{
+			oTinyMCEAdvanced.selector = "textarea#txtContent";
+			tinymce.init(oTinyMCEAdvanced);
+			bEditHtml = true;
+			bEditCode = false;
+		}
+
+		UnbindContent = function()
+		{
+			var oObj = BlindUnbind("div<%ObjectName%>");
+			oObj.<%ObjectName%>ID = i<%ObjectName%>ID;	
+			o<%ObjectName%>.DataObject = {}; //only merge updated properties
+			oObj = $merge(o<%ObjectName%>, oObj);
+
+			if (bEditCode) {
+				oObj.Content = window.editor.getValue();
+			}
+
+			if (bEditHtml) {
+				oObj.Content = tinymce.get('txtContent').getContent();
+			}
+			return oObj;
+		}
+
+		Page.AddOnload(function () {
+			if (Page.QueryString()["edit"] == "code")
+				OnEditCode();
+		});
+	</script>
+
+	<%})	
+}%>

@@ -1,0 +1,19 @@
+{
+	ObjectName : "LeadNoteType",
+	ObjectsName : "LeadNoteTypes",
+
+	
+	NaturalKey : "LeadNoteTypeName",
+	
+	
+	FriendlyObjectName : "Lead Note Type",
+	FriendlyObjectsName : "Lead Note Types",
+	
+	ObjectsUrl : "lead-note-types",
+	DetailsUrl : "lead-note-type",
+	EditUrl : "lead-note-type-edit",
+	InsertUrl : "lead-note-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

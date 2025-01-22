@@ -1,0 +1,44 @@
+﻿@page
+@model kModel
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "_SimpleLayout";
+}
+
+@section Head
+{
+	@Html.Raw(Model.Head)
+}
+
+@section Breadcrumbs
+{
+    @Html.Raw(Model.Breadcrumbs)
+}
+
+
+@section MainPanelContent
+{
+    @Html.Raw(Model.MainPanelContent)
+}
+
+
+
+@section MainPanelTitle
+{
+    @Html.Raw(Model.MainPanelTitle)
+}
+
+@section BottomScripts
+{
+    @Html.Raw(Model.BottomScripts)
+}
+
+@section SidebarMenu
+{
+	@Html.Raw(Model.SidebarMenu)
+}
+
+@section ErrorMessage
+{
+	@Html.Raw(Model.ErrorMessage)
+}

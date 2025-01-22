@@ -1,0 +1,19 @@
+{
+	ObjectName : "AgentType",
+	ObjectsName : "AgentTypes",
+
+	
+	NaturalKey : "AgentTypeName",
+	
+	
+	FriendlyObjectName : "Agent Type",
+	FriendlyObjectsName : "Agent Types",
+	
+	ObjectsUrl : "agent-types",
+	DetailsUrl : "agent-type",
+	EditUrl : "agent-type-edit",
+	InsertUrl : "agent-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

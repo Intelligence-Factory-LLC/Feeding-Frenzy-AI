@@ -1,0 +1,470 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile Leads.Meta.json%>
+
+<%redefinefunction SimpleObjectsPage.FriendlyObjectsName
+{
+	(declare oSource (Sources.GetSource (Request.SourceID)))
+	(return (concat (oSource.SourceName) " Leads"))
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.Breadcrumbs
+{
+	(returnex{%>
+<div class="row">
+    <div class="col-md-6">
+        <ol class="breadcrumb">
+            <li><a href="/default.aspx">Main</a></li>
+            <li><a href="/sources">Sources</a></li>
+            <li><a href="/source?SourceID=<%Request.SourceID%>"><%FriendlyObjectsName%></a></li>
+        </ol>
+       </div>
+    <div class="col-md-6">
+
+        <ol class="breadcrumb" style="float:right;" id="lstRecent">
+            <li>Recent:</li>
+        </ol>
+        </div>
+</div>
+	<%})
+}%>
+
+
+
+
+<%redefinefunction SimpleObjectsPage.MainPanelTabs
+{
+    (declare oStatuses (LeadStatuses.GetLeadStatuses))
+    (declare oTags (Tags.GetTags))
+
+	(declare oStatus 0)
+
+	(if (Request.ContainsKey StatusID)
+	{
+		(ifneq (Request.StatusID) 0
+		{
+			(oStatus (Statuses.GetStatus (Request.StatusID)))
+		})
+	})
+
+	(declare oTag 0)
+	(if (Request.ContainsKey TagID)
+	{
+		(ifneq (Request.TagID) 0
+		{
+			(oTag (Tags.GetTag (Request.TagID)))
+		})
+	})
+
+	(declare oSalesRepresentativeID 0)
+	
+	(returnex{%>
+
+
+
+<ul class="nav nav-tabs" id="ulFilters">
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id=""><i class="fa fa-plus-square-o"></i> </span></a>
+		<ul class="dropdown-menu">
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'TagFilter', Operation : 'Equal' })">Tag</a></li>
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'SalesRepresentativeFilter',  BaseFilter: 'IntReaderFilter', PropertyName: 'SalesRepresentativeID', Operation : 'Equal' })">Sales Representative</a></li>
+			<li><a href="javascript:CreateGridFilter('StateFilter')">Location - State</a></li>
+			<li><a href="javascript:CreateGridFilter('CityFilter')">Location - City</a></li>
+			<li><a href="javascript:CreateGridFilter('LastContactedDateFilter')">Last Contacted Date</a></li>
+			<li><a href="javascript:CreateGridFilter('PriorityFilter')">Priority</a></li>
+			<li><a href="javascript:AddCampaignFilter()">Campaign</a></li>
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'StatusFilter', Operation : 'Equal' })">Status</a></li>
+
+			<li><a href="javascript:CreateGridFilter('TitleFilter')">Job Title</a></li>
+			<li><a href="javascript:CreateGridFilter('FunctionFilter')">Job Function</a></li>
+			
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'PhoneFilter', BaseFilter: 'StringReaderFilter', PropertyName: 'Phone', PropertyValue : 'Has Phone', Operation : 'NotEmpty' })">Has Phone</a></li>
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'EmailFilter', BaseFilter: 'StringReaderFilter', PropertyName: 'Email', PropertyValue : 'Has Email', Operation : 'NotEmpty' })">Has Email</a></li>
+			<li><a href="javascript:CreateGridFilterImmediate({Filter : 'WebsiteFilter', BaseFilter: 'LeadsRowStringDataObjectFilter', PropertyName: 'Website', PropertyValue : 'Has Website', Operation : 'NotEmpty' })">Has Website</a></li>
+
+
+		</ul>
+	</li>
+</ul>
+
+<script type="text/javascript">
+	var iSourceID = <% Request.GetIntOrDefault SourceID 0 %>;
+	function AddCampaignFilter() {
+		CreateGridFilterImmediate({ Filter: 'CampaignBySourceIDFilter', Operation: 'Equal', SourceID: iSourceID });
+	}
+
+</script>
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+    (returnex{%>
+
+<script type="text/javascript">
+	var iSalesRepresentativeID = <% UserState.get_SalesRepresentativeID %>;
+
+	Page.LocalSettings = {
+		SourceID:  <% Request.SourceID%>,
+		TagID: null, 
+		StatusID: null,
+		SortAscending: false,
+		SortColumn: "LeadID",
+		SearchFilters: null
+	}
+
+	Page.AddOnload(function () {
+		new LocalStorage().set("LeadsPage", document.location.href);
+
+//		_$("btnExport").removeClass("Hidden");
+	})
+
+	function ConfigureGrid(oGrid) {
+
+		let oSettings = Page.LocalSettings;
+
+		{
+			oGrid.JsonWsGridMethod = "GetGridBySourceIDHtml";
+			oGrid.JsonWsCountMethod = "GetGridBySourceIDCount";
+			oGrid.ExtraParams = {
+				SourceID: oSettings.SourceID
+			};
+		}
+
+		if (null != Page.LocalSettings.Filters && Page.LocalSettings.Filters.ActiveFilters().length > 0) {
+			oGrid.ExtraParams.SearchOptions = Page.LocalSettings.Filters.ActiveFilters();
+			oGrid.JsonWsGridMethod = "GetGridBySourceIDHtml2";
+			oGrid.JsonWsCountMethod = "GetGridBySourceIDCount2";
+			console.log(oGrid.ExtraParams.SearchOptions);
+		}
+
+		oGrid.SortAscending = oSettings.SortAscending;
+		oGrid.sort = oSettings.SortColumn;
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = OnClick<%ObjectName%>;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() { OnFormatDate("divLeads")};
+	}
+
+	function SelectTagID(iTagID, sTagName) {
+		Page.LocalSettings.TagID = iTagID;
+		_$("divTagName").innerHTML = sTagName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+	function SelectStatusID(iStatusID, sStatusName) {
+		Page.LocalSettings.StatusID = iStatusID;
+		_$("divStatusName").innerHTML = sStatusName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+
+	function OnExportLeads() {
+		if (null == Page.LocalSettings.StatusID) {
+			UserMessages.DisplayNow("Please select a Status", "Error");
+			return;
+		}
+
+		if (null == Page.LocalSettings.TagID) {
+			UserMessages.DisplayNow("Please select a Tag", "Error");
+			return;
+		}
+
+		Leads.ExportLeads2(iSalesRepresentativeID, Page.LocalSettings.StatusID, Page.LocalSettings.TagID, function (sFile) {
+			Page.Redirect("/reports/" + sFile, {}, "_blank");
+		})
+	}
+
+
+
+	function DefunctLead(iLeadID) {
+		Leads.UpdateLeadStatus(iLeadID, <% UserState.get_SalesRepresentativeID %>, "Defunct", "Not a Good Fit",
+			function () {
+				UserMessages.DisplayNow("Lead " + iLeadID + " defunct", "Success");
+			});
+	}
+
+</script>
+
+<div class="modal fade" id="divGridFilter" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" style="">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Filter Leads</h4>
+      </div>
+
+        <div class="modal-body" id="divGridFilterConfig">
+		  <div class="form-group">
+			<label class="col-sm-3 control-label InputLabel">
+				Column
+			</label>
+	        	<input type="text" readonly="readonly" value="" kcs:FieldName="Filter"/>
+				  <input type="hidden" value="" kcs:FieldName="ID"/>
+          </div>
+		  
+            <div class="form-group">
+			<label class="col-sm-3 control-label InputLabel">
+				Operation
+			</label>
+        	
+			<select kcs:FieldName="Operation" class="form-select">
+				<option value="Equal">Lead has the Tag</option>
+				<option value="NotEqual">Lead does not have the Tag</option>
+			</select>
+
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary hidden" onclick="OnRemoveFilter()">Remove</button>
+          <button type="button" class="btn btn-primary" onclick="OnAddFilter()">Save</button>
+
+        </div>
+		  
+     
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript" src="/JsonWs/RPM.Leads.Portal.UI.LeadFilters.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+	function CreateGridFilter(sFilter) {
+		LeadFilters.GetFilterConfig(sFilter, function (sConfig) {
+			_$("divGridFilterConfig").innerHTML = sConfig;
+			BlindBind("divGridFilter", { Filter: sFilter });
+			jQuery("#divGridFilter").modal('show');
+		});
+	}
+
+	function CreateGridFilterImmediate(oOpts) {
+		AddFilter(oOpts);
+	}
+
+	class GridFilters {
+		Filters = [];
+
+		SetFilter(filter) {
+			if (!StringUtil.IsEmpty(filter.ID)) {
+				let i = this.Filters.findIndex(x => x.ID == filter.ID);
+				if (i >= 0)
+					this.Filters[i] = filter
+				else {
+					filter.ID = StringUtil.UniqueID();
+					this.Filters.push(filter);
+				}
+			}
+			else {
+				filter.ID = StringUtil.UniqueID();
+				this.Filters.push(filter);
+			}
+
+			return filter;
+		}
+
+		RemoveFilter(filter) {
+			let i = this.Filters.findIndex(x => x.ID == filter.ID);
+
+			if (i >= 0)
+				this.Filters.splice(i, 1);
+
+		}
+
+		GetFilter(id) {
+			let i = this.Filters.findIndex(x => x.ID == id);
+			if (i >= 0)
+				return this.Filters[i];
+
+			return null;
+		}
+
+		ActiveFilters() {
+			return this.Filters.filter(x => x.PropertyValue != null || ["NotEmpty", "IsEmpty"].contains(x.Operation));
+		}
+	}
+
+	
+	Page.LocalSettings.Filters = new GridFilters();
+
+
+	function OnAddFilter() {
+		let filter = BlindUnbind("divGridFilter");
+
+		AddFilter(filter);
+	}
+
+	function AddFilter(filter) {
+		filter = Page.LocalSettings.Filters.SetFilter(filter);
+
+		jQuery("#divGridFilter").modal('hide');
+
+		OnBindFilters();
+
+		if (!StringUtil.IsEmpty(filter.PropertyValue) || ["IsEmpty", "NotEmpty"].contains(filter.Operation)) {
+			if (StringUtil.IsEmpty(filter.Display))
+				filter.Display = filter.PropertyValue;
+
+			OnSelectFilterValue(filter.ID, filter.PropertyValue, filter.Display);
+			
+		}
+	}
+
+	function OnRemoveFilter() {
+		let filter = BlindUnbind("divGridFilter");
+		Page.LocalSettings.Filters.RemoveFilter(filter);
+		jQuery("#divGridFilter").modal('hide');
+		if (_$("divFilter_" + filter.ID) != null)
+			_$("divFilter_" + filter.ID).remove();
+		OnBindFilters();
+	}
+
+	function OnEditFilter(sID) {
+		let filter = Page.LocalSettings.Filters.GetFilter(sID);
+
+		LeadFilters.GetFilterConfig(filter.Filter, function (sConfig) {
+			_$("divGridFilterConfig").innerHTML = sConfig;
+			BlindBind("divGridFilter", filter);
+			jQuery("#divGridFilter").modal('show');
+		});
+
+	}
+
+	function OnBindFilters() {
+		let filters = Page.LocalSettings.Filters.Filters;
+
+		filters.forEach(filter => {
+			if (_$("divFilter_" + filter.ID) != null)
+				_$("divFilter_" + filter.ID).remove();
+
+			let sHTML = LeadFilters.GetFilterDropDown(filter.Filter, filter)
+			_$("ulFilters").innerHTML = sHTML + _$("ulFilters").innerHTML;
+
+			if (!StringUtil.IsEmpty(filter.Display))
+				_$("divFilter_" + filter.ID + "_Display").innerHTML = filter.Display;
+
+		});
+	}
+
+	function OnSelectFilterValue(id, value, display, operation) {
+		let filter = Page.LocalSettings.Filters.GetFilter(id);
+		filter.PropertyValue = value; 
+		filter.Display = display;
+		if (operation)
+			filter.Operation = operation;
+
+		_$("divFilter_" + filter.ID + "_Display").innerHTML = display;
+
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+</script>
+
+
+	<%LeadsAdmin.GetBulkAddTagModal%>
+	<%LeadsAdmin.GetBulkUpdateStatusModal%>
+	<%LeadsAdmin.GetBulkAssignModal%>
+
+<script type="text/javascript" src="/js/lead_bulk_operations.js"></script>
+
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadTags.ashx.js"></script>
+
+
+    <%})
+}%>
+    <%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalCommands
+{
+	(returnex{%>
+		<button value="" class="Hidden btn btn-primary-alt btn-label" id="btnExport" onclick="OnExport<%ObjectsName%>()"><i class="fa fa-file"></i> Export <%FriendlyObjectsName%></button>
+
+  		<div class="dropdown Hidden SelectControls" style="display: inline;">
+		  <button class="btn btn-primary-alt dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+			Bulk Actions <span class="caret"></span>
+		  </button>
+		  <ul  class="dropdown-menu">
+				<li><a class="dropdown-item" href="javascript:OnBulkAssignLeads()">Reassign Leads</a></li>
+				<li><a class="dropdown-item" href="javascript:OnBulkUpdateStatus()">Update Status</a></li>
+				<li><a class="dropdown-item" href="javascript:OnBulkAddTag()">Add Tag</a></li>
+			</ul>
+		</div>
+
+        <button type="button" class="btn btn-primary-alt hidden" onclick="OnShowSearchFilters()"><i class="fa fa-search-plus"></i> Search Filters</button>
+
+
+  	<%})
+}%>
+
+<%declare oPermission (UserState.get_Permission)%>
+<%SimpleObjectsPage.AllowInsert (oPermission.InsertLead)%>
+
+<%redefinefunction SimpleObjectsPage.AllowSelectingRows
+{
+	(return (oPermission.AllowBulkLeadOperations))
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.SearchOptionsRight 
+{
+	
+	(returnex{%>
+	
+	<button value="" class="btn btn-primary-alt btn-label" id="btnExportView" onclick="OnExportView(this)"><i class="fa fa-file"></i> Export </button>
+
+<script type="text/javascript">
+	
+
+  function tableToArray(table) {
+    let array = [];
+
+    // Iterate through each row
+    for (let i = 0, row; row = table.rows[i]; i++) {
+      let rowData = [];
+
+      // Iterate through each cell
+      for (let j = 0, cell; cell = row.cells[j]; j++) {
+        rowData.push(cell.innerText);
+      }
+
+      array.push(rowData);
+    }
+
+    return array;
+  }
+	function OnExportView(ctrl) {
+		ctrl.disabled = true;
+		UserMessages.DisplayNow("Exporting", "Info");
+
+		let table = $$("#divLeads table.Grid")[0];
+
+		let data = tableToArray(table);
+
+		console.log(data);
+		LeadsValidators.ExportLeadView.JSON.Validators = [];
+		Leads.ExportLeadView("Leads by Source Export", JSON.encode(data), function (sSheetID) {
+			ctrl.disabled = false;
+			Page.Redirect("https://docs.google.com/spreadsheets/d/" + sSheetID + "/edit#gid=0", {}, "_blank");
+		});
+	}
+
+
+</script>
+	<%})
+}%>

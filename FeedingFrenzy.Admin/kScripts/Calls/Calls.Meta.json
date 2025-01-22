@@ -1,0 +1,17 @@
+{
+	ObjectName : "Call",
+	ObjectsName : "Calls",
+
+	
+	
+	FriendlyObjectName : "Call",
+	FriendlyObjectsName : "Calls",
+	
+	ObjectsUrl : "calls",
+	DetailsUrl : "call",
+	EditUrl : "",
+	InsertUrl : "call-initiate",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

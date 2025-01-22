@@ -1,0 +1,19 @@
+{
+	ObjectName : "Feature",
+	ObjectsName : "Features",
+
+	
+	NaturalKey : "FeatureName",
+	
+	
+	FriendlyObjectName : "Feature",
+	FriendlyObjectsName : "Features",
+	
+	ObjectsUrl : "features",
+	DetailsUrl : "feature",
+	EditUrl : "feature-edit",
+	InsertUrl : "feature-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,50 @@
+{
+  "profiles": {
+    "FeedingFrenzy.Admin": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "login",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7181;http://localhost:5181"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "login",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Profile 1": {
+      "commandName": "Project",
+      "commandLineArgs": "add-administrator \"johndoe+1@gmail.com\"",
+      "launchBrowser": true,
+      "launchUrl": "login",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7181;http://localhost:5181"
+    },
+    "Profile 2": {
+      "commandName": "Project",
+      "commandLineArgs": "--init-config DESKTOP-GUOTSQ7\\SQLEXPRESS",
+      "launchUrl": "login",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7181;http://localhost:5181"
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:39963",
+      "sslPort": 44359
+    }
+  }
+}

@@ -1,0 +1,339 @@
+<%
+class TagsAdmin
+{
+			
+	(function GetDetails TagID
+	{
+		(declare Tag (Tags.GetTag (TagID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Tag ID
+							</td>
+							<td>
+								
+									<%Tag.TagID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Tag Name
+							</td>
+							<td>
+								
+									<%Tag.TagName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Tag.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Tag.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Tag.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Tag.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown TagName TagID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetTagsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit TagID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Tag">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Tag ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="TagID" class="InputString form-control" readonly="readonly" value="<%TagID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Tag Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtTagName" kcs:FieldName="TagName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Tags GetTagsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="TagID">
+						Tag ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="TagName">
+						Tag Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Tags.each Tag{%> 
+				<tr kcs:RowKey="<%Tag.get TagID%>" >
+							
+			
+					
+					<td>
+						<%Tag.TagID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Tag.TagName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Tag.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Tag.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Tags GetTagsSp_CountSp  (Search))
+		(return (Tags.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Tag">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Tag Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtTagName" kcs:FieldName="TagName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

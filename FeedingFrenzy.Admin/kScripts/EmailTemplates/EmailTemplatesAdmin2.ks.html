@@ -1,0 +1,183 @@
+<%using common3.ks%>
+<%using common_ui.ks%>
+<%using EmailTemplatesAdmin.ks.html%>
+
+
+<%eval
+{
+	(redefinefunction EmailTemplatesAdmin.AutomaticEmailCreatorEx Params EmailText
+	{
+		(return (evalex (EmailText)))
+	})
+
+	
+    (redefinefunction EmailTemplatesAdmin.SimpleCreator EmailText
+    {
+		(return (evalex (EmailText)))
+    })
+    
+    (redefinefunction EmailTemplatesAdmin.SimpleTestHarness
+    {
+        (return{%>
+	    <table class="Inputs">	
+	    	<tr>
+			    <td class="InputLabel">
+				    Email To
+			    </td>
+			    <td>
+				    <input class="InputEmail" type="text" kcs:FieldName="To"/>
+			    </td>
+		    </tr>
+
+	    </table>
+        <%})
+    })	
+    
+
+}%>
+
+
+<%eval{
+	(redefinefunction EmailTemplatesAdmin.GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(redefinefunction EmailTemplatesAdmin.GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid:'',Count:0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(redefinefunction EmailTemplatesAdmin.GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(redefinefunction EmailTemplatesAdmin.GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view EmailTemplates GetEmailTemplatesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailTemplateID">
+						ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Name">
+						Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailSubject">
+						Email Subject
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="EmailParams">
+						Parameters
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="FromAddress">
+						From Address
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailTemplates.each EmailTemplate{%> 
+				<tr kcs:RowKey="<%EmailTemplate.get EmailTemplateID%>">
+							
+			
+					
+					<td>
+						<%EmailTemplate.get EmailTemplateID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailTemplate.get Name%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailTemplate.get EmailSubject%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<%EmailTemplate.get EmailParams%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%EmailTemplate.get FromAddress%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%EmailTemplate.get LastUpdated%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+	
+		
+	(redefinefunction EmailTemplatesAdmin.GetGridCount  Search	
+	{
+		(ado.row EmailTemplates GetEmailTemplatesSp_CountSp  (Search))
+		(return (EmailTemplates.get Total))
+	})
+}%>
+
+

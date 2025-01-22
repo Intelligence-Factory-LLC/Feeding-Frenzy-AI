@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using ContentTypesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile ContentTypes.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (ContentTypes.GetContentType (ObjectID)))
+}%>
+

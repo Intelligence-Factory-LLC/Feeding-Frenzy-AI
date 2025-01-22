@@ -1,0 +1,19 @@
+{
+	ObjectName : "Campaign",
+	ObjectsName : "Campaigns",
+
+	
+	NaturalKey : "CampaignName",
+	
+	
+	FriendlyObjectName : "Campaign",
+	FriendlyObjectsName : "Campaigns",
+	
+	ObjectsUrl : "campaigns",
+	DetailsUrl : "campaign",
+	EditUrl : "campaign-edit",
+	InsertUrl : "campaign-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,1954 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">EmailTemplates</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/email-templates" "/JsonWs/FeedingFrenzy.Admin.Business.EmailTemplates.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.EmailTemplates.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.CopyEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyEmailTemplate">
+
+				<h3>EmailTemplates.CopyEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/copy-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/copy-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/copy-email-template
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divCopyEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/copy-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.CopyEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.GetEmailParamsAsJson</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailParamsAsJson">
+
+				<h3>EmailTemplates.GetEmailParamsAsJson</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/get-email-params-as-json</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailParamsAsJson">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/get-email-params-as-json" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailParamsAsJson
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/get-email-params-as-json
+
+## Returns
+String
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailParamsAsJsonClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailParamsAsJsonClick()
+										{
+											var oObj = BlindUnbind("divGetEmailParamsAsJson");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/get-email-params-as-json")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.GetEmailParamsAsJsonObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailParamsAsJson", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailParamsAsJson">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailParamsAsJson" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.GetEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplate">
+
+				<h3>EmailTemplates.GetEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/get-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/get-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailTemplatesRow.ks.html&Class=SimpleApiHarnessPage">EmailTemplatesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/get-email-template
+
+## Returns
+EmailTemplatesRow
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divGetEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/get-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.GetEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.GetEmailTemplateByName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplateByName">
+
+				<h3>EmailTemplates.GetEmailTemplateByName</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/get-email-template-by-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailTemplateByName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/get-email-template-by-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailTemplatesRow.ks.html&Class=SimpleApiHarnessPage">EmailTemplatesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailTemplateByName
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/get-email-template-by-name
+
+## Returns
+EmailTemplatesRow
+
+## Parameters 
+
+	Name: Name, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailTemplateByNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailTemplateByNameClick()
+										{
+											var oObj = BlindUnbind("divGetEmailTemplateByName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/get-email-template-by-name")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.GetEmailTemplateByNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailTemplateByName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplateByName">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailTemplateByName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.GetEmailTemplates</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplates">
+
+				<h3>EmailTemplates.GetEmailTemplates</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/get-email-templates</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailTemplates">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/get-email-templates" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailTemplatesRow.ks.html&Class=SimpleApiHarnessPage">EmailTemplatesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailTemplates
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/get-email-templates
+
+## Returns
+EmailTemplatesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailTemplatesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailTemplatesClick()
+										{
+											var oObj = BlindUnbind("divGetEmailTemplates");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/get-email-templates")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.GetEmailTemplatesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailTemplates", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailTemplates">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailTemplates" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.GetRenderedEmailAsHTML</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetRenderedEmailAsHTML">
+
+				<h3>EmailTemplates.GetRenderedEmailAsHTML</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/get-rendered-email-as-html</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetRenderedEmailAsHTML">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/get-rendered-email-as-html" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Params
+		</label>
+		<div class="col-6">
+			Can't create
+		</div>
+		<label class="col-3 control-label">
+			Object
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetRenderedEmailAsHTML
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/get-rendered-email-as-html
+
+## Returns
+String
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Params, Type: Object
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetRenderedEmailAsHTMLClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetRenderedEmailAsHTMLClick()
+										{
+											var oObj = BlindUnbind("divGetRenderedEmailAsHTML");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/get-rendered-email-as-html")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.GetRenderedEmailAsHTMLObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetRenderedEmailAsHTML", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetRenderedEmailAsHTML">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetRenderedEmailAsHTML" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.InsertEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertEmailTemplate">
+
+				<h3>EmailTemplates.InsertEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/insert-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/insert-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Subject
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailSubject" kcs:FieldName="EmailSubject" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Text
+		</label>
+		<div class="col-6">
+			<textarea id="txtEmailText" kcs:FieldName="EmailText" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Params
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailParams" kcs:FieldName="EmailParams" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			From Address
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFromAddress" kcs:FieldName="FromAddress" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/insert-email-template
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Name, Type: String
+
+	Name: EmailSubject, Type: String
+
+	Name: EmailText, Type: Text
+
+	Name: EmailParams, Type: String
+
+	Name: FromAddress, Type: Email
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divInsertEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/insert-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.InsertEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.RemoveEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveEmailTemplate">
+
+				<h3>EmailTemplates.RemoveEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/remove-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/remove-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/remove-email-template
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divRemoveEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/remove-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.RemoveEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.SendEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendEmailTemplate">
+
+				<h3>EmailTemplates.SendEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/send-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/send-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Params
+		</label>
+		<div class="col-6">
+			Can't create
+		</div>
+		<label class="col-3 control-label">
+			Object
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			To
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/send-email-template
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Params, Type: Object
+
+	Name: To, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divSendEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/send-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.SendEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.SendEmailTemplateByName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendEmailTemplateByName">
+
+				<h3>EmailTemplates.SendEmailTemplateByName</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/send-email-template-by-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendEmailTemplateByName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/send-email-template-by-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			EmailTemplate
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplate" kcs:FieldName="EmailTemplate" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Params
+		</label>
+		<div class="col-6">
+			Can't create
+		</div>
+		<label class="col-3 control-label">
+			Object
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			To
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendEmailTemplateByName
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/send-email-template-by-name
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplate, Type: String
+
+	Name: Params, Type: Object
+
+	Name: To, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendEmailTemplateByNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendEmailTemplateByNameClick()
+										{
+											var oObj = BlindUnbind("divSendEmailTemplateByName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/send-email-template-by-name")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.SendEmailTemplateByNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendEmailTemplateByName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendEmailTemplateByName">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendEmailTemplateByName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.SendSMSTemplateByName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendSMSTemplateByName">
+
+				<h3>EmailTemplates.SendSMSTemplateByName</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/send-sms-template-by-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendSMSTemplateByName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/send-sms-template-by-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			EmailTemplate
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplate" kcs:FieldName="EmailTemplate" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Params
+		</label>
+		<div class="col-6">
+			Can't create
+		</div>
+		<label class="col-3 control-label">
+			Object
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			To
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendSMSTemplateByName
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/send-sms-template-by-name
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplate, Type: String
+
+	Name: Params, Type: Object
+
+	Name: To, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendSMSTemplateByNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendSMSTemplateByNameClick()
+										{
+											var oObj = BlindUnbind("divSendSMSTemplateByName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/send-sms-template-by-name")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.SendSMSTemplateByNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendSMSTemplateByName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendSMSTemplateByName">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendSMSTemplateByName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.UpdateEmailTemplate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailTemplate">
+
+				<h3>EmailTemplates.UpdateEmailTemplate</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/update-email-template</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateEmailTemplate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/update-email-template" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Subject
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailSubject" kcs:FieldName="EmailSubject" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Text
+		</label>
+		<div class="col-6">
+			<textarea id="txtEmailText" kcs:FieldName="EmailText" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Params
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailParams" kcs:FieldName="EmailParams" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			From Address
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFromAddress" kcs:FieldName="FromAddress" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateEmailTemplate
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/update-email-template
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Name, Type: String
+
+	Name: EmailSubject, Type: String
+
+	Name: EmailText, Type: Text
+
+	Name: EmailParams, Type: String
+
+	Name: FromAddress, Type: Email
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateEmailTemplateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateEmailTemplateClick()
+										{
+											var oObj = BlindUnbind("divUpdateEmailTemplate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/update-email-template")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.UpdateEmailTemplateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateEmailTemplate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailTemplate">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateEmailTemplate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailTemplates.UpdateEmailTemplateData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailTemplateData">
+
+				<h3>EmailTemplates.UpdateEmailTemplateData</h3>
+				<p>/api/feedingfrenzy.admin.business/email-templates/update-email-template-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateEmailTemplateData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-templates/update-email-template-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateEmailTemplateData
+
+## Url
+/api/feedingfrenzy.admin.business/email-templates/update-email-template-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateEmailTemplateDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateEmailTemplateDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateEmailTemplateData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-templates/update-email-template-data")
+																		EmailTemplates.Url = oObj.BaseUrl;
+
+																	EmailTemplates.UpdateEmailTemplateDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateEmailTemplateData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailTemplateData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateEmailTemplateData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

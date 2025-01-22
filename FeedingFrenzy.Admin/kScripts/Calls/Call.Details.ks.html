@@ -1,0 +1,216 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using CallsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Calls.Meta.json%>
+
+<%redefinefunction SimpleObjectDetailsPage.AllowInsert 
+{
+	(return false)
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AllowEdit 
+{		
+	(return false)
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+
+
+		<%CallsAdmin.GetTranscriptionJavascript%>
+
+
+
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsPanel
+{
+		(declare Call (Calls.GetCall (ObjectID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call ID
+							</td>
+							<td>
+								
+									<%Call.CallID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Calling Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Call.CallingPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Called Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Call.CalledPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Duration
+							</td>
+							<td>
+								
+									<%Call.Duration%> sec.
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Direction
+							</td>
+							<td>
+								
+									<%if (Call.IsIncoming) Incoming Outgoing%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call Status
+							</td>
+							<td>
+
+								<%CallsAdmin.GetCallStatusDisplay (Call.CallStatus)%>
+							</td>
+						</tr>
+	
+						
+					
+
+					
+
+							
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Transcription Summary
+							</td>
+							<td>
+								
+									<%Call.TranscriptionSummary%>
+								
+							</td>
+						</tr>
+	
+						
+
+						<tr>
+							<td class="InputLabel">
+								Average Sentiment
+							</td>
+							<td>
+								
+								<%CallsAdmin.GetSentimentSliderDisplay (Call)%>
+
+							</td>
+						</tr>
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Call.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Call.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+
+			<%CallsAdmin.GetTranscriptionDisplay (Call)%>
+		<%})
+}%>

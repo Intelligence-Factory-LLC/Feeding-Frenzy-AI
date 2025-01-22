@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using AgentTypesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile AgentTypes.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (AgentTypes.GetAgentType (ObjectID)))
+}%>
+

@@ -1,0 +1,555 @@
+<%addpath AgentTypes%>
+<%
+class AgentsAdmin
+{
+			
+	(function GetDetails AgentID
+	{
+		(declare Agent (Agents.GetAgent (AgentID)))
+		
+		(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent">
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Agent Name:
+		</label>
+		<div class="col-sm-6">
+			<%Agent.AgentName%>
+		</div>
+	</div>
+
+	<div class="form-group custom-checkboxes" style="margin-bottom: 20px;">
+			<label class="col-sm-3 control-label">
+			Role:
+		</label>		
+		
+		<div class="d-flex gap-3">
+
+			<%ifeq (Agent.DataObject.GetIntOrNull Role) 1{%>
+			<div class="form-check custom-radio">
+				<label class="form-check-label" style=" background-color: #675edb; color: #fff;">
+					<span class="radio-icon"></span>
+					All calls
+				</label>
+			</div>
+			<%}%>
+
+			<%ifeq (Agent.DataObject.GetIntOrNull Role) 2{%>
+			<div class="form-check custom-radio">
+				<label class="form-check-label" style=" background-color: #675edb; color: #fff;">
+					<span class="radio-icon"></span>
+					Outbound calls
+				</label>
+			</div>
+			<%}%>
+
+			<%ifeq (Agent.DataObject.GetIntOrNull Role) 3{%>
+			<div class="form-check custom-radio">
+				<label class="form-check-label" style=" background-color: #675edb; color: #fff;">
+					<span class="radio-icon"></span>
+					Inbound calls
+				</label>
+			</div>
+			<%}%>
+		</div>
+</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Description:
+		</label>
+		<div class="col-sm-6" style="white-space: pre-line;">
+			<%Agent.Description%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Caller Label:
+		</label>
+		<div class="col-sm-6">
+			<%Agent.DataObject.GetStringOrNull CallerLabel%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Caller Description:
+		</label>
+		<div class="col-sm-6" style="white-space: pre-line;">
+			<%Agent.DataObject.GetStringOrNull CallerDescription%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Responder Label:
+		</label>
+		<div class="col-sm-6">
+			<%Agent.DataObject.GetStringOrNull ResponderLabel%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Responder Description:
+		</label>
+		<div class="col-sm-6" style="white-space: pre-line;">
+			<%Agent.DataObject.GetStringOrNull ResponderDescription%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Date Created:
+		</label>
+		<div class="col-sm-6">
+			<%Agent.DateCreated%>
+		</div>
+	</div>
+
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label class="col-sm-3 control-label">
+			Last Updated:
+		</label>
+		<div class="col-sm-6">
+			<%Agent.LastUpdated%>
+		</div>
+	</div>
+
+</div>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown AgentName AgentID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown AgentName AgentID  AgentID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetAgentsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+
+
+	(function GetEdit AgentID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="AgentID" class="InputString form-control" readonly="readonly" value="<%AgentID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Type
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using AgentTypesAdmin.ks.html%>
+							    
+								    <%AgentTypesAdmin.GetDropDown AgentTypeName AgentTypeID AgentTypeID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Context Settings
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="ContextSettings" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Description
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtDescription" kcs:FieldName="Description" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+	
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%declare oAgents (Agents.GetAgentsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AgentID">
+						Agent ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AgentName">
+						Agent Name
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Description">
+						Description
+					</th>
+					
+				
+									
+				</tr>
+			<%oAgents.each Agent{%> 
+				<tr kcs:RowKey="<%Agent.AgentID%>" kcs:AgentType="<%Agent.AgentType?.AgentTypeName%>" >
+							
+			
+					
+					<td>
+						<%Agent.AgentID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Agent.AgentName%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Agent.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Agent.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%Agent.Description%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Agents GetAgentsSp_CountSp  (Search))
+		(return (Agents.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal Agents
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AgentID">
+						Agent ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AgentName">
+						Agent Name
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Description">
+						Description
+					</th>
+					
+				
+									
+				</tr>
+			<%Agents.each Agent{%> 
+				<tr kcs:RowKey="<%Agent.get AgentID%>" >
+							
+			
+					
+					<td>
+						<%Agent.AgentID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Agent.AgentName%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Agent.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Agent.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%Agent.Description%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Context Settings
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="ContextSettings" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Description
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea id="txtDescription" kcs:FieldName="Description" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

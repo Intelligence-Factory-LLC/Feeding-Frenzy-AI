@@ -1,0 +1,448 @@
+<%
+class RolesAdmin
+{
+			
+	(function GetDetails RoleID
+	{
+		(declare Role (Roles.GetRole (RoleID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Role ID
+							</td>
+							<td>
+								
+									<%Role.RoleID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Role Name
+							</td>
+							<td>
+								
+									<%Role.RoleName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Role.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Role.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Role.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Role.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown RoleName RoleID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetRolesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit RoleID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Role">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Role ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="RoleID" class="InputString form-control" readonly="readonly" value="<%RoleID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Role Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtRoleName" kcs:FieldName="RoleName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Roles GetRolesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RoleID">
+						Role ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RoleName">
+						Role Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+									
+				</tr>
+			<%Roles.each Role{%> 
+				<tr kcs:RowKey="<%Role.get RoleID%>" >
+							
+			
+					
+					<td>
+						<%Role.RoleID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Role.RoleName%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Role.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Role.LastUpdated%></span>
+					</td>
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Roles GetRolesSp_CountSp  (Search))
+		(return (Roles.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Role">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Role Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtRoleName" kcs:FieldName="RoleName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+
+
+		
+		
+	(function GetGridByUserID UserID 
+	{
+		(return (GetGridByUserID (UserID) '' '' true 0 20))
+	})
+
+	(function GetGridByUserID UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByUserIDHtml (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByUserIDCount (UserID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByUserIDHtml UserID 
+	{
+		(return (GetGridByUserIDHtml (UserID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByUserIDHtml UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Roles GetRolesByUserRoleUserIDSp_PagingSp (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RoleID">
+						Role ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RoleName">
+						Role Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+									
+				</tr>
+			<%Roles.each Role{%> 
+				<tr kcs:RowKey="<%Role.get RoleID%>" >
+							
+			
+					
+					<td>
+						<%Role.RoleID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Role.RoleName%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Role.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Role.LastUpdated%></span>
+					</td>
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByUserIDCount UserID  Search
+	
+	{
+		(ado.row Roles GetRolesByUserRoleUserIDSp_CountSp (UserID) (Search))
+		(return (Roles.get Total))
+	})
+	
+		
+
+}%>

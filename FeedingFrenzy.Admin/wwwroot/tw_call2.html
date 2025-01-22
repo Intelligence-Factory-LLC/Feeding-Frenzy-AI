@@ -1,0 +1,789 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Calling...</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="/js/plugins/twilio/twilio.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap css -->
+	<link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- App css -->
+	<link href="./css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+	<!-- icons -->
+	<link href="./css/icons.min.css" rel="stylesheet" type="text/css" />
+	<!-- Head js -->
+	<script src="./js/head.js"></script>
+
+	<link href="./css/call.css?v=5" rel="stylesheet" />
+
+
+</head>
+<body>
+
+	<div id="containerCall" class="container fixed" style="max-width: 550px;">
+		<div class="row justify-content-center h-100" style="min-height:calc(100vh - 60px);">
+			<div class="col-12">
+				<div class="modal-dialog h-100">
+					<div class="modal-content center-block h-100">
+						<div class="modal-body p-1">
+							<div class="row h-100">
+								<div id="callPanel" class="col-12">
+									<div class="sticky-call-panel">
+										<div>
+											<div class="float-end">
+												<button class="btn btn-outline-blue btn-sm waves-effect waves-light mb-2" id="btnShowHidePanel" onclick="openCallScriptPanel()">
+												<i class="fas fa-file-alt me-1"></i> Open Call Scripts</button>
+											</div>
+											<h5 class="mb-2 mt-4 text-uppercase bg-light p-2">
+												<i class="mdi mdi-account-circle me-1"></i> Client Contact Info
+											</h5>
+											<div class="w-100">
+												<h4 id="spanName" class="mt-0 mb-1"></h4>
+												<i class="mdi mdi-phone-classic me-1"></i>
+												<span id="spanNumber"></span>
+												<div id="spanStatus" class="d-inline"></div>											
+												<span id="spanStatus2" class="badge"></span>
+												<p class="mb-0">
+													<i class="mdi mdi-map-marker me-1"></i><span id="AreaCode" class="text-muted"></span>
+												</p>
+												<p class="mb-0">
+													<i class="mdi mdi-cellphone me-1"></i><span id="PhoneType" class="text-muted"></span>
+												</p>
+											</div>
+											<h5 class="mb-2 mt-2 text-uppercase bg-light p-2">
+												<i class="mdi mdi-phone-classic me-1"></i> Call From
+											</h5>
+											<div class="w-100">
+												<!-- First Dropdown -->
+												<div class="mb-3">
+													<select id="ddlCallFromPhone" class="form-select">
+													</select>
+												</div>
+											</div>
+											<div id="content" style="margin-top: 18px; width: 100%;" class="caller-content"></div>
+											<div class="col-sm-12">
+												<ul id="ulPhoneTree" style=" list-style-type: none;"></ul>
+												<table id="tblDialPad" style="width: 100%;" class="table table-sm table-borderless mb-2 hidden CallControl h2">
+													<tr>
+														<td style="width: 33%;">
+															<button id="btnSendDigit1" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('1')">1</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit2" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('2')">2</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit3" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('3')">3</button>
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 33%;">
+															<button id="btnSendDigit4" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('4')">4</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit5" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('5')">5</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit6" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('6')">6</button>
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 33%;">
+															<button id="btnSendDigit7" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('7')">7</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit8" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('8')">8</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit9" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('9')">9</button>
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 33%;">
+															<button id="btnSendDigit11" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('*')">*</button>
+														</td>
+														<td>
+															<button id="btnSendDigit10" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('0')">0</button>
+														</td>
+														<td style="width: 33%;">
+															<button id="btnSendDigit12" class="btnSendDigit btn btn-outline-primary rounded-pill waves-effect waves-light" onclick="onNumberPress('#')">#</button>
+														</td>
+													</tr>													
+												</table>
+												<table class="CallControl" style="width: 100%;">
+													<tr>
+														<td style="width: 50%; text-align: left; vertical-align: middle;">
+															<!-- Source Dropdown -->
+															<div class="btn-group mb-2">
+																<button type="button" class="btn btn-md btn-secondary" style="width: 200px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+																	Device
+																</button>
+																<button id="btnAudio" type="button" class="btn btn-md btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																	<i class="mdi mdi-chevron-down"></i>
+																</button>
+																<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="ddlAudioSource"></div>
+															</div>
+														</td>
+
+														<td style="width: 50%; text-align: right; vertical-align: middle;">
+															<!-- Microphone Controls -->
+															<div class="btn-group dropdown mb-2">
+																<button id="btnMicrophone" type="button" class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																	<i class="fa fa-microphone-alt" id="mic-icon"></i>
+																</button>
+																<button id="btnMute" type="button" class="btn btn-md btn-info">Mute</button>
+																<div class="dropdown-menu">
+																	<a class="dropdown-item" href="#" onclick="OnMute(true)">
+																		<i class="fa fa-microphone-alt-slash"></i> Mute
+																	</a>
+																	<a class="dropdown-item" href="#" onclick="OnUnmute(false)">
+																		<i class="fa fa-microphone-alt"></i> Unmute
+																	</a>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+										<div>
+											<div class="button-list">
+												<div class="dropdown hidden">
+													<button class="btn btn-secondary waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%;">
+														Output Default
+													</button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" id="ddlAudioOutput"></ul>
+												</div>
+											</div>
+											<div class="button-list">
+												<button id="btnCall" onclick="OnCall()" class="btn btn-md btn-blue waves-effect waves-light"><i class="fas fa-phone-alt"></i> Call</button>
+											</div>
+											<div class="button-list">
+												<button id="btnConference" onclick="OnConference()" class="btn btn-md btn-blue waves-effect waves-light hidden"><i class="fa fa-users"></i> Conference</button>
+												<button id="btnDisconnect" onclick="OnDisconnect()" class="btn btn-md btn-outline-blue waves-effect waves-light hidden CallControl"><i class="fas fa-phone-slash"></i> End</button>
+											</div>
+											<div class="button-list">
+												<button id="btnAddParticipant" onclick="OnAddParticipant()" class="btn btn-md btn-blue waves-effect waves-light hidden"><i class="fa fa-mobile-alt"></i> Add Participant</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 mt-4 mt-md-0" id="callScriptPanel" style="display:none">
+									<div class="card">
+										<div class="card-body">
+											<div class="card-title mb-3 alert alert-primary mt-3">
+												<h1 class="h5 caller-name">Call Scripts</h1>
+											</div>
+											<div class="mb-3">
+												<select id="callScripts" class="form-select" onchange="GetContent()">
+													<option value="0">Select a call script from the list</option>
+												</select>
+											</div>
+											<span id="callScriptContent"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/vendor.min.js"></script>
+	<script src="/js/app.min.js"></script>
+	<script type="text/javascript" src="//static.buffa.ly/js/global.js"></script>
+	<script type="text/javascript" src="//static.buffa.ly/js/LocalStorage2.js"></script>
+	<script type="text/javascript" src="//static.buffa.ly/js/moremoo3.js?v=2"></script>
+	<script type="text/javascript" src="//static.buffa.ly/js/validators.js"></script>
+	<script type="text/javascript" src="//static.buffa.ly/js/form_validation.js"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Calls.ashx.js?v=4"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.AreaCodes.ashx.js?v=4"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.PhoneNumbers.ashx.js?v=<%JsVersion%>"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadCalls.ashx.js?v=<%JsVersion%>"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Contents.ashx.js?v=<%JsVersion%>"></script>
+	
+	<script type="text/javascript">
+
+		// Client ID and API key from the Developer Console
+		var token = Page.QueryString()["jwt"];
+		var phone = Page.QueryString()["phone"];
+		var bRecord = Page.QueryString()["record"] == "true";
+		var bJoin = Page.QueryString()["join"] == "true";
+		var bStream = Page.QueryString()["stream"] == "true"
+		var sName = Page.QueryString()["name"];
+		var iLeadNoteID = Page.QueryString()["LeadNoteID"];
+
+		var iLeadID = Page.QueryString()["LeadID"];
+		var iSalesRepresentativeID = Page.QueryString()["SalesRepresentativeID"];
+
+
+		let deviceOptions = {};
+		var device = null;
+
+		var call = null;
+
+		async function OnCall() {
+
+			if (StringUtil.IsEmpty(token)) {
+
+				let f = new Promise((resolve) => {
+
+					if (ObjectUtil.HasValue(iLeadID)) {
+						LeadCalls.CallLead(iLeadID, iSalesRepresentativeID, function (oObj) {
+
+							token = oObj.Jwt;
+							iLeadNoteID = oObj.LeadNoteID;
+
+							resolve();
+						});
+					}
+					else {
+						Calls.Call(function (oObj) {
+							token = oObj.Jwt;
+							iLeadNoteID = null;
+							resolve();
+						});
+
+					}
+				});
+
+				await f;
+			}
+
+			device = new Twilio.Device(token, deviceOptions);
+
+			var sPhone = document.getElementById("ddlCallFromPhone").value;
+			let oOpts =
+			{
+				"Phone": phone,
+				"CallerID": sPhone,
+				"Record": bRecord,
+				"Join": bJoin,
+				"Status": true,
+				"Stream": bStream
+			};
+
+			if (ObjectUtil.HasValue(iLeadNoteID))
+				oOpts.LeadNoteID = iLeadNoteID;
+
+			call = await device.connect({ params: oOpts });
+
+
+			call.on("accept", OnConnect);
+			call.on("cancel", function () { console.log('call cancelled') });
+			call.on("ringing", function () { console.log('call ringing') });
+			call.on("hangup", function () { console.log('call hangup') });
+			call.on("disconnect", OnDisconnect);
+
+
+			$$(".CallControl").forEach(x => x.removeClass("hidden"));
+			ControlUtil.GetControl("btnCall").addClass("hidden");
+
+			startTimer();
+
+			CheckMute();
+
+		}
+
+		function onNumberPress(number) {
+			call.sendDigits(number);
+		}
+
+		async function OnDisconnect() {
+			OnDisconnected(); 	//event doesn't seem to fire
+			call.disconnect();
+			device.disconnectAll();
+			stopTimer();
+
+			await checkPermissionsAndDevices();
+		}
+
+
+		function OnDisconnected() {
+			stopTimer();
+
+			$$(".CallControl").forEach(x => x.addClass("hidden"));
+
+			ControlUtil.GetControl("btnCall").removeClass('hidden');
+			ControlUtil.GetControl("btnAddParticipant").addClass("hidden");
+			ControlUtil.GetControl("btnConference").addClass("hidden");
+
+			ControlUtil.GetControl("spanStatus").innerHTML = "<span style='color: red'>●</span>";
+
+			token = null;
+		}
+
+		var sParentSID = null;
+		var bUpdateStatus = false;
+		var rowCall = null;
+
+		function OnConnect() {
+
+			sParentSID = device._activeCall.parameters.CallSid;
+
+			document.getElementById("btnConference").className = "btn btn-md btn-blue waves-effect waves-light";
+
+			ControlUtil.GetControl("spanStatus").innerHTML = "<span style='color: green'>●</span>";
+
+			rowCall = Calls.GetCallByCallKey(sParentSID);
+
+			bUpdateStatus = true;
+
+			(function () {
+				OnUpdateCallStatus();
+			}).periodical(2000);
+		}
+
+		function OnUpdateCallStatus() {
+			if (bUpdateStatus) {
+				Calls.GetCall(rowCall.CallID, function (row) {
+					rowCall = row;
+					UpdateStatus2(rowCall.CallStatus);
+				});
+			}
+		}
+
+		function UpdateStatus2(sStatus) {
+			if (sStatus == "ringing") {
+				_$("spanStatus2").innerHTML = "Ringing";
+				_$("spanStatus2").className = "badge bg-warning text-dark";
+			}
+			else if (sStatus == "in-progress") {
+				_$("spanStatus2").innerHTML = "Connected";
+				_$("spanStatus2").className = "badge bg-primary";
+			}
+			else if (sStatus == "completed") {
+				_$("spanStatus2").innerHTML = "Complete";
+				_$("spanStatus2").className = "badge bg-secondary";
+				bUpdateStatus = false;
+			}
+			else if (sStatus == "no-answer") {
+				_$("spanStatus2").innerHTML = "No Answer";
+				_$("spanStatus2").className = "badge bg-secondary";
+				bUpdateStatus = false;
+			}
+			else {
+				_$("spanStatus2").innerHTML = "";
+				_$("spanStatus2").className = "badge";
+			}
+		}
+
+		function OnConference() {
+
+			Calls.ConferenceCall(rowCall.CallID, function () {
+				ControlUtil.GetControl("btnAddParticipant").removeClass("hidden");
+				ControlUtil.GetControl("btnConference").addClass("hidden");
+			});
+		}
+
+
+
+		var bStarted = false;
+		var timerId;
+
+		function startTimer() {
+			var start = new Date();
+			bStarted = true;
+			timerId = setInterval(function () {
+				if (bStarted) {
+					var current = new Date();
+					var diff = current - start;
+
+					var sSec = Math.round(diff / 1000 % 60);
+					var sMin = Math.round(diff / 1000 / 60);
+
+					document.getElementById("content").innerHTML = sMin + ":" + (sSec < 10 ? "0" + sSec : sSec);
+				}
+			}, 1000);
+		}
+
+		function stopTimer() {
+			bStarted = false;
+			clearInterval(timerId);
+		}
+
+		function SetupInputOutputDevices() {
+
+			let ddlAudioSource = ControlUtil.GetControl("ddlAudioSource");
+			ddlAudioSource.innerHTML = "";
+
+			let ddlAudioOutput = ControlUtil.GetControl("ddlAudioOutput");
+			ddlAudioOutput.innerHTML = "";
+
+			if (device == null)
+				return;
+
+			device.audio.availableInputDevices.forEach((device, id) => {
+				console.info('Available device:', id, '(labeled', device.label, ')');
+
+				let sLabel = (device.label || 'Unknown')
+				let sIcon = '<i class="fa fa-microphone"></i> ';
+				if (StringUtil.InString(sLabel, 'head'))
+					sIcon = '<i class="fa fa-headphones"></i> ';
+				if (StringUtil.InString(sLabel, 'blue'))
+					sIcon = '<i class="fa fa-bluetooth"></i> ';
+
+				ddlAudioSource.innerHTML += '<li><a class="dropdown-item" href="javascript:OnSelectAudioSource(\'' + id + '\')">' + sIcon + sLabel + '</h4></a></li>';
+
+			});
+
+			device.audio.availableOutputDevices.forEach((device, id) => {
+				console.info('Available device:', id, '(labeled', device.label, ')');
+
+				let sLabel = (device.label || 'Unknown')
+				ddlAudioOutput.innerHTML += '<li><a class="dropdown-item" href="#">' + sLabel + '</a></li>';
+			});
+
+			device.audio.on('deviceChange', function (devices) { console.log('deviceChange', devices) });
+		}
+
+		async function checkPermissionsAndDevices() {
+			// Check microphone permission
+			try {
+				await navigator.mediaDevices.getUserMedia({ audio: true });
+				console.log('Microphone access granted.');
+			} catch (error) {
+				console.error('Microphone access denied:', error);
+			}
+
+			// List available input and output devices
+			const devices = await navigator.mediaDevices.enumerateDevices();
+			devices.forEach(device => {
+				console.log(`${device.kind}: ${device.label} (ID: ${device.deviceId})`);
+			});
+		}
+
+
+		function OnSelectAudioSource(idSelected) {
+			device.audio.availableInputDevices.forEach((oDevice, id) => {
+				if (idSelected == id) {
+					device.audio.setInputDevice(id);
+
+					let sLabel = (oDevice.label || 'Unknown')
+					let sIcon = '<i class="fa fa-microphone"></i> ';
+					if (StringUtil.InString(sLabel, 'head'))
+						sIcon = '<i class="fa fa-headphones"></i> ';
+					if (StringUtil.InString(sLabel, 'blue'))
+						sIcon = '<i class="fa fa-bluetooth"></i> ';
+					ControlUtil.GetControl("dropdownMenuButton1").innerHTML = "<h2>" + sIcon + "</h2>";
+				}
+			});
+		}
+
+
+		function OnMute(isMute) {
+			if (call) {
+				call.mute(true);
+				CheckMute();
+			}
+		}
+
+
+		function OnUnmute(isMute) {
+			if (call) {
+				call.mute(false);
+				CheckMute();
+			}
+		}
+
+		function CheckMute() {
+			if (call) {
+				if (call.isMuted()) {
+					toggleMute(true);
+				}
+				else {
+					toggleMute(false);
+				}
+			}
+		}
+
+		function toggleMute(isMute) {
+			const micIcon = document.getElementById('mic-icon');
+			const muteButton = document.getElementById('btnMute');
+
+			if (isMute) {
+				micIcon.className = 'fa fa-microphone-alt-slash';
+				muteButton.innerHTML = 'Unmute';
+			}
+			else {
+				micIcon.className = 'fa fa-microphone-alt';
+				muteButton.innerHTML = 'Mute';
+			}
+		}
+
+	</script>
+	<script type="text/javascript">
+        var callScriptList = [];
+        function NormalizeCase(str) {
+            if (StringUtil.IsEmpty(str) || $type(str) != "string")
+                return "";
+            return str.toLowerCase().replace(/\b\w/g, function (char) {
+                return char.toUpperCase();
+            });
+		}
+
+		function AddCallFromNumber(sCallerID) {
+			var oDdl = document.getElementById("ddlCallFromPhone");
+			if (!StringUtil.IsEmpty(sCallerID)) {
+				var sPrettyPhone = StringToPhone(sCallerID);
+				ControlUtil.AddOption(oDdl, sCallerID, "" + sPrettyPhone);
+				oDdl.value = sCallerID;
+			}
+		}
+        var initialWidth = 0;
+		var initialHeight = 0;
+
+		Page.AddOnload(function () {
+			let phone = Page.QueryString()["phone"];
+			var sCallerID = Page.QueryString()["CallerID"];
+			AddCallFromNumber(sCallerID);
+
+    // Dynamically populate the dropdown with phone numbers
+    const phoneNumbers = [
+        { value: "18652976832", text: "Justin: (865) 297-6832" },
+        { value: "18623571107", text: "Giancarlo: (862) 357-1107" }
+    ];
+
+    const ddlCallFromPhone = document.getElementById("ddlCallFromPhone");
+
+    phoneNumbers.forEach(phone => {
+        const option = document.createElement("option");
+        option.value = phone.value;
+        option.textContent = phone.text;
+        ddlCallFromPhone.appendChild(option);
+    });
+			if (!ObjectUtil.HasValue(sName)) {
+				LeadCalls.GetLeadByPhone(phone, function(oRes) {
+					_$("spanName").innerHTML = oRes.Name;
+					if (!StringUtil.IsEmpty(oRes.Company)) {
+						_$("spanCompanyName").innerHTML = oRes.Company;
+					}
+
+					if (StringUtil.IsEmpty(sCallerID) || !StringUtil.EqualNoCase(sCallerID, oRes.CallerID)) {
+						AddCallFromNumber(oRes.CallerID);
+					}
+				});
+			}
+			else {
+				_$("spanName").innerHTML = sName;
+			}
+
+			document.getElementById("spanNumber").innerHTML = StringToPhone(phone);
+
+			if (bJoin) {
+				ControlUtil.GetControl("ddlCallFromPhone").addClass("hidden");
+				ControlUtil.GetControl("btnCall").innerHTML = "Join Conference";
+			}
+
+
+
+			if (!StringUtil.IsEmpty(phone)) {
+
+
+				AreaCodes.GetAreaCodeByPhone(phone, function (oRes) {
+					if (oRes != null) {
+						ControlUtil.SetValue("AreaCode", oRes.Region + " (" + oRes.TimeZone + ")");
+					}
+
+				});
+
+
+				PhoneNumbers.GetPhoneNumberInfo(phone, function (oRes) {
+					try {
+						if (oRes != null) {
+							ControlUtil.SetValue("PhoneType",  NormalizeCase(oRes.PhoneType));
+						}
+					}
+					catch (err) {
+						console.log(err);
+					}
+				});
+			}
+
+			GetCallScripts();
+
+            initialWidth = window.outerWidth;
+			initialHeight = window.outerHeight;
+
+		});
+
+		function OnAddParticipant() {
+
+			let sPhone = prompt("Enter the phone number to dial in");
+			if (!StringUtil.IsEmpty(sPhone)) {
+				Calls.PlaceParticipantOnHold(rowCall.CallID, "customer", true, function () {
+					ControlUtil.GetControl("spanStatus").innerHTML = "<span style='color: yellow'>●</span> On Hold <button class='btn btn-secondary waves-effect waves-light' onclick='OnUnholdCustomer()'>Remove Hold</button>";
+				});
+
+				let sCallerID = document.getElementById("ddlCallFromPhone").value;
+
+				Calls.AddParticipant(rowCall.CallID, sCallerID, sPhone);
+			}
+		}
+
+		function OnUnholdCustomer() {
+			Calls.PlaceParticipantOnHold(rowCall.CallID, "customer", false, function () {
+				ControlUtil.GetControl("spanStatus").innerHTML = "<span style='color: green'>●</span>";
+			});
+		}
+
+		function GetCallScripts() {
+            Contents.GetContentsByContentTypeID(1, function (res) {
+				
+				callScriptList = res;
+
+                var select = document.getElementById("callScripts");
+
+                for (var i = 0; i < res.length; i++) {
+                    var opt = res[i];
+                    var el = document.createElement("option");
+                    el.textContent = opt.ContentName;
+                    el.value = opt.ContentID;
+                    select.appendChild(el);
+                }
+            });
+		}
+
+		function GetContent() {
+			scriptContentID = document.getElementById("callScripts").value;
+			document.getElementById("callScriptContent").textContent = '';
+            for (var i = 0; i < callScriptList.length; i++)
+			{				
+				if (scriptContentID == callScriptList[i].ContentID) {
+					document.getElementById("callScriptContent").innerHTML = callScriptList[i].Content;
+                }
+            }
+		}
+
+		
+
+		function openCallScriptPanel() {
+			var callScriptPanel = document.getElementById('callScriptPanel');
+			var callScriptSelector = document.getElementById("callScripts");
+			var btnShowHidePanel = document.getElementById("btnShowHidePanel");
+			var callPanel = document.getElementById("callPanel");
+			var containerCall = document.getElementById("containerCall");
+            if (callScriptPanel.style.display == 'none') {
+				callScriptPanel.style.display = '';
+				//callScriptSelector.value = '0';
+				//callScriptSelector.style.display = '';
+				containerCall.style.maxWidth = '';
+                callPanel.addClass('col-md-6');
+				GetContent();
+                btnShowHidePanel.removeClass('btn-outline-blue');
+				btnShowHidePanel.addClass('btn-blue');
+                window.resizeTo(window.outerWidth * 2, window.outerHeight);
+            }
+            else {
+				callScriptPanel.style.display = 'none';
+				//callScriptSelector.style.display = 'none';
+                btnShowHidePanel.removeClass('btn-blue');
+                btnShowHidePanel.addClass('btn-outline-blue');
+                containerCall.style.maxWidth = '550px';
+				callPanel.removeClass('col-md-6');
+                window.resizeTo(initialWidth, initialHeight);
+            }			
+		}        
+
+		async function GetDevicesAndSetupAudio() {
+			let ddlAudioSource = document.getElementById("ddlAudioSource");
+
+			// Clear the dropdown
+			ddlAudioSource.innerHTML = "";
+
+			try {
+				// Ensure permissions to access audio devices
+				await navigator.mediaDevices.getUserMedia({ audio: true });
+
+				// Enumerate available devices
+				const devices = await navigator.mediaDevices.enumerateDevices();
+				console.log("Enumerated devices:", devices);
+
+				// Filter audio input devices
+				const audioInputDevices = devices.filter(d => d.kind === "audioinput");
+
+				if (audioInputDevices.length === 0) {
+					console.warn("No audio input devices found.");
+					ddlAudioSource.innerHTML = `<li><span class="dropdown-item disabled">No input devices found</span></li>`;
+					return;
+				}
+
+				// Populate the dropdown with audio input devices
+				audioInputDevices.forEach(device => {
+					let sLabel = device.label || 'Unknown Device';
+					let sIcon = '<i class="fa fa-microphone"></i> ';
+					if (sLabel.toLowerCase().includes("head"))
+						sIcon = '<i class="fa fa-headphones"></i> ';
+					if (sLabel.toLowerCase().includes("blue"))
+						sIcon = '<i class="fa fa-bluetooth"></i> ';
+
+				    let friendlyName = GenerateAudioInputFriendlyName(sLabel);
+
+					ddlAudioSource.innerHTML += `
+						<li>
+							<a class="dropdown-item" href="javascript:OnSelectAudioSource('${device.deviceId}', '${friendlyName}')">
+								${sIcon}${friendlyName}
+							</a>
+						</li>`;
+					console.log("Added to ddlAudioSource:", sLabel);
+				});
+
+			} catch (err) {
+				console.error("Error accessing media devices:", err);
+				alert("Unable to access audio devices. Please check your browser permissions.");
+			}
+
+			// Attach a listener for device change events
+			navigator.mediaDevices.ondevicechange = async () => {
+				console.log("Device change detected. Refreshing audio input devices...");
+				await GetInputDevices(); // Refresh the dropdown when devices change
+			};
+		}
+
+		function OnSelectAudioSource(deviceId, label) {
+			console.log(`Audio source selected: ${deviceId} (${label})`);
+
+			const btnGroup = document.querySelector('#ddlAudioSource').closest('.btn-group');
+			const dropdownButton = btnGroup.querySelector('.btn-secondary:not(.dropdown-toggle)'); 
+
+			dropdownButton.innerHTML = `${label}`;
+		}
+
+		function GenerateAudioInputFriendlyName(label) {
+			// Define patterns and replacements for common device labels
+			const patterns = [
+				{ regex: /microphone/i, replacement: "Mic" },
+				{ regex: /headset/i, replacement: "Headset" },
+				{ regex: /high definition audio device/i, replacement: "HD Audio" },
+				{ regex: /communications/i, replacement: "Comm" },
+				{ regex: /default/i, replacement: "Default" },
+				{ regex: /usb/i, replacement: "USB" },
+				{ regex: /stereo mix/i, replacement: "Stereo Mix" }
+			];
+
+			// Apply patterns to simplify the label
+			patterns.forEach(({ regex, replacement }) => {
+				label = label.replace(regex, replacement);
+			});
+
+			// Truncate overly long labels
+			if (label.length > 30) {
+				label = label.substring(0, 27) + "...";
+			}
+
+			return label;
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			GetDevicesAndSetupAudio();
+		});
+
+	</script>
+
+
+</body>
+</html>

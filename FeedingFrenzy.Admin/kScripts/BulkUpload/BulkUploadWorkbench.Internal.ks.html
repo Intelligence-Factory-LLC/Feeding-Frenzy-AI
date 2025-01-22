@@ -1,0 +1,477 @@
+﻿<%using Simple.ks.html%>
+<%using BulkUpload.Components.ks.html%>
+
+
+<%redefinefunction SimplePage.Title
+{
+	(return "Bulk Upload Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "Bulk Upload Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelContent
+{
+	(returnex{%>
+
+	<h2 class="Processing Hidden">Progress</h2>
+	<div id="put-bar-here" class="Processing Hidden"></div>
+
+
+    <div class="NotProcessing">
+			
+	</div>
+
+
+
+<div style="bottom: 0px; left:0px; position: fixed; border: solid 1px black; width: 100vw; height: 200px; z-index: 100; background: white;" id="divImmediate">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                </div>
+                <div class="col-6 text-end">
+                    <button class="btn btn-light " onclick="OnMaximize()" id="btnMaximize"><i class="fa fa-caret-up"></i></button>
+                    <button class="btn btn-light " onclick="OnHalfize()" id="btnHalfize"><i class="fa fa-minus-square-o"></i></button>
+                    <button class="btn btn-light  d-none" onclick="OnMinimize()" id="btnMinimize"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
+
+            <div id="divImmediateContainer">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <select id="ddlTables" onchange="OnSelectedTableChanged()" class="form-select" style="width: 300px; display: inline">
+                            <option>Choose a table</option>
+                        </select>
+
+                        <button class="btn btn-light " onclick="OnDeleteSheet()"><i class="fa"></i>Delete Sheet</button>
+
+                        <div class="btn-group">
+                            <button class="btn btn-light " onclick="OnLoadDataset()"><i class="fa"></i>Load Dataset</button>
+                            <button class="btn btn-light " onclick="OnShowSaveFile()">Save Dataset</button>
+                            <button class="btn btn-light " onclick="OnSaveFileAs()">Save Copy of Dataset</button>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-light " onclick="OnDeleteColumn()"><i class="fa"></i>Delete Column</button>
+                            <button class="btn btn-light " onclick="OnInsertColumn()">Insert Column</button>
+                            <button class="btn btn-light " onclick="OnUndo()"><i class="fa fa-undo">&nbsp;</i></button>
+                        </div>
+
+						<div class="btn-group">                        
+							<button class="btn btn-light" onclick="OnLoadProcessor()">Load Processor</button>
+						</div>
+                    </div>
+
+                    <div class="col-sm-3 RawControls">
+                        <label class="form-label">Raw Data</label>
+                        <div class="btn-group">
+                            <button class="btn btn-light " onclick="OnSetZoomInfoMappings()"><i class="fa"></i>Map from Zoom Info</button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 ImportControls Hidden">
+                        <label class="form-label">Imports</label>
+                        <div class="btn-group">
+                            <button class="btn btn-light " onclick="CheckIfLeadExist()"><i class="fa"></i>Compare</button>
+                            <button class="btn btn-light " onclick="OnSetImportColumnMappings()"><i class="fa"></i>Map to Leads</button>
+                            <button class="btn btn-light " onclick="ImportZoomInfoLeads()"><i class="fa"></i>Import Zoom Info</button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <progress id="progressBar" value="0" max="100" style="width: 300px;"></progress>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<div id="divPreview" style="overflow-x: scroll; overflow-y: scroll;
+
+	
+    top: 0px;
+    left: 0px;
+    position: absolute;
+	z-index: 1;
+
+">
+	
+	</div>
+	<input type="button" onclick="ProcessBulkUpload()" value="Process Now" id="btnProcessNow" class="NotProcessing Hidden" />
+
+
+
+	
+	<%BulkUploadComponents.SaveSheet%>
+	<%BulkUploadComponents.LoadSheet%>
+	<%BulkUploadComponents.LoadProcessor%>
+	<%BulkUploadComponents.EditProcessor%>
+	<%BulkUploadComponents.EditColumn%>
+	<%BulkUploadComponents.DeleteColumn%>
+	<%BulkUploadComponents.NewColumn%>
+
+	<%})
+}%>
+
+<%redefinefunction SimplePage.BottomScripts
+{
+	(returnex{%>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.FileTypes.ashx.js"></script>
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Files.ashx.js"></script>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.UI.FilesAdmin.ashx.js"></script>
+
+<script src="js/bulk_upload/bulkuploader.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_filters.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_mappings.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_ui.js?v=3" type="text/javascript"></script>
+
+
+<script language="javascript" type="text/javascript">
+	var oData = [];
+	var sCurrentTable = '';
+</script>
+
+	<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Leads.ashx.js?v=2"></script>
+	<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.BulkUploadWorkbench.ashx.js"></script>
+
+<script type="text/javascript">
+	FilesValidatorsFields.Contents = { Validators: [Validators.Text], InvalidMessage: "Invalid Contents. " + ValidatorDescriptions.Required() };
+	FilesValidators.InsertOrUpdateDatabaseFile.Contents = FilesValidatorsFields.Contents;
+	FilesValidators.InsertOrUpdatePhysicalFile.Contents = FilesValidatorsFields.Contents;
+
+	Page.LocalSettings = {
+		File: null,
+		SelectedSheet: null,
+		DatasetFileID: null,	
+		GoogleSheetID: null,
+		CustomTransforms: [],
+
+		Source: '',
+		CampaignKey: '',
+		Tag : 'RPM'
+	}
+
+	Page.AddOnLoad(function () {
+		var oSettings = Page.LocalStorage.get(document.location.href + "::Settings");
+		if (null != oSettings) {
+			Page.LocalSettings = $merge(Page.LocalSettings, oSettings);
+		}
+	})
+
+	Page.AddOnUnload(function () {
+		Page.LocalStorage.set(document.location.href + "::Settings", Page.LocalSettings);
+	})
+
+	Page.AddOnload(async function () {
+		document.body.addClass("collapse-leftbar");
+		_$("sidebar").addClass("hidden");
+		_$("topbar").addClass("hidden");
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.File))
+			LoadDataSetFromFile(Page.LocalSettings.File);
+
+		else if (!StringUtil.IsEmpty(Page.LocalSettings.DatasetFileID)) {
+			await LoadDatasetFile(Page.LocalSettings.DatasetFileID);
+			if (!StringUtil.IsEmpty(Page.LocalSettings.SelectedSheet)) {
+				SelectSheet(Page.LocalSettings.SelectedSheet);
+				ControlUtil.SetValue("ddlTables", Page.LocalSettings.SelectedSheet);
+			}
+		}
+
+
+	})
+
+
+	
+
+	var oLeadSchema = {
+		"AutomationState": null,
+		"NPI": null,
+		"ExternalKey": null,
+		"FollowUpDate": null,
+		"LeadID": 3,
+		"Company": {Filter : null},
+		"FirstName": {Filter :"CommonFilters.NormalizeCase"},
+		"LastName": {Filter :"CommonFilters.NormalizeCase"},
+		"Title": {Filter : null},
+		"Function": {Filter :null},
+		"Phone": {
+			Filter: "CommonFilters.Phone"
+		},
+		"Email": {
+			Filter: "CommonFilters.Email"
+		},
+		"Address": null,
+		"Address2": null,
+		"City": null,
+		"State": {
+			Filter: "CommonFilters.State"
+		},
+		"ZipCode": {
+			Filter: "CommonFilters.Zip"
+		},
+		"Source":"Google",
+		"Priority": 3,
+		"StatusID": 10,
+		"OpportunitySize": 100,
+		"SalesRepresentativeID": 1,
+		"ImportKey": null,
+		"GeneratedDate": null,
+		"CampaignID": null
+	}
+
+
+	function OnSetDefaultMappings() {
+		SetDefaultMappings(oLeadSchema, true);
+	}
+
+
+	function OnSetImportColumnMappings() {
+		SetImportColumnMappings(oLeadSchema);
+	}
+
+
+	function OnEditColumnMappings(sCol) {
+		EditColumnMappings(sCol, oLeadSchema);
+	}
+
+
+	async function TransformToImports() {
+
+		if (oDatasetEditor.Transforms.length==0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return;
+		}
+
+		if (!ObjectUtil.IsDefined(oDatasetEditor.GetColumn("Source"))) {
+			Page.LocalSettings.Source = prompt("Enter a Source", Page.LocalSettings.Source);
+			Page.LocalSettings.CampaignKey = prompt("Enter a CampaignKey", Page.LocalSettings.CampaignKey);
+			oDatasetEditor.SetTransform({ SourceName: "Source", TargetName: "Source", Filter: "'" + Page.LocalSettings.Source + "'" });
+			oDatasetEditor.SetTransform({ SourceName: "CampaignKey", TargetName: "CampaignKey", Filter: "'" + Page.LocalSettings.CampaignKey + "'" });
+			oDatasetEditor.SetTransform({ SourceName: "TagName", TargetName: "TagName", Filter: "'" + Page.LocalSettings.Tag + "'" });
+		}
+
+		if (!ObjectUtil.IsDefined(oDatasetEditor.GetColumn("Tab"))) {
+			oDatasetEditor.SetTransform({ TargetName: "Tab", Filter: "'" + StringUtil.ReplaceAll(oDatasetEditor.SelectedSheetName, "'", "") + "'"});
+		}
+
+		let oImports={};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned =$clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter=null;
+			else
+				oCloned.Filter=window.eval(x.Filter);
+
+			oImports[x.TargetName]=oCloned;
+		});
+
+		let f = new Promise((resolve) => {
+			BulkUploader2(oDatasetEditor.Sheet, oImports, null, "Imports", function () {
+				resolve();
+			});
+		});
+
+		await f;
+
+		SelectNewestSheet();
+	}
+
+
+
+	function ImportZoomInfoLeads() {
+
+		if (oDatasetEditor.Transforms.length==0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return; 
+		}
+
+		let oImports={};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned=$clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter=null;
+			else
+				oCloned.Filter=window.eval(x.Filter);
+
+			oImports[x.TargetName]=oCloned;
+		});
+		BulkUploader2(oDatasetEditor.Sheet, oImports, new oLeadImportProcessor3());
+	}
+
+	function ImportGenericLeads() {
+
+		if (oDatasetEditor.Transforms.length == 0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return;
+		}
+
+		let oImports = {};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned = $clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter = null;
+			else
+				oCloned.Filter = window.eval(x.Filter);
+
+			oImports[x.TargetName] = oCloned;
+		});
+		BulkUploader2(oDatasetEditor.Sheet, oImports, new GenericLeadImportProcessor());
+	}
+	
+
+	class oLeadImportProcessor3 {
+
+		Process(oRow) {
+			oRow.DataObject={};
+
+			Object.keys(oRow).forEach(x => {
+				if (StringUtil.StartsWith(x, "DataObject.")) {
+					let sVal=StringUtil.RightOfFirst(x, "DataObject.");
+					if (!StringUtil.InString(sVal, ".")) {
+						oRow.DataObject[StringUtil.RightOfFirst(x, "DataObject.")]=oRow[x];
+					}
+					else {
+						let sObject=StringUtil.LeftOfFirst(sVal, ".");
+						let sProp=StringUtil.RightOfFirst(sVal, ".");
+
+						let oObj=oRow.DataObject[sObject];
+						if (!oObj)
+							oObj={};
+
+						oObj[sProp]=oRow[x];
+						oRow.DataObject[sObject]=oObj;
+					}
+				}
+			})
+
+			oRow.Data=JSON.encode(oRow.DataObject);
+
+			var iID = Leads.ImportZoomInfoLead(oRow, oRow.DataObject.Source, oRow.DataObject.CampaignKey, oRow.DataObject.TagName);
+			return iID;
+		}
+	}
+
+	class GenericLeadImportProcessor {
+
+		Process(oRow) {
+			oRow.DataObject = {};
+
+			Object.keys(oRow).forEach(x => {
+				if (StringUtil.StartsWith(x, "DataObject.")) {
+					let sVal = StringUtil.RightOfFirst(x, "DataObject.");
+					if (!StringUtil.InString(sVal, ".")) {
+						oRow.DataObject[StringUtil.RightOfFirst(x, "DataObject.")] = oRow[x];
+					}
+					else {
+						let sObject = StringUtil.LeftOfFirst(sVal, ".");
+						let sProp = StringUtil.RightOfFirst(sVal, ".");
+
+						let oObj = oRow.DataObject[sObject];
+						if (!oObj)
+							oObj = {};
+
+						oObj[sProp] = oRow[x];
+						oRow.DataObject[sObject] = oObj;
+					}
+				}
+			})
+
+			oRow.Data = JSON.encode(oRow.DataObject);
+
+			var iID = Leads.ImportGenericLead(oRow, oRow.DataObject.Source, oRow.DataObject.CampaignKey, "Billing 99453");
+			return iID;
+		}
+	}
+
+	function CheckIfLeadExist() {
+	
+		let iRow = 0;
+		oDatasetEditor.Sheet.forEach(row => {
+			let i = iRow;
+			Leads.GetPotentialDuplicates(row, function (oRes) {
+
+				if (oRes.length == 0)
+					return;
+				let oRow = oRes[0];
+				if (null != oRow) {
+					_$("tblData").querySelectorAll("tr")[i + 2].style = "background-color:lime;"
+
+					Object.keys(row).forEach(key => {
+						if (row[key] != oRow[key] && !StringUtil.EqualNoCase(row[key], oRow[key])) {
+							let ctrl = oDatasetEditor.GetElementControl(i, key);
+							if (ObjectUtil.HasValue(ctrl)) {
+								ctrl.style = "background-color: lightcoral;"
+								ctrl.title = StringUtil.IsEmpty(oRow[key]) ? "(empty)" : oRow[key];
+							}
+						}
+					})
+				}
+
+			})
+
+			iRow++;
+			UpdateProgress(iRow / oDatasetEditor.Sheet.length);
+
+		});
+
+	}
+
+
+
+	function OnSelectedTableChanged() {
+		var sName = ControlUtil.GetValue("ddlTables");
+		if (!StringUtil.IsEmpty(sName)) {
+
+			SelectSheet(sName);
+			Page.LocalSettings.SelectedSheet = sName;
+
+			$$(".ImportControls").forEach(x => x.addClass("Hidden"));
+			$$(".RawControls").forEach(x => x.addClass("Hidden"));
+
+			if (StringUtil.EndsWith(sName, "Imports")) {
+				$$(".ImportControls").forEach(x => x.removeClass("Hidden"));
+			}
+			else {
+				$$(".RawControls").forEach(x => x.removeClass("Hidden"));
+			}
+
+		}
+	}
+
+
+
+	async function OnSetZoomInfoMappings() {
+		await LoadCurrentMappingsFromDB("ZoomInfo");
+		await TransformToImports();
+		//$$(".RawControls").forEach(x => x.addClass("hidden"));
+		//$$(".ImportControls").forEach(x => x.removeClass("hidden"));
+
+	}
+</script>
+	<%})
+}%>
+
+<%redefinefunction SimplePage.Head
+{
+	(returnex{%>
+<style type="text/css">
+#divPreview .Grid { background-color: White; }
+#divPreview .Grid td { padding: 1px; }
+#divPreview .Grid input { padding: 2px; }
+#divPreview .Grid th input {font-weight: bold; }
+
+#box			{ border:1px solid #ccc; width:100%; height:50px; }
+#perc			{ background:#ccc; height:50px; }
+
+</style>
+	<%})
+}%>

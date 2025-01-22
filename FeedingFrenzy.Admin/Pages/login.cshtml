@@ -1,0 +1,155 @@
+@page
+@model loginModel
+@{
+    Layout = string.Empty;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Log In | FeedingFrenzi.ai</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Inteligence Factory CRM" name="description" />
+    <meta content="FeedingFrenzy" name="Intelligence Factory" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <meta property="og:image" content="https://if.feedingfrenzy.ai/images/if_logo.png" />
+    <link href="~/lib/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- App css -->
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+    <!-- icons -->
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Head js -->
+    <script src="~/js/head.js"></script>
+
+    <link href="~/css/styles.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body class="authentication-bg authentication-bg-pattern">
+
+    <div class="account-pages mt-5 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="card bg-pattern">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center">
+                                <div class="auth-logo">
+                                    
+                                    <span class="logo-lg">
+                                        <img src="~/images/ff_logo.png" alt="" height="40">
+                                    </span>
+                                    
+                                </div>
+                                <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
+                            </div>
+
+                            <form method="post">
+
+                                <div class="mb-3">
+                                    <label for="emailaddress" class="form-label">Email address</label>
+                                    <input class="form-control" type="email" id="emailaddress" asp-for="Input.Username" required="" placeholder="Enter your email">
+                                    <span asp-validation-for="Input.Username"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password" asp-for="Input.Password" class="form-control" placeholder="Enter your password">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                        <span asp-validation-for="Input.Password"></span>
+                                    </div>
+                                </div>
+
+                                <div class="text-center d-grid">
+                                    <button class="btn btn-primary mb-3" type="submit">Login</button>
+                                    @if (!string.IsNullOrEmpty(@Model.Message))
+                                    {
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            @Model.Message
+                                        </div>
+                                    }
+                                </div>
+
+                            </form>
+
+                            <div class="text-center">
+                                <h5 class="mt-3 text-muted">Sign in with</h5>
+                                <ul class="social-list list-inline mt-3 mb-0">
+                                    <li class="list-inline-item">
+                                        @*<a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>*@
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a title="Continue with Google" href="javascript: OnSignInWithGoogle();" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p> <a href="recoverpw" class="text-white-50 ms-1">Forgot your password?</a></p>
+                            <p class="text-white-50">Don't have an account? <a href="https://www.feedingfrenzy.ai/#contact" class="text-white ms-1"><b>Sign Up</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+
+    <footer class="footer footer-alt">
+		<span class="Year">2024</span> &copy; <a href="" class="text-white-50">Intelligence Factory</a>
+    </footer>
+
+    <!-- Vendor js -->
+    <script src="~/js/vendor.min.js"></script>
+    <!-- App js -->
+    <script src="~/js/app.min.js"></script>
+    <script src="~/lib/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+
+    <script src="//static.buffa.ly/js/global.js"></script>
+	<script src="//static.buffa.ly/js/LocalStorage2.js"></script>
+	<script src="//static.buffa.ly/js/moremoo3.js"></script>
+	<script src="//static.buffa.ly/js/validators.js"></script>
+	<script src="//static.buffa.ly/js/UserMessages.js"></script>
+	<script src="//static.buffa.ly/js/grid4.js"></script>
+	<script src="//static.buffa.ly/js/moment.min.js"></script>
+	<script src="//static.buffa.ly/js/DateUtil.js"></script>
+	<script src="//static.buffa.ly/js/form_validation.js"></script>
+	<script src="~/js/kcs/MasterPage.js"></script>
+    <script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Admin.API.Authentication.ashx.js"></script>
+
+    <script type="text/javascript">
+
+        function OnSignInWithGoogle() {
+            Authentication.SignInWithGoogle(function (oRes){
+                Page.Redirect(oRes);
+            });
+        }
+
+    </script>
+</body>
+</html>

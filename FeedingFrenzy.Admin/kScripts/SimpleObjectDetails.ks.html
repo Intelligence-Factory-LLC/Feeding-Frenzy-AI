@@ -1,0 +1,732 @@
+
+<%class SimpleObjectDetailsPage
+{
+	(declare UseShortButtonNames true)
+	
+	(declare Metadata
+		{
+			ObjectName : "",
+			ObjectsName : "",
+			
+			FriendlyObjectName : "",
+			FriendlyObjectsName : "",
+			
+			ObjectsUrl : "",
+			DetailsUrl : "",
+			EditUrl : "",
+			InsertUrl : "",
+
+			UINamespace : "",
+			BusinessNamespace: ""
+		}
+	)
+	
+	(function MetadataFile File
+	{
+		(Metadata (json (include (File))))
+	})
+		
+	(function ObjectName
+	{
+		(return (Metadata.ObjectName))
+	})
+	
+	(function ObjectsName
+	{
+		(return (Metadata.ObjectsName))
+	})
+	
+	(function FriendlyObjectName
+	{
+		(return (Metadata.FriendlyObjectName))
+	})
+	
+	(function FriendlyObjectsName
+	{
+		(return (Metadata.FriendlyObjectsName))
+	})
+	
+	(function ObjectsUrl 
+	{
+		(return (Metadata.ObjectsUrl))
+	})
+
+	(function DetailsUrl 
+	{
+		(return (Metadata.DetailsUrl))
+	})
+
+	(function InsertUrl 
+	{
+		(return (Metadata.InsertUrl))
+	})
+	
+	(function EditUrl 
+	{
+		(return (Metadata.EditUrl))
+	})	
+	
+	(function BusinessNamespace
+	{
+		(return (Metadata.BusinessNamespace))
+	})
+
+	(function UINamespace
+	{
+		(return (Metadata.UINamespace))
+	})
+
+	(function ObjectID
+	{
+		(return (Request.GetStringOrNull (concat (ObjectName) ID)))
+	})
+	
+	(function Object
+	{
+		(declare oObj ((concat (ObjectsName) .Get (ObjectName)) (ObjectID)))	
+		(ifeq (oObj) "" { (env.log (concat "Could not find " (ObjectName) " with ID of " (ObjectID))) })
+		(return (oObj))
+	})
+	
+    (function DoesObjectExist
+	{
+		(return (neq (Object) ""))
+	})
+
+	(function ObjectTitle 
+	{
+
+		(returnex{%>
+			<%if (Metadata.ContainsKey NaturalKey){%>
+                <%if (DoesObjectExist){%>
+                    <%declare oObj (Object)%>
+				    <%oObj.get (Metadata.NaturalKey)%>
+                <%}%>
+			<%}{%>
+				<%FriendlyObjectName%> # <%ObjectID%>
+			<%}%>
+		<%})
+	})
+
+	(function Title 
+	{
+		(returnex{%>
+			<%ObjectTitle%> - <%Application.Title%>
+		<%})
+	})
+	
+	(function DetailsPanel
+	{
+		(return ((concat (ObjectsName) Admin.GetDetails) (ObjectID)))
+	})
+
+	(function DetailsTabs
+	{
+		(return "")
+	})
+
+	(function QuickHelp
+	{
+		(returnex{%>
+            <h4 class="font-13 text-muted text-uppercase">About This Page :</h4>
+            <p class="mb-3">
+                The page shows the details for a single <%FriendlyObjectName%>.
+            </p>
+    
+            <h4 class="font-13 text-muted text-uppercase mb-1">Edit :</h4>
+            <p class="mb-3">Edit the information by clicking the button "Edit"</p>
+    
+            <h4 class="font-13 text-muted text-uppercase mb-1">Add :</h4>
+            <p class="mb-3">Add a new <%FriendlyObjectName%> by clicking the button "Create"</p>
+    
+            <h4 class="font-13 text-muted text-uppercase mb-1">Return :</h4>
+            <p class="mb-3"> Return the list of <%FriendlyObjectsName%> by clicking the link above.</p>
+    
+
+    
+		<%})
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			<%FriendlyObjectName%> Details
+		<%})
+	})
+
+	(function MainPanelTitleOptions
+	{
+		(returnex{%>
+            <div class="btn-toolbar">
+                <%CommandButtons%>
+            </div>
+        <%})
+	})
+	
+	(function Breadcrumbs
+	{
+		(returnex{%>
+			<ol class="breadcrumb m-0">
+				<li  class="breadcrumb-item"><a href="/">Main</a></li>
+				<%ifneq (Metadata.ObjectsUrl) ""{%>
+				<li  class="breadcrumb-item"><a onclick="OnObjectsTitleClick()" href="#"><%FriendlyObjectsName%></a></li>
+				<%}%>
+				<li  class="breadcrumb-item">
+					<%if (Metadata.ContainsKey NaturalKey){%>
+                        <%if (DoesObjectExist){%>
+                            <%declare oObj (Object)%>
+                            <%oObj.get (Metadata.NaturalKey)%>
+                        <%}%>
+					<%}{%>
+						<%FriendlyObjectName%> # <%ObjectID%>
+					<%}%>
+				</li>
+			</ol>
+
+			<script type="text/javascript">
+				function OnObjectsTitleClick() {
+					var oValues = new LocalStorage().get("<%FriendlyObjectsName%>/<%ObjectsName%>Grid")
+					if (oValues)
+						Page.Redirect("<%ObjectsUrl%>" + "#search");
+					else
+						Page.Redirect("<%ObjectsUrl%>");
+				}  
+			</script>
+		<%})
+	})	
+	
+	(function MainPanelTabs
+	{
+		(returnex{%>
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a href="<%DetailsUrl%>?<%ObjectName%>ID=<%ObjectID%>" class="nav-link active"><%FriendlyObjectName%></a></li>
+		</ul>	
+		<%})
+	})
+	
+	(function MainPanelColor
+	{
+		(return (Metadata.GetStringOrDefault MainPanelColor panel-primary))
+	})
+
+	(function MainPanelContent
+	{
+		(returnex{%>
+
+            <%if (DoesObjectExist){%>
+		<div class="hidden alert alert-info" id="divInlineWarning">				
+		</div>
+			    <div class="row">
+				    <div class="col-12">
+					    <div class="card <%MainPanelColor%>">
+							<div class="card-body">
+								  <%ifneq (MainPanelTabs) ""{%>
+								 <div class="float-sm-end mb-2 mb-sm-0">
+										<div class="row g-2">
+											
+											<div class="col-auto">
+   												<%MainPanelTabs%>
+											</div>
+										</div>
+								   </div> 
+									<%}%>
+
+							<h4 class="mb-3 mt-0 font-18">
+								<%ObjectTitle%>
+							</h4>
+
+						  
+						   								 
+
+								  <div class="clerfix"></div>
+						
+
+								 
+							
+
+
+						
+					
+
+							<div class="row">
+								<%DetailsPanel%>
+							</div>
+							
+	
+
+
+					
+				      		    <div class="row mt-3">
+				      			    <div class="col-12 text-center">
+			      					    <%CommandButtons%>
+				      			    </div>
+				      		    </div>
+				          </div>
+					    </div>
+                        <%ifneq (DetailsTabs) ""{%>
+
+                        <div class="card <%MainPanelColor%>">
+							<div class="card-body">
+                           <div class="row">
+                                <div class="col-12">
+                                    <%DetailsTabs%>
+                                </div>
+                            </div>
+							</div>
+
+                        </div>   
+                        
+                        <%}%>
+			        </div>
+
+					<%GetQuickHelpControls (QuickHelp) (AllowEditQuickHelp)%>
+                </div>
+            <%}{%>
+                <%FriendlyObjectName%> does not exist
+            <%}%>
+		<%})
+	})
+
+	(function AllowEditQuickHelp { (return (UserState.Permission.AllowEditQuickHelp)) })
+	(declare AllowDuplicate false)
+    (declare AllowDelete false)
+    (declare AllowIterators true)
+	(function AllowInsert { (return (neq (InsertUrl) "")) })
+	(function AllowEdit { (return (neq (EditUrl) "")) })
+
+	(function CommandButtons
+	{
+		(returnex{%>
+			<%if (AllowInsert){%>
+<button value="" onclick="OnAdd()" class="Insert btn btn-success m-1 waves-effect waves-light"><i class="fa fa-plus"></i> New<%ifnot (UseShortButtonNames) {%> <%FriendlyObjectName%><%}%></button>
+			<%}%>
+            <%if (AllowDuplicate){%>
+<button value="" onclick="OnCopy()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-plus"></i> Duplicate<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+            <%}%>
+			<%if (AllowEdit){%>
+<button value="" onclick="OnEdit()" class="Edit btn btn-light waves-effect waves-light m-1"><i class="fa fa-cogs"></i> Edit<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+			<%}%>
+            <%if (AllowDelete){%>
+<button value="" onclick="OnDelete()" class="Delete btn">Delete<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+            <%}%>
+
+			<%AdditionalCommands%>
+
+
+            <%if (AllowIterators){%>
+<span class="spanIteratorControls">
+<button style="margin-left: 20px;" value="" onclick="OnPrevious()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-backward"></i> Previous<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+	<span class="spanIterator" style="vertical-align:middle;"></span>
+<button value="" onclick="OnNext()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-forward"></i> Next<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+	</span>
+            <%}%>
+
+		<%})
+	})
+
+	(function AdditionalCommands
+	{
+		(return "")
+	})
+	
+	
+	(function AdditionalScripts
+	{
+		(return "")
+	})
+
+	(function JsObjectInitializers
+	{
+		(returnex{%>
+			<script language="javascript" type="text/javascript">
+				var i<%ObjectName%>ID = Page.QueryString().GetValue("<%ObjectName%>ID");
+				var iObjectID = i<%ObjectName%>ID;
+				var ObjectName = "<%ObjectName%>";
+				var ObjectsName = "<%ObjectsName%>";
+				var strUserName = "<%UserState.get_UserName%>";
+			</script>
+		<%})
+	})
+
+	(function LeaseInitializer
+	{
+		(returnex{%>
+			<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Messaging.Leases.ashx.js?v=<%JsVersion%>"></script>
+
+			<script type="text/javascript">
+				Page.AddOnload(function () {
+
+					Leases.AquireLease(strUserName, ObjectName, iObjectID, "View", function (leases) {
+						leases.forEach(x => { DisplayLease(x) });
+					});
+				});
+
+				function DisplayLease(lease) {
+
+					if (lease.User == strUserName)
+						return;
+
+					let bEditing = (lease.LeaseType == "Edit");
+
+					let oDiv = $$$(["div", { "class": " " + (bEditing ? "text-danger" : "") }, [
+						["strong", "Another User is " + (bEditing ? "Editing" : "Viewing")],
+						["span", ": " + lease.User + " is " + (bEditing ? "editing" : "viewing") + " this same " + lease.ObjectName]
+					]]);
+					
+					_$("divInlineWarning").appendChild(oDiv);
+					_$("divInlineWarning").removeClass("hidden");
+				}
+			</script>
+		<%})
+	})
+
+	(function IteratorInitializer
+	{
+		(returnex{%>
+
+                <script type="text/javascript">
+                    Page.AddOnload(function () {
+
+                        var oRecent = new LocalStorage().get("<%ObjectsName%>");
+                        if (null == oRecent)
+                            oRecent = []
+                        if (oRecent.length > 3)
+                            oRecent = oRecent.slice(0, 3);
+
+                        if (!oRecent.any(function(x) { return x.Url === document.location.href; }))
+							oRecent.splice(0, 0, {Title: StringUtil.LeftOfFirst(document.title, "-"), Url: document.location.href});
+
+						new LocalStorage().set("<%ObjectsName%>", oRecent);
+
+						let oIterator = GridIterators.GetCurrentIterator(ObjectsName);
+						if (oIterator) {
+							$$(".spanIterator").forEach(x => x.innerHTML = (oIterator.SkipRows + 1) + " of " + oIterator.MaxRows);
+						}
+						else {
+							$$(".spanIteratorControls").forEach(x => x.addClass("hidden"));
+						}
+					})
+
+					function OnPrevious() {
+						if (!GridIterators.OnPreviousIterator(ObjectsName))
+							UserMessages.DisplayNow("Already at beginning", "Info");
+					}
+
+					function OnNext() {
+						if (!GridIterators.OnNextIterator(ObjectsName))
+							UserMessages.DisplayNow("End of list", "Info");
+					}
+                </script>
+		<%})
+	})
+
+	(function TabInitializer
+	{
+		(returnex{%>
+		<script type="text/javascript">
+
+			if (!Page.Tabs) {
+				Page.Tabs={};
+			}; 
+
+			function SaveTab(id)
+			{
+				if (Page.Tabs[id] && Page.Tabs[id].OnLoad) {
+					Object.keys(Page.Tabs).forEach(key => {
+						Page.Tabs[key].IsActive = false;
+					});
+
+					Page.Tabs[id].IsActive = true;
+					Page.Tabs[id].OnLoad();
+				}
+
+				new LocalStorage().set(UrlUtil.GetUrlWithoutParams(document.location.href) + ".activetab", id)
+			}
+
+			Page.AddOnload(function()
+			{
+				var activeId=new LocalStorage().get(UrlUtil.GetUrlWithoutParams(document.location.href)+".activetab")
+				let bActivated=false;
+				/*Doesn't work with new bootstrapif (activeId) {
+					$$("#divBottomTabs .nav-tabs li").forEach(x => x.removeClass("active"));
+					$$("#divBottomTabs .tab-content > div").forEach(x => x.removeClass("active"));
+
+					if (ObjectUtil.HasValue(_$(activeId))) {
+						//this is the wrong way to switch tabs, it leaves multiple active
+						_$(activeId).addClass("active");
+						var oLi=_$("li-"+activeId);
+						if (ObjectUtil.HasValue(oLi)) {
+							oLi.addClass("active");
+							bActivated=true;
+						}
+
+						//this is the right way to switch tabs, but it doesn't show the initial tab
+						var tabTrigger = new bootstrap.Tab(document.querySelector('a[href="#' + activeId + '"]'));
+						tabTrigger.show();
+						bActivated=true;
+
+						SaveTab(activeId);
+					}					
+				}*/
+
+				if (!bActivated){
+					let lstTabs=$$("#divBottomTabs .tab-content > div");
+					if (lstTabs&&lstTabs.length>0) {
+						SaveTab(lstTabs[0].id);
+					}
+				}
+			})
+
+		</script>
+		<%})
+	})
+	
+	(function BottomScripts
+	{
+		(returnex{%>
+            <%if (DoesObjectExist){%>
+                <script type="text/javascript" src="/JsonWs/<%Metadata.BusinessNamespace%>.<%ObjectsName%>.ashx.js?v=<%JsVersion%>"></script>
+
+
+                <%JsObjectInitializers%>
+				<%IteratorInitializer%>
+				<%if (Application.EnableLeases) { (LeaseInitializer) }%>
+				<%TabInitializer%>
+
+                <script language="javascript" type="text/javascript">
+				    function OnEdit() {
+					    Page.Redirect("<%EditUrl%>", { <%ObjectName%>ID: i<%ObjectName%>ID });
+				    }
+
+				    function OnAdd() {
+					    Page.Redirect("<%InsertUrl%>");
+				    }
+
+				    function OnDelete() {
+					    if (confirm("Are you sure you want to delete this <%FriendlyObjectName%>? This operation cannot be undone.")) {
+						    <%ObjectsName%>.Remove<%ObjectName%>(i<%ObjectName%>ID, function(oRes) {
+						        UserMessages.Display("The <%FriendlyObjectName%> was deleted.", "Success");
+						        history.back();
+							    // Page.Redirect("<%ObjectsUrl%>");
+						    });
+					    }
+				    }
+
+				    function OnCopy() {
+					    <%ObjectsName%>.Copy<%ObjectName%>(i<%ObjectName%>ID, function(iRes) {
+						    Page.Redirect("<%EditUrl%>", { <%ObjectName%>ID: iRes });
+					    });
+				    }
+
+
+					function ShowQuickHelp()
+					{
+						let oDiv = _$("divQuickHelp");
+						oDiv.removeClass("hidden");
+						oDiv.parentElement.children[0].className = "col-8";
+					}
+
+                </script>
+
+			    <%AdditionalScripts%>
+            <%}%>
+				
+		<%})
+	})
+
+	(function GetRelatedObjectTab RelatedObjectsName RelatedObjectsFriendlyName AllowSearch
+	{
+		(declare Options { })
+		(Options.set RelatedObjectsName (RelatedObjectsName))
+		(Options.set RelatedObjectsFriendlyName (RelatedObjectsFriendlyName))
+		(Options.set AllowSearch (AllowSearch))
+
+		(return (GetRelatedObjectTab (Options)))
+	})
+
+	(function GetRelatedObjectTab Options
+	{
+		(ifnot (Options.contains RelatedObjectsFriendlyName)
+		{
+			(Options.set RelatedObjectsFriendlyName (Options.RelatedObjectsName))
+		})
+
+		(ifnot (Options.contains AllowSearch)
+		{
+			(Options.set AllowSearch true)
+		})
+
+		(ifnot (Options.contains Insert)
+		{
+			(Options.set Insert "")
+		})
+
+		(returnex{%>
+			<%if (Options.AllowSearch){%>
+			<div class="form-horizontal">
+				<div class="row">								
+					<div class="col-sm-6">
+						<input type="text" class="form-control" placeholder="Search <%Options.RelatedObjectsFriendlyName%>..." id="txt<%Options.RelatedObjectsName%>Search"/>
+					</div>
+					<div class="col-sm-6 text-sm-end">
+						<%Options.Insert%>					
+					</div>
+				</div>
+			</div>
+			<%}%>
+
+			<div class="table-responsive mt-1" id="div<%Options.RelatedObjectsName%>">						
+				Loading...
+			</div>
+
+			<div class="EmptyDataTemplate Hidden mt-1" id="div<%Options.RelatedObjectsName%>Empty">
+					No <%Options.RelatedObjectsFriendlyName%> found.
+			</div>
+
+		<%})
+	})
+
+	(function GetTabs oTabs
+	{
+		(ifneq (oTabs.length) 0 {
+			(oTabs.0.set bActive true)
+		})
+
+		(returnex{%>
+		<div class="tab-container tab-success" id="divBottomTabs">
+				<ul class="nav nav-tabs" role="tablist">
+					<%oTabs.each oTab{%>
+					<li class="nav-item" id="li-<%oTab.ControlID%>" role="tab">
+						<a href="#<%oTab.ControlID%>" data-bs-toggle="tab" class="nav-link  <%if (oTab.contains bActive) active%>" onclick="SaveTab('<%oTab.ControlID%>')"><%oTab.Title%></a>
+					</li>
+					<%}%>
+				</ul>
+				<div class="tab-content card-body">	
+					<%oTabs.each oTab{%>	
+						<div class="tab-pane <%if (oTab.contains bActive) active%>" id="<%oTab.ControlID%>" role="tabpanel">		
+						<%oTab.Content%>
+						</div>
+					<%}%>
+				</div>
+			</div>
+
+		<%})
+	})
+
+	(function GetTabs2 oTabs
+	{
+		(ifneq (oTabs.length) 0 {
+			(oTabs.0.set bActive true)
+		})
+
+		(returnex{%>
+		<div class="tab-container tab-success tabs-padding" >
+				<ul class="nav nav-tabs" role="tablist">
+					<%oTabs.each oTab{%>
+					<li class="nav-item" id="li-<%oTab.ControlID%>" role="tab"><a href="#<%oTab.ControlID%>" data-bs-toggle="tab" class="nav-link  <%if (oTab.contains bActive) active%>" onclick="SaveTab('<%oTab.ControlID%>')"><%oTab.Title%></a></li>
+					<%}%>
+				</ul>
+				<div class="tab-content panel-body">	
+					<%oTabs.each oTab{%>	
+						<div class="tab-pane <%if (oTab.contains bActive) active%>" id="<%oTab.ControlID%>" role="tabpanel">		
+						<%oTab.Content%>
+						</div>
+					<%}%>
+				</div>
+			</div>
+		<%})
+	})
+
+	(function GetRelatedObjectTabInitializer RelatedObjectsName oConfig
+	{
+		(ifnot (oConfig.contains JsonWsGridMethod)
+		{
+			(oConfig.set JsonWsGridMethod (concat GetGridBy (ObjectName) IDHtml))
+		})
+
+		(ifnot (oConfig.contains JsonWsCountMethod)
+		{
+			(oConfig.set JsonWsCountMethod (concat GetGridBy (ObjectName) IDCount))
+		})
+
+		(ifnot (oConfig.contains MetaFile)
+		{
+			(oConfig.set MetaFile (concat (RelatedObjectsName) ".Meta.json"))
+		})
+
+		(ifnot (oConfig.contains AllowSearch)
+		{
+			(oConfig.set AllowSearch true)
+		})
+
+        (ifnot (oConfig.contains ObjectIDName)
+        {
+            (oConfig.set ObjectIDName (concat (ObjectName) ID))
+        })
+
+		(ifnot (oConfig.contains AllowClick)
+		{
+			(oConfig.set AllowClick true)
+		})
+			 
+		(declare oRelatedMeta (json (include (oConfig.MetaFile))))		
+			 
+		(ifnot (oConfig.contains SortColumn)
+		{
+			 (oConfig.set SortColumn (concat (oRelatedMeta.ObjectName) ID))
+		})
+
+		(ifnot (oConfig.contains ExtraParams)
+		{
+			(oConfig.set ExtraParams (evalex{%>{ <%oConfig.ObjectIDName%>: <%ObjectID%> }<%}))
+		})
+ 
+
+		(returnex{%>
+			<script type="text/javascript" language="javascript">
+
+				function On<%RelatedObjectsName%>Click(i<%RelatedObjectsName%>ID, e, el, bCtrl) {
+					Page.Redirect("<%oRelatedMeta.DetailsUrl%>", { <%oRelatedMeta.ObjectName%>ID: i<%RelatedObjectsName%>ID }, bCtrl ? "_blank" : "_self");
+				}
+
+				Page.AddOnload(function() {
+
+					var oGrid = new JsonWsGrid4();
+					Page.Grids.Insert("<%RelatedObjectsName%>Grid", oGrid);
+					oGrid.ContentControlID = "div<%RelatedObjectsName%>";
+					oGrid.ExtraParams = <%oConfig.ExtraParams%>;
+					oGrid.AllowPageSizeEditing = true;
+					oGrid.JsonWsGridMethod = "<%oConfig.JsonWsGridMethod%>";
+					oGrid.JsonWsCountMethod = "<%oConfig.JsonWsCountMethod%>";
+					oGrid.JsonWsUrl = '/JsonWs/<%oRelatedMeta.UINamespace%>.<%RelatedObjectsName%>Admin.ashx';
+					<%if  (oConfig.AllowSearch){%>
+					oGrid.SearchControlID = 'txt<%RelatedObjectsName%>Search';
+					<%}%>
+					<%if (oConfig.AllowClick) {%>
+					oGrid.OnRowClick = On<%RelatedObjectsName%>Click;
+					<%}%>
+					oGrid.EmptyDataTemplateID = "div<%RelatedObjectsName%>Empty";
+					oGrid.SortAscending = false;
+					oGrid.sort = '<%oConfig.SortColumn%>';
+					oGrid.OnComplete = function () { OnFormatGrid("div<%RelatedObjectsName%>") };
+					oGrid.m_ObjectsName = "<%RelatedObjectsName%>";
+					oGrid.StartRefreshing();
+					if (Page.Tabs['tab-<%RelatedObjectsName%>'].IsActive==true)
+						Page.Tabs['tab-<%RelatedObjectsName%>'].OnLoad();
+
+				});
+
+				Page.Tabs['tab-<%RelatedObjectsName%>'] = {};
+				Page.Tabs['tab-<%RelatedObjectsName%>'].OnLoad = function () {
+					if (ObjectUtil.HasValue(Page.Grids.<%RelatedObjectsName%>Grid)) {
+						Page.Grids.<%RelatedObjectsName%>Grid.StartRefreshing();
+					}
+				}  
+			</script>
+
+
+		<%})
+	})
+}%>
+	
+

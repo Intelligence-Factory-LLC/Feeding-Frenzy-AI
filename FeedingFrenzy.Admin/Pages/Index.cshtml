@@ -1,0 +1,101 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+	Layout = "_SimpleLayout";
+}
+
+@section Styles
+{
+	<style>
+		.modal-body {
+			max-height: calc(100vh - 212px);
+			overflow-y: auto;
+		}
+	</style>
+}
+
+@section Head
+{
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Users.ashx.js"></script>
+
+}
+
+@section MainPanelContent
+{
+	
+	<div class="modal fade" id="AgreeTermsAndConditionsModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="width: 80%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Terms And Conditions</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+
+				<div class="modal-body">
+
+					@Html.Raw(Model.TermsAndConditions)
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="AgreeTernsAndConditionsUpdate()">Accept</button>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	@Html.Raw(Model.DashboardContent)	
+}
+
+@section Breadcrumbs
+{
+	
+}
+
+@section MainPanelTitle
+{
+	Home
+}
+
+@section SidebarMenu
+{
+	@Html.Raw(Model.SidebarMenu)
+}
+
+@section BottomScripts
+{
+	<script type="text/javascript">
+
+		Page.AddOnload(function () {
+
+			OnCheckTermsAndConditions();
+
+		});
+
+		function OnCheckTermsAndConditions() {
+			Users.CheckAgreeTermsAndConditions(function (oRes) {
+				if (oRes === true) {
+					jQuery("#AgreeTermsAndConditionsModal").modal('show');
+				}
+			});
+		}
+
+		function AgreeTernsAndConditionsUpdate() {
+			Users.AgreeTermsAndConditions(function (oRes) {
+				UserMessages.DisplayNow("Terms and Conditions saved", "Success");
+				jQuery("#AgreeTermsAndConditionsModal").modal('hide');
+			});
+		}
+
+	</script>
+}
+	
+@section ErrorMessage
+{
+	
+}
+
+

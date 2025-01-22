@@ -1,0 +1,153 @@
+﻿@page
+@model createpwModel
+@{
+    Layout = string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Create Password | FeedingFrenzi.ai</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Inteligence Factory CRM" name="description" />
+    <meta content="FeedingFrenzy" name="Intelligence Factory" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+
+    <link href="~/lib/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- App css -->
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+    <!-- icons -->
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Head js -->
+    <script src="~/js/head.js"></script>
+
+
+</head>
+
+<body class="authentication-bg authentication-bg-pattern">
+
+    <div class="account-pages mt-5 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="card bg-pattern">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center w-75 m-auto">
+                                <div class="auth-logo">
+                                    <a href="index.html" class="logo logo-dark text-center">
+                                        <span class="logo-lg">
+                                            <img src="~/images/ff_logo.png" alt="" height="40">
+                                        </span>
+                                    </a>
+
+                                    <a href="index.html" class="logo logo-light text-center">
+                                        <span class="logo-lg">
+                                            <img src="~/images/logo-light.png" alt="" height="22">
+                                        </span>
+                                    </a>
+                                </div>
+                                <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
+                            </div>
+
+                            <form method="post">
+
+                                <input type="hidden" name="Code" value="@Model.Code" /> 
+
+                                <input type="hidden" name="Email" value="@Model.Email" />
+
+                                <div class="mb-3">
+                                    <label for="emailaddress" class="form-label">Email address</label>
+                                    <input class="form-control" type="email" id="emailaddress" name="Email" required="" placeholder="Enter your email" value="@Model.Email" readonly>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password" name="Password" class="form-control" placeholder="Enter your password">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <p><strong> Password Requirements:</strong></p>
+                                    <p style="padding-left:20px">1. Must have at least 8 characters.</p>
+                                    <p style="padding-left:20px">2. Must include capital and lowercase characters.</p>
+                                    <p style="padding-left:20px">3. Must include at least 1 number.</p>
+                                </div>
+
+                                <div class="text-center d-grid mb-3">
+                                    <button class="btn btn-primary" type="submit"> Create Password </button>
+                                </div>
+
+                                <!-- Validation Summary -->
+                                <div asp-validation-summary="All" class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="validation-summary">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <strong>Oops! There were some problems with your submission:</strong>
+                                    <ul></ul>
+                                </div>
+
+                                <!-- Conditionally display the error message -->
+                                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                                {
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        @Model.ErrorMessage
+                                    </div>
+                                }
+
+                            </form>
+
+ 
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+
+    <footer class="footer footer-alt">
+        <script>document.write(new Date().getFullYear())</script> &copy; <a href="" class="text-white-50">Intelligence Factory</a>
+    </footer>
+
+    <!-- Vendor js -->
+    <script src="~/js/vendor.min.js"></script>
+
+
+    <!-- Vendor js -->
+    <script src="~/js/vendor.min.js"></script>
+
+
+    <script src="//static.buffa.ly/js/global.js"></script>
+    <script src="//static.buffa.ly/js/LocalStorage2.js"></script>
+    <script src="//static.buffa.ly/js/moremoo3.js"></script>
+    <script src="//static.buffa.ly/js/validators.js"></script>
+    <script src="//static.buffa.ly/js/UserMessages.js"></script>
+    <script src="//static.buffa.ly/js/grid4.js"></script>
+    <script src="//static.buffa.ly/js/moment.min.js"></script>
+    <script src="//static.buffa.ly/js/DateUtil.js"></script>
+    <script src="//static.buffa.ly/js/form_validation.js"></script>
+    <script src="~/js/kcs/MasterPage.js"></script>
+    <!-- App js -->
+    <script src="~/js/app.min.js"></script>
+    <script src="~/lib/jquery-toast-plugin/jquery.toast.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using AuthorizationsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Authorizations.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Authorizations.GetAuthorization (ObjectID)))
+}%>
+

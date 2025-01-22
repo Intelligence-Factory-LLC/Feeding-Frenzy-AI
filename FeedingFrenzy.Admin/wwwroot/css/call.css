@@ -1,0 +1,154 @@
+﻿body, html {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container.fixed {
+    min-height: calc(100vh - 60px);
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px; /* Reduced left and right padding */
+}
+
+span#callScriptContent {
+    overflow: auto;
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+.page-content {
+    margin: 0 auto;
+    padding: 20px; /* Optional: Add padding if needed */
+    height: 100vh; /* Ensure it takes the full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.sticky-call-panel {
+    background: #fff;
+    padding: 12px 24px;
+    min-height: calc(100vh - 66px);
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd; /* Example for the border */
+    padding: 16px; /* Bootstrap p-3 equivalent */
+    border-radius: 0.375rem; /* Bootstrap rounded */
+    margin-bottom: 1rem; /* Bootstrap mb-3 equivalent */
+    margin-bottom: 0; /* Bootstrap mb-md-0 (for medium screens) */
+}
+.caller-number {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.13px;
+}
+
+.caller-content {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align:center
+}
+
+.caller-name {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 56.25px;
+    margin-bottom: 5px;
+}
+
+.custom-dialer {
+    background-color: rgba(248, 249, 250, 0.8) !important;
+    border-color: rgba(204, 204, 204, 0.8) !important;
+    color: rgba(80, 80, 80, 0.8) !important;
+}
+
+.btnSendDigit {
+    width: 100% !important;
+    min-height: 50px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.CallControl.hidden {
+    display: none;
+}
+
+.button-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 4px;
+    flex-direction: column;
+}
+
+.button-list .btn {
+    width: 100%; /* Ensure buttons take full width of the container */
+}
+
+.button-list .btn:hover {
+    transform: translateY(-1px); /* Subtle lift effect on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow on hover */
+}
+
+#tblDialPad .row > .col-4 {
+    padding: 5px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon horizontally */
+    padding: 10px; /* Add padding for better click area */
+    font-size: 12px;
+}
+
+
+@media (max-width: 500px) {
+    .caller-name {
+        font-size: 36px;
+        line-height: 42px;
+    }
+
+    .caller-number {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .custom-dialer {
+        width: 100%;
+    }
+}
+.lined-bottom {
+    border-bottom: solid 1px #484848;
+    margin-bottom: 24px;
+}
+
+
+.unSelectButton {
+	border-color: #6658DC;
+	color: #6658DC;
+	background-color: white;
+	border-radius: 5px;
+	padding: 8px 12px;
+}
+
+.selectButton {
+	border-color: #6658DC;
+	color: white;
+	background-color: #6658DC;
+	border-radius: 5px;
+	padding: 8px 12px;
+}

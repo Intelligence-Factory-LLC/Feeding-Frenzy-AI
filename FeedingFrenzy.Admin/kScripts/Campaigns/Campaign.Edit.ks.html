@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using CampaignsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Campaigns.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Campaigns.GetCampaign (ObjectID)))
+}%>
+

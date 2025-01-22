@@ -1,0 +1,19 @@
+{
+	ObjectName : "LeadSubStatus",
+	ObjectsName : "LeadSubStatuses",
+
+	
+	NaturalKey : "SubStatusName",
+	
+	
+	FriendlyObjectName : "Lead Sub Status",
+	FriendlyObjectsName : "Lead Sub Statuses",
+	
+	ObjectsUrl : "lead-sub-statuses",
+	DetailsUrl : "lead-sub-status",
+	EditUrl : "lead-sub-status-edit",
+	InsertUrl : "lead-sub-status-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

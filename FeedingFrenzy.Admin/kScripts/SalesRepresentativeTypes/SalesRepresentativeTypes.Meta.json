@@ -1,0 +1,19 @@
+{
+	ObjectName : "SalesRepresentativeType",
+	ObjectsName : "SalesRepresentativeTypes",
+
+	
+	NaturalKey : "SalesRepresentativeTypeName",
+	
+	
+	FriendlyObjectName : "Sales Representative Type",
+	FriendlyObjectsName : "Sales Representative Types",
+	
+	ObjectsUrl : "sales-representative-types",
+	DetailsUrl : "sales-representative-type",
+	EditUrl : "sales-representative-type-edit",
+	InsertUrl : "sales-representative-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

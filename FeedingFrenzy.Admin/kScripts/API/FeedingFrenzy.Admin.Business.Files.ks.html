@@ -1,0 +1,2244 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">Files</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/files" "/JsonWs/FeedingFrenzy.Admin.Business.Files.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.Files.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.CopyFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyFile">
+
+				<h3>Files.CopyFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/copy-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/copy-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/copy-file
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyFileClick()
+										{
+											var oObj = BlindUnbind("divCopyFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/copy-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.CopyFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetDatabaseFileContents</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetDatabaseFileContents">
+
+				<h3>Files.GetDatabaseFileContents</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-database-file-contents</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetDatabaseFileContents">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-database-file-contents" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetDatabaseFileContents
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-database-file-contents
+
+## Returns
+String
+
+## Parameters 
+
+	Name: FileName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetDatabaseFileContentsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetDatabaseFileContentsClick()
+										{
+											var oObj = BlindUnbind("divGetDatabaseFileContents");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-database-file-contents")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetDatabaseFileContentsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetDatabaseFileContents", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetDatabaseFileContents">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetDatabaseFileContents" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFile">
+
+				<h3>Files.GetFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.FilesRow.ks.html&Class=SimpleApiHarnessPage">FilesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-file
+
+## Returns
+FilesRow
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetFileClick()
+										{
+											var oObj = BlindUnbind("divGetFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetFiles</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFiles">
+
+				<h3>Files.GetFiles</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-files</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetFiles">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-files" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.FilesRow.ks.html&Class=SimpleApiHarnessPage">FilesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetFiles
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-files
+
+## Returns
+FilesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetFilesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetFilesClick()
+										{
+											var oObj = BlindUnbind("divGetFiles");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-files")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetFilesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetFiles", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFiles">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetFiles" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetFilesByFileTypeID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFilesByFileTypeID">
+
+				<h3>Files.GetFilesByFileTypeID</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-files-by-file-type-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetFilesByFileTypeID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-files-by-file-type-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.FilesRow.ks.html&Class=SimpleApiHarnessPage">FilesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileTypeID" kcs:FieldName="FileTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetFilesByFileTypeID
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-files-by-file-type-id
+
+## Returns
+FilesRow[]
+
+## Parameters 
+
+	Name: FileTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetFilesByFileTypeIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetFilesByFileTypeIDClick()
+										{
+											var oObj = BlindUnbind("divGetFilesByFileTypeID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-files-by-file-type-id")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetFilesByFileTypeIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetFilesByFileTypeID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetFilesByFileTypeID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetFilesByFileTypeID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetPhysicalFileAndContents</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhysicalFileAndContents">
+
+				<h3>Files.GetPhysicalFileAndContents</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-physical-file-and-contents</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhysicalFileAndContents">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-physical-file-and-contents" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.FilesRow.ks.html&Class=SimpleApiHarnessPage">FilesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhysicalFileAndContents
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-physical-file-and-contents
+
+## Returns
+FilesRow
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhysicalFileAndContentsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhysicalFileAndContentsClick()
+										{
+											var oObj = BlindUnbind("divGetPhysicalFileAndContents");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-physical-file-and-contents")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetPhysicalFileAndContentsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhysicalFileAndContents", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhysicalFileAndContents">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhysicalFileAndContents" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.GetPhysicalFileContents</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhysicalFileContents">
+
+				<h3>Files.GetPhysicalFileContents</h3>
+				<p>/api/feedingfrenzy.admin.business/files/get-physical-file-contents</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhysicalFileContents">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/get-physical-file-contents" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhysicalFileContents
+
+## Url
+/api/feedingfrenzy.admin.business/files/get-physical-file-contents
+
+## Returns
+String
+
+## Parameters 
+
+	Name: FileName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhysicalFileContentsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhysicalFileContentsClick()
+										{
+											var oObj = BlindUnbind("divGetPhysicalFileContents");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/get-physical-file-contents")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.GetPhysicalFileContentsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhysicalFileContents", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhysicalFileContents">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhysicalFileContents" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.InsertFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertFile">
+
+				<h3>Files.InsertFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/insert-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/insert-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileTypeID" kcs:FieldName="FileTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Physical Path
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhysicalPath" kcs:FieldName="PhysicalPath" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Description
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Label
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Deleted
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsDeleted" kcs:FieldName="IsDeleted"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/insert-file
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: FileTypeID, Type: ID
+
+	Name: PhysicalPath, Type: String
+
+	Name: FileName, Type: String
+
+	Name: FileDescription, Type: String
+
+	Name: Label, Type: String
+
+	Name: Data, Type: Data
+
+	Name: IsDeleted, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertFileClick()
+										{
+											var oObj = BlindUnbind("divInsertFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/insert-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.InsertFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.InsertOrUpdateDatabaseFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertOrUpdateDatabaseFile">
+
+				<h3>Files.InsertOrUpdateDatabaseFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/insert-or-update-database-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertOrUpdateDatabaseFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/insert-or-update-database-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			FileType
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileType" kcs:FieldName="FileType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Description
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Contents
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtContents" kcs:FieldName="Contents" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertOrUpdateDatabaseFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/insert-or-update-database-file
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: FileType, Type: String
+
+	Name: FileName, Type: String
+
+	Name: FileDescription, Type: String
+
+	Name: Contents, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertOrUpdateDatabaseFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertOrUpdateDatabaseFileClick()
+										{
+											var oObj = BlindUnbind("divInsertOrUpdateDatabaseFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/insert-or-update-database-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.InsertOrUpdateDatabaseFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertOrUpdateDatabaseFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertOrUpdateDatabaseFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertOrUpdateDatabaseFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.InsertOrUpdatePhysicalFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertOrUpdatePhysicalFile">
+
+				<h3>Files.InsertOrUpdatePhysicalFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/insert-or-update-physical-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertOrUpdatePhysicalFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/insert-or-update-physical-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			FileType
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileType" kcs:FieldName="FileType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Description
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Extension
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtExtension" kcs:FieldName="Extension" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Contents
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtContents" kcs:FieldName="Contents" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertOrUpdatePhysicalFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/insert-or-update-physical-file
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: FileType, Type: String
+
+	Name: FileName, Type: String
+
+	Name: FileDescription, Type: String
+
+	Name: Extension, Type: String
+
+	Name: Contents, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertOrUpdatePhysicalFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertOrUpdatePhysicalFileClick()
+										{
+											var oObj = BlindUnbind("divInsertOrUpdatePhysicalFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/insert-or-update-physical-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.InsertOrUpdatePhysicalFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertOrUpdatePhysicalFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertOrUpdatePhysicalFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertOrUpdatePhysicalFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.MarkFileAsDeleted</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkFileAsDeleted">
+
+				<h3>Files.MarkFileAsDeleted</h3>
+				<p>/api/feedingfrenzy.admin.business/files/mark-file-as-deleted</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkFileAsDeleted">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/mark-file-as-deleted" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkFileAsDeleted
+
+## Url
+/api/feedingfrenzy.admin.business/files/mark-file-as-deleted
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkFileAsDeletedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkFileAsDeletedClick()
+										{
+											var oObj = BlindUnbind("divMarkFileAsDeleted");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/mark-file-as-deleted")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.MarkFileAsDeletedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkFileAsDeleted", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkFileAsDeleted">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkFileAsDeleted" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.MarkFileAsNotDeleted</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkFileAsNotDeleted">
+
+				<h3>Files.MarkFileAsNotDeleted</h3>
+				<p>/api/feedingfrenzy.admin.business/files/mark-file-as-not-deleted</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkFileAsNotDeleted">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/mark-file-as-not-deleted" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkFileAsNotDeleted
+
+## Url
+/api/feedingfrenzy.admin.business/files/mark-file-as-not-deleted
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkFileAsNotDeletedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkFileAsNotDeletedClick()
+										{
+											var oObj = BlindUnbind("divMarkFileAsNotDeleted");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/mark-file-as-not-deleted")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.MarkFileAsNotDeletedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkFileAsNotDeleted", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkFileAsNotDeleted">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkFileAsNotDeleted" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.RemoveFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveFile">
+
+				<h3>Files.RemoveFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/remove-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/remove-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/remove-file
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveFileClick()
+										{
+											var oObj = BlindUnbind("divRemoveFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/remove-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.RemoveFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.UpdateFile</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateFile">
+
+				<h3>Files.UpdateFile</h3>
+				<p>/api/feedingfrenzy.admin.business/files/update-file</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateFile">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/update-file" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileTypeID" kcs:FieldName="FileTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Physical Path
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhysicalPath" kcs:FieldName="PhysicalPath" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File Description
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Label
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Deleted
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsDeleted" kcs:FieldName="IsDeleted"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateFile
+
+## Url
+/api/feedingfrenzy.admin.business/files/update-file
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+	Name: FileTypeID, Type: ID
+
+	Name: PhysicalPath, Type: String
+
+	Name: FileName, Type: String
+
+	Name: FileDescription, Type: String
+
+	Name: Label, Type: String
+
+	Name: Data, Type: Data
+
+	Name: IsDeleted, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateFileClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateFileClick()
+										{
+											var oObj = BlindUnbind("divUpdateFile");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/update-file")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.UpdateFileObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateFile", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateFile">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateFile" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Files.UpdateFileData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateFileData">
+
+				<h3>Files.UpdateFileData</h3>
+				<p>/api/feedingfrenzy.admin.business/files/update-file-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateFileData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/files/update-file-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			File ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFileID" kcs:FieldName="FileID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateFileData
+
+## Url
+/api/feedingfrenzy.admin.business/files/update-file-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: FileID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateFileDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateFileDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateFileData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/files/update-file-data")
+																		Files.Url = oObj.BaseUrl;
+
+																	Files.UpdateFileDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateFileData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateFileData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateFileData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

@@ -1,0 +1,33 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using LeadSubStatusesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile LeadSubStatuses.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+		<script type="text/javascript">
+			OnObjectsTitleClick = function () {
+				var sHref = new LocalStorage().get("LeadSubStatusesPage");
+
+				if (!StringUtil.IsEmpty(sHref))
+					Page.Redirect(sHref);
+				else
+					Page.Redirect("/lead-sub-statuses");
+			};
+		</script>
+
+	<%})
+}%>

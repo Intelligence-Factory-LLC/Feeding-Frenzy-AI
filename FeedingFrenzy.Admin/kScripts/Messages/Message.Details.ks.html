@@ -1,0 +1,25 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using MessagesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Messages.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>

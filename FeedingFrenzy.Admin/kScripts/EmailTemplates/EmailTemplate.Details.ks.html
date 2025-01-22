@@ -1,0 +1,31 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using EmailTemplatesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile EmailTemplates.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare tabEmailHistories {Title : "Email Histories", ControlID : "tab-EmailHistories", Content : "" })
+	(tabEmailHistories.Content (GetRelatedObjectTab EmailHistories "Email Histories" true))	
+	(tabs.push (tabEmailHistories))
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+			(GetRelatedObjectTabInitializer EmailHistories {AllowSearch: true, MetaFile:'EmailHistories.meta.json' })		
+		
+		)
+	)
+}%>

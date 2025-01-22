@@ -1,0 +1,78 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using SalesRepresentativesAdmin.ks.html%>
+
+<%SimpleObjectDetailsPage.MetadataFile SalesRepresentatives.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	(declare tabLeadNotes {Title : "Lead Notes", ControlID : "tab-LeadNotes", Content : "" })
+	(tabLeadNotes.Content (GetRelatedObjectTab LeadNotes "Lead Notes" true))
+	(tabs.push (tabLeadNotes))
+
+	(return (GetTabs (tabs)))		
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.MainPanelTabs
+{
+	(returnex{%>
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="<%DetailsUrl%>?<%ObjectName%>ID=<%ObjectID%>"><%FriendlyObjectName%></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/sales-representative-leads?<%ObjectName%>ID=<%ObjectID%>">Leads</a>
+    </li>
+</ul>
+
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalCommands
+{
+        (returnex{%>
+			<button value="Send Invite" onclick="OnSendInvite()" class="Save btn btn-blue waves-effect waves-light m-1"><i class="fa fa-check"></i> Send Invitation</button>
+		<%})
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(declare oSalesRep (CachedObject))
+	
+	(returnex{%>
+		
+		<%GetRelatedObjectTabInitializer LeadNotes {AllowSearch: true, MetaFile:'LeadNotes.meta.json' }%>
+		<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Users.ashx.js"></script>
+	
+		<script type="text/javascript">
+			var iUserID = <%oSalesRep.User.UserID %>;
+			function OnSendInvite() {
+				Users.SendInvite(iUserID, function () {
+					UserMessages.DisplayNow("Invitation sent", "Success");
+				})
+			}
+
+		<%if (OrganizationFeature.Feature.IsAgentChatEnabled) {%>
+			function SendObjectToBuffaly() {
+				SalesRepresentatives.SendObjectToBuffaly(iSalesRepresentativeID, function () {
+					UserMessages.DisplayNow("Object sent to Buffaly", "Success");
+				});
+			}
+			<%ifeq (oSalesRep.DataObject.GetStringOrNull PrototypeName) ""{%>
+				Page.AddOnload(SendObjectToBuffaly);
+			<%}%>
+
+		<%}%>
+	
+		</script>
+
+
+	<%})
+}%>

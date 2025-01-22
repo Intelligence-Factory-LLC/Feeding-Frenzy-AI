@@ -1,0 +1,135 @@
+﻿<div class="left-side-menu">
+
+    <div class="h-100" data-simplebar>
+
+        <!-- User box -->
+        <div class="user-box text-center">
+            <img src="~/images/users/user-1.jpg" alt="user-img" title="Mat Helme"
+                 class="rounded-circle avatar-md">
+            <div class="dropdown">
+                <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+                   data-bs-toggle="dropdown">Geneva Kennedy</a>
+                <div class="dropdown-menu user-pro-dropdown">
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-user me-1"></i>
+                        <span>My Account</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-settings me-1"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-lock me-1"></i>
+                        <span>Lock Screen</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-log-out me-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </div>
+            <p class="text-muted">Admin Head</p>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+
+            <ul id="side-menu">
+
+                <li class="menu-title">Navigation</li>
+
+                <li>
+                    <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                        <i data-feather="airplay"></i>
+                        <span class="badge bg-success rounded-pill float-end">4</span>
+                        <span> Dashboards </span>
+                    </a>
+                    <div class="collapse" id="sidebarDashboards">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="/">Dashboard 1</a>
+                            </li>
+ 
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-title mt-2">Apps</li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="calendar">
+                        <i data-feather="calendar"></i>
+                        <span> Calendar </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="chat">
+                        <i data-feather="message-square"></i>
+                        <span> Chat </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#sidebarEcommerce" data-bs-toggle="collapse">
+                        <i data-feather="shopping-cart"></i>
+                        <span> Ecommerce </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="ecommerce-dashboard">Dashboard</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="products">Products</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="productdetail">Product Detail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="productedit">Add Product</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="customers">Customers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="orders">Orders</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="orderdetail">Order Detail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="sellers">Sellers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="cart">Shopping Cart</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="checkout">Checkout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+ 
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>

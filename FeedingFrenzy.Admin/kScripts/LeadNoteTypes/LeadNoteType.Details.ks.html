@@ -1,0 +1,31 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using LeadNoteTypesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile LeadNoteTypes.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare tabLeadNotes {Title : "Lead Notes", ControlID : "tab-LeadNotes", Content : "" })
+	(tabLeadNotes.Content (GetRelatedObjectTab LeadNotes "Lead Notes" true))	
+	(tabs.push (tabLeadNotes))
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+			(GetRelatedObjectTabInitializer LeadNotes {AllowSearch: true, MetaFile:'LeadNotes.meta.json' })		
+		
+		)
+	)
+}%>

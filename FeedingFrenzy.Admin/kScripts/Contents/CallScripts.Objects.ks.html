@@ -1,0 +1,34 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile CallScripts.Meta.json%>
+
+
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(declare rowContentType (ContentTypes.GetContentTypeByContentTypeName "Call Script"))
+
+	(returnex{%>
+        var oGrid = new JsonWsGrid4();
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+        oGrid.JsonWsGridMethod = "GetGridByContentTypeIDHtml";
+		oGrid.AllowPageSizeEditing = true;		
+        oGrid.JsonWsCountMethod = "GetGridByContentTypeIDCount";
+		oGrid.ExtraParams = { ContentTypeID: <%rowContentType.ContentTypeID%> }
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = OnClick<%ObjectName%>;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() { 
+			OnFormatGrid("div<%ObjectsName%>");
+		};		
+		oGrid.OnFilterInput = function(sInput)
+		{
+			return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+		};
+
+
+	<%})
+} %>

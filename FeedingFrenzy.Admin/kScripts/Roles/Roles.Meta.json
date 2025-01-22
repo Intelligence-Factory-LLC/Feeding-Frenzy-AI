@@ -1,0 +1,19 @@
+{
+	ObjectName : "Role",
+	ObjectsName : "Roles",
+
+	
+	NaturalKey : "RoleName",
+	
+	
+	FriendlyObjectName : "Role",
+	FriendlyObjectsName : "Roles",
+	
+	ObjectsUrl : "roles",
+	DetailsUrl : "role",
+	EditUrl : "role-edit",
+	InsertUrl : "role-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

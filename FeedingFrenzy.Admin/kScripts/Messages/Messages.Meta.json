@@ -1,0 +1,17 @@
+{
+	ObjectName : "Message",
+	ObjectsName : "Messages",
+
+	
+	
+	FriendlyObjectName : "Message",
+	FriendlyObjectsName : "Messages",
+	
+	ObjectsUrl : "messages",
+	DetailsUrl : "message",
+	EditUrl : "message-edit",
+	InsertUrl : "message-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

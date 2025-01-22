@@ -1,0 +1,937 @@
+<%
+class LeadNotesAdmin
+{
+			
+	(function GetDetails LeadNoteID
+	{
+		(declare LeadNote (LeadNotes.GetLeadNote (LeadNoteID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Note Type ID
+							</td>
+							<td>
+								
+									<%LeadNote.LeadNoteTypeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Note ID
+							</td>
+							<td>
+								
+									<%LeadNote.LeadNoteID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead ID
+							</td>
+							<td>
+								
+									<%LeadNote.LeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Sales Representative ID
+							</td>
+							<td>
+								
+									<%LeadNote.SalesRepresentativeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Notes
+							</td>
+							<td>
+								
+									<%LeadNote.Notes%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Follow Up Date
+							</td>
+							<td>
+								
+									<%LeadNote.FollowUpDate%>
+								
+							</td>
+						</tr>
+	
+						
+												
+					<%if (LeadNote.DataObject.ContainsKey CallID){%>
+			  			<tr>
+							<td class="InputLabel">
+								Conversation
+							</td>
+							<td>
+							
+								<%GetTranscriptionDisplay (LeadNote)%>
+			
+								
+							</td>
+						</tr>
+			  		<%}%>
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadNote.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadNote.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadNote.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadNote.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown LeadNoteName LeadNoteID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadNotesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadNoteID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Note Type ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Note ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadNoteID" class="InputString form-control" readonly="readonly" value="<%LeadNoteID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnLeadID" kcs:FieldName="LeadID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sales Representative ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Notes
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Follow Up Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtFollowUpDate" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%declare LeadNotes (LeadNotesRepository.GetLeadNotesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+			<%LeadNotesAdmin.GetGridInternal (LeadNotes)%>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadNotes GetLeadNotesSp_CountSp  (Search))
+		(return (LeadNotes.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadID LeadID 
+	{
+		(return (GetGridByLeadID (LeadID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadID LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadIDHtml (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadIDCount (LeadID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadIDHtml LeadID 
+	{
+		(return (GetGridByLeadIDHtml (LeadID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadIDHtml LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadNotes GetLeadNotesByLeadIDSp_PagingSp (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadNoteTypeID">
+						Lead Note Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadNoteID">
+						Lead Note ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SalesRepresentativeID">
+						Sales Representative ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Notes">
+						Notes
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FollowUpDate">
+						Follow Up Date
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadNotes.each LeadNote{%> 
+				<tr kcs:RowKey="<%LeadNote.get LeadNoteID%>" >
+							
+			
+					
+					<td>
+						<%LeadNote.LeadNoteTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.LeadNoteID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.SalesRepresentativeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.Notes%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.FollowUpDate%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadNote.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadNote.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadIDCount LeadID  Search
+	
+	{
+		(ado.row LeadNotes GetLeadNotesByLeadIDSp_CountSp (LeadID) (Search))
+		(return (LeadNotes.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadNoteTypeID LeadNoteTypeID 
+	{
+		(return (GetGridByLeadNoteTypeID (LeadNoteTypeID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadNoteTypeID LeadNoteTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadNoteTypeIDHtml (LeadNoteTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadNoteTypeIDCount (LeadNoteTypeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadNoteTypeIDHtml LeadNoteTypeID 
+	{
+		(return (GetGridByLeadNoteTypeIDHtml (LeadNoteTypeID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadNoteTypeIDHtml LeadNoteTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadNotes GetLeadNotesByLeadNoteTypeIDSp_PagingSp (LeadNoteTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadNoteTypeID">
+						Lead Note Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadNoteID">
+						Lead Note ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SalesRepresentativeID">
+						Sales Representative ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Notes">
+						Notes
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FollowUpDate">
+						Follow Up Date
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadNotes.each LeadNote{%> 
+				<tr kcs:RowKey="<%LeadNote.get LeadNoteID%>" >
+							
+			
+					
+					<td>
+						<%LeadNote.LeadNoteTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.LeadNoteID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.SalesRepresentativeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.Notes%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadNote.FollowUpDate%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadNote.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadNote.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadNoteTypeIDCount LeadNoteTypeID  Search
+	
+	{
+		(ado.row LeadNotes GetLeadNotesByLeadNoteTypeIDSp_CountSp (LeadNoteTypeID) (Search))
+		(return (LeadNotes.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead Note Type ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnLeadNoteTypeID" kcs:FieldName="LeadNoteTypeID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnLeadID" kcs:FieldName="LeadID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Sales Representative ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Notes
+					</label>
+					<div class="col-6">
+						
+							<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Follow Up Date
+					</label>
+					<div class="col-6">
+						
+							<input type="datetime" id="txtFollowUpDate" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+
+
+		
+		
+	(function GetGridBySalesRepresentativeID SalesRepresentativeID 
+	{
+		(return (GetGridBySalesRepresentativeID (SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridBySalesRepresentativeID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySalesRepresentativeIDHtml (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySalesRepresentativeIDCount (SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySalesRepresentativeIDHtml SalesRepresentativeID 
+	{
+		(return (GetGridBySalesRepresentativeIDHtml (SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridBySalesRepresentativeIDHtml SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(declare LeadNotes (LeadNotesRepository.GetLeadNotesBySalesRepresentativeIDSp_PagingSp (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))
+		(return (GetGridHtmlInternal (LeadNotes))) 
+		
+	})
+		
+	(function GetGridBySalesRepresentativeIDCount SalesRepresentativeID  Search
+	
+	{
+		(ado.row LeadNotes GetLeadNotesBySalesRepresentativeIDSp_CountSp (SalesRepresentativeID) (Search))
+		(return (LeadNotes.get Total))
+	})
+
+
+	
+	
+
+	(function GetTranscriptionDisplay rowLeadNote
+	{
+		(declare rowCall (Calls.GetCall (rowLeadNote.DataObject.GetIntOrNull CallID)))
+		(declare segments (rowCall.DataObject.GetJsonArrayOrDefault TranscriptionCombined))
+		(declare jsonExtractedData (rowCall.DataObject.GetJsonObjectOrDefault ExtractedData))
+		(declare jsonSuggestedActions (rowLeadNote.DataObject.GetJsonArrayOrDefault SuggestedActions))
+		(declare jsonImportantPoints (jsonExtractedData.GetJsonArrayOrDefault ImportantPoints))
+		(declare jsonCallEvents (rowCall.DataObject.GetJsonArrayOrDefault Events))
+
+		(returnex{%>
+
+
+			<%if (rowCall.IsEmptyTranscription){%>
+				<div class="alert alert-warning">Audio file is too short</div>
+			<%}{%>
+				<div class="row" id="divTranscription_<%rowCall.CallID%>">
+					<div class="col-md-12 summarized-content" onclick="toggleSummarizedContent(this)">
+						<%ifneq (jsonExtractedData.GetStringOrNull Summary) ""{%>
+						<div class="summary-container">
+							<h4>Call Summary</h4>
+							<%jsonExtractedData.GetStringOrNull Summary%>
+
+							<h4>Important Points</h4>
+							<ul style="margin-top: 20px; margin-bottom:10px;">
+								<%ifneq (jsonExtractedData.GetStringOrDefault AnswerersName Unknown) Unknown{%>
+									<li><strong>Answered By:</strong> <%jsonExtractedData.GetStringOrDefault AnswerersName Unknown%></li>
+								<%}%>
+
+								<%JsonObject jsonContact (jsonExtractedData.GetJsonObjectOrDefault Contact)%>
+								<%ifneq (jsonContact.GetStringOrNull Name) ""{%>
+								<li><strong>Contact:</strong> <%jsonContact.GetStringOrDefault Name Unknown%></li>
+								<%}%>
+								<%ifneq (jsonContact.GetStringOrNull Phone) ""{%>
+									<li><strong>Phone:</strong> <%StringToPhone (jsonContact.GetStringOrNull Phone)%></li>
+								<%}%>
+								<%ifneq (jsonContact.GetStringOrNull Email) ""{%>
+									<li><strong>Email:</strong> <%jsonContact.GetStringOrNull Email%></li>
+								<%}%>
+								<%ifneq (jsonExtractedData.GetStringOrNull Address) ""{%>
+									<li><strong>Address:</strong> <%jsonExtractedData.GetStringOrNull Address%></li>
+								<%}%>
+
+								<li><strong>Topic:</strong> <%jsonExtractedData.GetStringOrDefault MainTopic Unknown%></li>
+				
+								<%if (jsonExtractedData.GetStringOrDefault WasAppointmentScheduled Unknown){%>
+									<li><strong>Appointment Scheduled:</strong> <%jsonExtractedData.GetStringOrDefault DateAndTimeOfAppointment ''%> (<i>"<%jsonExtractedData.GetStringOrDefault WasAppointmentScheduledResponse ''%>"</i>)</li>
+									<li><strong>Reason:</strong> <%jsonExtractedData.GetStringOrDefault AppointmentReason ''%> </li>
+									<li><strong>Details:</strong> <%jsonExtractedData.GetStringOrDefault AppointmentDetails ''%> </li>
+								<%}%>
+								<li><strong>Objections:</strong> <%jsonExtractedData.GetStringOrDefault MainObjection None%></li>
+
+				
+				
+								<%jsonSuggestedActions.each jsonSuggestedAction{%>
+								<li><strong><%jsonSuggestedAction.GetStringOrNull Action%>:</strong> <%jsonSuggestedAction.GetStringOrNull Description%></li>
+								<%}%>
+							</ul>
+						</div>
+
+						<%}%>
+						<div class="summary-indicator"><a href="javascript:void(0);" onclick="toggleSummarizedContent(this.parentElement)">Read more...</a></div>
+						<h4 style="border-bottom: solid 1px #494949; padding-bottom: 8px; text-transform: uppercase; margin-bottom:30px;">Full Transcription</h4>
+						<%segments.each segment{%>
+
+						<div class="conversation <%ifeq (segment.GetIntOrNull LeftOrRight) 0 user1 user2%> <%segment.GetStringOrNull SentimentLabel%>" title='Sentiment: <%segment.GetStringOrNull SentimentLabel%>' onclick="OnSeekAudio(<%rowCall.CallID%>, <%segment.GetDoubleOrNull Start%>)" data-start="<%segment.GetDoubleOrNull Start%>" data-stop="<%segment.GetDoubleOrNull Stop%>">
+							<div class="icon">
+								<div class="face"></div>
+								<span></span>
+							</div>
+							<div class="text-block">
+								<label class="<%ifeq (segment.GetIntOrNull LeftOrRight) 0 rep lead%>"><%ifeq (segment.GetIntOrNull LeftOrRight) 0 Rep Lead%></label>
+								<%segment.GetStringOrNull Text%>
+							</div>
+							<div>				
+								<%jsonCallEvents.each oEvent{%>
+									<%ifeq (segment.GetDoubleOrNull Start) (oEvent.Details.GetStringOrNull Start) {%>
+										<button type="button" class="btn btn-xs btn-primary waves-effect waves-light" title="<%oEvent.Details.Message%> - <%oEvent.Timestamp%>"><i class="mdi mdi-calendar-check me-1"></i> <%oEvent.EventType%> </button>
+									<%}%>
+								<%}%>
+							</div>
+						</div>
+
+						<%}%>
+						<div class="call-end">
+							<div class="lineCE"></div>
+							<span>Call end</span>
+							<div class="lineCE"></div>
+						</div>
+						<%ifneq (rowCall.RecordingURL) ""{%>
+						<div class="audio-container" style="">
+							<div class="audio-media">
+								<label>Audio</label>
+							</div>
+							<div style=" display: flex; justify-content: space-between; align-items: center;">
+
+								<video controls name="media" id="audio_<%rowCall.CallID%>" ontimeupdate="OnVideoTimeUpdate(this)" style="padding-top: 5px;">
+									<source src="<%rowCall.RecordingURL%>" type="audio/mpeg">
+									Your browser does not support the video tag.
+								</video>
+
+								<button onclick="OnTranscribe('<%rowCall.CallID%>', this)" class="pull-right re-transcribe-btn">Re-Transcribe</button>
+							</div>
+
+
+						</div>
+						<%}%>
+
+					</div>
+
+				</div>
+			<%}%>		
+		<%})
+	})		
+
+}%>
+

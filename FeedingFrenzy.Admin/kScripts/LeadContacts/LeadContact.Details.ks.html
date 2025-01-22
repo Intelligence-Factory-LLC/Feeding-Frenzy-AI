@@ -1,0 +1,89 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using LeadContactsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile LeadContacts.Meta.json%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+
+
+	(return (GetTabs (tabs)))
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+
+		)
+	)
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.CommandButtons
+{
+(declare LeadContact (LeadContacts.GetLeadContact (ObjectID)))
+(returnex{%>
+
+
+			<%if (AllowInsert){%>
+<button value="" onclick="CreateNewLeadContact(<%LeadContact.LeadID%>)" class="Insert btn btn-success m-1 waves-effect waves-light"><i class="fa fa-plus"></i> New<%ifnot (UseShortButtonNames) {%> <%FriendlyObjectName%><%}%></button>
+			<%}%>
+            <%if (AllowDuplicate){%>
+<button value="" onclick="OnCopy()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-plus"></i> Duplicate<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+            <%}%>
+			<%if (AllowEdit){%>
+<button value="" onclick="OnEdit()" class="Edit btn btn-light waves-effect waves-light m-1"><i class="fa fa-cogs"></i> Edit<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+			<%}%>
+            <%if (AllowDelete){%>
+<button value="" onclick="OnDelete()" class="Delete btn">Delete<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+            <%}%>
+
+			<%AdditionalCommands%>
+			<button value="" onclick="OnBackToLead(<%LeadContact.LeadID%>)" class="Insert btn btn-blue m-1 waves-effect waves-light"><i class="fa fa-backward"></i> Back to Lead</button>
+
+
+            <%if (AllowIterators){%>
+<span class="spanIteratorControls">
+	<button style="margin-left: 20px;" value="" onclick="OnPrevious()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-backward"></i> Previous<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+	<span class="spanIterator" style="vertical-align:middle;"></span>
+	<button value="" onclick="OnNext()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-forward"></i> Next<%ifnot (UseShortButtonNames) {%>  <%FriendlyObjectName%><%}%></button>
+</span>
+            <%}%>
+
+		<%})
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.Breadcrumbs
+{
+	(declare LeadContact (LeadContacts.GetLeadContact (ObjectID)))
+	(returnex{%>
+<ol class="breadcrumb">
+	<li><a href="/">Main</a></li>
+	<li>&nbsp;&nbsp;&nbsp;<a href="/lead?LeadID=<%LeadContact.LeadID%>">Lead #<%LeadContact.LeadID%></a>  </li>
+	<li>
+		&nbsp;&nbsp;&nbsp;Lead Contact <%ObjectID%>
+	</li>
+</ol>
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+
+<script type="text/javascript">
+
+	function CreateNewLeadContact(LeadID) {
+        Page.Redirect("/lead-contact-insert", { LeadID: LeadID });
+	}
+
+	function OnBackToLead(LeadID) {
+        Page.Redirect("/lead", { LeadID: LeadID });
+	}
+
+</script>
+	<%})
+}%>

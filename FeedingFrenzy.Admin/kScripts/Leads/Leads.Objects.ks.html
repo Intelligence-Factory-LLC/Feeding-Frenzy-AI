@@ -1,0 +1,251 @@
+<%using Leads\LeadsAdmin.ks.html%>
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile Leads.Meta.json%>
+
+<%declare oPermission (UserState.Permission)%>
+<%SimpleObjectsPage.AllowInsert (oPermission.InsertLead)%>
+
+<%redefinefunction SimpleObjectsPage.AllowSelectingRows
+{
+	(return (oPermission.AllowBulkClaimedLeadOperations))
+}%>
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(returnex{%>
+
+        var oGrid = new JsonWsGrid3();
+        Page.<%ObjectsName%>Grid = oGrid;
+		oGrid.AllowPageSizeEditing = true;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.MainPanelTabs
+{
+    (declare oStatuses (LeadStatuses.GetLeadStatuses))
+    (declare oTags (Tags.GetTags))
+
+	(declare oStatus 0)
+
+	(if (Request.ContainsKey StatusID)
+	{
+		(ifneq (Request.StatusID) 0
+		{
+			(oStatus (Statuses.GetStatus (Request.StatusID)))
+		})
+	})
+
+	(declare oTag 0)
+	(if (Request.ContainsKey TagID)
+	{
+		(ifneq (Request.TagID) 0
+		{
+			(oTag (Tags.GetTag (Request.TagID)))
+		})
+	})	
+
+	
+
+	(returnex{%>
+<div class="btn-group">
+    <!-- Dropdown for Tags -->
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownTagButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="divTagName">Tag</span> <i class="mdi mdi-chevron-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownTagButton">
+        <a class="dropdown-item" href="javascript:SelectTagID(null, 'All Tags')">All Tags</a>
+        <%oTags.each oTag{%>
+            <%ifeq (oTag.SalesRepresentativeID) ""{%>
+                <a class="dropdown-item" href="javascript:SelectTagID(<%oTag.TagID%>, '<%oTag.TagName%>')"><%oTag.TagName%></a>
+            <%}%>
+        <%}%>
+        <hr/>
+        <%oTags.each oTag{%>
+            <%ifeq (oTag.SalesRepresentativeID) (UserState.SalesRepresentativeID){%>
+                <a class="dropdown-item" href="javascript:SelectTagID(<%oTag.TagID%>, '<%oTag.TagName%>')"><%oTag.TagName%></a>
+            <%}%>
+        <%}%>
+    </div>
+</div>
+
+<div class="btn-group">
+    <!-- Dropdown for Status -->
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownStatusButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="divStatusName">Status</span> <i class="mdi mdi-chevron-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownStatusButton" style="max-height: 60vh; overflow-y: scroll;">
+        <a class="dropdown-item" href="javascript:SelectStatusID(null, 'All Status')">All Status</a>
+        <%oStatuses.each oStatus{%>
+            <a class="dropdown-item" href="javascript:SelectStatusID(<%oStatus.LeadStatusID%>, '<%oStatus.StatusName%>')"><b><%oStatus.StatusName%></b></a>
+            <%oStatus.LeadSubStatuses.each oSubStatus{%>
+                <a class="dropdown-item" href="javascript:SelectSubStatusID(<%oStatus.LeadStatusID%>, <%oSubStatus.LeadSubStatusID%>, '<%oStatus.StatusName%>', '<%oSubStatus.SubStatusName%>')">
+                    <%oStatus.StatusName%> - <%oSubStatus.SubStatusName%>
+                </a>
+            <%}%>
+        <%}%>
+    </div>
+</div>
+	<%})
+}%>
+
+
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+    (returnex{%>
+
+<script type="text/javascript">
+
+	Page.LocalSettings = {
+		TagID: null, 
+		TagName: null,
+		StatusID: null,
+		SubStatusID: null,
+		StatusName : null,
+		SortAscending: false,
+		SortColumn: "LeadID"
+	}
+
+	
+	Page.PreserveLocalSettings();
+
+
+	Page.AddOnload(function () {
+
+		ConfigureGrid(Page.LeadsGrid);
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.TagName))
+			_$("divTagName").innerHTML = Page.LocalSettings.TagName;
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.StatusName))
+			_$("divStatusName").innerHTML = Page.LocalSettings.StatusName;
+
+
+		new LocalStorage().set("LeadsPage", document.location.href);
+
+	})
+
+	function ConfigureGrid(oGrid) {
+
+		let oSettings=Page.LocalSettings;
+
+		if (null!=oSettings.TagID&&null!=oSettings.SubStatusID) {
+			oGrid.JsonWsGridMethod="GetGridByTagIDSubStatusIDHtml";
+			oGrid.JsonWsCountMethod="GetGridByTagIDSubStatusIDCount";
+			oGrid.ExtraParams={ TagID: oSettings.TagID, LeadSubStatusID: oSettings.SubStatusID }
+		}
+		else if (null!=oSettings.TagID&&null!=oSettings.StatusID) {
+			oGrid.JsonWsGridMethod="GetGridByTagIDStatusIDHtml";
+			oGrid.JsonWsCountMethod="GetGridByTagIDStatusIDCount";
+			oGrid.ExtraParams={ TagID: oSettings.TagID, LeadStatusID: oSettings.StatusID }
+		}
+		else if (null!=oSettings.SubStatusID) {
+			oGrid.JsonWsGridMethod="GetGridBySubStatusIDHtml";
+			oGrid.JsonWsCountMethod="GetGridBySubStatusIDCount";
+			oGrid.ExtraParams={ LeadSubStatusID: oSettings.SubStatusID };
+		}
+		else if (null!=oSettings.StatusID) {
+			oGrid.JsonWsGridMethod="GetGridByStatusIDHtml";
+			oGrid.JsonWsCountMethod="GetGridByStatusIDCount";
+			oGrid.ExtraParams={ LeadStatusID: oSettings.StatusID };
+		}
+		else if (null!=oSettings.TagID) {
+			oGrid.JsonWsGridMethod="GetGridByTagIDHtml";
+			oGrid.JsonWsCountMethod="GetGridByTagIDCount";
+			oGrid.ExtraParams={ TagID: oSettings.TagID };
+		}
+		else {
+			oGrid.JsonWsGridMethod="GetGridHtml";
+			oGrid.JsonWsCountMethod="GetGridCount";
+			oGrid.ExtraParams={};
+		}
+
+		oGrid.SortAscending=oSettings.SortAscending;
+		oGrid.sort=oSettings.SortColumn;
+		oGrid.ContentControlID="div<%ObjectsName%>";
+		oGrid.JsonWsUrl='/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+		oGrid.SearchControlID='txtSearchTerm';
+		oGrid.OnRowClick=OnClick<%ObjectName%>;
+		oGrid.EmptyDataTemplateID="div<%ObjectsName%>Empty";
+		oGrid.StartRefreshing();
+		oGrid.OnComplete=function () { OnFormatDate("divLeads") };
+	}
+
+	function SelectTagID(iTagID, sTagName) {
+		Page.LocalSettings.TagID = iTagID;
+		Page.LocalSettings.TagName = sTagName;
+
+		_$("divTagName").innerHTML = sTagName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+	function SelectStatusID(iStatusID, sStatusName) {
+		Page.LocalSettings.StatusID = iStatusID;
+		Page.LocalSettings.SubStatusID = null;
+		Page.LocalSettings.StatusName = sStatusName;
+
+		_$("divStatusName").innerHTML = sStatusName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+	
+	function SelectSubStatusID(iStatusID, iSubStatusID, sStatusName, sSubStatusName) {
+		Page.LocalSettings.StatusID = iStatusID;
+		Page.LocalSettings.SubStatusID = iSubStatusID;
+		Page.LocalSettings.StatusName = sStatusName+" - "+sSubStatusName;
+
+		_$("divStatusName").innerHTML=sStatusName+" - "+sSubStatusName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+
+	function OnImportLeads() {
+		Page.Redirect("/bulk-upload-workbench");
+	}
+
+
+</script>
+
+
+<script type="text/javascript" src="/js/lead_bulk_operations.js"></script>
+
+	<%LeadsAdmin.GetBulkAddTagModal%>
+	<%LeadsAdmin.GetBulkUpdateStatusModal%>
+	<%LeadsAdmin.GetBulkAssignModal%>
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadTags.ashx.js"></script>
+
+
+    <%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalCommands
+{
+	(returnex{%>
+<button value="" class="Hidden btn btn-primary-alt  mb-2 " id="btnExport" onclick="OnExport<%ObjectsName%>()">
+    <i class="fa fa-file"></i> Export Leads
+</button>
+
+<button type="button" class="btn btn-primary  mb-2" onclick="OnImportLeads()">
+    <i class="bi bi-upload"></i> Import
+</button>
+
+<div class="btn-group Hidden SelectControls" style="display: inline;">
+    <button class="btn btn-primary-alt  mb-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Bulk Actions <i class="mdi mdi-chevron-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+       <a class="dropdown-item" href="javascript:OnBulkAssignLeads()">Reassign Leads</a>
+       <a class="dropdown-item" href="javascript:OnBulkUpdateStatus()">Update Status</a>
+       <a class="dropdown-item" href="javascript:OnBulkAddTag()">Add Tag</a>
+    </div>
+</div>
+  	<%})
+}%>

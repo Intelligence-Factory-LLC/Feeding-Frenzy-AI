@@ -1,0 +1,19 @@
+{
+	ObjectName : "Tag",
+	ObjectsName : "Tags",
+
+	
+	NaturalKey : "TagName",
+	
+	
+	FriendlyObjectName : "Tag",
+	FriendlyObjectsName : "Tags",
+	
+	ObjectsUrl : "tags",
+	DetailsUrl : "tag",
+	EditUrl : "tag-edit",
+	InsertUrl : "tag-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

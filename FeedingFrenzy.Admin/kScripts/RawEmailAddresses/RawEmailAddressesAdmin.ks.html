@@ -1,0 +1,1110 @@
+<%
+class RawEmailAddressesAdmin
+{
+			
+	(function GetDetails RawEmailAddressID
+	{
+		(declare RawEmailAddress (RawEmailAddresses.GetRawEmailAddress (RawEmailAddressID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Raw Email Address ID
+							</td>
+							<td>
+								
+									<%RawEmailAddress.RawEmailAddressID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Raw Email ID
+							</td>
+							<td>
+								
+									<%RawEmailAddress.RawEmailID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is From
+							</td>
+							<td>
+								
+									<%if (RawEmailAddress.IsFrom) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%RawEmailAddress.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%RawEmailAddress.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email Address ID
+							</td>
+							<td>
+								
+									<%RawEmailAddress.EmailAddressID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Domain ID
+							</td>
+							<td>
+								
+									<%RawEmailAddress.DomainID%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown RawEmailAddressName RawEmailAddressID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown RawEmailAddressName RawEmailAddressID  RawEmailAddressID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetRawEmailAddressesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit RawEmailAddressID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="RawEmailAddress">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Raw Email Address ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="RawEmailAddressID" class="InputString form-control" readonly="readonly" value="<%RawEmailAddressID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Raw Email
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using RawEmailsAdmin.ks.html%>
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is From
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsFrom" kcs:FieldName="IsFrom"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Address
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using EmailAddressesAdmin.ks.html%>
+							    
+								    <%EmailAddressesAdmin.GetDropDown Email EmailAddressID EmailAddressID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Domain
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using DomainsAdmin.ks.html%>
+							    
+								    <%DomainsAdmin.GetDropDown DomainName DomainID DomainID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmailAddresses GetRawEmailAddressesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailAddressID">
+						Raw Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsFrom">
+						Is From
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmailAddresses.each RawEmailAddress{%> 
+				<tr kcs:RowKey="<%RawEmailAddress.get RawEmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmailAddress.IsFrom) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row RawEmailAddresses GetRawEmailAddressesSp_CountSp  (Search))
+		(return (RawEmailAddresses.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal RawEmailAddresses
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailAddressID">
+						Raw Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsFrom">
+						Is From
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmailAddresses.each RawEmailAddress{%> 
+				<tr kcs:RowKey="<%RawEmailAddress.get RawEmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmailAddress.IsFrom) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+		
+		
+	(function GetGridByDomainID DomainID 
+	{
+		(return (GetGridByDomainID (DomainID) '' '' true 0 20))
+	})
+
+	(function GetGridByDomainID DomainID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByDomainIDHtml (DomainID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByDomainIDCount (DomainID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByDomainIDHtml DomainID 
+	{
+		(return (GetGridByDomainIDHtml (DomainID) '' '' true 0 20))	
+	})
+
+	(function GetGridByDomainIDHtml DomainID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmailAddresses GetRawEmailAddressesByDomainIDSp_PagingSp (DomainID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailAddressID">
+						Raw Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsFrom">
+						Is From
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmailAddresses.each RawEmailAddress{%> 
+				<tr kcs:RowKey="<%RawEmailAddress.get RawEmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmailAddress.IsFrom) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByDomainIDCount DomainID  Search
+	
+	{
+		(ado.row RawEmailAddresses GetRawEmailAddressesByDomainIDSp_CountSp (DomainID) (Search))
+		(return (RawEmailAddresses.get Total))
+	})
+
+
+	
+	
+		
+		
+		
+	(function GetGridByEmailAddressID EmailAddressID 
+	{
+		(return (GetGridByEmailAddressID (EmailAddressID) '' '' true 0 20))
+	})
+
+	(function GetGridByEmailAddressID EmailAddressID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByEmailAddressIDHtml (EmailAddressID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByEmailAddressIDCount (EmailAddressID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByEmailAddressIDHtml EmailAddressID 
+	{
+		(return (GetGridByEmailAddressIDHtml (EmailAddressID) '' '' true 0 20))	
+	})
+
+	(function GetGridByEmailAddressIDHtml EmailAddressID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmailAddresses GetRawEmailAddressesByEmailAddressIDSp_PagingSp (EmailAddressID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailAddressID">
+						Raw Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsFrom">
+						Is From
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmailAddresses.each RawEmailAddress{%> 
+				<tr kcs:RowKey="<%RawEmailAddress.get RawEmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmailAddress.IsFrom) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByEmailAddressIDCount EmailAddressID  Search
+	
+	{
+		(ado.row RawEmailAddresses GetRawEmailAddressesByEmailAddressIDSp_CountSp (EmailAddressID) (Search))
+		(return (RawEmailAddresses.get Total))
+	})
+
+
+	
+	
+		
+		
+		
+	(function GetGridByRawEmailID RawEmailID 
+	{
+		(return (GetGridByRawEmailID (RawEmailID) '' '' true 0 20))
+	})
+
+	(function GetGridByRawEmailID RawEmailID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByRawEmailIDHtml (RawEmailID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByRawEmailIDCount (RawEmailID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByRawEmailIDHtml RawEmailID 
+	{
+		(return (GetGridByRawEmailIDHtml (RawEmailID) '' '' true 0 20))	
+	})
+
+	(function GetGridByRawEmailIDHtml RawEmailID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmailAddresses GetRawEmailAddressesByRawEmailIDSp_PagingSp (RawEmailID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailAddressID">
+						Raw Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsFrom">
+						Is From
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmailAddresses.each RawEmailAddress{%> 
+				<tr kcs:RowKey="<%RawEmailAddress.get RawEmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmailAddress.IsFrom) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByRawEmailIDCount RawEmailID  Search
+	
+	{
+		(ado.row RawEmailAddresses GetRawEmailAddressesByRawEmailIDSp_CountSp (RawEmailID) (Search))
+		(return (RawEmailAddresses.get Total))
+	})
+
+
+	
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="RawEmailAddress">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Raw Email
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using RawEmailsAdmin.ks.html%>
+							
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is From
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsFrom" kcs:FieldName="IsFrom"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Address
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using EmailAddressesAdmin.ks.html%>
+							
+								<%EmailAddressesAdmin.GetDropDown Email EmailAddressID EmailAddressID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Domain
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using DomainsAdmin.ks.html%>
+							
+								<%DomainsAdmin.GetDropDown DomainName DomainID DomainID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

@@ -1,0 +1,19 @@
+{
+	ObjectName : "PhoneNumber",
+	ObjectsName : "PhoneNumbers",
+
+	
+	NaturalKey : "PhoneNumber",
+	
+	
+	FriendlyObjectName : "Phone Number",
+	FriendlyObjectsName : "Phone Numbers",
+	
+	ObjectsUrl : "phone-numbers",
+	DetailsUrl : "phone-number",
+	EditUrl : "phone-number-edit",
+	InsertUrl : "phone-number-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,195 @@
+<%using ApiKeysAdmin.ks.html%>
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile ApiKeys.Meta.json%>
+
+
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(returnex{%>
+
+        var searchValue = '', sortColumn = '<%ObjectName%>ID', sortAscending = false;
+
+
+        if(location.href.contains("#search")){
+            var oValues = new LocalStorage().get("<%FriendlyObjectsName%>/<%ObjectsName%>Grid")
+            if(oValues)
+            {
+                if(oValues.Search)
+                   searchValue =  oValues.Search;
+                if(oValues.SortColumn)
+                   sortColumn = oValues.SortColumn;
+                if(oValues.SortAscending)
+                   sortAscending = oValues.SortAscending
+            }
+        }
+
+        ControlUtil.GetControl('txtSearchTerm').value = searchValue;
+
+        var oGrid = new JsonWsGrid4();
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+        oGrid.JsonWsGridMethod = "GetGridByUserIDHtml";
+		oGrid.AllowPageSizeEditing = true;
+        oGrid.SortAscending = sortAscending;
+		oGrid.sort = sortColumn;
+        oGrid.JsonWsCountMethod = "";
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/FeedingFrenzy.Admin.UI.ApiKeysAdmin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = null;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() {
+			OnFormatGrid("div<%ObjectsName%>");
+		};
+		oGrid.OnFilterInput = function(sInput)
+		{
+			return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+		};
+
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.MainPanelText
+{
+	(returnex{%>
+
+<p class="card-text">
+	Your API Keys are listed here. We don't display the Secret Key after you've generated it.
+</p>
+<p>
+	Keep your API key secret and follow best practices for storage. Don't leave your secret
+	key in a public GitHub repository. Don't write your key to client javascript libraries. Etc.
+</p>
+
+
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectsPage.CommandButtons
+{
+	(returnex{%>
+
+		<%if (AllowInsert){%>
+<button value="" onclick="OnShowInsertApiKey()" class="Insert btn btn-primary mb-2"><i class="mdi mdi-plus-circle me-1"></i> New <%FriendlyObjectName%></button>
+		<%}%>
+
+		<%AdditionalCommands%>
+
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+	(returnex{%>
+
+		<%GetInsertApiKeyModal%>
+
+	<%})
+}%>
+
+<%function GetInsertApiKeyModal
+{
+	(returnex{%>
+
+<div id="divInsertApiKey" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="standard-modalLabel">Add an API Key</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Name your API and click Save Changes</p>
+				<div class="mb-3">
+					<label for="ApiKey" class="form-label">Name</label>
+
+					<input type="text" id="KeyName" kcs:FieldName="KeyName" class="InputString form-control" maxlength="255" />
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" onclick="OnInsertApiKey()">Save</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="divDisplayApiKey" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="standard-modalLabel">Your API Key</h4>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Save your API Key somewhere safe. You will not be able to see this key again.</p>
+				<div class="mb-3">
+					<label for="ApiKey" class="form-label">Key</label>
+					<div class="input-group mb-3">
+						<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" readonly="readonly" class="form-control" maxlength="255" style="cursor: pointer !important;" />
+						<button onclick="copyText()" class="btn btn-primary">
+							<i class="fa fa-clipboard" aria-hidden="true"></i>
+						</button>
+					</div>
+					<p id="confirmText" style="color: green; display: none;">Copied</p>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" onclick="OnCloseApiKeyModal()">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.ApiKeys.ashx.js"></script>
+<script type="text/javascript">
+
+	function copyText() {
+		var copyText = document.getElementById("txtAuthorizationToken");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+
+		navigator.clipboard.writeText(copyText.value).then(function () {
+			var confirmation = document.getElementById("confirmText");
+			confirmation.style.display = "block";
+			confirmation.textContent = "Copied";
+		}, function (err) {
+			console.error("Error: ", err);
+		});
+	}
+
+	function OnShowInsertApiKey() {
+		var confirmation = document.getElementById("confirmText");
+		confirmation.style.display = "none";
+		ControlUtil.SetValue("KeyName", "");
+		Page.Modals.divInsertApiKey.ShowContent();
+	}
+
+	function OnInsertApiKey() {
+		let oArgs = BlindUnbind("divInsertApiKey");
+
+		ApiKeys.InsertApiKeyObject(oArgs, function (oKey) {
+			Page.Modals.divInsertApiKey.HideContent();
+			UserMessages.DisplayNow("Key  added", "Success");
+			ControlUtil.SetValue("txtAuthorizationToken", oKey.AuthorizationToken);
+			Page.Modals.divDisplayApiKey.ShowContent();
+		});
+	}
+
+	function OnCloseApiKeyModal() {
+		Page.Reload();
+	}
+
+
+
+</script>
+	<%})
+}%>

@@ -1,0 +1,184 @@
+
+<%using SimpleObjectInsert.ks.html%>
+<%using AgentsAdmin.ks.html%>
+
+<%SimpleObjectInsertPage.MetadataFile Agents.Meta.json%>
+
+
+<%redefinefunction SimpleObjectInsertPage.InsertPanel
+{
+
+	(declare AgentType (AgentTypes.GetAgentTypeByAgentTypeName 'Voice Agent'))
+    (returnex{%>
+        <div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent" id="divAgent">
+            <div class="form-group">
+                <label class="col-sm-3 control-label mb-2">
+                    Agent Name
+                </label>
+                <div class="col-sm-6 mb-2">
+                    <input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label mb-2">
+                    Agent Type
+                </label>
+                <div class="col-sm-6 mb-2">
+                    <select id="ddlAgentType" kcs:FieldName="AgentTypeID" class="form-control">
+                        <option value="<%AgentType.AgentTypeID%>"><%AgentType.AgentTypeName%></option>
+                    </select>
+                </div>
+            </div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label mb-2">
+					Voice
+				</label>
+				<div class="col-sm-6 mb-2">
+					<select kcs:FieldName="DataObject.Voice" class="form-control">
+						<option value="alloy">Alloy</option>
+						<option value="shimmer">Shimmer</option>
+						<option value="echo">Echo</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label mb-2">
+					Phone Number
+				</label>
+				<div class="col-sm-6 mb-2">
+						
+						<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+						
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">
+					Description
+				</label>
+				<div class="col-sm-6">
+						
+						<textarea id="txtDescription" kcs:FieldName="Description" class="form-control" rows="5" spellcheck="false"></textarea>
+						
+				</div>
+			</div>
+        </div>
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectInsertPage.CommandButtons
+{
+	(returnex{%>
+
+			<button id="btnUpdateAgent" value="CreateAgent" onclick="OnInsertAgent()" class="Save btn btn-success m-1  waves-effect waves-light "><i class="fe-check-circle me-1"></i> Create</button>
+			<button id="btnCancelAgent" value="Cancel" onclick="OnCancelAgent()" class="Cancel btn btn-light waves-effect waves-light m-1"><i class="fe-x me-1"></i> Cancel</button>
+
+    <%})	
+}%>
+
+<%redefinefunction SimpleObjectInsertPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript" src="/js/tinymceconfig.js?v=2"></script>
+<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+</style>
+
+
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.PhoneNumbers.ashx.js"></script>
+<script type="text/javascript">
+
+   Page.AddOnload(function () {
+	OnEditHTML();
+   });
+
+    function OnEditHTML() {
+        oTinyMCEAdvanced.selector = "textarea#txtDescription";
+        tinymce.init({
+            ...oTinyMCEAdvanced,
+            setup: function (editor) {
+                editor.on('init', function () {
+                    if (editor.id === 'txtDescription') {
+                        editor.getContainer().style.height = "200px"; // Set moderate height for txtIntro in TinyMCE
+                    }
+                });
+                editor.on('change', function () {
+                    editor.save(); // Save content on every change
+                });
+            }
+        });
+       
+    }
+
+	function UnbindAgent(){
+		var oObj = BlindUnbind(ControlUtil.GetControl("divAgent"));
+
+		return oObj;
+	}
+
+	function OnCancelAgent(){
+        Page.Redirect("/agents");
+    }
+
+				
+	function OnInsertAgent(){
+
+			try
+			{
+				var oArgs = UnbindAgent();
+
+				if (ObjectUtil.HasValue(oArgs.DataObject))
+				{
+					var oDataObject = {};
+						
+					if (!StringUtil.IsEmpty(oArgs.Data))
+					{
+			    		if (!Json.IsValid(oArgs.Data))
+			    		{
+			    			UserMessages.DisplayNow("Invalid JSON in Data", "Error");
+			    			return;
+			    		}
+
+						oDataObject = JSON.decode(oArgs.Data);
+					}
+
+						
+					for (var prop in oArgs.DataObject)
+					{
+						oDataObject[prop] = oArgs.DataObject[prop];
+					}
+					  
+					oArgs.Data = JSON.encode(oDataObject);
+				}
+
+				Agents.InsertAgentObject(oArgs, function (iID) {
+					let oDataObject = JSON.encode({ VoiceAgent: oArgs.AgentName });
+					PhoneNumbers.InsertPhoneNumber(oArgs.PhoneNumber,'voip',1,null,null,oDataObject,0,0,function(oRes) {
+						UserMessages.Display('The Agent was successfully added', "Success");
+						Page.Redirect("agent-builder", { AgentID: iID });
+                    });	
+				});
+			}
+		catch (err)
+		{
+			Page.HandleUnexpectedError(err);
+		}	
+	  }
+</script>
+<%})	
+}%>
+

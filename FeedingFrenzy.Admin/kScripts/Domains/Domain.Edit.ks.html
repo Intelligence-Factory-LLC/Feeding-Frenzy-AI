@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using DomainsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Domains.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Domains.GetDomain (ObjectID)))
+}%>
+

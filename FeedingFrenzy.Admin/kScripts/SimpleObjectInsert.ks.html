@@ -1,0 +1,251 @@
+﻿<%class SimpleObjectInsertPage
+{
+	(declare Metadata
+		{
+			ObjectName : "",
+			ObjectsName : "",
+			
+			FriendlyObjectName : "",
+			FriendlyObjectsName : "",
+			
+			ObjectsUrl : "",
+			DetailsUrl : "",
+			EditUrl : "",
+			InsertUrl : "",
+
+			UINamespace : "",
+			BusinessNamespace: ""
+		}
+	)
+	
+	(function MetadataFile File
+	{
+		(Metadata (json (include (File))))
+	})
+		
+	(function ObjectName
+	{
+		(return (Metadata.ObjectName))
+	})
+	
+	(function ObjectsName
+	{
+		(return (Metadata.ObjectsName))
+	})
+	
+	(function FriendlyObjectName
+	{
+		(return (Metadata.FriendlyObjectName))
+	})
+	
+	(function FriendlyObjectsName
+	{
+		(return (Metadata.FriendlyObjectsName))
+	})
+	
+	(function ObjectsUrl 
+	{
+		(return (Metadata.ObjectsUrl))
+	})
+
+	(function DetailsUrl 
+	{
+		(return (Metadata.DetailsUrl))
+	})
+
+	(function InsertUrl 
+	{
+		(return (Metadata.InsertUrl))
+	})
+	
+	(function EditUrl 
+	{
+		(return (Metadata.EditUrl))
+	})
+	
+	(function Title 
+	{
+		(returnex{%><%Application.Title%> - New <%FriendlyObjectName%><%})
+	})
+	
+	(function InsertPanel
+	{
+		(return ((concat (ObjectsName) Admin.GetInsert)))
+	})
+
+	(function QuickHelp
+	{
+		(returnex{%>
+			Create a new <%FriendlyObjectName%> using this form. Enter the information and click
+			"Save" when complete.
+		<%})
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			<%FriendlyObjectsName%>
+		<%})
+	})
+	
+	(function Breadcrumbs
+	{
+		(returnex{%>
+			<ol class="breadcrumb m-0">
+				<li  class="breadcrumb-item"><a href="/">Main</a></li>
+				<li  class="breadcrumb-item"><a href="<%ObjectsUrl%>"><%FriendlyObjectsName%></a></li>
+				<li  class="breadcrumb-item">New <%FriendlyObjectName%></li>
+			</ol>
+		<%})
+	})
+	
+	(function MainPanelTabs
+	{
+		(returnex{%>
+			
+		<%})
+	})
+	
+	(function MainPanelContent
+	{
+		(returnex{%>
+			
+			<div class="row">
+				<div class="col-12">
+				  <div class="card">
+				      <div class="card-header hidden">
+				          <h2 class="card-title">Add <%FriendlyObjectName%></h2>
+				          
+				      </div>
+				      <div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="div<%ObjectName%>">
+						
+						<h3 class="card-title">Create <%FriendlyObjectName%></h3>
+						<p>Create the <%FriendlyObjectName%> below and click "Save" when done making changes.</p>
+						<br>
+						
+						<%InsertPanel%>
+				      
+				      	
+				      </div>
+				      <div class="card-footer">
+						    <div class="row mt-3">
+                                <div class="col-12 text-center">
+									<%CommandButtons%>
+                                </div>
+                            </div>
+
+				      </div>
+				  </div>
+					
+					
+				</div>
+				<%GetQuickHelpControls (QuickHelp) (AllowEditQuickHelp)%>
+			</div>
+		<%})
+	})
+
+	(function AllowEditQuickHelp { (return (UserState.Permission.AllowEditQuickHelp)) })
+
+
+	(function CommandButtons
+	{
+		(returnex{%>
+			<button id="btnUpdate<%ObjectName%>" value="Create <%FriendlyObjectName%>" onclick="OnUpdate<%ObjectName%>()" class="Save btn btn-success m-1  waves-effect waves-light "><i class="fe-check-circle me-1"></i> Create</button>
+			<button id="btnCancel<%ObjectName%>" value="Cancel" onclick="OnCancel<%ObjectName%>()" class="Cancel btn btn-light waves-effect waves-light m-1"><i class="fe-x me-1"></i> Cancel</button>
+		<%})
+	})
+	
+	(function AdditionalScripts
+	{
+			(return "")
+	})
+
+	(function InsertMethodName
+	{
+		(return (concat "Insert" (ObjectName) "Object"))
+	})
+	
+	(function BottomScripts
+	{
+		(returnex{%>
+			<script type="text/javascript" src="/JsonWs/<%Metadata.BusinessNamespace%>.<%ObjectsName%>.ashx.js"></script>
+			<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+
+			<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+			<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+			<style>
+					.CodeMirror {
+					border: 1px solid #eee;
+					height: auto;
+					}
+			</style>
+			<script language="javascript" type="text/javascript">
+
+				function Unbind<%ObjectName%>()
+				{
+					var oObj = BlindUnbind(ControlUtil.GetControl("div<%ObjectName%>"));
+				
+					return oObj;
+				}	
+					
+				function OnUpdate<%ObjectName%>() {
+					try {
+						var oArgs = Unbind<% ObjectName %>();
+
+						if (ObjectUtil.HasValue(oArgs.DataObject))
+				    	{
+				    		var oDataObject = {};
+							
+				    		if (!StringUtil.IsEmpty(oArgs.Data))
+				    		{
+				    			if (!Json.IsValid(oArgs.Data))
+				    			{
+				    				UserMessages.DisplayNow("Invalid JSON in Data", "Error");
+				    				return;
+				    			}
+
+								oDataObject = JSON.decode(oArgs.Data);
+							}
+
+							
+							for (var prop in oArgs.DataObject)
+							{
+								oDataObject[prop] = oArgs.DataObject[prop];
+							}
+						  
+							oArgs.Data = JSON.encode(oDataObject);
+						}
+
+						<%ObjectsName%>.<%InsertMethodName%>(oArgs, function(iID) {
+							UserMessages.Display('The <%FriendlyObjectName%> was successfully added', "Success");
+							if ($type(iID) === 'object')
+							{
+								iID = iID.<%ObjectName%>ID;
+							}
+							Page.Redirect("<%DetailsUrl%>", { <%ObjectName%>ID: iID });
+						});
+					}
+					catch (err) {
+						Page.HandleUnexpectedError(err);
+					}
+				}
+			
+				function OnCancel<%ObjectName%>() {
+					Page.Redirect("<%ObjectsUrl%>");				
+				}
+				
+				function ShowQuickHelp()
+				{
+					let oDiv = _$("divQuickHelp");
+					oDiv.removeClass("hidden");
+					oDiv.parentElement.children[0].className = "col-8";
+				}
+			</script>
+			
+			<%AdditionalScripts%>
+			
+		<%})
+	})
+}%>
+	
+

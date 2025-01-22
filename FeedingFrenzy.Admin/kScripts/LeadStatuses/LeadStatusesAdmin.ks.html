@@ -1,0 +1,330 @@
+<%
+class LeadStatusesAdmin
+{
+			
+	(function GetDetails LeadStatusID
+	{
+		(declare LeadStatus (LeadStatuses.GetLeadStatus (LeadStatusID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Status ID
+							</td>
+							<td>
+								
+									<%LeadStatus.LeadStatusID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Status Name
+							</td>
+							<td>
+								
+									<%LeadStatus.StatusName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadStatus.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadStatus.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadStatus.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadStatus.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown StatusName LeadStatusID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadStatusesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadStatusID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadStatus">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Status ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadStatusID" class="InputString form-control" readonly="readonly" value="<%LeadStatusID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Status Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtStatusName" kcs:FieldName="StatusName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadStatuses GetLeadStatusesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadStatusID">
+						Lead Status ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="StatusName">
+						Status Name
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadStatuses.each LeadStatus{%> 
+				<tr kcs:RowKey="<%LeadStatus.get LeadStatusID%>" >
+							
+			
+					
+					<td>
+						<%LeadStatus.LeadStatusID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadStatus.StatusName%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadStatus.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 3%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadStatuses GetLeadStatusesSp_CountSp  (Search))
+		(return (LeadStatuses.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadStatus">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Status Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtStatusName" kcs:FieldName="StatusName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

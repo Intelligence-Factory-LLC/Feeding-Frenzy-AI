@@ -1,0 +1,1381 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">UserRoles</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/user-roles" "/JsonWs/FeedingFrenzy.Admin.Business.UserRoles.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.UserRoles.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.CopyUserRole</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyUserRole">
+
+				<h3>UserRoles.CopyUserRole</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/copy-user-role</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyUserRole">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/copy-user-role" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserRoleID" kcs:FieldName="UserRoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyUserRole
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/copy-user-role
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: UserRoleID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyUserRoleClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyUserRoleClick()
+										{
+											var oObj = BlindUnbind("divCopyUserRole");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/copy-user-role")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.CopyUserRoleObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyUserRole", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyUserRole">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyUserRole" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.GetUserRole</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRole">
+
+				<h3>UserRoles.GetUserRole</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/get-user-role</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserRole">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/get-user-role" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRolesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserRoleID" kcs:FieldName="UserRoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserRole
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/get-user-role
+
+## Returns
+UserRolesRow
+
+## Parameters 
+
+	Name: UserRoleID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserRoleClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserRoleClick()
+										{
+											var oObj = BlindUnbind("divGetUserRole");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/get-user-role")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.GetUserRoleObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserRole", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRole">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserRole" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.GetUserRoleByRoleIDUserID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRoleByRoleIDUserID">
+
+				<h3>UserRoles.GetUserRoleByRoleIDUserID</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/get-user-role-by-role-id-user-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserRoleByRoleIDUserID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/get-user-role-by-role-id-user-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRolesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRoleID" kcs:FieldName="RoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserRoleByRoleIDUserID
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/get-user-role-by-role-id-user-id
+
+## Returns
+UserRolesRow
+
+## Parameters 
+
+	Name: RoleID, Type: ID
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserRoleByRoleIDUserIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserRoleByRoleIDUserIDClick()
+										{
+											var oObj = BlindUnbind("divGetUserRoleByRoleIDUserID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/get-user-role-by-role-id-user-id")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.GetUserRoleByRoleIDUserIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserRoleByRoleIDUserID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRoleByRoleIDUserID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserRoleByRoleIDUserID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.GetUserRoles</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRoles">
+
+				<h3>UserRoles.GetUserRoles</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/get-user-roles</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserRoles">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/get-user-roles" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRolesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserRoles
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/get-user-roles
+
+## Returns
+UserRolesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserRolesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserRolesClick()
+										{
+											var oObj = BlindUnbind("divGetUserRoles");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/get-user-roles")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.GetUserRolesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserRoles", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRoles">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserRoles" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.GetUserRolesByRoleID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRolesByRoleID">
+
+				<h3>UserRoles.GetUserRolesByRoleID</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-role-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserRolesByRoleID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-role-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRolesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRoleID" kcs:FieldName="RoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserRolesByRoleID
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-role-id
+
+## Returns
+UserRolesRow[]
+
+## Parameters 
+
+	Name: RoleID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserRolesByRoleIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserRolesByRoleIDClick()
+										{
+											var oObj = BlindUnbind("divGetUserRolesByRoleID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-role-id")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.GetUserRolesByRoleIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserRolesByRoleID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRolesByRoleID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserRolesByRoleID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.GetUserRolesByUserID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRolesByUserID">
+
+				<h3>UserRoles.GetUserRolesByUserID</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-user-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserRolesByUserID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-user-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserRolesRow.ks.html&Class=SimpleApiHarnessPage">UserRolesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserRolesByUserID
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-user-id
+
+## Returns
+UserRolesRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserRolesByUserIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserRolesByUserIDClick()
+										{
+											var oObj = BlindUnbind("divGetUserRolesByUserID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/get-user-roles-by-user-id")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.GetUserRolesByUserIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserRolesByUserID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserRolesByUserID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserRolesByUserID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.InsertUserRole</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUserRole">
+
+				<h3>UserRoles.InsertUserRole</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/insert-user-role</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertUserRole">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/insert-user-role" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRoleID" kcs:FieldName="RoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertUserRole
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/insert-user-role
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+	Name: RoleID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertUserRoleClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertUserRoleClick()
+										{
+											var oObj = BlindUnbind("divInsertUserRole");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/insert-user-role")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.InsertUserRoleObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertUserRole", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUserRole">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertUserRole" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.RemoveUserRole</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveUserRole">
+
+				<h3>UserRoles.RemoveUserRole</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/remove-user-role</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveUserRole">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/remove-user-role" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserRoleID" kcs:FieldName="UserRoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveUserRole
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/remove-user-role
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserRoleID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveUserRoleClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveUserRoleClick()
+										{
+											var oObj = BlindUnbind("divRemoveUserRole");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/remove-user-role")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.RemoveUserRoleObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveUserRole", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveUserRole">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveUserRole" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.UpdateUserRole</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserRole">
+
+				<h3>UserRoles.UpdateUserRole</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/update-user-role</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateUserRole">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/update-user-role" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserRoleID" kcs:FieldName="UserRoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRoleID" kcs:FieldName="RoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateUserRole
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/update-user-role
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserRoleID, Type: ID
+
+	Name: UserID, Type: ID
+
+	Name: RoleID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateUserRoleClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateUserRoleClick()
+										{
+											var oObj = BlindUnbind("divUpdateUserRole");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/update-user-role")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.UpdateUserRoleObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateUserRole", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserRole">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateUserRole" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>UserRoles.UpdateUserRoleData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserRoleData">
+
+				<h3>UserRoles.UpdateUserRoleData</h3>
+				<p>/api/feedingfrenzy.admin.business/user-roles/update-user-role-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateUserRoleData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/user-roles/update-user-role-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User Role ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserRoleID" kcs:FieldName="UserRoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateUserRoleData
+
+## Url
+/api/feedingfrenzy.admin.business/user-roles/update-user-role-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserRoleID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateUserRoleDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateUserRoleDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateUserRoleData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/user-roles/update-user-role-data")
+																		UserRoles.Url = oObj.BaseUrl;
+
+																	UserRoles.UpdateUserRoleDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateUserRoleData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserRoleData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateUserRoleData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

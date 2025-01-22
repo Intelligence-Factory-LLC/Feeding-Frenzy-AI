@@ -1,0 +1,353 @@
+<%
+class SourcesAdmin
+{
+			
+	(function GetDetails SourceID
+	{
+		(declare Source (Sources.GetSource (SourceID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Source ID
+							</td>
+							<td>
+								
+									<%Source.SourceID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Source Name
+							</td>
+							<td>
+								
+									<%Source.SourceName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Source.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Source.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Source.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Source.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown SourceName SourceID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetSourcesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+
+	
+	(function GetDropDown Name Value FieldName PreOptions SelectedValue
+	{
+		(ado.view Options GetSourcesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>" <%if (or (eq (Option.get (Value)) (SelectedValue)) (eq (Option.get (Name)) (SelectedValue))) selected%>><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit SourceID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Source">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Source ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="SourceID" class="InputString form-control" readonly="readonly" value="<%SourceID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Source Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtSourceName" kcs:FieldName="SourceName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Sources GetSourcesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="SourceID">
+						Source ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SourceName">
+						Source Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+									
+				</tr>
+			<%Sources.each Source{%> 
+				<tr kcs:RowKey="<%Source.get SourceID%>" >
+							
+			
+					
+					<td>
+						<%Source.SourceID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Source.SourceName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Source.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Source.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Sources GetSourcesSp_CountSp  (Search))
+		(return (Sources.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Source">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Source Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtSourceName" kcs:FieldName="SourceName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

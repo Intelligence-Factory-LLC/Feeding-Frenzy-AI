@@ -1,0 +1,31 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using DomainsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Domains.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare tabEmailAddresses {Title : "Email Addresses", ControlID : "tab-EmailAddresses", Content : "" })
+	(tabEmailAddresses.Content (GetRelatedObjectTab EmailAddresses "Email Addresses" true))	
+	(tabs.push (tabEmailAddresses))
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+			(GetRelatedObjectTabInitializer EmailAddresses {AllowSearch: true, MetaFile:'EmailAddresses.meta.json' })		
+		
+		)
+	)
+}%>

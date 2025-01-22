@@ -1,0 +1,928 @@
+<%using Simple.ks.html%>
+
+<%redefinefunction SimplePage.Title
+{
+	(return "Ontology - SQL Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "SQL Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTabs
+{
+	(return "")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitleOptions
+{
+	(return "")
+}%>
+
+<%redefinefunction SimplePage.DetailsPanel
+{
+	(declare tabs [])
+	(declare tabSettings {Title : "Settings", ControlID : "tab-Settings", Content : "" })
+	(declare tabQuery {Title : "Query", ControlID : "tab-Query", Content : "" })
+
+	(tabs.push (tabQuery))
+	(tabs.push (tabSettings))
+
+	(declare oSideTabs [])
+	(declare tabObjects {Title : "Objects", ControlID : "tab-Objects", Content : "" })
+	(oSideTabs.push (tabObjects))
+
+	(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Directive" id="divDirective">
+	<div class="row mb-3">
+		<div class="col-sm-12">
+			<%tabSettings.Content{%>
+
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">
+					Database
+				</label>
+				<div class="col-sm-2">
+					<select id="ddlDatabase" class="form-select" kcs:FieldName="ConnectionHandle">
+						<option value="feedingfrenzy.readwrite">Feeding Frenzy</option>
+					</select>
+				</div>
+
+				<label class="col-sm-2 col-form-label">
+					Force Refresh
+				</label>
+				<div class="col-sm-2">
+					<input type="checkbox" kcs:FieldName="ForceRefresh" />
+				</div>
+				<div class="col-sm-2">
+					<button value="" onclick="OnSetConnectionHandle()" class="btn btn-primary">Load Connection</button>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label class="col-form-label">
+					Prompt
+				</label>
+				<textarea id="txtPrompt" kcs:FieldName="Prompt" class="form-control" style="width: 100%; height:200px; white-space:pre;"></textarea>
+
+			</div>
+			<%}%>
+
+			<%tabQuery.Content{%>
+
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="mb-3">
+						<label for="txtDirective" class="form-label">Directive</label>
+<textarea id="txtDirective" kcs:FieldName="Directive" class="form-control" style="width: 100%; height: 100px; white-space: pre-wrap; resize: vertical; padding: 10px; border-radius: 5px; border: 1px solid #ced4da;"></textarea>
+					</div>
+
+					<div class="d-flex align-items-center">
+						<button value="" onclick="OnExecuteDirective(this)" class="btn btn-primary me-2">GO!</button>
+						<div class="form-check">
+							<input type="checkbox" id="chkAutoFix" class="form-check-input" />
+							<label for="chkAutoFix" class="form-check-label">Enable Automatic Fix</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6">
+					<div>
+						<label for="txtCode" class="form-label" id="lblResultType">SQL</label>
+
+						<textarea id="txtCode" kcs:FieldName="Query" class="form-control" style="width: 100%; height:200px; white-space:pre;"></textarea>
+
+						<div id="divOffset"></div>
+						<div class="row">
+							<div class="col-sm-6">
+								<button value="" onclick="OnThumbsUp(this)" class="btn btn-primary" title="This is a good response, save it."><i class="fas fa-thumbs-up"></i></button>
+							</div>
+							<div class="col-sm-6">
+
+								<div id="divDescription"></div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<%}%>
+
+			<%SimplePage.GetTabs(tabs)%>
+		</div>
+
+		<div class="col-sm-3 hidden">
+			<%tabObjects.Content{%>
+			<div>
+				<input type="text" id="txtFileSearch" class="form-control" onkeypress="OnFilterObjects()" />
+			</div>
+
+			<div id="divMatches" style="z-index: 100; background: white; overflow-y: scroll; max-height: 40vh; padding: 10px;"></div>
+
+			<%}%>
+			<%SimplePage.GetTabs(oSideTabs)%>
+		</div>
+	</div>
+</div>
+		<%})
+		}%>
+
+		<%redefinefunction SimplePage.CommandButtons
+		{
+		(returnex{%>
+
+<button value="" onclick="OnExecuteQuery()" class="btn btn-primary">Run</button>
+<button value="" onclick="OnExecuteSelected()" class="btn btn-primary">Run Selected</button>
+<button value="" onclick="OnExecuteToFile()" class="btn btn-primary">Run to Excel</button>
+		<%})
+
+		}%>
+
+		<%redefinefunction SimplePage.DetailsTabs
+		{
+		(declare tabs [])
+
+		(declare tabResults {Title : "Results", ControlID : "tab-Results", Content : "" })
+		(tabResults.Content{%>
+
+<div class="col-sm-12">
+
+	<div id="divStats"></div>
+
+	<div style="overflow-x: auto; overflow-y: auto; max-width: 95%; height: 80vh; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f8f9fa;" id="divResults">
+	</div>
+</div>
+
+		<%})
+		(tabs.push (tabResults))
+
+
+		(declare tabInfo {Title : "Info", ControlID : "tab-Info", Content : "" })
+		(tabInfo.Content{%>
+
+<div class="col-sm-12">
+
+	<textarea id="txtResults" class="form-control no-autosize" style="width: 100%; min-height:600px; white-space:pre;"></textarea>
+</div>
+
+		<%})
+
+		(tabs.push (tabInfo))
+
+		(declare tabRowProcessor {Title : "Row Processor", ControlID : "tab-Processor", Content : "" })
+		(tabRowProcessor.Content{%>
+
+<div class="col-sm-12">
+
+	<textarea id="txtProcessor" class="form-control no-autosize" style="width: 100%; min-height:600px; white-space:pre;" kcs:FieldName="RowProcessor"></textarea>
+	<button value="" onclick="OnProcessResults()" class="Insert btn">Process</button>
+
+</div>
+
+		<%})
+		(tabs.push (tabRowProcessor))
+
+		(declare tabHistory {Title : "History", ControlID : "tab-History", Content : "" })
+		(tabHistory.Content{%>
+
+<div class="col-sm-12">
+	<input type="text" id="txtHistorySearch" onkeypress="OnFilterHistory()" class="form-control" />
+	<br />
+
+	<div id="divHistory" style="white-space:pre; font-family: monospace; background-color:white;"></div>
+
+
+</div>
+
+		<%})
+		(tabs.push (tabHistory))
+
+
+
+		(declare tabQueries {Title : "Saved Queries", ControlID : "tab-Queries", Content : "" })
+		(tabQueries.Content{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Directive" id="divDirective">
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			Name
+		</label>
+		<div class="col-sm-4">
+
+			<input type="text" id="txtName" />
+
+
+		</div>
+		<div class="col-sm-2">
+
+
+			<button value="" onclick="OnSaveQuery()" class="Insert btn">Save Query</button>
+
+		</div>
+
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			Load
+		</label>
+		<div class="col-sm-4">
+
+			<div id="divSavedQueries">
+
+
+			</div>
+
+		</div>
+		<div class="col-sm-2">
+
+
+
+
+		</div>
+
+	</div>
+
+</div>
+
+	<%})
+	(tabs.push (tabQueries))
+
+	(return (GetTabs (tabs)))
+}%>
+
+
+	<%redefinefunction SimplePage.BottomScripts
+	{
+	(returnex{%>
+<script type="text/javascript" src="/js/plugins/codemirror/mode/sql/sql.js"></script>
+<style>
+	.CodeMirror {
+		border: 1px solid #eee;
+		height: auto;
+		min-height: 100px;
+		max-height: 400px;
+	}
+</style>
+<script type="text/javascript">
+	if (typeof Promise !== "undefined") {
+
+		function synonyms(cm, option) {
+			var cursor = cm.getCursor();
+			var line = GetQuery();
+			var iPos = cm.indexFromPos(cursor);
+
+			var oRes = SQLWorkbench.CompleteLine(Page.LocalSettings.ConnectionHandle, line, iPos, cursor.ch);
+			var results = [];
+			if (ObjectUtil.HasValue(oRes) && oRes.length > 0) {
+				var iStartingOffset = oRes[0].StartingOffset;
+				var iLength = oRes[0].Length;
+
+				oRes.each(function (val) { results.push(val.Code) });
+
+				return {
+					list: results,
+					from: cm.posFromIndex(iStartingOffset),
+					to: cm.posFromIndex(iStartingOffset + iLength)
+					//from: CodeMirror.Pos(cursor.line, iStartingOffset),
+					//to: CodeMirror.Pos(cursor.line, iStartingOffset + iLength)
+				}
+			}
+			else
+				return null;
+		}
+	}
+
+
+
+	//window.editor.on('cursorActivity', (cm) => {
+	//	if (!cm.state.completeActive) {
+	//		cm.showHint();
+	//	}
+	//});
+
+	function OnEditCode() {
+		if (!window.editor) {
+			window.editor = CodeMirror.fromTextArea(document.getElementById('txtCode'), {
+				mode: "text/x-sql",
+				indentWithTabs: true,
+				smartIndent: true,
+				lineNumbers: true,
+				matchBrackets: true,
+				autofocus: true,
+				extraKeys: { "Ctrl-Space": "autocomplete", "Shift-Ctrl-E": function (cm) { OnExecuteQuery(); } }
+				//, hintOptions: { hint: synonyms, completeSingle: false }
+			});
+
+			window.editor.on('change', function (cm) {
+				cm.save();
+			});
+		}
+		else {
+			window.editor.setValue(ControlUtil.GetValue('txtCode'));
+		}
+	}
+</script>
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Tools.SQLWorkbench.ashx.js?v=1"></script>
+
+<script type="text/javascript">
+	var sMetabaseUrl = "";
+	var sCacheRoot = "";
+</script>
+<script type="text/javascript">
+	Page.PreserveViewState();
+
+	Page.LocalSettings = {
+		ConnectionString: null,
+		ConnectionHandle: null,
+		ConnectionHandleHistory: [],
+		ProjectName: null,
+		ProjectNameHistory: [],
+		ProjectNameHistory: [],
+		File: null,
+		SavedQueries: [],
+		LastQuery: null
+	}
+
+
+	Page.AddOnLoad(function () {
+
+
+		OnEditCode();
+		Page.GetLocalSettings();
+
+		BindSavedQueries();
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.ConnectionHandle)) {
+			OnSetConnectionHandle();
+		}
+
+		ControlUtil.AddChange("ddlDatabase", OnSetConnectionHandle);
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.LastQuery))
+			window.editor.setValue(Page.LocalSettings.LastQuery);
+
+		//	window.editor.on('change', OnCodeKeyUp2)
+
+		ControlUtil.AddChange("txtCode", function () {
+			window.editor.setValue(ControlUtil.GetValue("txtCode"));
+		})
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.ConnectionHandle))
+			OnLoadQueries();
+
+		//>+ if there is a sql in the url query string set it into the editor and remove it from the query string
+		var urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('sql')) {
+			var strSql = urlParams.get('sql');
+			SetQuery(strSql);
+			window.history.replaceState({}, document.title, window.location.pathname);
+
+			//> get the last ChatAgent.Settings.History where MessageType = User
+			let lastUserMessage = ChatAgent.Settings.History.filter(message => message.MessageType === 'User').pop();
+
+			// if there is a last user message set it into the editor
+			if (!StringUtil.IsEmpty(lastUserMessage))
+				ControlUtil.SetValue("txtDirective", lastUserMessage.Message);
+		}
+	})
+
+
+	Page.AddOnUnload(function () {
+		Page.LocalSettings.LastQuery = GetQuery();
+		Page.SaveLocalSettings();
+	})
+
+
+	async function OnExecuteDirective(ctrl) {
+		var sDirective = ControlUtil.GetValue("txtDirective");
+		let sPrompt = ControlUtil.GetValue("txtPrompt");
+		var originalText = ctrl.innerHTML;
+		ctrl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+		ctrl.disabled = true;
+
+		var oLastResult = null;
+		let f = new Promise(resolve => {
+			SQLWorkbench.InterpretDirective(Page.LocalSettings.ConnectionHandle, sPrompt, sDirective, async function (oRes) {
+				ControlUtil.SetValue("txtResults", oRes);
+
+				if (oRes.ResultType == "StoredProcedure") {
+					ControlUtil.SetValue("txtCode", oRes.GeneratedCall);
+					_$("lblResultType").innerHTML = "Stored Procedure";
+				}
+				else if (oRes.ResultType == "SQL") {
+					ControlUtil.SetValue("txtCode", oRes.GeneratedSQL);
+					_$("lblResultType").innerHTML = "SQL";
+				}
+				else if (oRes.ResultType == "JavaScript") {
+					ControlUtil.SetValue("txtCode", oRes.GeneratedCall);
+					_$("lblResultType").innerHTML = "JavaScript";
+				}
+				else if (oRes.ResultType == "ProtoScript Result") {
+					_$("lblResultType").innerHTML = "ProtoScript Result";
+					let oPrototypes = ConvertPrototypeToJs(oRes.ProtoScriptResult);
+					ControlUtil.SetValue("txtCode", JSON.stringify(oPrototypes, null, 2));
+
+					oPrototypes.each(function (oPrototype) {
+						CallAPI(oPrototype, function (oRes) {
+							ControlUtil.SetValue("txtResults", oRes);
+							ShowTab("tab-Info");
+						})
+					})
+
+
+				}
+
+				oLastResult = oRes;
+
+				ctrl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Executing...';
+
+				if (oRes.ResultType == "SQL" || oRes.ResultType == "Stored Procedure") {
+					try {
+						await OnExecuteQuery();
+					}
+					catch (e) {
+						console.log(e);
+					}
+				}
+
+
+				// Restore the button text and state after processing
+				ctrl.innerHTML = originalText;
+				ctrl.disabled = false;
+
+				resolve();
+			});
+		});
+
+		await f;
+
+		if (ControlUtil.GetValue("chkAutoFix")) {
+			TryFixDirective(ctrl, oLastResult);
+		}
+
+		return oLastResult;
+	}
+
+	async function TryFixDirective(ctrl, oLastResult) {
+
+		let sInfo = _$("divResults").innerHTML;
+		var sDirective = ControlUtil.GetValue("txtDirective");
+
+		let i = 0;
+		while (StringUtil.StartsWith(sInfo, "Error:")) {
+			ctrl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Fixing...';
+
+			let f = new Promise(resolve => {
+				SQLWorkbench.ContinueDirective(oLastResult.RequestKey,
+					sDirective, { Error: sInfo }, async function (oRes) {
+						ControlUtil.SetValue("txtResults", oRes);
+						oLastResult = oRes;
+
+						if (oRes.GeneratedSQL && !StringUtil.IsEmpty(oRes.GeneratedSQL)) {
+							ControlUtil.SetValue("txtCode", oRes.GeneratedSQL);
+							await OnExecuteQuery();
+						}
+
+						resolve();
+					});
+			});
+
+			await f;
+
+			if (i++ > 3)
+				break;
+
+			sInfo = _$("divResults").innerHTML
+		}
+	}
+
+
+	async function OnSetConnectionHandle() {
+		var oObj = BlindUnbind(_$("divDirective"));
+		ControlUtil.SetValue("txtResults", "");
+
+		if (oObj.ForceRefresh) {
+			//			let f = new Promise(resolve => {
+			//				UserMessages.DisplayNow("Scripting database", "Info");
+			//				Databases.ScriptAllDatabaseObjectsToDisk(oObj.ConnectionHandle,
+			//					sCacheRoot + oObj.ConnectionHandle, function () { console.log('done scripting'); resolve(); })
+			//			});
+
+			//			await f;
+		}
+
+		oObj.ForceRefresh = false;
+
+		SQLWorkbench.SetConnectionHandle(oObj.ConnectionHandle, oObj.ForceRefresh, function (oRes) {
+			ControlUtil.SetValue("txtResults", oRes);
+			UserMessages.DisplayNow(oObj.ConnectionHandle + " loaded", "Success")
+			Page.LocalSettings.ConnectionHandle = oObj.ConnectionHandle;
+			Page.LocalSettings.ConnectionHandleHistory = QueueFront(Page.LocalSettings.ConnectionHandleHistory, oObj.ConnectionHandle, 4);
+
+			_$("divDescription").innerHTML = "Connected: " + oObj.ConnectionHandle;
+			OnLoadQueries();
+			BindSavedQueries();
+		})
+	}
+
+	var iLength = 0;
+
+
+	function getSelectedText() {
+		if (window.getSelection) {
+			return window.getSelection().toString();
+		} else if (document.selection) {
+			return document.selection.createRange().text;
+		}
+		return '';
+	}
+
+	function countCR(sTxt, iOffset) {
+		var iCount = 0;
+		for (var i = 0; i < sTxt.length && i < iOffset; i++) {
+			if (sTxt.charAt(i) == '\n')
+				iCount++
+		}
+		return iCount;
+	}
+
+	function OnCodeMouseDown(ctrl) {
+		var sDirective = GetQuery();
+		var iOffset = ctrl.selectionStart;
+		var iCRs = countCR(sDirective, iOffset);
+
+		_$("divOffset").innerHTML = ((iOffset + iCRs) + " - " + (ctrl.selectionEnd + iCRs) + " ( " + iCRs + ")");
+
+		var text = getSelectedText();
+		if (!StringUtil.IsEmpty(text)) {
+			OnDescribe(text);
+		}
+
+	}
+
+
+
+	function OnFilterObjects() {
+		var sToken = ControlUtil.GetValue("txtFileSearch");
+		SQLWorkbench.GetMatchingObjects(Page.LocalSettings.ConnectionHandle, sToken, function (oRes) {
+			var sText = "";
+
+			oRes.each(function (val) {
+				sText += "<a href='javascript:OnDescribe(\"" + val + "\")'>" + val + "</a><br/>";
+			});
+
+			_$("divMatches").innerHTML = sText;
+		});
+	}
+
+
+
+	function OnCodeKeyUp2() {
+
+		(function () {
+			var sDirective = editor.getValue();
+			var iOffset = editor.getCursor().start;
+			var iCRs = countCR(sDirective, iOffset);
+
+			var iLineStart = sDirective.lastIndexOf('\n', iOffset - 1);
+			var sLine = sDirective; //sDirective.substr(iLineStart + 1, iOffset - iLineStart - 1);
+
+			var sToken;
+			if (sLine.indexOf(' ') >= 0)
+				sToken = StringUtil.RightOfLast(sLine, ' ');
+			else
+				sToken = sLine;
+
+			if (!StringUtil.IsEmpty(sToken)) {
+				SQLWorkbench.GetMatchingObjects(Page.LocalSettings.ConnectionHandle, sToken, function (oRes) {
+					var sText = "";
+
+					oRes.each(function (val) {
+						sText += "<a href='javascript:OnDescribe(\"" + val + "\")'>" + val + "</a><br/>";
+					});
+
+					_$("divMatches").innerHTML = sText;
+				});
+			}
+
+		}).delay(100); // hack because keypress does not have the last key, but this event also filters out non-character keys
+
+	}
+
+	function OnCompleteLine(oSuggestion) {
+		console.log(oSuggestion);
+		var sDirective = GetQuery();
+		sDirective = sDirective.trimEnd();
+
+		sDirective = sDirective.removeAt(oSuggestion.StartingOffset, oSuggestion.Length);
+
+		if (oSuggestion.StartingOffset > 0 && !(' ', '.').contains(sDirective[oSuggestion.StartingOffset - 1]))
+			oSuggestion.Code = " " + oSuggestion.Code;
+
+		sDirective = sDirective.insertAt(oSuggestion.StartingOffset, oSuggestion.Code);
+
+		SetQuery(sDirective);
+
+	}
+
+
+
+
+	function OnDescribe(strObject) {
+		ControlUtil.SetValue("txtResults", "");
+
+		SQLWorkbench.GetObject(Page.LocalSettings.ConnectionHandle, strObject, function (oRes) {
+			if (StringUtil.EndsWith(strObject, ".json"))
+				oRes = ConvertTableJsonToString(oRes);
+
+			_$("txtResults").removeClass("Hidden");
+			ControlUtil.SetValue("txtResults", oRes);
+			ShowTab("tab-Info");
+
+		})
+	}
+
+	function ConvertTableJsonToString(oTable) {
+		oTable = JSON.decode(oTable);
+		var sVal = oTable.Name;
+		sVal += "\n";
+		oTable.Properties.each(function (oProp) {
+			sVal += "\t" + oProp.Name + " [" + oProp.Type + "]";
+			if (oProp.IsNullable)
+				sVal += " (null)"
+			if (!StringUtil.IsEmpty(oProp.DefaultValue))
+				sVal += " " + oProp.DefaultValue;
+			sVal += "\n";
+			oProp.ForeignKeys.each(function (oKey) {
+				sVal += "\t\t -> " + oKey.Table + "." + oKey.Column + " (" + oKey.Name + ")" + "\n";
+			});
+		});
+		return sVal;
+	}
+
+	var oSavedResults = null;
+
+	function OnExecuteSelected() {
+		var sQuery = window.editor.getSelection(); // getSelectedText();
+		ExecuteQuery(sQuery);
+	}
+
+
+	async function OnExecuteQuery() {
+		var sQuery = window.editor.getSelection(); // getSelectedText();
+		if (StringUtil.IsEmpty(sQuery))
+			sQuery = GetQuery();
+
+		return await ExecuteQuery(sQuery);
+	}
+
+	function OnExecuteToFile() {
+		var sQuery = window.editor.getSelection(); // getSelectedText();
+		if (StringUtil.IsEmpty(sQuery))
+			sQuery = GetQuery();
+
+		SQLWorkbench.ExecuteQueryToFile(Page.LocalSettings.ConnectionHandle, sQuery, function (oRes) {
+			_$("divStats").innerHTML = oRes.NumRows + " in " + oRes.Time + "ms.";
+
+			ShowTab("tab-Results");
+
+		})
+
+	}
+
+
+	async function ExecuteQuery(sQuery) {
+		_$("divResults").innerHTML = "Running..."
+
+
+		SQLWorkbench.ExecuteQuery.Serialize = { Columns: true }
+
+		let f = new Promise(resolve => {
+			SQLWorkbench.ExecuteQuery.onErrorReceived = function (oRes) {
+				_$("divResults").innerHTML = "Error: " + oRes.Error;
+				resolve();
+			};
+
+			SQLWorkbench.ExecuteQuery(Page.LocalSettings.ConnectionHandle, sQuery, function (oRes) {
+				_$("divStats").innerHTML = oRes.NumRows + " in " + oRes.Time + "ms.";
+
+				oRes.Table = JSON.decode(oRes.Table);
+				oSavedResults = oRes;
+				_$("divResults").innerHTML = BuildResultsAsTable(oRes.Table, oRes.Columns);
+
+				for (var i = Page.LocalSettings.SavedQueries.length - 1; i >= 0; i--) {
+					var oCurrent = Page.LocalSettings.SavedQueries[i];
+					if (StringUtil.EqualNoCase(sQuery, oCurrent.Query))
+						Page.LocalSettings.SavedQueries.splice(i, 1);
+				}
+
+				Page.LocalSettings.SavedQueries = QueueFront(Page.LocalSettings.SavedQueries, { ProjectName: Page.LocalSettings.ProjectName, Query: sQuery }, 500);
+
+
+				BindSavedQueries();
+
+				ShowTab("tab-Results");
+
+				resolve();
+			})
+		});
+
+		await f;
+	}
+
+	function SetQuery(sCode) {
+		ShowTab("tab-Query");
+		ControlUtil.SetValue("txtCode", sCode);
+		window.editor.setValue(ControlUtil.GetValue("txtCode"));
+	}
+
+	function GetQuery() {
+		return window.editor.getValue();
+	}
+
+	function ShowTab(sTabName) {
+		$$('a[href="#' + sTabName + '"]').each(x => x.click())
+	}
+
+	function BindSavedQueries() {
+		var oUl = ["ol"];
+
+		BindSavedQueries2(Page.LocalSettings.SavedQueries);
+	}
+
+	function BindSavedQueries2(oQueries) {
+		var oUl = ["ol"];
+
+		oQueries.each(function (oQuery) {
+
+			if ($type(oQuery) == 'object') {
+				if (StringUtil.EqualNoCase(oQuery.ProjectName, Page.LocalSettings.ProjectName))
+					oUl.push([li, { style: 'margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; max-height: 400px; overflow-y: auto; list-style-position: inside; font-size: 16px; line-height: 1.5;' }, ['a', { href: "javascript:void(0)" },
+						[div, { click: function () { SetQuery(oQuery.Query) } }, oQuery.Query]]])
+			}
+			else {
+				oUl.push([li, ['a', { href: "javascript:void(0)" },
+					[div, { click: function () { SetQuery(oQuery); } }, oQuery]]])
+			}
+
+		});
+
+		_$("divHistory").innerHTML = "";
+		$$$(oUl).inject(_$("divHistory"));
+	}
+
+
+	function OnFilterHistory() {
+		var sToken = ControlUtil.GetValue("txtHistorySearch");
+		var oQueries = [];
+		Page.LocalSettings.SavedQueries.each(function (oQuery) {
+			if (StringUtil.InString(oQuery.Query, sToken))
+				oQueries.push(oQuery);
+		})
+		BindSavedQueries2(oQueries);
+	}
+
+
+
+	function OnProcessResults() {
+		var sCode = ControlUtil.GetValue("txtProcessor");
+		var f = new Function(sCode);
+		var oRes = f();
+
+		BuildResultsAsTable(oRes.Table, oRes.Columns);
+	}
+
+	function OnSaveQuery() {
+		var oObj = {};
+		oObj.QueryName = ControlUtil.GetValue("txtName");
+		oObj.Query = GetQuery();
+		oObj.RowProcessor = ControlUtil.GetValue("txtProcessor");
+
+		if (!StringUtil.IsEmpty(oObj.QueryName)) {
+			SQLWorkbench.SaveQuery(Page.LocalSettings.ConnectionHandle, { QueryName: oObj.QueryName, Query: oObj.Query, RowProcessor: oObj.RowProcessor }, function () {
+				UserMessages.DisplayNow("File saved", "Success");
+			});
+		}
+	}
+
+	function OnLoadQueries() {
+		SQLWorkbench.LoadSavedQueries(Page.LocalSettings.ConnectionHandle, function (oQueries) {
+			var oUl = [ul];
+			oQueries.each(function (oQuery) {
+				oUl.push([li, ['a', { href: "javascript:void(0)" },
+					[div, { click: function () { OnLoadQuery(oQuery) } }, oQuery.QueryName]]])
+			});
+
+			_$("divSavedQueries").innerHTML = "";
+			$$$(oUl).inject("divSavedQueries");
+			//OnSetConnectionString(Page.LocalSettings.ConnectionString);
+		})
+	}
+
+	function OnLoadQuery(oQuery) {
+		ControlUtil.SetValue("txtName", oQuery.QueryName);
+		BlindBind("divDirective", oQuery);
+		ControlUtil.SetValue("txtProcessor", oQuery.RowProcessor);
+		SetQuery(oQuery.Query);
+	}
+
+	function OnThumbsUp() {
+		let sDirective = ControlUtil.GetValue("txtDirective");
+		let sSQL = GetQuery();
+
+		SQLWorkbench.SaveDirectiveAndSQL(sDirective, sSQL, function () {
+			UserMessages.DisplayNow("Saved", "Success");
+		});
+	}
+
+
+
+	function ConvertPrototypeToJs(prototype) {
+		var js = {};
+
+		if (StringUtil.StartsWith(prototype.PrototypeName, "System.String"))
+			return StringUtil.Between(prototype.PrototypeName, "[", "]");
+
+		if (StringUtil.StartsWith(prototype.PrototypeName, "System.Int32"))
+			return StringUtil.Between(prototype.PrototypeName, "[", "]");
+
+		if (StringUtil.StartsWith(prototype.PrototypeName, "Ontology.Collection")) {
+			let children = [];
+			if (prototype.Children) {
+				prototype.Children.each(x => {
+					children.push(ConvertPrototypeToJs(x))
+				});
+			}
+			return children;
+		}
+
+
+
+		Object.entries(prototype).each(function (pair) {
+			if (["PrototypeID", "PrototypeName"].contains(pair[0]))
+				js[pair[0]] = pair[1];
+
+			else {
+				if (!pair[0].contains("."))
+					js[pair[0]] = pair[1];		//allow this to be called serially
+
+				else if ($type(pair[1]) == 'object')
+					js[StringUtil.RightOfLast(pair[0], ".")] = ConvertPrototypeToJs(pair[1]);
+			}
+			//else
+
+		});
+
+		return js;
+	}
+
+	function CallAPI(action, cb) {
+		const oParams = {};
+		action.Parameters.forEach(oParam => {
+			oParams[oParam.Name] = oParam.Value;
+		});
+		oParams["Method"] = action.Method;
+
+		const bearerToken = '3e95212f-4bf6-498f-8657-316ab305cd76'; // Replace with your actual token
+
+		fetch(action.BaseUrl + action.Method, {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${bearerToken}`
+			},
+			body: JSON.stringify(oParams)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				cb(data);
+			})
+			.catch(error => {
+				Page.HandleUnexpectedError(error);
+			});
+	}
+
+
+	//Agent Methods
+	function InspectResults() {
+		let oInfo = oSavedResults;
+		oInfo.Table = oSavedResults.Table.slice(0, 5);
+		console.table(oInfo.Table);
+		return oInfo;
+
+	}
+
+</script>
+
+
+	<%})
+}%>
+

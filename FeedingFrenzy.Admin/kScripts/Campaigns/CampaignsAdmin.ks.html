@@ -1,0 +1,572 @@
+<%
+class CampaignsAdmin
+{
+			
+	(function GetDetails CampaignID
+	{
+		(declare Campaign (Campaigns.GetCampaign (CampaignID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Campaign ID
+							</td>
+							<td>
+								
+									<%Campaign.CampaignID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Source ID
+							</td>
+							<td>
+                               
+                                <a href="source?SourceID=<%Campaign.SourceID%>">
+                                    <%ifneq  (Campaign.Source) ""{%>
+
+                                        
+                                            <%Campaign.Source.SourceName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Campaign Name
+							</td>
+							<td>
+								
+									<%Campaign.CampaignName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Campaign Key
+							</td>
+							<td>
+								
+									<%Campaign.CampaignKey%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Campaign.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Campaign.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Campaign.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Campaign.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown CampaignName CampaignID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetCampaignsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit CampaignID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Campaign">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Campaign ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="CampaignID" class="InputString form-control" readonly="readonly" value="<%CampaignID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Source
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using SourcesAdmin.ks.html%>
+							    
+								    <%SourcesAdmin.GetDropDown SourceName SourceID SourceID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Campaign Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtCampaignName" kcs:FieldName="CampaignName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Campaign Key
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtCampaignKey" kcs:FieldName="CampaignKey" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Campaigns Campaigns_GetAll_Sp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="CampaignID">
+						Campaign ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="SourceName">
+						Source Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="CampaignName">
+						Campaign Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="CampaignKey">
+						Campaign Key
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Campaigns.each Campaign{%> 
+				<tr kcs:RowKey="<%Campaign.get CampaignID%>" >
+							
+			
+					
+					<td>
+						<%Campaign.CampaignID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%Campaign.SourceName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Campaign.CampaignName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Campaign.CampaignKey%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Campaign.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Campaigns Campaigns_GetAll_Sp_CountSp  (Search))
+		(return (Campaigns.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridBySourceID SourceID 
+	{
+		(return (GetGridBySourceID (SourceID) '' '' true 0 20))
+	})
+
+	(function GetGridBySourceID SourceID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySourceIDHtml (SourceID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySourceIDCount (SourceID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySourceIDHtml SourceID 
+	{
+		(return (GetGridBySourceIDHtml (SourceID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridBySourceIDHtml SourceID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Campaigns GetCampaignsBySourceIDSp_PagingSp (SourceID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="CampaignID">
+						Campaign ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="CampaignName">
+						Campaign Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="CampaignKey">
+						Campaign Key
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Campaigns.each Campaign{%> 
+				<tr kcs:RowKey="<%Campaign.get CampaignID%>" >
+							
+			
+					
+					<td>
+						<%Campaign.CampaignID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%Campaign.CampaignName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Campaign.CampaignKey%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Campaign.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridBySourceIDCount SourceID  Search
+	
+	{
+		(ado.row Campaigns GetCampaignsBySourceIDSp_CountSp (SourceID) (Search))
+		(return (Campaigns.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Campaign">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Source
+					</label>
+					<div class="col-6">
+						
+							
+							<%using SourcesAdmin.ks.html%>
+							
+								<%SourcesAdmin.GetDropDown SourceName SourceID SourceID%>							
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Campaign Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtCampaignName" kcs:FieldName="CampaignName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Campaign Key
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtCampaignKey" kcs:FieldName="CampaignKey" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

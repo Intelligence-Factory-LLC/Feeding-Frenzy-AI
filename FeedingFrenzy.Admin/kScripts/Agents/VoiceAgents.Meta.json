@@ -1,0 +1,19 @@
+{
+	ObjectName : "Agent",
+	ObjectsName : "Agents",
+
+	
+	NaturalKey : "AgentName",
+	
+	
+	FriendlyObjectName : "Voice Agent",
+	FriendlyObjectsName : "Voice Agents",
+	
+	ObjectsUrl : "agents",
+	DetailsUrl : "voice-agent",
+	EditUrl : "voice-agent-edit",
+	InsertUrl : "",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,514 @@
+<%
+class PageLayoutsAdmin
+{
+			
+	(function GetDetails PageLayoutID
+	{
+		(declare PageLayout (PageLayouts.GetPageLayout (PageLayoutID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Page Layout ID
+							</td>
+							<td>
+								
+									<%PageLayout.PageLayoutID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Url
+							</td>
+							<td>
+								
+									<%PageLayout.Url%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Handler
+							</td>
+							<td>
+								
+									<%PageLayout.Handler%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Enabled
+							</td>
+							<td>
+								
+									<%if (PageLayout.IsEnabled) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%PageLayout.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%PageLayout.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Page Title
+							</td>
+							<td>
+								
+									<%PageLayout.PageTitle%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Site
+							</td>
+							<td>
+								
+									<%PageLayout.SiteID%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown Url PageLayoutID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetPageLayoutsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit PageLayoutID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="PageLayout">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Page Layout ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="PageLayoutID" class="InputString form-control" readonly="readonly" value="<%PageLayoutID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Url
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtUrl" kcs:FieldName="Url" class="InputUrl form-control" maxlength="512" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Handler
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtHandler" kcs:FieldName="Handler" class="InputUrl form-control" maxlength="512" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Enabled
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Page Title
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtPageTitle" kcs:FieldName="PageTitle" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Site
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnSiteID" kcs:FieldName="SiteID" />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view PageLayouts GetPageLayoutsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="PageLayoutID">
+						Page Layout ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Url">
+						Url
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Handler">
+						Handler
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsEnabled">
+						Enabled
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PageTitle">
+						Page Title
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SiteID">
+						Site
+					</th>
+					
+				
+									
+				</tr>
+			<%PageLayouts.each PageLayout{%> 
+				<tr kcs:RowKey="<%PageLayout.get PageLayoutID%>" >
+							
+			
+					
+					<td>
+						<%PageLayout.PageLayoutID%>
+					</td>
+					
+			
+					
+					<td>
+						<%PageLayout.Url%>
+					</td>
+					
+			
+					
+					<td>
+						<%PageLayout.Handler%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (PageLayout.IsEnabled) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%PageLayout.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%PageLayout.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%PageLayout.PageTitle%>
+					</td>
+					
+			
+					
+					<td>
+						<%PageLayout.SiteID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row PageLayouts GetPageLayoutsSp_CountSp  (Search))
+		(return (PageLayouts.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="PageLayout">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Url
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtUrl" kcs:FieldName="Url" class="InputUrl form-control" maxlength="512" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Handler
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtHandler" kcs:FieldName="Handler" class="InputUrl form-control" maxlength="512" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Enabled
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Page Title
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtPageTitle" kcs:FieldName="PageTitle" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Site
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnSiteID" kcs:FieldName="SiteID" />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

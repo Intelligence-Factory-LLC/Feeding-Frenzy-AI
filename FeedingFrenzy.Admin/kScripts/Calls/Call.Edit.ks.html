@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using CallsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Calls.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Calls.GetCall (ObjectID)))
+}%>
+

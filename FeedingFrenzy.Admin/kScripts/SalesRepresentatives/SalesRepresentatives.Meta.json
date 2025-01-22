@@ -1,0 +1,19 @@
+{
+	ObjectName : "SalesRepresentative",
+	ObjectsName : "SalesRepresentatives",
+
+	
+	NaturalKey : "Email",
+	
+	
+	FriendlyObjectName : "Sales Representative",
+	FriendlyObjectsName : "Sales Representatives",
+	
+	ObjectsUrl : "sales-representatives",
+	DetailsUrl : "sales-representative",
+	EditUrl : "sales-representative-edit",
+	InsertUrl : "sales-representative-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

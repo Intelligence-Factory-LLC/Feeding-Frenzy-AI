@@ -1,0 +1,93 @@
+<%addpath PhoneNumbers%>
+<%using SimpleObjectDetails.ks.html%>
+<%using AgentsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile VoiceAgents.Meta.json%>
+
+
+<%SimpleObjectDetailsPage.AllowIterators false %>
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+
+
+	(return (GetTabs (tabs)))
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(declare oAgent (CachedObject))
+
+	(returnex{%>
+<script type="text/javascript">
+	<%if (OrganizationFeature.Feature.IsAgentChatEnabled) {%>
+		function SendObjectToBuffaly() {
+				<% ObjectsName %>.SendObjectToBuffaly(iObjectID, function () {
+			UserMessages.DisplayNow("Object sent to Buffaly", "Success");
+		});
+		}
+		<% ifeq(oAgent.DataObject.GetStringOrNull PrototypeName) ""{%>
+			Page.AddOnload(SendObjectToBuffaly);
+			<%}%>
+
+
+	<%}%>
+
+</script>
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsPanel
+{
+	(declare oAgent (Object))
+    (declare oPhoneNumber (PhoneNumbers.GetPhoneNumberByVoiceAgent (oAgent.AgentName)))
+
+	(returnex{%>
+<table class="Inputs table table-condensed">
+	<colgroup>
+		<col class="col-md-2">
+		<col class="col-md-10">
+	</colgroup>
+
+	<tr>
+		<td class="InputLabel">Agent</td>
+		<td><%oAgent.AgentID%></td>
+	</tr>
+
+	<tr>
+		<td class="InputLabel">Name</td>
+		<td><%oAgent.AgentName%></td>
+	</tr>
+
+	<tr>
+		<td class="InputLabel">Voice</td>
+		<td><%oAgent.DataObject.GetStringOrNull Voice%></td>
+	</tr>
+
+	<tr>
+		<td class="InputLabel">Phone Number</td>
+		<td><a href="/phone-number?PhoneNumberID=<%oPhoneNumber.PhoneNumberID%>"><%oPhoneNumber.PhoneNumber%></a></td>
+	</tr>
+
+
+	<tr>
+		<td class="InputLabel">Introduction</td>
+		<td><p class="form-control-plaintext white-space-pre-wrap" style="white-space: pre-wrap;"><%oAgent.DataObject.GetStringOrNull IntroInstructions%></p></td>
+	</tr>
+
+	<tr>
+		<td class="InputLabel">Instructions</td>
+		<td><p class="form-control-plaintext white-space-pre-wrap" style="white-space: pre-wrap;"><%oAgent.DataObject.GetStringOrNull Instructions%></p></td>
+	</tr>
+
+	<tr>
+		<td class="InputLabel">Background Information</td>
+		<td><p class="form-control-plaintext white-space-pre-wrap" style="white-space: pre-wrap;"><%oAgent.DataObject.GetStringOrNull Information%></p></td>
+	</tr>
+</table>
+
+
+	<%})
+}%>

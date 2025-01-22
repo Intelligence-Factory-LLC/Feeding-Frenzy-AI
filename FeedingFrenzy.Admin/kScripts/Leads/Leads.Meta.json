@@ -1,0 +1,17 @@
+{
+	ObjectName : "Lead",
+	ObjectsName : "Leads",
+
+	
+	
+	FriendlyObjectName : "Lead",
+	FriendlyObjectsName : "Leads",
+	
+	ObjectsUrl : "leads",
+	DetailsUrl : "lead",
+	EditUrl : "lead-edit",
+	InsertUrl : "lead-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

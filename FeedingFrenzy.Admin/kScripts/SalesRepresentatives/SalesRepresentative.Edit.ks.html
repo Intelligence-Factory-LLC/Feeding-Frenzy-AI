@@ -1,0 +1,193 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using SalesRepresentativesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile SalesRepresentatives.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (SalesRepresentatives.GetSalesRepresentative (ObjectID)))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.EditPanel
+{
+	(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SalesRepresentative">
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Name
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Sales Representative Type
+		</label>
+		<div class="col-sm-6">
+
+			<%using SalesRepresentativeTypesAdmin.ks.html%>
+
+			<%SalesRepresentativeTypesAdmin.GetDropDown SalesRepresentativeTypeName SalesRepresentativeTypeID SalesRepresentativeTypeID '<option value="">None</option>'%>
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Email
+		</label>
+		<div class="col-sm-6">
+
+			<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Phone
+		</label>
+		<div class="col-sm-6">
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Minimum Leads Per Day
+		</label>
+		<div class="col-sm-6">
+			<input type="text" id="txtMinimumLeadsPerDay" kcs:FieldName="DataObject.MinimumLeadsPerDay" class="InputString form-control" maxlength="255" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Alerted by Email
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkAlertedByEmail" kcs:FieldName="DataObject.AlertedByEmail" />
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Alerted by SMS
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkAlertedBySMS" kcs:FieldName="DataObject.AlertedBySMS" />
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Enabled
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsEnabled" kcs:FieldName="IsEnabled" />
+
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Show In Reports
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" kcs:FieldName="DataObject.IsShownOnReports" />
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Notes
+		</label>
+		<div class="col-sm-6">
+
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Minimum Calls Per Day
+		</label>
+		<div class="col-sm-6">
+			<input type="number" id="txtMinimumCallsPerDay" kcs:FieldName="DataObject.MinimumCallsPerDay" class="InputString form-control" maxlength="2" min="0" max="99" />
+		</div>
+	</div>
+
+</div>
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectEditPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript">
+	BindUser = function (oObj) {
+		oObj.Password = "";
+		BlindBind(_$("divSalesRepresentative"), oObj);
+	}
+</script>
+
+<script type="text/javascript">
+
+	UpdateUserInfo = function () {
+        let txtEmail = ControlUtil.GetValue("txtEmail")
+        let txtName = ControlUtil.GetValue("txtName")
+		let txtPhone = ControlUtil.GetValue("txtPhone")
+
+		if (!validateEmail(txtEmail)) {
+			UserMessages.DisplayNow("Please enter a valid email", "Error");
+			return;
+		}
+
+        if (StringUtil.IsEmpty(txtName)) {
+			UserMessages.DisplayNow("Please enter a valid name", "Error");
+			return;
+		}
+
+		if (StringUtil.IsEmpty(txtPhone)) {
+			UserMessages.DisplayNow("Please enter a valid phone", "Error");
+			return;
+		}
+
+        Users.UpdateUserInfo(txtEmail, txtName, txtPhone, function (oRes) {
+			UserMessages.DisplayNow("User updated", "Success");
+		});
+	}
+
+	function validateEmail(email) {
+			return email.match(
+				/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			);
+		};
+
+</script>
+	<%})
+}%>

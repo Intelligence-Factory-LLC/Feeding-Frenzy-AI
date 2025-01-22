@@ -1,0 +1,428 @@
+<%
+class AgentTypesAdmin
+{
+			
+	(function GetDetails AgentTypeID
+	{
+		(declare AgentType (AgentTypes.GetAgentType (AgentTypeID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Agent Type ID
+							</td>
+							<td>
+								
+									<%AgentType.AgentTypeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Agent Type Name
+							</td>
+							<td>
+								
+									<%AgentType.AgentTypeName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%AgentType.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%AgentType.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%AgentType.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%AgentType.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown AgentTypeName AgentTypeID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown AgentTypeName AgentTypeID  AgentTypeID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetAgentTypesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit AgentTypeID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="AgentType">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Type ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="AgentTypeID" class="InputString form-control" readonly="readonly" value="<%AgentTypeID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Type Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAgentTypeName" kcs:FieldName="AgentTypeName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view AgentTypes GetAgentTypesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AgentTypeID">
+						Agent Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AgentTypeName">
+						Agent Type Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%AgentTypes.each AgentType{%> 
+				<tr kcs:RowKey="<%AgentType.get AgentTypeID%>" >
+							
+			
+					
+					<td>
+						<%AgentType.AgentTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%AgentType.AgentTypeName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AgentType.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AgentType.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row AgentTypes GetAgentTypesSp_CountSp  (Search))
+		(return (AgentTypes.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal AgentTypes
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AgentTypeID">
+						Agent Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AgentTypeName">
+						Agent Type Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%AgentTypes.each AgentType{%> 
+				<tr kcs:RowKey="<%AgentType.get AgentTypeID%>" >
+							
+			
+					
+					<td>
+						<%AgentType.AgentTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%AgentType.AgentTypeName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AgentType.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AgentType.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 4%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="AgentType">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Agent Type Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtAgentTypeName" kcs:FieldName="AgentTypeName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

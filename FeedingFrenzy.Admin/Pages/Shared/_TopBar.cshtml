@@ -1,0 +1,295 @@
+﻿@model FeedingFrenzy.Admin.Pages.Shared._TopBarModel
+<div class="navbar-custom" id="topbar">
+    <div class="container-fluid">
+        <ul class="list-unstyled topnav-menu float-end mb-0">
+
+            @if (@Model.IsAgentChatEnabled) 
+            {
+                <li class="dropdown d-none d-lg-inline-block">
+                    <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" href="#" onclick="toggleChatSidebar(event)">
+                        <i class="fe-message-square noti-icon"></i>
+                    </a>
+                </li>
+            }
+            <li class="dropdown d-none d-lg-inline-block">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
+                    <i class="fe-maximize noti-icon"></i>
+                </a>
+            </li>
+
+            <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-grid noti-icon"></i>
+                </a>
+                <div class="dropdown-menu dropdown-lg dropdown-menu-end">
+
+                    <div class="p-lg-1">
+                        <div class="row g-0">
+							<div class="col">
+								<a class="dropdown-icon-item" href="https://feedingfrenzy.ai">
+									<img src="~/images/brands/feeding frenzy.svg" alt="Feeding Frenzy" style="height:30px;">
+									<span>Feeding Frenzy</span>
+								</a>
+							</div>
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="https://buffaly.com">
+									<img src="~/images/brands/buffaly.svg" alt="Buffaly" style="height:30px;">
+                                    <span>Buffaly</span>
+                                </a>
+                            </div>
+						</div>
+						<div class="row g-0">
+ 
+							<div class="col">
+								<a class="dropdown-icon-item" href="https://semdb.ai">
+									<img src="~/images/brands/SemDB.svg" alt="SemDB.AI" style="height:30px;">
+									<span>SemDB.AI</span>
+								</a>
+							</div>
+
+							<div class="col">
+								<a class="dropdown-icon-item" href="https://intelligencefactory.ai">
+									<img src="~/images/brands/if.ai.svg" alt="Intelligence Factory" style="height:30px;">
+									<span>Intelligence Factory</span>
+								</a>
+							</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </li>
+
+            <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="~/images/flags/us.jpg" alt="user-image" height="16">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item">
+                        <img src="~/images/flags/brazil.svg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Portuguese</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item">
+                        <img src="~/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                    </a>
+
+  
+
+                </div>
+            </li>
+
+            <li class="dropdown notification-list topbar-dropdown hidden">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-bell noti-icon"></i>
+                    <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            <span class="float-end">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="noti-scroll" data-simplebar>
+
+                     
+                    </div>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        View all
+                        <i class="fe-arrow-right"></i>
+                    </a>
+
+                </div>
+            </li>
+
+            <li class="dropdown notification-list topbar-dropdown">
+                <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-user noti-icon"></i>
+                    <span class="pro-user-name ms-1">
+                        @Model.RoleName <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                    <!-- item-->
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome @Model.UserName!</h6>
+                    </div>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-user"></i>
+                        <span>My Account</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-settings"></i>
+                        <span>Settings</span>
+                    </a>
+
+					
+					<!-- item-->
+					<a href="javascript:ToggleQuickHelpOn();" class="dropdown-item">
+						<i class="fe-headphones me-1"></i>
+						<span>Show Help</span>
+					</a>
+                    <div class="dropdown-divider"></div>
+
+                    <!-- item-->
+                    <a href="/logout" class="dropdown-item notify-item">
+                        <i class="fe-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </li>
+
+ 
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="/" class="logo logo-dark text-center">
+                <span class="logo-sm">
+                    <img src="~/images/logo-sm.png" alt="" height="22">
+               
+                </span>
+                <span class="logo-lg">
+                    <img src="@Model.Logo" alt="" height="50">
+               
+                </span>
+            </a>
+
+            <a href="/" class="logo logo-light text-center">
+                <span class="logo-sm">
+                    <img src="~/images/logo-sm.png" alt="" height="22">
+                </span>
+                <span class="logo-lg">
+                    <img src="~/images/logo-light.png" alt="" height="20">
+                </span>
+            </a>
+        </div>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li>
+                <!-- Mobile menu toggle (Horizontal Layout)-->
+                <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <!-- End mobile menu toggle-->
+            </li>
+
+            <li class="dropdown d-none d-xl-block">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    Create New
+                    <i class="mdi mdi-chevron-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <!-- item-->
+                    <a href="/lead-insert" class="dropdown-item">
+                        <i class="fe-briefcase me-1"></i>
+                        <span>New Lead</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="/sales-representative-insert" class="dropdown-item">
+                        <i class="fe-user me-1"></i>
+                        <span>New Sales Representative</span>
+                    </a>
+
+   
+
+                </div>
+            </li>
+
+        
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!-- Chat Sidebar -->
+<div id="chatSidebar" class="chat-sidebar hidden" tabindex="-1">
+	<!-- Top Bar Container -->
+	<div class="d-flex justify-content-between align-items-center p-2 border-bottom" style="flex-shrink: 0; background:#343a40">
+		<h5 class="mb-0 text-white">Chat with Our AI Assistant</h5>
+		<div id="tooltips-container" class="d-flex align-items-center">
+			<a href="javascript:void(0);" class="text-reset font-19 py-1 px-2 d-inline-block" onclick="maximizeChat()" title="Maximize">
+				<i id="maximizeBtn" class="fas fa-expand" data-bs-container="#tooltips-container" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximize"></i>
+			</a>
+			<a href="javascript:void(0);" class="text-reset font-19 py-1 px-2 d-inline-block" onclick="restoreChat()" title="Restore">
+				<i id="restoreBtn" class="fas fa-compress" data-bs-container="#tooltips-container" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Restore" style="display: none;"></i>
+			</a>
+			<!-- New Buttons for Clearing History and Starting New Chat -->
+			<a href="javascript:void(0);" class="text-reset font-19 py-1 px-2 d-inline-block" onclick="clearHistory()" title="Clear History">
+				<i id="clearHistoryBtn" class="fas fa-trash" data-bs-container="#tooltips-container" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Clear History"></i>
+			</a>
+			<a href="javascript:void(0);" class="text-reset font-19 py-1 px-2 d-inline-block" onclick="newChat()" title="New Chat">
+				<i id="newChatBtn" class="fas fa-comments" data-bs-container="#tooltips-container" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="New Chat"></i>
+			</a>
+		</div>
+	</div>
+
+	<div id="chatWindow" class="p-3 bg-white border-bottom">
+		<!-- Chatbot Message -->
+		<div class="chat-message chatbot-message">
+			<i class="mdi mdi-robot-outline" style="font-size: 20px; color: #007bff; vertical-align: middle;"></i>
+			Hello! How can I assist you today?
+		</div>
+	</div>
+
+	<div id="chatInputContainer">
+		<div id="chatInput" class="d-flex p-3">
+			<input type="text" id="messageInput" class="form-control" placeholder="Type a message...">
+			<button class="btn btn-primary ms-2" onclick="sendMessage()">Send</button>
+		</div>
+	</div>
+</div>
+
+
+
+
+<link href="~/css/automation.css" rel="stylesheet" />
+<script type="text/javascript" src="js/plugins/marked/marked.min.js"></script>
+<script type="text/javascript" src="js/automation_chat.js?v=2"></script>
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.ChatAgents.FeedingFrenzyAgent.ashx.js"></script>
+
+<script type="text/javascript">
+
+	function ToggleQuickHelpOn() {
+		new LocalStorage().set("ShowQuickHelp", true);
+		if (typeof ShowQuickHelp !== 'undefined') {
+			ShowQuickHelp();
+		}
+
+	}
+	function ToggleQuickHelpOff() {
+		new LocalStorage().set("ShowQuickHelp", false);
+		Page.Reload();
+
+	}
+
+
+</script>

@@ -1,0 +1,19 @@
+{
+	ObjectName : "Source",
+	ObjectsName : "Sources",
+
+	
+	NaturalKey : "SourceName",
+	
+	
+	FriendlyObjectName : "Source",
+	FriendlyObjectsName : "Sources",
+	
+	ObjectsUrl : "sources",
+	DetailsUrl : "source",
+	EditUrl : "source-edit",
+	InsertUrl : "source-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

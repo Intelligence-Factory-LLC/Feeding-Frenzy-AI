@@ -1,0 +1,800 @@
+<%
+class EmailAddressesAdmin
+{
+			
+	(function GetDetails EmailAddressID
+	{
+		(declare EmailAddress (EmailAddresses.GetEmailAddress (EmailAddressID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email Address ID
+							</td>
+							<td>
+								
+									<%EmailAddress.EmailAddressID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%EmailAddress.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%EmailAddress.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%EmailAddress.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%EmailAddress.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%EmailAddress.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Blocked
+							</td>
+							<td>
+								
+									<%if (EmailAddress.IsBlocked) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Internal
+							</td>
+							<td>
+								
+									<%if (EmailAddress.IsInternal) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Domain ID
+							</td>
+							<td>
+								
+									<%EmailAddress.DomainID%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown Email EmailAddressID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown Email EmailAddressID  EmailAddressID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetEmailAddressesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit EmailAddressID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="EmailAddress">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Address ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="EmailAddressID" class="InputString form-control" readonly="readonly" value="<%EmailAddressID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Blocked
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Internal
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsInternal" kcs:FieldName="IsInternal"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Domain
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using Domains\DomainsAdmin.ks.html%>
+							    
+								    <%DomainsAdmin.GetDropDown DomainName DomainID DomainID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view EmailAddresses GetEmailAddressesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsBlocked">
+						Is Blocked
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsInternal">
+						Is Internal
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailAddresses.each EmailAddress{%> 
+				<tr kcs:RowKey="<%EmailAddress.get EmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%EmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.Email%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsBlocked) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsInternal) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row EmailAddresses GetEmailAddressesSp_CountSp  (Search))
+		(return (EmailAddresses.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal EmailAddresses
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsBlocked">
+						Is Blocked
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsInternal">
+						Is Internal
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailAddresses.each EmailAddress{%> 
+				<tr kcs:RowKey="<%EmailAddress.get EmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%EmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.Email%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsBlocked) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsInternal) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+		
+		
+	(function GetGridByDomainID DomainID 
+	{
+		(return (GetGridByDomainID (DomainID) '' '' true 0 20))
+	})
+
+	(function GetGridByDomainID DomainID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByDomainIDHtml (DomainID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByDomainIDCount (DomainID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByDomainIDHtml DomainID 
+	{
+		(return (GetGridByDomainIDHtml (DomainID) '' '' true 0 20))	
+	})
+
+	(function GetGridByDomainIDHtml DomainID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view EmailAddresses GetEmailAddressesByDomainIDSp_PagingSp (DomainID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailAddressID">
+						Email Address ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsBlocked">
+						Is Blocked
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsInternal">
+						Is Internal
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DomainID">
+						Domain ID
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailAddresses.each EmailAddress{%> 
+				<tr kcs:RowKey="<%EmailAddress.get EmailAddressID%>" >
+							
+			
+					
+					<td>
+						<%EmailAddress.EmailAddressID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.Email%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailAddress.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsBlocked) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailAddress.IsInternal) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailAddress.DomainID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 7%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByDomainIDCount DomainID  Search
+	
+	{
+		(ado.row EmailAddresses GetEmailAddressesByDomainIDSp_CountSp (DomainID) (Search))
+		(return (EmailAddresses.get Total))
+	})
+
+
+	
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="EmailAddress">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Blocked
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Internal
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsInternal" kcs:FieldName="IsInternal"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Domain
+					</label>
+					<div class="col-sm-6">
+						
+							
+							
+							<%using Domains\DomainsAdmin.ks.html%>
+							
+								<%DomainsAdmin.GetDropDown DomainName DomainID DomainID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

@@ -1,0 +1,99 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using UsersAdmin.ks.html%>
+<%using RolesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Users.Meta.json%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare optionsRoles {RelatedObjectsName : "Roles", RelatedObjectsFriendlyName: "Roles", AllowSearch: true, Insert:""})
+	(optionsRoles.Insert (eval{%>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#divInsertRole">
+	<span class="btn-label"><i class="fa fa-plus"></i></span> Add
+</button>
+	<%}))
+
+	(declare tabRoles {Title : "Roles", ControlID : "tab-Roles", Content : ""})
+	(tabRoles.Content (GetRelatedObjectTab (optionsRoles)))
+
+
+
+	(tabs.push (tabRoles))
+	
+	(env.log (tabRoles))
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+		
+		<%GetRelatedObjectTabInitializer Roles {AllowSearch: true, MetaFile:'Roles.meta.json' }%>
+
+		<%GetInsertRoleModal%>		
+
+		<script type="text/javascript">
+			function OnSendInvite() {
+				Users.SendInvite(iUserID, function () {
+					UserMessages.DisplayNow("Invitation sent", "Success");
+				})
+			}
+		</script>
+
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalCommands
+{
+        (returnex{%>
+			<button value="Send Invite" onclick="OnSendInvite()" class="Save btn btn-blue waves-effect waves-light m-1"><i class="fa fa-check"></i> Send Invitation</button>
+		<%})
+}%>
+
+
+<%function GetInsertRoleModal
+{
+	(returnex{%>
+    <div id="divInsertRole" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="standard-modalLabel">Add a Role</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Select a role and click Save Changes</p>
+                    <div class="mb-3">
+						<label for="role" class="form-label">Role</label>
+						<%RolesAdmin.GetDropDown%>
+                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="OnInsertRole()">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.UserRoles.ashx.js"></script>
+
+	<script type="text/javascript">
+		function OnInsertRole() {
+			let oArgs=BlindUnbind("divInsertRole");
+			oArgs.UserID=iUserID;
+			jQuery("#divInsertRole").modal('hide')
+			UserRoles.InsertUserRoleObject(oArgs, function () {
+				UserMessages.DisplayNow("Role added", "Success"); 
+				Page.Grids.RolesGrid.Refresh(true);
+			});
+		}
+	</script>
+	<%})
+}%>

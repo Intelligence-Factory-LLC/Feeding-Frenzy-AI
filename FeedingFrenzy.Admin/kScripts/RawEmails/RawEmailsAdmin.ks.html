@@ -1,0 +1,1388 @@
+<%
+class RawEmailsAdmin
+{
+			
+	(function GetDetails RawEmailID
+	{
+		(declare RawEmail (RawEmails.GetRawEmail (RawEmailID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Raw Email ID
+							</td>
+							<td>
+								
+									<%RawEmail.RawEmailID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								To
+							</td>
+							<td>
+								
+									<%RawEmail.To%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								From
+							</td>
+							<td>
+								
+									<%RawEmail.From%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Subject
+							</td>
+							<td>
+								
+									<%RawEmail.Subject%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Body Text
+							</td>
+							<td>
+								
+									<%RawEmail.BodyText%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Body Html
+							</td>
+							<td>
+								
+									<%RawEmail.BodyHtml%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Processed
+							</td>
+							<td>
+								
+									<%if (RawEmail.IsProcessed) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Label
+							</td>
+							<td>
+								
+									<%RawEmail.Label%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%RawEmail.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%RawEmail.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%RawEmail.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%RawEmail.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								User ID
+							</td>
+							<td>
+								
+									<%RawEmail.UserID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Import Key
+							</td>
+							<td>
+								
+									<%RawEmail.ImportKey%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email Date
+							</td>
+							<td>
+								
+									<%RawEmail.EmailDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Thread ID
+							</td>
+							<td>
+								
+									<%RawEmail.ThreadID%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown ImportKey RawEmailID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown ImportKey RawEmailID  RawEmailID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetRawEmailsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit RawEmailID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="RawEmail">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Raw Email ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="RawEmailID" class="InputString form-control" readonly="readonly" value="<%RawEmailID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						To
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						From
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Subject
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtSubject" kcs:FieldName="Subject" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Body Text
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtBodyText" kcs:FieldName="BodyText" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Body Html
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtBodyHtml" kcs:FieldName="BodyHtml" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Processed
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsProcessed" kcs:FieldName="IsProcessed"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Label
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						User
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using Users\UsersAdmin.ks.html%>
+							    
+								    <%UsersAdmin.GetDropDown Email UserID UserID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Import Key
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtImportKey" kcs:FieldName="ImportKey" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtEmailDate" kcs:FieldName="EmailDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Thread ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtThreadID" kcs:FieldName="ThreadID" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmails GetRawEmailsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="To">
+						To
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="From">
+						From
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Subject">
+						Subject
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyText">
+						Body Text
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyHtml">
+						Body Html
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsProcessed">
+						Processed
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ImportKey">
+						Import Key
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailDate">
+						Email Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ThreadID">
+						Thread ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmails.each RawEmail{%> 
+				<tr kcs:RowKey="<%RawEmail.get RawEmailID%>" >
+							
+			
+					
+					<td>
+						<%RawEmail.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.To%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.From%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Subject%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyText%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyHtml%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmail.IsProcessed) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Label%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%RawEmail.UserID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ImportKey%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.EmailDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ThreadID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 14%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row RawEmails GetRawEmailsSp_CountSp  (Search))
+		(return (RawEmails.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal RawEmails
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="To">
+						To
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="From">
+						From
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Subject">
+						Subject
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyText">
+						Body Text
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyHtml">
+						Body Html
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsProcessed">
+						Processed
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ImportKey">
+						Import Key
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailDate">
+						Email Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ThreadID">
+						Thread ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmails.each RawEmail{%> 
+				<tr kcs:RowKey="<%RawEmail.get RawEmailID%>" >
+							
+			
+					
+					<td>
+						<%RawEmail.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.To%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.From%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Subject%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyText%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyHtml%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmail.IsProcessed) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Label%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%RawEmail.UserID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ImportKey%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.EmailDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ThreadID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 14%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+		
+		
+	(function GetGridByUserID UserID 
+	{
+		(return (GetGridByUserID (UserID) '' '' true 0 20))
+	})
+
+	(function GetGridByUserID UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByUserIDHtml (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByUserIDCount (UserID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByUserIDHtml UserID 
+	{
+		(return (GetGridByUserIDHtml (UserID) '' '' true 0 20))	
+	})
+
+	(function GetGridByUserIDHtml UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view RawEmails GetRawEmailsByUserIDSp_PagingSp (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="RawEmailID">
+						Raw Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="To">
+						To
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="From">
+						From
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Subject">
+						Subject
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyText">
+						Body Text
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="BodyHtml">
+						Body Html
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsProcessed">
+						Processed
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ImportKey">
+						Import Key
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailDate">
+						Email Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ThreadID">
+						Thread ID
+					</th>
+					
+				
+									
+				</tr>
+			<%RawEmails.each RawEmail{%> 
+				<tr kcs:RowKey="<%RawEmail.get RawEmailID%>" >
+							
+			
+					
+					<td>
+						<%RawEmail.RawEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.To%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.From%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Subject%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyText%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.BodyHtml%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (RawEmail.IsProcessed) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.Label%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%RawEmail.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%RawEmail.UserID%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ImportKey%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.EmailDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%RawEmail.ThreadID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 14%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByUserIDCount UserID  Search
+	
+	{
+		(ado.row RawEmails GetRawEmailsByUserIDSp_CountSp (UserID) (Search))
+		(return (RawEmails.get Total))
+	})
+
+
+	
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="RawEmail">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						To
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						From
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Subject
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea id="txtSubject" kcs:FieldName="Subject" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Body Text
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea id="txtBodyText" kcs:FieldName="BodyText" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Body Html
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea id="txtBodyHtml" kcs:FieldName="BodyHtml" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Processed
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsProcessed" kcs:FieldName="IsProcessed"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Label
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						User
+					</label>
+					<div class="col-sm-6">
+						
+							
+							
+							<%using Users\UsersAdmin.ks.html%>
+							
+								<%UsersAdmin.GetDropDown Email UserID UserID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Import Key
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtImportKey" kcs:FieldName="ImportKey" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Date
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="datetime" id="txtEmailDate" kcs:FieldName="EmailDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Thread ID
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtThreadID" kcs:FieldName="ThreadID" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

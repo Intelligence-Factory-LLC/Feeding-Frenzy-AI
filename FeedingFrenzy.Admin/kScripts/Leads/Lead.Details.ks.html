@@ -1,0 +1,3270 @@
+﻿<%using SimpleObjectDetails.ks.html%>
+<%using LeadsAdmin.ks.html%>
+<%using SalesRepresentatives\SalesRepresentativesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Leads.Meta.json%>
+
+<%redefinefunction LeadsAdmin.HasTag oLead TagName
+{
+	(return
+		(oLead.LeadTagTags.Any (predicate x
+		{
+			(return (eq (x.TagName) (TagName)))
+		}))
+	)
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.Title
+{
+	(returnex{%>
+        <%if (DoesObjectExist){%>
+            <%declare oObj (CachedObject)%>
+			<%ifeq (oObj.Company) ""{%><%oObj.FirstName%> <%oObj.LastName%><%}{%><%oObj.Company%><%}%> -
+        <%}%>
+		<%Application.Title%>
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsPanel
+{
+		(declare Lead (CachedObject))
+		(declare oFollowUp (LeadNotes.GetFollowUpByLeadID (ObjectID)))
+		(declare oPermissions (UserState.get_Permission))
+		(declare bCanCommunicate (or (eq (Lead.SalesRepresentativeID) (UserState.get_SalesRepresentativeID)) (oPermissions.CanCommunicateWithUnclaimedLead)))
+
+		(declare oSalesRep "")
+		(declare bRecordCalls true)
+		(ifneq (Lead.SalesRepresentativeID) ""
+		{
+			(oSalesRep (SalesRepresentatives.GetSalesRepresentative (Lead.SalesRepresentativeID)))
+			(bRecordCalls (oSalesRep.RecordCalls))
+		})
+
+		(declare oCurrentSalesRep (UserState.get_SalesRepresentative))
+		(if (not (bRecordCalls))
+		{
+			(bRecordCalls (oCurrentSalesRep.RecordCalls))
+		})
+
+		(bRecordCalls true)
+
+		(declare sContentName (concat (oCurrentSalesRep.Email) " - AdditionalCommands"))
+		(declare oAutomation (Contents.GetContentByContentName (sContentName)))
+
+		(declare iOrganizationID null)
+		(declare oUser (UserState.get_User))
+
+		(declare dtDuplicateLeads (Leads.GetPotentialDuplicates (Lead)))
+		(declare oTags (Tags.GetTags))
+
+		(ado.view dtAppointments
+			LeadNotes_GetUpcomingAppointmentsByLeadID_Sp (ObjectID)
+		)
+
+		(returnex{%>
+<script type="text/javascript">
+	var iOrganizationID = <% iOrganizationID %>;
+	var bRecordCalls = <%if (bRecordCalls) true false %>;
+</script>
+
+<div class="col-md-6">
+
+	<h3><%Lead.Company%></h3>
+
+	<%dtAppointments.each oAppointment{%>
+	<%JsonObject oDataObject (oAppointment.Data)%>
+	<%JsonObject calendar_event (oDataObject.GetJsonObjectOrDefault calendar_event)%>
+
+	<h3 class="alert alert-info">
+		Appointment: <span class="Date" id="spanAppointmentDate"><%oAppointment.FollowUpDate%></span>
+		<%ifneq (calendar_event.GetStringOrNull htmlLink) ""{%>
+		<a href="<%calendar_event.GetStringOrNull htmlLink%>" target="_blank" class="pull-right"><i class="fa fa-calendar-check-o"></i> Invite Sent</a>
+		<%}%>
+	</h3>
+
+	<%}%>
+
+
+	<table class="Inputs table">
+		<colgroup>
+			<col class="col-md-2">
+			<col class="col-md-4">
+		</colgroup>
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Lead ID
+			</td>
+			<td>
+
+				<%Lead.LeadID%>
+
+			</td>
+		</tr>
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Tags
+			</td>
+			<td>
+				<%Lead.LeadTagTags.each oTag{%>
+				<span class="badge bg-primary" style="margin-right: 3px;"><%oTag.TagName%> <%if (oTag.DataObject.GetBooleanOrDefault IsUserEditable true){%><a href="javascript:OnRemoveLeadTag(<%Lead.LeadID%>, '<%oTag.TagName%>')" class="text-white ms-2">X</a><%}%></span>
+				<%}%>
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Add <i class="mdi mdi-chevron-down"></i>
+					</button>
+					<div class="dropdown-menu">
+						<h6 class="dropdown-header">Global Tags</h6>
+						<%oTags.each oTag{%>
+						<%ifeq (oTag.SalesRepresentativeID) ""{%>
+						<%if (oTag.DataObject.GetBooleanOrDefault IsUserEditable true){%>
+						<a href="javascript:OnAddLeadTag(<%Lead.LeadID%>, '<%oTag.TagName%>')" class="dropdown-item"><%oTag.TagName%></a>
+						<%}%>
+						<%}%>
+						<%}%>
+						<h6 class="dropdown-header">My Tags</h6>
+						<%oTags.each oTag{%>
+						<%ifeq (oTag.SalesRepresentativeID) (UserState.get_SalesRepresentativeID){%>
+						<a href="javascript:OnAddLeadTag(<%Lead.LeadID%>, '<%oTag.TagName%>')" class="dropdown-item"><%oTag.TagName%></a>
+						<%}%>
+						<%}%>
+						<div class="dropdown-divider"></div>
+						<a href="javascript:OnStartInsertCustomTag()" class="dropdown-item"><i class="fas fa-plus-circle"></i> Create Tag</a>
+					</div>
+				</div>
+				<%LeadsAdmin.GetInsertTagModal%>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Campaign
+			</td>
+			<td>
+
+				<%ifneq (Lead.Campaign) ""{%>
+				<b><%Lead.Campaign.CampaignName%></b>
+				<%}%>
+
+			</td>
+		</tr>
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Sales Representative
+			</td>
+			<td>
+
+				<%ifneq (oSalesRep) ""
+				{
+				(oSalesRep.Name)
+				}%>
+
+			</td>
+		</tr>
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Company
+			</td>
+			<td>
+
+				<%Lead.Company%>
+
+			</td>
+		</tr>
+
+
+		<%ifneq (oFollowUp) ""{%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Next Follow Up
+			</td>
+			<td>
+
+				<span class="DateOnly"><%oFollowUp.FollowUpDate%></span> - <%oFollowUp.Notes%>
+
+			</td>
+		</tr>
+		<%}%>
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;  vertical-align: middle;">
+				Opportunity Size
+			</td>
+			<td>
+
+				<span class="col-md-3">
+					<input type="text" class="InputNumber form-control" value="<%Lead.OpportunitySize%>" id="txtOpportunitySize" />
+
+				</span>
+
+
+			</td>
+		</tr>
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Mailing Address
+			</td>
+			<td>
+
+				<%Lead.Address%>
+				<%ifneq (Lead.Address2) ""{%>
+				<br /><%Lead.Address2%>
+				<%}%>
+				<%ifneq (Lead.City) ""{%>
+				<br /><%Lead.City%> <%Lead.State%> <%Lead.ZipCode%>
+				<%}%>
+
+			</td>
+		</tr>
+
+
+	</table>
+
+	<%ifneq (dtDuplicateLeads.Count) 0{%>
+	<div class="card card-warning" id="divPotentialDuplicates" style="overflow-y: auto;">
+		<div class="card-header bg-warning text-white">
+			Potential Duplicates
+			<a class="float-end DuplicateSmall" href="javascript:OnGrowDuplicates()" id="btnDuplicatesMax" style="color:white;"><i class="fa fa-window-maximize"></i></a>
+			<a class="float-end DuplicateLarge hidden" href="javascript:OnShrinkDuplicates()" id="btnDuplicatesMin" style="color:white;"><i class="fa fa-window-minimize"></i></a>
+		</div>
+		<div class="card-body" id="divPotentialDuplicatesBody" style="overflow-y: scroll; max-height: 600px;">
+			<table class="table table-striped table-bordered datatables dataTable">
+				<thead>
+					<tr>
+						<th>Lead</th>
+						<th>Company</th>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Email</th>
+						<th>Rep.</th>
+						<th>Status</th>
+						<th class="DuplicateLarge hidden">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%dtDuplicateLeads.each rowDuplicate{%>
+					<tr>
+						<td><a href="/lead?LeadID=<%rowDuplicate.LeadID%>" target="_blank"><%rowDuplicate.LeadID%></a></td>
+						<td><%rowDuplicate.Company%></td>
+						<td><%rowDuplicate.FirstName%> <%rowDuplicate.LastName%></td>
+						<td><%StringToPhone (rowDuplicate.Phone)%></td>
+						<td><%rowDuplicate.Email%></td>
+						<td>
+							<%ifneq (rowDuplicate.SalesRepresentativeID) ""{
+							(declare oRelatedRep (SalesRepresentatives.GetSalesRepresentative (rowDuplicate.SalesRepresentativeID)))
+							(oRelatedRep.Name)
+							}%>
+						</td>
+						<td>
+							<%rowDuplicate.LeadStatus?.StatusName%>
+						</td>
+						<td class="DuplicateLarge hidden">
+							<a href="/lead?LeadID=<%rowDuplicate.LeadID%>" target="_blank"><i class="fa fa-external-link"></i> Open</a>&nbsp;
+							<a href="javascript:void(0)" onclick="OnDefunctDuplicate(<%rowDuplicate.LeadID%>, this)"><i class="fa fa-ban"></i> Defunct</a>&nbsp;
+							<a href="javascript:void(0)" onclick="OnMergeLeads(<%rowDuplicate.LeadID%>, this)"><i class="fa fa-code-fork"></i> Merge</a>&nbsp;
+						</td>
+					</tr>
+					<%}%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+var bRequiresReload = false;
+		function OnGrowDuplicates() {
+			_$("divPotentialDuplicates").addClass("modalLeads");
+			_$("divPotentialDuplicates").style["display"] = "block";
+			_$("divPotentialDuplicates").style["overflow-y"] = "auto";
+			_$("divPotentialDuplicates").style["margin"] = "100px";
+			_$("divPotentialDuplicatesBody").style["max-height"] = "90vh";
+			_$("divPotentialDuplicates").style["max-width"] = `calc(100vw - 200px)`;
+			_$("divPotentialDuplicates").style["max-height"] = "70vh";
+
+			$$(".DuplicateSmall").forEach(x => x.addClass("hidden"));
+			$$(".DuplicateLarge").forEach(x => x.removeClass("hidden"));
+		}
+
+		function OnShrinkDuplicates() {
+			_$("divPotentialDuplicates").removeClass("modalLeads");
+			_$("divPotentialDuplicates").style["display"] = "";;
+			_$("divPotentialDuplicates").style["margin"] = "";
+			_$("divPotentialDuplicatesBody").style["max-height"] = "600px";
+
+			$$(".DuplicateSmall").forEach(x => x.removeClass("hidden"));
+			$$(".DuplicateLarge").forEach(x => x.addClass("hidden"));
+
+			if (bRequiresReload)
+				Page.Reload();
+		}
+
+		function OnDefunctDuplicate(iDup, ctrl) {
+			Leads.UpdateLeadStatus2(iDup, iSalesRepresentativeID, "Defunct", "Duplicate", function () {
+				_$(ctrl).parentNode.parentNode.addClass("hidden")
+			});
+		}
+
+		function OnMergeLeads(iDup, ctrl) {
+			if (confirm("That which has been merged cannot be unmerged. Are you sure?"))
+			{
+				Leads.MergeLeads(iDup, iLeadID, iSalesRepresentativeID, function () {
+					UserMessages.DisplayNow("Merged leads", "Success");
+					bRequiresReload = true;
+					_$(ctrl).parentNode.parentNode.addClass("hidden")
+				});
+			}
+		}</script>
+	<%}%>
+
+	<div id="divSummary" class="hidden card">
+		<div class="card-header">
+			<h4>Lead AI Summary</h4>
+		</div>
+		<div class="card card-body">
+		<div id="divSummaryContent">
+			
+				<%JsonObject jsonSummary (Lead.DataObject.GetJsonObjectOrDefault Summary)%>
+
+				<h4>Summary</h4>
+
+				<span kcs:FieldName="Summary"><%jsonSummary.GetStringOrNull Summary%></span>
+
+				<h4>Recent Actions</h4>
+
+				<%JsonArray jsonSteps (jsonSummary.GetJsonArrayOrDefault RecentActions)%>
+				<ul kcs:FieldName="RecentActions">
+					<%jsonSteps.each jsonValue{%>
+						<li><%jsonValue%></li>
+					<%}%>
+				</ul>
+
+				<h4>Next Action</h4>
+				<span kcs:FieldName="NextAction"><%jsonSummary.GetStringOrNull NextAction%></span>
+
+				<h4>Recommendation</h4>
+				<span kcs:FieldName="Recommendation"><%jsonSummary.GetStringOrNull Recommendation%></span>
+
+
+			
+		
+		</div>
+		</div>
+	</div>
+
+	<h3>Contacts</h3>
+	<h4><%Lead.FirstName%> <%Lead.LastName%> (Primary)</h4>
+	<table class="Inputs table">
+		<colgroup>
+			<col class="col-md-2">
+			<col class="col-md-4">
+		</colgroup>
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Name
+			</td>
+			<td>
+
+				<%Lead.FirstName%> <%Lead.LastName%>
+
+			</td>
+		</tr>
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Phone
+			</td>
+			<td>
+			
+				<%GetPhoneDisplay (Lead.Phone)  (Lead.DataObject.GetStringOrNull PhoneExtension) (concat (Lead.FirstName) " " (Lead.LastName))%>
+			</td>
+		</tr>
+
+		<%if (Lead.DataObject.ContainsKey Fax){%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Fax
+			</td>
+			<td>
+
+				<%StringToPhone (Lead.DataObject.GetStringOrNull Fax)%>
+
+			</td>
+		</tr>
+		<%}%>
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Email
+			</td>
+			<td>
+
+				<span class="email"><%Lead.Email%></span>
+
+				<%ifneq (Lead.Email) ""{%>
+
+				<%ifneq (oSalesRep) ""{%>
+				<a href="https://mail.google.com/mail/u/<%oSalesRep.Email%>/#search/<%Lead.Email%>" target="_blank">Recent Emails</a>
+				<%}%>
+				<%}%>
+
+			</td>
+		</tr>
+	</table>
+	<%declare oContacts (LeadContacts.GetLeadContactsByLeadID (ObjectID))%>
+	<%oContacts.each oContact{%>
+	<h4><%oContact.Name%></h4>
+	<table class="Inputs table">
+		<colgroup>
+			<col class="col-md-2">
+			<col class="col-md-4">
+		</colgroup>
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Name
+			</td>
+			<td>
+
+				<%oContact.Name%>
+
+			</td>
+		</tr>
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Title
+			</td>
+			<td>
+
+				<%oContact.Title%>
+
+			</td>
+		</tr>
+
+
+
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Phone
+			</td>
+			<td>
+				<%GetPhoneDisplay (oContact.Phone)  (oContact.DataObject.GetStringOrNull PhoneExtension) (oContact.Name)%>
+
+			</td>
+		</tr>
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Email
+			</td>
+			<td>
+
+				<span class="email"><%oContact.Email%></span>
+
+				<%ifneq (oContact.Email) ""{%>
+				<%ifneq (oSalesRep) ""{%>
+				<a href="https://mail.google.com/mail/u/<%oSalesRep.Email%>/#search/<%oContact.Email%>" target="_blank">Recent Emails</a>
+				<%}%>
+				<%}%>
+
+			</td>
+		</tr>
+	</table>
+	<%}%>
+
+
+	<h3>More Info</h3>
+	<table class="Inputs table">
+		<colgroup>
+			<col class="col-md-2">
+			<col class="col-md-4">
+		</colgroup>
+
+		<%if (Lead.DataObject.ContainsKey ContractSentDate){%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Contract Sent
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.DataObject.ContractSentDate%></span>
+
+			</td>
+		</tr>
+
+		<%}%>
+
+		<%if (Lead.DataObject.ContainsKey ContractOpenedDate){%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Contract Opened
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.DataObject.ContractOpenedDate%></span>
+
+			</td>
+		</tr>
+
+		<%}%>
+
+
+		<%if (Lead.DataObject.ContainsKey ContractSignedDate){%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Contract Signed
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.DataObject.ContractSignedDate%></span>
+
+			</td>
+		</tr>
+
+		<%}%>
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Last Contacted Date
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.LastContactedDate%></span>
+
+			</td>
+		</tr>
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Priority
+			</td>
+			<td>
+				<%GetLeadPriority (Lead.Priority)%>
+
+			</td>
+		</tr>
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Status
+			</td>
+			<td>
+
+
+				<%ifneq  (Lead.LeadStatus) ""{%>
+
+
+				<%Lead.LeadStatus.StatusName%>
+
+				<%ifneq (Lead.LeadSubStatus) ""{%>
+				- <%Lead.LeadSubStatus.SubStatusName%>
+				<%}%>
+
+				<%}%>
+
+
+			</td>
+		</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Source
+			</td>
+			<td>
+
+
+				<%ifneq  (Lead.Source) ""{%>
+
+
+				<%Lead.Source.SourceName%>
+
+				<%}%>
+
+
+			</td>
+		</tr>
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Campaign
+			</td>
+			<td>
+
+				<%ifneq (Lead.Campaign) ""{%>
+				<%Lead.Campaign.CampaignName%>
+				<%}%>
+
+			</td>
+		</tr>
+		<%ifneq (Lead.DataObject.GetStringOrNull Website) ""{%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Website
+			</td>
+			<td>
+
+				<a href="javascript:void(0)" onclick="OpenWebsite('<%Lead.DataObject.GetStringOrNull Website%>')"><%Lead.DataObject.GetStringOrNull Website%></a>
+
+			</td>
+		</tr>
+		<%}%>
+
+
+		<%ifneq (Lead.DataObject.GetStringOrNull LinkedIn) ""{%>
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				LinkedIn
+			</td>
+			<td>
+
+				<a target="_blank" href="<%Lead.DataObject.GetStringOrNull LinkedIn%>"><%Lead.DataObject.GetStringOrNull LinkedIn%></a>
+
+			</td>
+		</tr>
+		<%}%>
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Generated
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.GeneratedDate%></span>
+
+			</td>
+		</tr>
+
+
+
+
+
+
+		<tr>
+			<td class="InputLabel" style="text-align: right;">
+				Last Updated
+			</td>
+			<td>
+
+				<span class="Date"><%Lead.LastUpdated%></span>
+
+			</td>
+		</tr>
+
+
+
+	</table>
+</div>
+
+<div class="col-md-6">
+
+    <div class="card">
+        <div class="card-body">
+
+			<div class="d-flex align-items-center mb-3">
+				<h5 class="card-title font-16 me-3">Attachments</h5>
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary waves-effect waves-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<i class="mdi mdi-plus"></i> Create New
+					</button>
+					<div class="dropdown-menu" data-popper-placement="bottom-start">
+							<a class="dropdown-item" href="#" onclick="OnAttachFile()"><i class="mdi mdi-upload me-1"></i> Choose File</a>
+					</div>
+				</div>
+				<%GetGoogleAttachmentControls%>
+			</div>
+			<%declare oLeadFiles (LeadNotes.GetGoogleDocsFilesByLeadIDSync (ObjectID))%>
+			<%oLeadFiles.each oLeadFile{%>
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title badge-soft-primary text-primary rounded">
+                                    doc
+                                </span>
+                            </div>
+                        </div>
+							<div class="col ps-0">
+								<a href="https://docs.google.com/document/d/<%oLeadFile.DocumentID%>" 
+								   class="text-muted fw-bold" 
+								   target="_blank">
+									<%oLeadFile.Title%>
+								</a>
+								<p class="mb-0 font-12">Uploaded on <%oLeadFile.CreatedDate%></p>
+							</div>
+							<div class="col-auto">
+								<a href="https://docs.google.com/document/d/<%oLeadFile.DocumentID%>" 
+								   class="btn btn-link font-16 text-muted" 
+								   target="_blank" 
+								   title="Download">
+									<i class="dripicons-download"></i>
+								</a>
+							</div>
+                    </div>
+                </div>
+            </div>
+			<%}%>
+        </div>
+    </div>
+
+	<div class="card border-primary border">
+		<div class="card-header">
+			<h4 class="text-primary">Quick Actions</h4>
+		</div>
+		<div class="card-body">
+
+			<div class="form-horizontal row-border Inputs">
+				<%ifeq (Lead.SalesRepresentativeID) ""{%>
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+
+					</label>
+					<div class="col-sm-9">
+
+						<%if (Leads.CanClaimLead (Lead.LeadID) (UserState.get_SalesRepresentativeID)){%>
+						<button value="" onclick="OnClaimLead()" class="Insert btn btn-outline-primary "><i class="fas fa-square"></i> Claim Lead</button>
+						<%}%>
+
+					</div>
+				</div>
+				<%}%>
+
+				<%ifeq (Lead.SalesRepresentativeID) (UserState.get_SalesRepresentativeID){%>
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+
+					</label>
+					<div class="col-sm-9">
+
+						<button value="" onclick="OnForfeitLead()" class="Delete btn btn-primary "><i class="fas fa-minus-square"></i> Forfeit Lead</button>
+
+					</div>
+				</div>
+				<%}%>
+
+				<%if (bCanCommunicate){%>
+
+
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Appointment:
+					</label>
+					<div class="col-sm-9">
+
+						<button value="" onclick="OnAppointmentSet()" class="Insert btn btn-outline-primary "> Set Appointment</button>
+
+					</div>
+					<%GetAppointmentControls%>
+				</div>
+
+
+
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Status:
+					</label>
+					<div class="col-sm-6">
+						<%declare oStatuses (LeadStatuses.GetLeadStatuses)%>
+
+						<select kcs:FieldName="Status" class="form-select" id="ddlQuickStatus">
+							<%oStatuses.each oStatus{%>
+							<%declare oSubStatuses (LeadSubStatuses.GetLeadSubStatusesByLeadStatusID (oStatus.LeadStatusID))%>
+							<optgroup label="<%oStatus.StatusName%>">
+								<%ifneq (oSubStatuses.Count) 0{%>
+								<%oSubStatuses.each oSubStatus{%>
+								<option value="<%oStatus.StatusName%>|<%oSubStatus.SubStatusName%>"><%oStatus.StatusName%> - <%oSubStatus.SubStatusName%></option>
+								<%}%>
+								<%}{%>
+								<option value="<%oStatus.StatusName%>"><%oStatus.StatusName%></option>
+								<%}%>
+							</optgroup>
+							<%}%>
+						</select>
+
+					</div>
+
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Priority:
+					</label>
+					<div class="col-sm-6">
+
+						<select kcs:FieldName="Priority" class="form-select" id="ddlPriority">
+							<option value="1">Hot</option>
+							<option value="2">Warm</option>
+							<option value="3">Normal</option>
+							<option value="4">Cold</option>
+						</select>
+					</div>
+
+				</div>
+
+				<div class="row mb-3" id="divSendTemplate">
+					<label class="col-sm-3 control-label InputLabel">
+						Send Template:
+					</label>
+					<div class="col-sm-9">
+
+						<button value="" onclick="OnSendEmailTemplate()" class="Insert btn btn-outline-primary  hidden" id="btnSendEmailTemplate"> Send Email</button>
+						<button value="" onclick="OnSendTextTemplate()" class="Insert btn btn-outline-primary "> Send Text</button>
+						<button id="btnWhatsApp" value="" onclick="OnSendWhatsAppTextTemplate()" class="Insert btn btn-outline-primary "> Send WhatsApp Text</button>
+
+					</div>
+
+				</div>
+				<%}%>
+
+				<%ifneq (oAutomation) ""{%>
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Automation:
+					</label>
+					<div class="col-sm-9">
+						<%oAutomation.Content%>
+					</div>
+				</div>
+				<%}%>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="card border">
+		<div class="card-header">
+			<h4 id="spanAgentStatus">How can I help you?</h4>
+		</div>
+		<div class="card-body">
+
+
+			<div id="directivearea">
+
+				<div class="chathistory" id="chathistory" style="max-height: 400px; overflow-y: scroll; padding: 16px; border: solid 1px #9f9f9f; border-radius: 8px;">
+				</div>
+
+
+			</div>
+			<div class="chatinput">
+			  <textarea id="txtDirective" cols="25" rows="3" wrap="soft" style="width:100%;"></textarea>
+			  <div class="chatuser pt-3">
+				<span class="pull-right">Lead AI Agent</span>
+				<a id="hidechatbtn" class="btn btn-primary btn-md" onclick="DirectiveEditor.OnEnter(null)">
+				  <i class="fa fa-arrow-right"></i> Go
+				</a>
+			  </div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.UI.LeadNotesAdmin.ashx.js"></script>
+	<script type="text/javascript" src="/js/automation.js?v=2"></script>
+	<script type="text/javascript" src="/js/automation_settings.js"></script>
+	<script type="text/javascript" src="/js/automation_directives.js"></script>
+	<script type="text/javascript" src="/js/lead_automation.js?v=2"></script>
+
+	<link rel="Stylesheet" type="text/css" href="/css/automation.css?v=1" />
+	<script type="text/javascript" src="/js/plugins/codemirror/simple-hint.js"></script>
+	<link rel="stylesheet" href="/js/plugins/codemirror/simple-hint.css" />
+
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.WhatsAppMessages.ashx.js"></script>
+
+	<script type="text/javascript">
+		Page.AddOnload(async function(){
+			await ConfigureSideChatArea();
+			ValidateWhatsApp();
+		});
+
+		function ValidateWhatsApp()
+		{
+			WhatsAppMessages.IsWhatsEnable(function (oRes) {
+				if(!oRes)
+					_$("btnWhatsApp").addClass("Hidden");
+			});
+		}
+
+	</script>
+
+
+	<div class="card border">
+		<div class="card-header">
+			<h4 class="">Add Note</h4>
+		</div>
+		<div class="card-body">
+			<%LeadNotesAdmin.GetInsert2 (Lead.LeadID) (UserState.get_SalesRepresentativeID)%>
+
+
+
+		</div>
+		<div class="card-footer">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<div class="btn-toolbar">
+						<button value="" onclick="OnInsertLeadNote()" class="Insert btn btn-outline-primary "><i class="fas fa-plus"></i> Save Note</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<%GetLeadNoteEditControls%>
+
+	<%GetEmailReplyModal%>
+
+	<%GetEmailPreviewModal%>
+
+	<%GetTextReplyModal%>
+
+	<%})
+	}%>
+
+
+	<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+	{
+
+	(declare oPermissions (UserState.get_Permission))
+	(declare Lead (CachedObject))
+	(declare bCanCommunicate (or (eq (Lead.SalesRepresentativeID) (UserState.get_SalesRepresentativeID)) (oPermissions.CanCommunicateWithUnclaimedLead)))
+
+
+	(declare tabs [])
+
+
+	(declare tabLeadNotes {Title : "Lead Notes", ControlID : "tab-LeadNotes", Content : "" })
+	(tabLeadNotes.Content (GetRelatedObjectTab LeadNotes "Lead Notes" true))
+	(tabs.push (tabLeadNotes))
+
+	(declare optionsLeadContact {RelatedObjectsName : "LeadContacts", RelatedObjectsFriendlyName: "Contacts", AllowSearch: true, Insert:""})
+	(optionsLeadContact.Insert (eval{%>
+<a class="Insert btn btn-outline-primary " href="/lead-contact-insert?LeadID=<%ObjectID%>"><i class="fas fa-plus"></i> Create</a>
+	<%}))
+
+	(declare tabLeadContacts {Title : "Additional Contacts", ControlID : "tab-LeadContacts", Content : ""})
+	(tabLeadContacts.Content (GetRelatedObjectTab (optionsLeadContact)))
+
+	(tabs.push (tabLeadContacts))
+
+
+	(declare optionsLeadRelationships {RelatedObjectsName : "LeadRelationships", RelatedObjectsFriendlyName: "Related Leads", AllowSearch: false, Insert:""})
+	(optionsLeadRelationships.Insert (eval{%>
+<a class="Insert btn btn-outline-primary " href="/lead-contact-insert?LeadID=<%ObjectID%>"><i class="fas fa-plus"></i> Create</a>
+	<%}))
+
+	(declare tabLeadRelationships {Title : "Related Leads", ControlID : "tab-LeadRelationships", Content : ""})
+	(tabLeadRelationships.Content (GetRelatedObjectTab (optionsLeadRelationships)))
+	(tabs.push (tabLeadRelationships))
+
+
+	(ifneq (Lead.Phone) ""
+	{
+		(declare rowPhoneNumber (PhoneNumbers.GetPhoneNumberInfo (Lead.Phone)))
+		(if (rowPhoneNumber.IsTextable)
+		{
+			(declare tabMessages {Title : "Messages", ControlID : "tab-Messages", Content : "" })
+			(tabMessages.ControlID (concat "tab-Messages" (Lead.Phone)))
+			(tabMessages.Title (concat (Lead.FirstName) " " (Lead.LastName) " " (StringToPhone (Lead.Phone))))
+			(tabMessages.Content (GetMessagePanel (Lead.Phone)))
+
+			(tabs.push (tabMessages))
+		})
+	})
+
+
+	(Lead.LeadContacts.each oLeadContact
+	{
+		(ifneq (oLeadContact.Phone) ""
+		{
+			(declare rowPhoneNumber (PhoneNumbers.GetPhoneNumberInfo (oLeadContact.Phone)))
+
+			(if (rowPhoneNumber.IsTextable)
+			{
+				(declare tabMessages2 {Title : "Messages", ControlID : "tab-Messages", Content : "" })
+				(tabMessages2.Title (concat (oLeadContact.Name) " " (StringToPhone (oLeadContact.Phone))))
+				(tabMessages2.ControlID (concat "tab-Messages" (oLeadContact.Phone)))
+				(tabMessages2.Content (GetMessagePanel (oLeadContact.Phone)))
+
+				(tabs.push (tabMessages2))
+			})
+		})
+	})
+
+
+	(return (GetTabs (tabs)))
+	}%>
+
+<%redefinefunction GetMessagePanel sPhone
+{
+	(declare rowPhoneNumber (PhoneNumbers.GetPhoneNumberInfo (sPhone)))
+
+	(returnex{%>
+<div class="col-sm-12" style=" position: relative; min-height: 200px;">
+
+	<!--div class="" style=" position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); color: white; display: flex; align-items: center; justify-content: center; text-align: center; z-index: 1000; /* Ensure it is above other content */">
+		<div>
+			<b>Feature Disabled</b>
+			<p>This feature is currently disabled. Please complete phone number validation to enable texting</p>
+		</div>
+	</!--div-->
+
+	<div id="chatarea">
+		<div class="chatuser mt-2">
+			Texting with <%StringToPhone (sPhone)%>
+			<span class="float-end">SMS History</span>
+
+		</div>
+		<div class="chathistory" id="chathistory_<%sPhone%>">
+			Loading...
+		</div>
+		<div class="chatinput">
+			<textarea name="" rows="2" id="txtMessage_<%sPhone%>"></textarea>
+			<%if (bCanCommunicate){%>
+			<button id="btnSendMessage" value="" onclick="OnSendMessage2('<%sPhone%>')" class="Insert btn btn-outline-primary " style="margin-top: 10px;"><i class="fas fa-comment"></i> Send Message</button>
+			<button id="hidechatbtn" class="btn btn-default btn-sm  btn-outline-primary float-end" style="margin-top: 10px;" onclick="OnRefreshMessages2('<%sPhone%>')"><i class="fas fa-refresh"></i> </button>
+			<%}%>
+		</div>
+
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+			if (!Page.Tabs) {
+				Page.Tabs={};
+			};
+
+			Page.Tabs['tab-Messages<%sPhone%>']={};
+
+			Page.Tabs['tab-Messages<%sPhone%>'].OnLoad=function () {
+				console.log('<%sPhone%> loaded');
+				OnRefreshMessages2('<%sPhone%>');
+			}
+</script>
+	<%})
+}%>
+
+
+	<%redefinefunction SimpleObjectDetailsPage.AdditionalCommands
+	{
+
+	(returnex{%>
+<span class="btn btn-info-alt hidden " style="padding: 6px 14px; ">
+	<span class="dropdown">
+		<a class="dropdown-toggle btn btn-secondary btn-sm" data-toggle="dropdown" href="#" style="color: black; font-size:14px; padding: 0px 5px 0px 5px;">Next <span class="spanTagIterator"></span> <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			<%declare oTags (Tags.GetTags)%>
+			<%oTags.each oTag{%>
+			<%ifeq (oTag.SalesRepresentativeID) ""{%>
+			<%if (oTag.DataObject.GetBooleanOrDefault IsUserEditable true){%>
+			<li><a href="javascript:OnSetTagIterator('<%oTag.TagName%>', <%oTag.TagID%>)"><%oTag.TagName%></a></li>
+			<%}%>
+			<%}%>
+			<%}%>
+			<hr />
+			<%oTags.each oTag{%>
+			<%ifeq (oTag.SalesRepresentativeID) (UserState.get_SalesRepresentativeID){%>
+			<li><a href="javascript:OnSetTagIterator('<%oTag.TagName%>', <%oTag.TagID%>)"><%oTag.TagName%></a></li>
+			<%}%>
+			<%}%>
+		</ul>
+	</span>
+
+	<button value="" onclick="OnNextLead2()" class="Edit btn btn-info-alt  " style="border:0px none; padding: 0px 5px 0px 5px;">
+		<i class="fas fa-angle-double-right"></i>
+	</button>
+</span>
+
+	<%})
+	}%>
+
+	<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+	{
+	(declare oSalesRep (UserState.get_SalesRepresentative))
+
+	(returnex{%>
+
+	<%LeadNotesAdmin.GetTranscriptionJavascript%>
+
+<script type="text/javascript" language="javascript">
+
+				function OpenWebsite(sUrl) {
+					if (!StringUtil.InString(sUrl, "//"))
+						sUrl = "//" + sUrl;
+
+					Page.Redirect(sUrl, {}, "_blank");
+				}
+
+
+
+				function OnLeadNotesClick(iLeadNotesID, e, el, bCtrl) {
+					Page.Redirect("lead-note", { LeadNoteID: iLeadNotesID }, bCtrl ? "_blank" : "_self");
+				}
+
+				Page.AddOnload(function () {
+
+					var oGrid=new JsonWsGrid3();
+					Page.Grids.Insert("LeadNotesGrid", oGrid);
+					oGrid.ContentControlID="divLeadNotes";
+					oGrid.ExtraParams={ LeadID: <%ObjectID%> };
+					oGrid.AllowPageSizeEditing=true;
+					oGrid.JsonWsGridMethod="GetGridByLeadIDHtml";
+					oGrid.JsonWsCountMethod="GetGridByLeadIDCount";
+					oGrid.JsonWsUrl='/JsonWs/<%UINamespace%>.LeadNotesAdmin.ashx';
+
+					oGrid.SearchControlID='txtLeadNotesSearch';
+
+
+					oGrid.EmptyDataTemplateID="divLeadNotesEmpty";
+					oGrid.SortAscending=false;
+					oGrid.sort='DateCreated';
+					oGrid.OnComplete=function () { OnFormatDate("divLeadNotes") };
+					oGrid.OnDataReceived=function (data) {
+						return RemoveTrackingPixels(data);
+					}
+					oGrid.OnRowClick=null;
+
+					oGrid.m_ObjectsName="LeadNotes";
+					oGrid.fromHistory();
+
+					if (Page.Tabs['tab-LeadNotes'].IsActive==true)
+						Page.Tabs['tab-LeadNotes'].OnLoad();
+
+				});
+
+				Page.Tabs['tab-LeadNotes'] = {};
+				Page.Tabs['tab-LeadNotes'].OnLoad = function () {
+					if (ObjectUtil.HasValue(Page.Grids.LeadNotesGrid)) {
+						Page.Grids.LeadNotesGrid.StartRefreshing();
+					}
+				}
+
+
+</script>
+	<%GetRelatedObjectTabInitializer LeadContacts {AllowSearch: true, MetaFile:'LeadContacts.meta.json', AllowClick :true }%>
+	<%GetRelatedObjectTabInitializer LeadRelationships {AllowSearch: false, MetaFile:'LeadRelationships.meta.json', AllowClick :false }%>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.LeadNotes.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.LeadTags.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%UINamespace%>.LeadsAdmin.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.LeadAutomation.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.Files.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.LeadCalls.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.PhoneNumbers.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+
+	Page.LocalSettings = {
+		TagIterator: "Follow Up"
+	}
+
+	Page.AddOnLoad(function () {
+		var oSettings = Page.LocalStorage.GetValue("LocalSettings");
+		if (null != oSettings)
+		{
+			Page.LocalSettings = $merge(Page.LocalSettings, oSettings);
+		}
+
+		OnDisplayLocalSettings();
+	})
+
+	window.onbeforeunload = function () {
+		Page.LocalStorage.SetValue("LocalSettings", Page.LocalSettings);
+	};
+
+	function OnSetTagIterator(sName) {
+		Page.LocalSettings.TagIterator = sName;
+		OnDisplayLocalSettings()
+	}
+
+	function OnDisplayLocalSettings() {
+		$$(".spanTagIterator").forEach(x => x.innerHTML = Page.LocalSettings.TagIterator);
+	}
+
+
+	var iSalesRepresentativeID = <% UserState.get_SalesRepresentativeID %>;
+	var oLead = <% ToJSON(CachedObject) { DataObject:true, LeadStatus: true, LeadSubStatus: true, TestKitOrganization: true}%>;
+	LeadsValidators.MessageLead.Message = { Validators: [Validators.Text, Validators.Required], InvalidMessage: "Invalid Message. " + ValidatorDescriptions.Required() + ' ' + ValidatorDescriptions.Length(1, 2000) };
+	function OnInsertLeadNote() {
+		var oLeadNote = BlindUnbind(_$("divLeadNote"));
+
+		if (!StringUtil.IsEmpty(oLeadNote.FollowUpDate)) {
+			var date = new Date(oLeadNote.FollowUpDate);
+			if (date.getHours() != 0)
+				oLeadNote.FollowUpDate = DateUtil.ToShortDateTime(DateUtil.AddHours(date, new Date().getTimezoneOffset() / 60));
+		}
+		LeadNotes.InsertLeadNoteObject(oLeadNote, function () {
+			UserMessages.Display("Note created", "Success");
+			Page.Reload();
+		})
+	}
+
+	function OnClaimLead() {
+		Leads.ClaimLead(iLeadID, iSalesRepresentativeID, function () {
+			UserMessages.Display("Lead Claimed", "Success");
+			Page.Reload();
+		})
+	}
+
+	function OnUpdateLeadStatus(sStatus, sSubStatus, sLeadNoteTypeName) {
+		Leads.UpdateLeadStatus(iLeadID, iSalesRepresentativeID, sStatus, sSubStatus, sLeadNoteTypeName, function () {
+			UserMessages.Display("Status Updated", "Success");
+			Page.Reload();
+		})
+	}
+
+	function OnUpdateLeadStatus2(sStatus, sSubStatus) {
+		Leads.UpdateLeadStatus2(iLeadID, iSalesRepresentativeID, sStatus, sSubStatus, function () {
+			UserMessages.Display("Status Updated", "Success");
+			Page.Reload();
+		})
+	}
+
+
+
+	Page.AddOnload(function () {
+
+		OnBindQuickStatus();
+		ControlUtil.AddChange("ddlQuickStatus", OnUpdateQuickStatus);
+		ControlUtil.AddChange("txtOpportunitySize", OnUpdateOpportunitySize);
+
+		ControlUtil.SetValue("ddlPriority", oLead.Priority);
+		ControlUtil.AddChange("ddlPriority", OnUpdatePriority);
+
+		if (StringUtil.EqualNoCase(oLead.DataObject.PhoneLineType, "Landline")) {
+			ControlUtil.SetValue("txtMessage", "Cannot text a landline");
+			ControlUtil.Disable("btnSendMessage");
+			ControlUtil.Disable("txtMessage");
+		}
+
+		<%if (OrganizationFeature.Feature.IsAgentChatEnabled){%>
+		SendObjectToBuffaly();
+		<%}%>
+	});
+
+	function SendObjectToBuffaly(bOverride)
+	{
+		if (StringUtil.IsEmpty(oLead.DataObject.PrototypeName) || bOverride === true)
+		{
+			Leads.SendObjectToBuffaly(iLeadID, function () {
+				UserMessages.DisplayNow("Lead sent to Buffaly", "Success");
+			});
+		}
+	}
+
+
+	function OnClickInvoice(iInvoiceID, e, el, bCtrl) {
+		Page.Redirect("invoice", { InvoiceID: iInvoiceID }, bCtrl ? "_blank" : "_self");
+	}
+
+	function OnUpdatePriority() {
+		var iPriority = ControlUtil.GetValue("ddlPriority");
+		Leads.UpdatePriority(iLeadID, iPriority, function () {
+			UserMessages.Display("Priority Updated", "Success");
+			Page.Reload();
+		})
+	}
+
+	function OnBindQuickStatus() {
+		var sStatus = oLead.LeadStatus.StatusName;
+
+		if (ObjectUtil.HasValue(oLead.LeadSubStatus))
+			sStatus += "|" + oLead.LeadSubStatus.SubStatusName;
+
+		else if (StringUtil.EqualNoCase(sStatus, "Sold"))
+			sStatus += "|Sold";
+
+		console.log(sStatus);
+		ControlUtil.SetValue("ddlQuickStatus", sStatus);
+	}
+
+	function OnUpdateOpportunitySize() {
+		let sSize = ControlUtil.GetValue("txtOpportunitySize");
+		if (isInt(sSize)) {
+			Leads.UpdateOpportunitySize(iLeadID, sSize, function () {
+				UserMessages.DisplayNow("Opportunity size updated", "Success");
+			})
+		}
+	}
+
+	function OnUpdateQuickStatus() {
+		var sStatus = ControlUtil.GetValue("ddlQuickStatus");
+		console.log(sStatus);
+
+		LeadsValidatorsFields.LeadSubStatusID.Validators = [];
+
+		var sStatuses = StringUtil.Split(sStatus, "|");
+		if (sStatuses.length == 1)
+			OnUpdateLeadStatus2(sStatuses[0], null);
+		else
+			OnUpdateLeadStatus2(sStatuses[0], sStatuses[1]);
+
+	}
+
+	function OnNextLead() {
+		Leads.GetNextLead(iSalesRepresentativeID, function (iNewLeadID) {
+			if (!ObjectUtil.HasValue(iNewLeadID)) {
+				UserMessages.DisplayNow("Congrats! You have contacted all your leads today", "Success");
+			}
+			else if (iLeadID == iNewLeadID) {
+				UserMessages.DisplayNow("A lead must be contacted (even if they didn't answer) to go to the next lead", "Info")
+			}
+			else {
+				Page.Redirect("/lead", { LeadID: iNewLeadID });
+			}
+		});
+	}
+
+	function OnNextLead2() {
+		Leads.GetNextLeadByTag(iSalesRepresentativeID, Page.LocalSettings.TagIterator, function (iNewLeadID) {
+			if (!ObjectUtil.HasValue(iNewLeadID)) {
+				UserMessages.DisplayNow("Congrats! You have contacted all your leads today", "Success");
+			}
+			else if (iLeadID == iNewLeadID) {
+				UserMessages.DisplayNow("A lead must be contacted (even if they didn't answer) to go to the next lead", "Info")
+			}
+			else {
+				Page.Redirect("/lead", { LeadID: iNewLeadID });
+			}
+		});
+	}
+
+
+	OnObjectsTitleClick = function () {
+		var sHref = new LocalStorage().get("LeadsPage");
+
+		if (!StringUtil.IsEmpty(sHref))
+			Page.Redirect(sHref);
+		else
+			Page.Redirect("/leads");
+	};
+
+	function OnSendMessage() {
+		var sMessage = ControlUtil.GetValue("txtMessage");
+		if (!StringUtil.IsEmpty(sMessage)) {
+			ControlUtil.SetValue("txtMessage", "");
+
+			Leads.MessageLead(oLead.LeadID, iSalesRepresentativeID, sMessage, function () {
+				UserMessages.DisplayNow("Message sent", "Success");
+				OnRefreshMessages();
+			});
+		}
+	}
+
+	function OnSendMessage2(sPhone) {
+		var sMessage = ControlUtil.GetValue("txtMessage_" + sPhone);
+		if (!StringUtil.IsEmpty(sMessage)) {
+			ControlUtil.SetValue("txtMessage_" + sPhone, "");
+
+			Leads.MessageLead2(oLead.LeadID, iSalesRepresentativeID, sPhone, sMessage, function () {
+				UserMessages.DisplayNow("Message sent", "Success");
+				OnRefreshMessages2(sPhone);
+			});
+		}
+	}
+
+
+	async function OnRefreshMessages() {
+
+		let f = new Promise((resolve) => {
+			LeadsAdmin.GetMessages(iLeadID, function (oRes) {
+				_$("chathistory").innerHTML = oRes;
+				OnFormatDate("chathistory");
+				console.log("messages refreshed");
+				resolve();
+			})
+		});
+
+		await f;
+	}
+
+	async function OnRefreshMessages2(sPhone) {
+
+		_$("chathistory_"+sPhone).innerHTML="Reloading...";
+		let f = new Promise((resolve) => {
+			LeadsAdmin.GetMessagesByPhone(sPhone, function (oRes) {
+				_$("chathistory_"+sPhone).innerHTML=oRes;
+				OnFormatDate("chathistory_"+sPhone);
+				console.log("messages refreshed");
+				resolve();
+			})
+		});
+
+		await f;
+	}
+
+
+
+	function OnSendContract() {
+		Page.Redirect("/lead-contract", { LeadID: iLeadID })
+	}
+
+	function OnCreateTestKitQuote() {
+		Page.Redirect("/quote-insert-testkit", { LeadID: iLeadID }, "_blank");
+	}
+
+	function OnCreateTestKitQuote2(iOrganizationID) {
+		Page.Redirect("/quote-insert-testkit", { OrganizationID: iOrganizationID }, "_blank");
+	}
+
+
+
+	function OnOpenRawEmail2(iRawEmailID) {
+		Page.Redirect("/raw-lead-email?RawEmailID", { RawEmailID: iRawEmailID });
+	}
+
+	function OnForfeitLead() {
+		if (confirm("Are you sure you want to forfeit this lead?")) {
+			Leads.ForfeitLead(iLeadID, iSalesRepresentativeID, function () {
+				UserMessages.Display("Lead forfeited", "Success");
+				Page.Reload();
+			})
+		}
+	}
+
+	Page.AddOnload(function () {
+		Page.Grids.LeadNotesGrid.OnComplete = function () {
+			OnFormatDate("divLeadNotes")
+			$$("#divLeadNotes a").forEach(x => {
+
+				if (StringUtil.InString(x.href, "lead-files")) {
+					let sLink = StringUtil.RightOfFirst(x.href, "lead-files");
+					x.href = "javascript:void(0)";
+					x.title = sLink;
+					ControlUtil.AddClick(x, function () {
+						OpenFileLink(sLink);
+					});
+				}
+			});
+		};
+	});
+
+	function OpenFileLink(sLink) {
+		if (!StringUtil.IsEmpty(sLink)) {
+			sLink = decodeURI(sLink);
+			sLink = "lead-files" + sLink;
+			Files.GetPreSignedURL(sLink, function (sURL) {
+				Page.Redirect(sURL, {}, true);
+			});
+		}
+	}
+
+
+</script>
+
+<script>
+	<%if (oSalesRep.DataObject.GetBooleanOrFalse IsCallerIDVerified) {%>
+	var sCurrentSalesRepPhone="<%oSalesRep.Phone%>";
+	<%} {%>
+	var sCurrentSalesRepPhone="";
+	<%}%>
+
+	function OnCallLead(sPhone, sFriendly) {
+		let iUserID= <%UserState.UserID%>;
+		let sCallerID = "<%TwilioFeature.Feature.FromNumber%>";
+		var sUrl="/tw_call2.html?"+toQueryString(
+		{
+			phone: sPhone,
+			name: sFriendly,
+			record : bRecordCalls,
+			CallerID: sCallerID,
+			LeadID : iLeadID,
+			SalesRepresentativeID : iSalesRepresentativeID
+		});
+		
+		window.open(sUrl, 'caller_' + iLeadID, 'toolbar=no, menubar=no, resizable=yes, scrollbars=yes, width=500, height=900')
+	}
+
+	function OnCallLead2(sPhone, sFriendly) {
+		let iUserID= <%UserState.UserID%>;
+		LeadCalls.CallLead(iLeadID, iSalesRepresentativeID, function (oObj) {
+
+			let sTok = oObj.Jwt;
+			let iLeadNoteID = oObj.LeadNoteID;
+			let sCallerID = oObj.CallerID;
+
+			var sUrl="/tw_call2.html?"+toQueryString(
+			{
+				jwt: sTok,
+				phone: sPhone,
+				name: sFriendly,
+				LeadNoteID: iLeadNoteID,
+				record : bRecordCalls,
+				CallerID: sCallerID
+			});
+
+	
+			window.open(sUrl, 'caller_' + iLeadID, 'toolbar=no, menubar=no, resizable=yes, scrollbars=yes, width=500, height=900')
+		});
+	}
+
+	function OnJoinConference(sPhone) {
+		Leads.CallLead(iLeadID, iSalesRepresentativeID, function (sTok) {
+			var sUrl = "/tw_call.html?" + toQueryString({ jwt: sTok, phone: sPhone, t: oLead.LeadType, join: true });
+
+			if (bRecordCalls)
+				sUrl += "&r=1&lead_id=" + iLeadID;
+
+			window.open(sUrl, 'caller', 'toolbar=no, menubar=no, resizable=no, width=450, height=800')
+		});
+	}
+
+
+
+	function OnSummarize(iLeadNoteID, ctrl) {
+		ctrl.disabled = true;
+		UserMessages.DisplayNow("Starting summary...", "Info");
+		LeadCalls.SummarizeCall(iLeadNoteID, function () {
+			UserMessages.DisplayNow("Summary available", "Success");
+			Page.Grids.LeadNotesGrid.Refresh(true);
+		});
+	}
+
+</script>
+
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.Contents.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.BlockedEmails.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+	var bIsEmailIntegrated = <%if (oSalesRep.IsEmailIntegrated) true false %>;
+	var sEmail = "<%oSalesRep.Email%>";
+	var sSalesRepName = "<%oSalesRep.Name%>";
+
+	var sActiveID = null;
+	function OnOpenRawEmailInGmail(sID) {
+		if (!ObjectUtil.HasValue(sID))
+			sID = sActiveID;
+
+		Page.Redirect("https://mail.google.com/mail/u/" + sEmail + "/#all/" + sID, {}, "_blank");
+	}
+
+	function ShowTab(sTabName) {
+		jQuery('a[href="#' + sTabName + '"]').click();
+	}
+
+	Page.AddOnload(function () {
+		if (!StringUtil.IsEmpty(Page.QueryString()["RawEmailID"])) {
+			OnOpenRawEmail(Page.QueryString()["RawEmailID"]);
+		}
+
+		if (bIsEmailIntegrated) {
+			var oBtn = _$("btnSendEmailTemplate");
+			if (ObjectUtil.HasValue(oBtn))
+				oBtn.removeClass("hidden");
+		}
+
+		if (!StringUtil.IsEmpty(Page.QueryString()["m"])) {
+			let sPhone=Page.QueryString()["m"];
+
+			//TODO: This should be async await
+			ShowTab("tab-Messages"+sPhone);
+			(function () {
+				ControlUtil.GetChildren("tab-Messages"+sPhone, "textarea")[0].focus();
+			}).delay(1000);
+		}
+
+		$$(".email").forEach(x => {
+			let sEmail = x.innerHTML.trim();
+			if (!StringUtil.IsEmpty(sEmail)) {
+				BlockedEmails.GetBlockedEmailByEmail.onValidationError = function () {
+					x.innerHTML += "<span class='label label-danger' data-toggle='title' title=''>Invalid</span>";
+				};
+				BlockedEmails.GetBlockedEmailByEmail(sEmail, function (oRes) {
+					if (null != oRes) {
+						x.innerHTML += "<span class='label label-danger' data-toggle='title' title='" + oRes.Notes + " " + DateUtil.ToShortDate(oRes.DateCreated) + "'>Blocked</span>";
+					//	_$("btnSendEmailTemplate").addClass("hidden");
+					}
+				});
+			}
+		});
+
+	})
+
+	function OnRemoveLeadTag(iLeadID, sTagName) {
+		LeadTags.RemoveLeadTag2(iLeadID, sTagName, function () {
+			UserMessages.Display("Tag " + sTagName + " removed", "Success");
+			Page.Reload();
+		});
+	}
+
+	function OnAddLeadTag(iLeadID, sTagName) {
+		LeadTags.InsertOrUpdateLeadTag(iLeadID, sTagName, function () {
+			UserMessages.Display("Tag " + sTagName + " added", "Success");
+			Page.Reload();
+		});
+	}
+
+	function RemoveTrackingPixels(sHtml) {
+		sHtml = sHtml.replace(/\d+_\d+\.gif/g, '');
+
+		//sHtml = StringUtil.ReplaceAll(sHtml, '<img border="0" width="1"', '<noimag ');
+		//sHtml = StringUtil.ReplaceAll(sHtml, '<img alt="" width="1"', '<noimag ');
+
+		var fragment = document.createDocumentFragment();
+		var div = document.createElement('div');
+		fragment.appendChild(div);
+		div.innerHTML = sHtml;
+
+		ControlUtil.GetChildren(div, "img[width='1']").forEach(x => { x.src="" })
+
+		return div.innerHTML;
+	}
+
+	function OnOpenRawEmail(iRawEmailID) {
+		RawEmails.GetRawEmail(iRawEmailID, function (oRawEmail) {
+			ControlUtil.SetValue("hdnRawEmailID", iRawEmailID);
+
+			let sHtml = oRawEmail.BodyHtml;
+			sHtml = RemoveTrackingPixels(sHtml);
+			sHtml = escape(sHtml);
+
+			_$("ifEmailPreview").src = "data:text/html;charset=utf-8," + sHtml;
+			BlindBind("divEmailPreview", oRawEmail);
+			jQuery("#divEmailPreview").modal('show');
+			sActiveID = oRawEmail.ImportKey;
+		});
+
+		RawEmails.MarkRawEmailAsProcessed(iRawEmailID, function () { });
+	}
+
+	function OnSendEmailTemplate() {
+		jQuery("#divEmailReply").modal('show');
+		FillInReply(oLead.Email, oLead.FirstName, "", null, null);
+	}
+
+	async function OnReplyHere() {
+		let f = new Promise((resolve) => {
+			var iRawEmailID = ControlUtil.GetValue("hdnRawEmailID");
+			RawEmails.GetRawEmail(iRawEmailID, async function (oRawEmail) {
+				oRawEmail.DataObject = JSON.decode(oRawEmail.Data);
+				jQuery("#divEmailPreview").modal('hide');
+				jQuery("#divEmailReply").modal('show');
+				await FillInReply(oLead.Email, oLead.FirstName, oRawEmail.Subject, oRawEmail.DataObject.MessageID, oRawEmail.DataObject.ThreadID);
+				resolve();
+			});
+		});
+	}
+
+	var sEmailTemplate = null;
+	var sSignature = '';
+
+	async function FillInReply(to, sName, subject, message_id, thread_id) {
+		let f = new Promise(function (resolve) {
+
+			OnInitTinyMCE();
+
+			ControlUtil.SetValue('reply-to', to);
+			ControlUtil.SetValue('reply-subject', subject);
+			ControlUtil.SetValue('reply-message-id', message_id);
+			ControlUtil.SetValue('reply-thread-id', thread_id);
+			ControlUtil.SetValue('ddlTemplates', '');
+
+			OnFollowUpDate2("tomorrow", "txtEmailFollowUp");
+
+
+			Contents.GetContentByContentName("TestKit - Signature - " + sEmail, function (oContent) {
+
+				if (null == oContent) {
+					UserMessages.DisplayNow("You need to setup your signature before using this feature", "Error");
+					_$('reply-button').addClass('disabled');
+					OnSetEmailSignature();
+				}
+				else {
+					tinymce.get('reply-message').setContent(oContent.Content);
+					sSignature = oContent.Content;
+
+					ControlUtil.SetValue("reply-message", sSignature);
+					tinymce.get('reply-message').setContent(sSignature);
+				}
+
+				resolve();
+			})
+
+			sEmailTemplate = null;
+
+			ControlUtil.AddChange("ddlTemplates", function () {
+				var sContentName = ControlUtil.GetValue("ddlTemplates");
+
+				if (!StringUtil.IsEmpty(sContentName)) {
+					SelectEmailTemplate(sContentName);
+				}
+			})
+
+			ControlUtil.AddEvent('reply-message', 'blur', function () {
+				_$("divPreview").innerHTML = ControlUtil.GetValue("reply-message");
+			})
+		});
+
+		ControlUtil.AddChange("ddlEmailTemplatesEdit", function () {
+			var sContentName = ControlUtil.GetValue("ddlEmailTemplatesEdit");
+			_$("btnDeleteEmailTemplate").addClass("Hidden");
+			if (!StringUtil.IsEmpty(sContentName)) {
+				if (StringUtil.EqualNoCase(sContentName, "Signature")) {
+					ControlUtil.SetValue("txtEmailTemplateName", sContentName);
+					ControlUtil.SetValue("txtEmailTemplateContent", sSignature);
+					_$("divEmailTemplateSubject").addClass("hidden");
+					_$("divEmailTemplateEditPreviewContainer").addClass("hidden");
+
+					tinymce.get("txtEmailTemplateContent").setContent(sSignature);
+				}
+				else {
+					Contents.GetUserContent(sEmail, sContentName, function (oContent) {
+						oContent.DataObject = JSON.decode(oContent.Data);
+						ControlUtil.SetValue("txtEmailTemplateName", oContent.ContentName);
+						ControlUtil.SetValue("txtEmailTemplateContent", oContent.Content);
+						ControlUtil.SetValue("txtEmailTemplateSubject", oContent.DataObject.Subject);
+						_$("divEmailTemplateSubject").removeClass("hidden");
+						_$("divEmailTemplateEditPreviewContainer").removeClass("hidden");
+						_$("btnDeleteEmailTemplate").removeClass("Hidden");
+
+						tinymce.get("txtEmailTemplateContent").setContent(oContent.Content);
+					})
+				}
+			}
+		})
+
+		await f;
+	}
+
+	async function SelectEmailTemplate(sContentName) {
+		let func = new Promise(function (resolve) {
+
+			Contents.GetUserContent(sEmail, sContentName, function (oContent) {
+				if (ObjectUtil.HasValue(oContent)) {
+					oContent.Content = ReplaceBraces(oContent.Content);
+
+					var sContent = oContent.Content + sSignature;
+
+					ControlUtil.SetValue("reply-message", sContent);
+					tinymce.get('reply-message').setContent(sContent);
+
+					oContent.DataObject = JSON.decode(oContent.Data);
+					if (ObjectUtil.HasValue(oContent.DataObject.Subject) && StringUtil.IsEmpty(ControlUtil.GetValue("reply-subject"))) {
+						ControlUtil.SetValue('reply-subject', oContent.DataObject.Subject);
+					}
+
+					sEmailTemplate = sContentName;
+					resolve();
+				}
+				else {
+					Contents.GetContentByContentName(sContentName, function (oContent) {
+						if (ObjectUtil.HasValue(oContent)) {
+							oContent.Content = ReplaceBraces(oContent.Content);
+
+							var sContent = oContent.Content + sSignature;
+
+							ControlUtil.SetValue("reply-message", sContent);
+							tinymce.get('reply-message').setContent(sContent);
+
+							oContent.DataObject = JSON.decode(oContent.Data);
+							if (ObjectUtil.HasValue(oContent.DataObject.Subject) && StringUtil.IsEmpty(ControlUtil.GetValue("reply-subject"))) {
+								ControlUtil.SetValue('reply-subject', oContent.DataObject.Subject);
+							}
+							sEmailTemplate = sContentName;
+						}
+						resolve();
+					});
+				}
+			});
+
+
+		});
+
+		if (ControlUtil.GetValue("ddlTemplates") != sContentName)
+			ControlUtil.SetValue("ddlTemplates", sContentName);
+
+		await func;
+	}
+
+	async function SendEmailTemplate() {
+
+		if (!GmailIntegration.IsSignedIn) {
+			UserMessages.DisplayNow("Not logged into GMail. You can return to the dashboard and Authorize, or copy this message to Gmail and send from there.", "Info");
+			return;
+		}
+
+		let f = new Promise(function (resolve) {
+
+			var oMessage = BlindUnbind("divEmailReplyBody");
+			oMessage.Message = ReplaceBraces(oMessage.Message);
+
+			if (StringUtil.InString(oMessage.Message, "NO QUOTE EXISTS FOR USER")) {
+				alert("No quote exists for this user, cannot send email as is");
+				return;
+			}
+
+			//Fails when there is a style sheet
+			//if (StringUtil.InString(oMessage.Message, "{") || StringUtil.InString(oMessage.Message, "}")) {
+			//	alert("It looks like there is some unrecognized template in your email, please double check");
+			//	return;
+			//}
+
+
+			if (StringUtil.IsEmpty(oMessage.To) || StringUtil.IsEmpty(oMessage.Subject) || StringUtil.IsEmpty(oMessage.Message)) {
+				UserMessages.DisplayNow("You must fill in all fields before sending the email", "Error");
+				return;
+			}
+
+			var sMessage = oMessage.Message;
+			sMessage = StringUtil.ReplaceAll(sMessage, "�", '"');
+			sMessage = StringUtil.ReplaceAll(sMessage, "�", '"');
+			sMessage = StringUtil.ReplaceAll(sMessage, "�", "'");
+			oMessage.Message = sMessage;
+
+			if (!StringUtil.IsEmpty(oMessage.MessageID)) {
+				return SendEmailReply(oMessage);
+			}
+
+			SendMessage(
+				{
+					'From': '<%oSalesRep.Name%> <<%oSalesRep.Email%>>',
+					'To': oMessage.To,
+					'Subject': oMessage.Subject,
+					'Content-Type': "text/html; charset='UTF-8'",
+					'Content-Transfer-Encoding': "base64"
+				},
+				sMessage
+				,
+				function (res) { replyTidy(res); resolve() }
+			);
+		});
+
+		await f;
+
+		return false;
+	}
+
+	async function SendEmailReply(oMessage) {
+
+		let f = new Promise((resolve) => {
+			SendMessageReply(
+				{
+					'From': '<%oSalesRep.Name%> <<%oSalesRep.Email%>>',
+					'To': oMessage.To,
+					'Subject': oMessage.Subject,
+					'Content-Type': "text/html; charset='UTF-8'",
+					'Content-Transfer-Encoding': "base64",
+					'In-Reply-To': oMessage.MessageID,
+					'References': oMessage.MessageID,
+					'threadId': oMessage.ThreadID
+				},
+				oMessage.Message,
+				oMessage.ThreadID,
+				oMessage.MessageID,
+				function (res) { replyTidy(res); resolve() }
+			);
+		});
+		await f;
+		return false;
+	}
+
+	async function replyTidy(res) {
+		var fs = [];
+
+		jQuery('#divEmailReply').modal('hide');
+
+		ControlUtil.SetValue('reply-message', '');
+
+		_$('reply-button').removeClass('disabled');
+
+		var oData = JSON.encode({ IsSentEmailTemplate: true, ThreadID: res.threadId, MessageID: res.id, EmailTrackingID: sEmailTrackingID });
+		var dtFollowUp = ControlUtil.GetValue("txtEmailFollowUp")
+
+		if (StringUtil.IsEmpty(sEmailTemplate)) {
+			fs.push(new Promise(function (resolve) {
+				LeadNotes.InsertLeadNote(iLeadID, iSalesRepresentativeID, "Contacted - Emailed", dtFollowUp, oData, null, function () {
+					Page.Grids.LeadNotesGrid.Refresh(true);
+					resolve();
+				});
+			}));
+		}
+		else {
+			fs.push(new Promise(function (resolve) {
+				LeadNotes.InsertLeadNote(iLeadID, iSalesRepresentativeID, "Contacted - Emailed - " + sEmailTemplate, dtFollowUp, oData, null, function () {
+					Page.Grids.LeadNotesGrid.Refresh(true);
+					resolve();
+				});
+			}));
+		}
+
+		if (StringUtil.EqualNoCase(oLead.LeadStatus.StatusName, "Not Contacted")) {
+			fs.push(new Promise(function (resolve) {
+
+				Leads.UpdateLeadStatus2(iLeadID, iSalesRepresentativeID, 'Contacted', 'Emailed', function () {
+					UserMessages.DisplayNow("Status Updated", "Success");
+					resolve();
+				})
+			}));
+		}
+
+		UserMessages.DisplayNow("Email sent", "Success");
+
+
+		await Promise.all(fs);
+
+		if (!StringUtil.IsEmpty(Page.QueryString()["RawEmailID"]))
+			Page.Redirect("/lead", { LeadID: iLeadID });
+
+	}
+
+	var sEmailTrackingID = null;
+
+	function SendMessage(headers_obj, message, callback) {
+		var email = '';
+
+		for (var header in headers_obj)
+			email += header += ": " + headers_obj[header] + "\r\n";
+
+		let sID = iLeadID + "_" + Date.now().toString();
+		sEmailTrackingID = sID;
+
+		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
+		email = unescape(encodeURIComponent(email));	//added because of non-latin characters
+		var sendRequest = gapi.client.gmail.users.messages.send({
+			'userId': 'me',
+			'resource': {
+				'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_')
+			}
+		});
+
+		return sendRequest.execute(callback);
+	}
+
+	function SendMessageReply(headers_obj, message, threadID, messageID, callback) {
+		var email = '';
+
+		for (var header in headers_obj)
+			email += header += ": " + headers_obj[header] + "\r\n";
+
+		let sID = iLeadID + "_" + Date.now().toString();
+		sEmailTrackingID = sID;
+
+		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
+		email = unescape(encodeURIComponent(email));
+
+		var sendRequest = gapi.client.gmail.users.messages.send({
+			'userId': 'me',
+			'resource': {
+				'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_'),
+				'threadId': threadID,
+				'id': messageID
+			}
+		});
+
+		return sendRequest.execute(callback);
+	}
+
+	function OnGmailAttemptLogin(err) {
+		if (GmailIntegration.IsSignedIn) {
+			//Try to prevent Gmail's spam filter by limiting sending
+			//if (bSpamWarning) {
+			//	let iValue = Math.floor(Math.random() * 10);
+			//	if (iValue == 1)
+			//		GmailIntegration.IsSignedIn = false;
+			//}
+		}
+		else {
+		}
+	}
+
+	var sendWhatsApp = false;
+
+	function OnSendWhatsAppTextTemplate() {
+		jQuery("#divTextReply").modal('show');
+		sendWhatsApp = true;
+		FillInTextReply();
+	}
+
+	function OnSendTextTemplate() {
+		jQuery("#divTextReply").modal('show');
+		sendWhatsApp = false;
+		FillInTextReply();
+	}
+
+	var sSMSTemplate = null;
+	var sSMSSignature = '';
+
+	function GetLeadName() {
+		var sName = StringUtil.UppercaseFirstLetter(StringUtil.LeftOfFirst(oLead.FirstName, " "));
+
+		return sName;
+	}
+
+	async function FillInTextReply() {
+		let f = new Promise((resolve) => {
+			ControlUtil.SetValue("txtTextTo", StringToPhone(oLead.Phone));
+
+			ControlUtil.SetValue('ddlTextTemplates', '');
+
+			OnFollowUpDate2("tomorrow", "txtSMSFollowUp");
+
+			Contents.GetContentByContentName("TestKit - SMS Signature - " + sEmail, function (oContent) {
+
+				if (null != oContent) {
+					sSMSSignature = oContent.Content;
+				}
+				else {
+					sSMSSignature = " - " + StringUtil.LeftOfFirst(sSalesRepName, " ");
+				}
+
+				ControlUtil.SetValue('txtTextReplyMessage', sSMSSignature);
+				_$("reply-message").focus();
+
+				resolve();
+			})
+		});
+
+		ControlUtil.AddChange("ddlTextTemplates", function () {
+			var sContentName = ControlUtil.GetValue("ddlTextTemplates");
+			if (!StringUtil.IsEmpty(sContentName)) {
+				SelectSMSTemplate(sContentName);
+			}
+		})
+
+		ControlUtil.AddChange("ddlTextTemplatesEdit", function () {
+			var sContentName = ControlUtil.GetValue("ddlTextTemplatesEdit");
+			if (!StringUtil.IsEmpty(sContentName)) {
+				Contents.GetUserContent(sEmail, sContentName, function (oContent) {
+					ControlUtil.SetValue("txtSMSTemplateName", oContent.ContentName);
+					ControlUtil.SetValue("txtSMSTemplateContent", oContent.Content);
+				})
+			}
+		})
+
+		ControlUtil.AddEvent('txtSMSTemplateContent', 'blur', function () {
+			var sContent = ControlUtil.GetValue("txtSMSTemplateContent")
+			ControlUtil.SetValue("divEditSMSTemplatePreview", ReplaceBraces(sContent, true) + sSMSSignature);
+		})
+
+		await f;
+	}
+
+	async function SelectSMSTemplate(sContentName) {
+		let f = new Promise((resolve) => {
+
+
+			Contents.GetUserContent(sEmail, sContentName, function (oContent) {
+				if (ObjectUtil.HasValue(oContent)) {
+					oContent.Content = ReplaceBraces(oContent.Content, true);
+					ControlUtil.SetValue("txtTextReplyMessage", oContent.Content + sSMSSignature);
+					sSMSTemplate = sContentName;
+					resolve();
+				}
+				else {
+					Contents.GetContentByContentName(sContentName, function (oContent) {
+						if (ObjectUtil.HasValue(oContent)) {
+							oContent.Content = ReplaceBraces(oContent.Content, true);
+							ControlUtil.SetValue("txtTextReplyMessage", oContent.Content + sSMSSignature);
+							sSMSTemplate = sContentName;
+						}
+						resolve();
+					});
+				}
+			})
+
+		});
+
+		await f;
+
+		if (ControlUtil.GetValue("ddlTextTemplates") != sContentName)
+			ControlUtil.SetValue("ddlTextTemplates", sContentName);
+	}
+
+
+	async function SendTextTemplate() {
+		let fs = [];
+
+		var oMessage = BlindUnbind("divTextReplyBody");
+		jQuery("#divTextReply").modal('hide');
+
+		let sPhone=Clean(ControlUtil.GetValue("txtTextTo"), "0123456789");
+
+		if(!sendWhatsApp)
+		{
+			fs.push(new Promise((resolve) => {
+				Leads.MessageLead2(oLead.LeadID, iSalesRepresentativeID, sPhone, oMessage.Message, function () {
+					UserMessages.DisplayNow("Message sent", "Success");
+					resolve();
+				});
+			}));
+		}
+		else
+		{
+			fs.push(new Promise((resolve) => {
+				Leads.MessageWhatsAppLead(oLead.LeadID, iSalesRepresentativeID, sPhone, oMessage.Message, function () {
+					UserMessages.DisplayNow("Message sent", "Success");
+					resolve();
+				});
+			}));
+		}
+
+
+		var sDate = ControlUtil.GetValue("txtSMSFollowUp");
+		fs.push(new Promise((resolve) => {
+			LeadNotes.InsertLeadNote(oLead.LeadID, iSalesRepresentativeID, sSMSTemplate + " (SMS Template)", sDate, null, null, function () {
+				Page.Grids.LeadNotesGrid.Refresh(true);
+				resolve();
+			});
+		}));
+
+
+		if (StringUtil.EqualNoCase(oLead.LeadStatus.StatusName, "Not Contacted")) {
+			fs.push(new Promise(function (resolve) {
+
+				Leads.UpdateLeadStatus2(iLeadID, iSalesRepresentativeID, 'Contacted', 'Texted', function () {
+					UserMessages.DisplayNow("Status Updated", "Success");
+					resolve();
+				})
+			}));
+		}
+
+		await Promise.all(fs);
+
+		OnRefreshMessages2(sPhone);
+
+		return false;
+	}
+
+	function SaveSMSTemplate() {
+
+		var oContent = BlindUnbind("divEditSMSTemplate");
+
+		Contents.InsertOrUpdateUserContent(sEmail, oContent, function () {
+			UserMessages.Display("SMS template saved", "Success");
+			Page.Reload();
+		});
+
+		return false;
+	}
+
+
+	function SaveEmailTemplate() {
+
+		var oContent = BlindUnbind("divEditEmailTemplate");
+		oContent.DataObject = { IsEmailTemplate: true, Subject: oContent.Subject };
+		oContent.Data = JSON.encode(oContent.DataObject);
+
+		if (StringUtil.EqualNoCase(oContent.ContentName, "Signature")) {
+			Contents.InsertOrUpdateContent("TestKit - Signature - " + sEmail, oContent.Content, oContent.Data, function () {
+				UserMessages.Display("Email signature updated", "Success");
+				Page.Reload();
+
+			});
+		}
+		else {
+			Contents.InsertOrUpdateUserContent(sEmail, oContent, function () {
+				UserMessages.Display("Email template saved", "Success");
+				Page.Reload();
+			});
+		}
+
+		return false;
+	}
+
+	function DeleteEmailTemplate() {
+
+		var oContent = BlindUnbind("divEditEmailTemplate");
+		oContent.DataObject = { IsEmailTemplate: true, Subject: oContent.Subject };
+		oContent.Data = JSON.encode(oContent.DataObject);
+
+
+		Contents.RemoveUserContent(sEmail, oContent.ContentName, function () {
+			UserMessages.Display("Email template deleted", "Success");
+			Page.Reload();
+		});
+
+		return false;
+	}
+
+	function OnSetEmailSignature() {
+		ShowTab("tab-EmailTemplates");
+		ControlUtil.SetValue("ddlEmailTemplatesEdit", "Signature");
+	}
+
+
+</script>
+
+	<%if (oSalesRep.IsEmailIntegrated)
+	{%>
+<script type="text/javascript" src="js/gmail-integration.js"></script>
+<script type="text/javascript" src="/js/gmail-integration.js?v=<%JsVersion%>"></script>
+<script async defer src="https://apis.google.com/js/api.js"
+		onload="this.onload=function(){};GmailIntegration.AttemptLogin(OnGmailAttemptLogin)"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+	<%}%>
+
+
+
+	<%})
+	}%>
+
+	<%declare oPermission (UserState.get_Permission)%>
+	<%redefinefunction SimpleObjectDetailsPage.AllowEdit { (return (oPermission.EditLead)) }%>
+	<%redefinefunction SimpleObjectDetailsPage.AllowInsert { (return (oPermission.InsertLead)) }%>
+
+
+	<%function GetEmailReplyModal
+	{
+	(declare tabs [])
+	(declare tabSendEmail {Title : "Send Email", ControlID : "tab-SendEmail", Content : "" })
+	(declare tabEmailTemplates {Title : "Edit Templates", ControlID : "tab-EmailTemplates", Content : "" })
+	(tabs.push (tabSendEmail))
+	(tabs.push (tabEmailTemplates))
+	(declare oSalesRepresentative (UserState.get_SalesRepresentative))
+	(declare oUserContents (Contents.GetUserContents (oSalesRepresentative.Email)))
+	(declare oLead (CachedObject))
+
+	(returnex{%>
+<div class="modal fade" id="divEmailReply" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header bg-light bg-light">
+				<h4 class="modal-title">Reply</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<%tabSendEmail.Content (evalex{%>
+			<div class="modal-body" id="divEmailReplyBody">
+				<input type="hidden" id="reply-message-id" kcs:FieldName="MessageID" />
+				<input type="hidden" id="reply-thread-id" kcs:FieldName="ThreadID" />
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						To
+					</label>
+					<input type="text" class="form-control " id="reply-to" kcs:FieldName="To" list="contacts" onfocus="EditableDdlFocus(this)" onblur="EditableDdlBlur(this)" />
+
+
+
+					<datalist id="contacts">
+						<%ifeq (BlockedEmails.GetBlockedEmailByEmail (oLead.Email)) ""{%>
+						<option value="<%oLead.Email%>"><%oLead.FirstName%> <%oLead.LastName%> (<%oLead.Email%>)</option>
+						<%}%>
+						<%oLead.LeadContacts.each oContact{%>
+						<%ifeq (BlockedEmails.GetBlockedEmailByEmail (oContact.Email)) ""{%>
+						<option value="<%oContact.Email%>"><%oContact.Name%> (<%oContact.Email%>)</option>
+						<%}%>
+						<%}%>
+					</datalist>
+
+
+					<script type="text/javascript">
+
+						function EditableDdlFocus(ctrl) {
+
+							let sValue = ctrl.value;
+							if (!StringUtil.IsEmpty(sValue))
+								ctrl.setAttribute('placeholder', sValue);
+							ctrl.value = ''
+
+						}
+
+						function EditableDdlBlur(ctrl) {
+
+
+							let sValue = ctrl.value;
+							if (StringUtil.IsEmpty(sValue))
+								ctrl.value = ctrl.getAttribute('placeholder');
+						}
+
+					</script>
+				</div>
+
+				<%declare oContents (Contents.GetContents)%>
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template
+					</label>
+					<select id="ddlTemplates" class="form-select">
+						<option></option>
+						<optgroup label="My Templates">
+							<%oUserContents.each oContent{%>
+							<%JsonObject oData (oContent.Data)%>
+							<%if (oData.GetBooleanOrFalse IsEmailTemplate){%>
+							<option><%oContent.ContentName%></option><%}%>
+							<%}%>
+						</optgroup>
+						<optgroup label="Global Templates">
+							<%oContents.each oContent{%>
+							<%if (oContent.DataObject.GetBooleanOrFalse IsTestKitEmailTemplate){%>
+							<option><%oContent.ContentName%></option>
+							<%}%>
+							<%}%>
+						</optgroup>
+					</select>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Subject
+					</label>
+					<input type="text" class="form-control disabled" id="reply-subject" kcs:FieldName="Subject" />
+				</div>
+
+
+				<div class="row mb-3">
+
+					<label class="col-sm-3 control-label InputLabel">
+						Follow Up Date
+					</label>
+					<div class="col-sm-12">
+
+						<input type="text" id="txtEmailFollowUp" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+
+						<a href="javascript:OnFollowUpDate2('later', 'txtEmailFollowUp')">Later Today</a> |
+						<a href="javascript:OnFollowUpDate2('tomorrow', 'txtEmailFollowUp')">Tomorrow</a> |
+						<a href="javascript:OnFollowUpDate2('week', 'txtEmailFollowUp')">Next Week</a> |
+						<a href="javascript:OnFollowUpDate2('month', 'txtEmailFollowUp')">Next Month</a>
+
+						<script type="text/javascript">
+
+
+							function OnFollowUpDate2(val, sID) {
+								var sDate = GetDateFromShortCut(val);
+								ControlUtil.SetValue(sID, sDate);
+							}
+						</script>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<textarea class="form-control" id="reply-message" placeholder="Message" rows="20" kcs:FieldName="Message"></textarea>
+
+					<a href="javascript:OnSetEmailSignature()">Setup Email Signature</a>
+				</div>
+				<div class="row mb-3 hidden">
+					<div id="divPreview">
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="reply-button" class="btn btn-primary" onclick="SendEmailTemplate()">Send</button>
+			</div>
+			<%})%>
+
+			<%tabEmailTemplates.Content (evalex{%>
+			<div class="modal-body" id="divEditEmailTemplate">
+
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template
+					</label>
+					<select id="ddlEmailTemplatesEdit" class="form-select">
+						<option></option>
+						<%oUserContents.each oContent{%>
+						<%JsonObject oData (oContent.Data)%>
+						<%if (oData.GetBooleanOrFalse IsEmailTemplate){%>
+						<option><%oContent.ContentName%></option><%}%>
+						<%}%>
+						<option value="Signature">Signature</option>
+					</select>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template Name
+					</label>
+					<input type="text" class="form-control" id="txtEmailTemplateName" kcs:FieldName="ContentName" />
+				</div>
+				<div class="row mb-3" id="divEmailTemplateSubject">
+					<label class="col-sm-3 control-label InputLabel">
+						Subject
+					</label>
+					<input type="text" class="form-control" id="txtEmailTemplateSubject" kcs:FieldName="Subject" />
+				</div>
+				<div class="row mb-3">
+					<textarea class="form-control" id="txtEmailTemplateContent" placeholder="Message" rows="5" kcs:FieldName="Content"></textarea>
+					<p>Use <b>{Name}</b> to automatically replace the lead's first name. Use <b>{Quote}</b> to create a shared link to their Quote.</p>
+				</div>
+
+
+				<div class="row mb-3 col-sm-12" id="divEmailTemplateEditPreviewContainer">
+					<p><b>Preview:</b></p>
+					<div style="border: none;" class="col-sm-12" id="divEditEmailTemplatePreview"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="txtSaveEmailTemplate" class="btn btn-primary" onclick="SaveEmailTemplate()">Save</button>
+				<button type="button" id="btnDeleteEmailTemplate" class="btn btn-primary Hidden" onclick="DeleteEmailTemplate()">Delete Template</button>
+			</div>
+
+			<%})%>
+			<%SimpleObjectDetailsPage.GetTabs2 (tabs)%>
+
+		</div>
+	</div>
+</div>
+
+<script src="/js/tinymceconfig.js?v=<%JsVersion%>" type="text/javascript"></script>
+<script type="text/javascript">
+	var oQuote = null;
+
+	function GetCurrentQuote() {
+
+		if (ObjectUtil.HasValue(iOrganizationID)) {
+			let iQuoteID=Quotes.GetExistingForOrganization(iOrganizationID);
+			if (ObjectUtil.HasValue(iQuoteID)) {
+				Quotes.GetQuote.Serialize={ Basket: true };
+				oQuote=Quotes.GetQuote(iQuoteID);
+			}
+
+		}
+			return oQuote;
+	}
+
+
+	function OnInitTinyMCE() {
+		oTinyMCEAdvanced.selector = "textarea#reply-message";
+		oTinyMCEAdvanced.templates = [
+			{ title: 'Lead Name', description: 'Will insert the lead\'s first name', content: GetLeadName() },
+			{ title: 'Current Quote', description: 'Will insert a link to the lead\'s current quote', content: ReplaceBraces('{Quote}') },
+			{ title: 'CareStart Expiration', description: 'Creates a link to the CareStart expiration letter', content: '<a href="https://medektestkits.com/documentation/Antigen-Expiration-Extension.pdf">FDA Antigen Expiration Extension Letter</a>' },
+			{ title: 'CareStart Detailed Packet', description: 'Creates a link to the CareStart detailed packet', content: '<a href="https://medektestkits.com/documentation/Antigen-Detailed.pdf">Antigen Info Packet</a>' },
+			{ title: 'Antibody Detailed Packet', description: 'Creates a link to the Antibody detailed packet', content: '<a href="https://medektestkits.com/documentation/Antibody-Detailed.pdf">Antibody Info Packet</a>' },
+			{ title: 'BinaxNow Instructions', description: 'Creates a link to the BinaxNOW instructions', content: '<a href="https://medektestkits.com/documentation/BinaxNOW-SelfTest-Instructions.pdf">BinaxNOW Instructions</a>' },
+			{ title: 'FlowFlex Detailed Packet', description: 'Creates a link to the FlowFlex detailed packet', content: '<a href="https://medektestkits.com/documentation/FlowFlex-Detailed.pdf">FlowFlex Info Packet</a>' },
+			{ title: 'Indicaid Detailed Packet', description: 'Creates a link to the Indicaid detailed packet', content: '<a href="https://medektestkits.com/documentation/Indicaid-Detailed.pdf">Indicaid Info Packet</a>' },
+			{ title: 'IHealth Detailed Packet', description: 'Creates a link to the IHealth detailed packet', content: '<a href="https://medektestkits.com/documentation/IHealth-Detailed-Package.pdf">Ihealth Info Packet</a>' }
+
+		];
+		tinymce.init(oTinyMCEAdvanced)
+
+
+		oTinyMCEAdvanced.templates = [
+			{ title: 'Lead Name', description: 'Will insert the lead\'s first name', content: '{Name}' },
+			{ title: 'Current Quote', description: 'Will insert a link to the lead\'s current quote', content: '{Quote}' },
+			{ title: 'CareStart Expiration', description: 'Creates a link to the CareStart expiration letter', content: '<a href="https://medektestkits.com/documentation/Antigen-Expiration-Extension.pdf">FDA Antigen Expiration Extension Letter</a>' },
+			{ title: 'CareStart Detailed Packet', description: 'Creates a link to the CareStart detailed packet', content: '<a href="https://medektestkits.com/documentation/Antigen-Detailed.pdf">Antigen Info Packet</a>' },
+			{ title: 'Antibody Detailed Packet', description: 'Creates a link to the Antibody detailed packet', content: '<a href="https://medektestkits.com/documentation/Antibody-Detailed.pdf">Antibody Info Packet</a>' },
+			{ title: 'BinaxNow Instructions', description: 'Creates a link to the BinaxNOW instructions', content: '<a href="https://medektestkits.com/documentation/BinaxNOW-SelfTest-Instructions.pdf">BinaxNOW Instructions</a>' },
+			{ title: 'FlowFlex Detailed Packet', description: 'Creates a link to the FlowFlex detailed packet', content: '<a href="https://medektestkits.com/documentation/FlowFlex-Detailed.pdf">FlowFlex Info Packet</a>' },
+			{ title: 'Indicaid Detailed Packet', description: 'Creates a link to the Indicaid detailed packet', content: '<a href="https://medektestkits.com/documentation/Indicaid-Detailed.pdf">Indicaid Info Packet</a>' },
+			{ title: 'IHealth Detailed Packet', description: 'Creates a link to the IHealth detailed packet', content: '<a href="https://medektestkits.com/documentation/IHealth-Detailed-Package.pdf">Ihealth Info Packet</a>' }
+		];
+		oTinyMCEAdvanced.selector = "textarea#txtEmailTemplateContent";
+
+
+		oTinyMCEAdvanced.setup = function (editor) {
+			editor.on('change', function () {
+				editor.save();
+				var sContent = editor.getContent() + sSignature;
+				sContent = ReplaceBraces(sContent);
+				_$("divEditEmailTemplatePreview").innerHTML = sContent;
+			});
+		}
+		tinymce.init(oTinyMCEAdvanced)
+
+		//Fix for inability to edit code
+		jQuery(document).on('focusin', function (e) {
+			if (jQuery(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+				e.stopImmediatePropagation();
+			}
+		});
+
+	}
+
+	function ReplaceBraces(sContent, bSMS) {
+		sContent = StringUtil.ReplaceAll(sContent, "{Name}", GetLeadName());
+
+		if (StringUtil.InString(sContent, "{Quote}")) {
+			if (null==oQuote) {
+				oQuote=GetCurrentQuote();
+			}
+			if (null == oQuote || oQuote.Basket.TotalQuantity == 0)
+				sContent = StringUtil.ReplaceAll(sContent, "{Quote}", "<strong>NO QUOTE EXISTS FOR USER</strong>");
+			else {
+				var sQuoteKey = CustomerQuotes.GetOrCreateCustomerQuote(oQuote.Basket.BasketID);
+				if (bSMS)
+					sContent = StringUtil.ReplaceAll(sContent, "{Quote}", "https://cart.medekhealth.com/invoice-checkout?QuoteID=" + sQuoteKey);
+				else
+					sContent = StringUtil.ReplaceAll(sContent, "{Quote}", "<a href='https://cart.medekhealth.com/invoice-checkout?QuoteID=" + sQuoteKey + '\'>View Quote and Checkout (' + oQuote.Basket.TotalQuantity + ' items)</a>');
+			}
+		}
+
+		if (StringUtil.InString(sContent, "{OrderNow}")) {
+			sContent = StringUtil.ReplaceAll(sContent, "{OrderNow}", "<a href='https://medektestkits.com/MyAccount.aspx?l=" + oLead.LeadID + "&e=" + oLead.Email + "'>Order Now</a>");
+		}
+
+		if (StringUtil.InString(sContent, "{Unsubscribe}")) {
+			sContent = StringUtil.ReplaceAll(sContent, "{Unsubscribe}", "<a href='https://medektestkits.com/Unsubscribe.aspx?l=" + oLead.LeadID + "&e=" + oLead.Email + "'>Unsubscribe</a>");
+		}
+
+
+		return sContent;
+	}
+
+	Page.AddOnload(function () {
+		oTinyMCESimple.selector="textarea#txtNotes";
+		oTinyMCESimple.file_picker_callback=FilePickerCallback
+		tinymce.init(oTinyMCESimple);
+
+	});
+
+	function FilePickerCallback (cb, value, meta) {
+			var input = document.createElement('input');
+			input.setAttribute('type', 'file');
+
+			if (meta.filetype == 'image')
+				input.setAttribute('accept', 'image/*');
+
+
+			input.onchange = function () {
+				var file = this.files[0];
+
+				if (meta.filetype == 'image') {
+
+					bucketName = '<%AppSettings.GetStringOrDefault "AWS.Images.s3BucketName" ""%>';
+					bucketRegion = '<%AppSettings.GetStringOrDefault "AWS.Images.s3Region" ""%>';
+
+					UploadImageToS3(this, 'images', 0, function (sFileName) {
+						let sPresigned = "https://" + bucketName + ".s3." + bucketRegion + ".amazonaws.com/" + sFileName;
+
+						cb(sPresigned, { title: file.name });
+					});
+				}
+				else {
+
+					bucketName = '<%AppSettings.GetStringOrDefault "AWS.s3BucketName" ""%>';
+					bucketRegion = '<%AppSettings.GetStringOrDefault "AWS.s3Region" ""%>';
+
+					UploadFileToS3(this, 'lead-files', iLeadID, function (sFileName) {
+						let sPresigned = sFileName;
+						cb(sPresigned, { title: file.name });
+					});
+				}
+
+			};
+
+			input.click();
+
+		}
+
+</script>
+
+
+	<%})
+	}%>
+
+	<%function GetEmailPreviewModal
+	{
+	(returnex{%>
+
+<div class="modal fade" id="divEmailPreview" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header bg-light bg-light">
+				<h4 class="modal-title">Preview</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<input type="hidden" id="hdnRawEmailID" />
+
+			<div class="modal-body">
+				<div class="row mb-3">
+					<input type="text" class="form-control" id="reply-to" kcs:FieldName="From" />
+				</div>
+
+				<div class="row mb-3">
+					<input type="text" class="form-control" id="reply-subject" disabled kcs:FieldName="Subject" />
+				</div>
+
+
+				<div class="row mb-3">
+					<div id="divPreview">
+						<iframe id="ifEmailPreview" class="col-md-12" style="height: 80vh;"></iframe>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="reply-button" class="btn btn-primary" onclick="OnOpenRawEmailInGmail()">Open Gmail</button>
+				<button type="button" id="reply-button" class="btn btn-primary" onclick="OnReplyHere()">Reply Here</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+	<%})
+	}%>
+
+
+
+	<%function GetTextReplyModal
+	{
+	(declare tabs [])
+	(declare tabSendSMS {Title : "Send SMS", ControlID : "tab-SendSMS", Content : "" })
+	(declare tabSMSTemplates {Title : "Edit Templates", ControlID : "tab-SMSTemplates", Content : "" })
+	(tabs.push (tabSendSMS))
+	(tabs.push (tabSMSTemplates))
+	(declare oSalesRepresentative (UserState.get_SalesRepresentative))
+	(declare oUserContents (Contents.GetUserContents (oSalesRepresentative.Email)))
+	(declare oLead (CachedObject))
+
+
+	(returnex{%>
+<div class="modal fade" id="divTextReply" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-light bg-light">
+				<h4 class="modal-title">Text Message</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<%tabSendSMS.Content (evalex{%>
+			<div class="modal-body" id="divTextReplyBody">
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Phone
+					</label>
+					<input type="text" class="form-control InputPhone" id="txtTextTo" kcs:FieldName="To" list="phonenumbers" onfocus="EditableDdlFocus(this)" onblur="EditableDdlBlur(this)" />
+
+					<datalist id="phonenumbers">
+						<%ifneq (oLead.Phone) ""{%>
+						<option value="<%StringToPhone (oLead.Phone)%>"><%oLead.FirstName%> <%oLead.LastName%> <%StringToPhone (oLead.Phone)%>)</option>
+						<%}%>
+
+						<%oLead.LeadContacts.each oContact{%>
+						<%ifneq (oContact.Phone) ""{%>
+						<option value="<%StringToPhone (oContact.Phone)%>"><%oContact.Name%> <%StringToPhone (oContact.Phone)%></option>
+						<%}%>
+						<%}%>
+					</datalist>
+				</div>
+
+				<%declare oContents (Contents.GetContents)%>
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template
+					</label>
+					<select id="ddlTextTemplates" class="form-select">
+						<option></option>
+						<%oUserContents.each oContent{%>
+						<%JsonObject oData (oContent.Data)%>
+						<%ifnot (oData.GetBooleanOrFalse IsEmailTemplate){%>
+						<option><%oContent.ContentName%></option>
+						<%}%>
+						<%}%>
+						<%oContents.each oContent{%>
+						<%if (oContent.DataObject.GetBooleanOrFalse IsTestKitSMSTemplate){%>
+						<option><%oContent.ContentName%></option>
+						<%}%>
+						<%}%>
+					</select>
+				</div>
+
+				<div class="row mb-3">
+
+					<label class="col-sm-3 control-label InputLabel">
+						Follow Up Date
+					</label>
+					<div class="col-12">
+
+						<input type="text" id="txtSMSFollowUp" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+
+						<a href="javascript:OnFollowUpDate2('later', 'txtSMSFollowUp')">Later Today</a> |
+						<a href="javascript:OnFollowUpDate2('tomorrow', 'txtSMSFollowUp')">Tomorrow</a> |
+						<a href="javascript:OnFollowUpDate2('week', 'txtSMSFollowUp')">Next Week</a> |
+						<a href="javascript:OnFollowUpDate2('month', 'txtSMSFollowUp')">Next Month</a>
+
+
+					</div>
+				</div>
+				<div class="row mb-3">
+					<textarea class="form-control" id="txtTextReplyMessage" placeholder="Message" rows="9" kcs:FieldName="Message"></textarea>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light waves-effect waves-light m-1" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="btnTextReply" class="btn btn-primary" onclick="SendTextTemplate()">Send</button>
+			</div>
+
+			<%})%>
+
+			<%tabSMSTemplates.Content (evalex{%>
+			<div class="modal-body" id="divEditSMSTemplate">
+
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template
+					</label>
+					<select id="ddlTextTemplatesEdit" class="form-select">
+						<option></option>
+						<%oUserContents.each oContent{%>
+						<%JsonObject oData (oContent.Data)%>
+						<%ifnot (oData.GetBooleanOrFalse IsEmailTemplate){%>
+						<option><%oContent.ContentName%></option>
+						<%}%>
+						<%}%>
+					</select>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Template Name
+					</label>
+					<input type="text" class="form-control" id="txtSMSTemplateName" kcs:FieldName="ContentName" placeholder="Type a new template name here" />
+				</div>
+
+				<div class="row mb-3">
+					<textarea class="form-control" id="txtSMSTemplateContent" placeholder="Message" rows="9" kcs:FieldName="Content"></textarea>
+					<p>Use <b>{Name}</b> to automatically replace the lead's first name.</p>
+				</div>
+
+				<div class="row mb-3">
+
+					<label class="col-sm-3 control-label InputLabel">Preview</label>
+
+					<textarea style="border: none;" class="form-control" id="divEditSMSTemplatePreview" readonly="readonly"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="txtSaveSMSTemplate" class="btn btn-primary" onclick="SaveSMSTemplate()">Save</button>
+			</div>
+
+			<%})%>
+			<%SimpleObjectDetailsPage.GetTabs2 (tabs)%>
+
+		</div>
+	</div>
+</div>
+
+	<%})
+	}%>
+
+
+
+
+	<%function GetInsertTagModal
+	{
+	(returnex{%>
+<script src="/JsonWs/<%BusinessNamespace%>.Tags.ashx.js?v=<%JsVersion%>"></script>
+
+<div class="modal fade" id="divInsertTag" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-light bg-light">
+				<h4 class="modal-title">Create a Tag</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+
+			<div class="modal-body">
+
+				<div class="row mb-3">
+					<p>Create a new custom tag that will be visible only to you. You can use this tag to organize your leads.</p>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-3 control-label InputLabel">
+						Tag Name
+					</label>
+					<input type="text" class="form-control" id="txtTagName" kcs:FieldName="TagName" />
+
+				</div>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light waves-effect waves-light m-1" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" id="btnTextReply" class="btn btn-primary" onclick="OnInsertCustomTag()">Save</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function OnStartInsertCustomTag() {
+		jQuery("#divInsertTag").modal('show');
+	}
+
+	function OnInsertCustomTag() {
+		jQuery("#divInsertTag").modal('hide');
+
+		let oTag=BlindUnbind("divInsertTag");
+		oTag.SalesRepresentativeID=iSalesRepresentativeID;
+		Tags.InsertTagObject(oTag, function (iTagID) {
+			OnAddLeadTag(iLeadID, oTag.TagName);
+		});
+	}
+</script>
+	<%})
+	}%>
+
+
+
+
+	<%function GetAppointmentControls
+	{
+	(returnex{%>
+
+	<%LeadNotesAdmin.GetAppointmentControls%>
+
+<script type="text/javascript">
+	function OnAppointmentSet() {
+		OnInsertAppointment();
+	}
+
+
+	function OnInsertAppointment() {
+		jQuery("#divAppointmentSet").modal('show');
+		let ddl=ControlUtil.GetChildren("divAppointmentSet", "[kcs:FieldName='SalesRepresentativeID']")[0];
+		ControlUtil.SetValue(ddl, iSalesRepresentativeID);
+		ControlUtil.SetValue("txtLeadDescription", oLead.Company);
+		oTinyMCESimple.selector="textarea#txtAppointmentNotes";
+		oTinyMCESimple.file_picker_callback=FilePickerCallback
+		tinymce.init(oTinyMCESimple);
+	}
+
+
+
+	function OnAppointmentSetSave() {
+		let oObj=BlindUnbind("divAppointmentSet");
+		if (StringUtil.IsEmpty(oObj.LeadNoteID)) {
+			oObj.LeadID=iLeadID;
+			oObj.Data = JSON.stringify(oObj.DataObject);
+
+			if(oObj.DataObject.AppointmentStatus=="Presented")
+			{
+				LeadNotes.InsertAppointmentGivenObject(oObj, function () {
+					UserMessages.Display("Appointment set", "Success");
+					Page.Reload();
+				});
+			}
+			else
+			{
+				LeadNotes.InsertAppointmentSetObject(oObj, function () {
+					UserMessages.Display("Appointment set", "Success");
+					Page.Reload();
+				});
+			}
+
+		}
+		else {
+			LeadNotes.GetLeadNote(oObj.LeadNoteID, function (oLeadNote) {
+				if (!StringUtil.IsEmpty(oLeadNote.Data))
+					oLeadNote.DataObject=JSON.parse(oLeadNote.Data);
+
+				oObj=$merge(oLeadNote, oObj);
+				oObj.Data=JSON.stringify(oObj.DataObject);
+
+				LeadNotes.UpdateLeadNoteObject(oObj, function () {
+					UserMessages.Display("Appointment updated", "Success");
+					Page.Reload();
+				});
+			});
+		}
+
+	}
+</script>
+
+
+<div class="modal fade" id="divAppointmentGiven" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 80%">
+		<div class="modal-content">
+			<div class="modal-header bg-light bg-light">
+				<h4 class="modal-title">Finish Appointment</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+
+			<div class="modal-body">
+
+				<div class="row mb-3">
+					<p>Use this to complete an presentation.</p>
+				</div>
+				<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote">
+
+
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Given By
+						</label>
+						<div class="col-sm-6">
+
+
+							<%SalesRepresentativesAdmin.GetDropDown Name SalesRepresentativeID SalesRepresentativeID '<option value="">None</option>'%>
+
+
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Follow Up Date
+						</label>
+						<div class="col-sm-6">
+
+
+
+
+							<input type="datetime-local" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+
+
+
+						</div>
+					</div>
+
+
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Notes
+						</label>
+
+						<div class="col-sm-6">
+
+							<textarea id="txtAppointmentNotes2" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+						</div>
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" onclick="OnAppointmentGivenSave()">Save</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function OnAppointmentGiven() {
+		jQuery("#divAppointmentGiven").modal('show');
+		let ddl=ControlUtil.GetChildren("divAppointmentGiven", "[kcs:FieldName='SalesRepresentativeID']")[0];
+		ControlUtil.SetValue(ddl, iSalesRepresentativeID);
+
+		oTinyMCESimple.selector="textarea#txtAppointmentNotes2";
+		oTinyMCESimple.file_picker_callback=FilePickerCallback
+		tinymce.init(oTinyMCESimple);
+	}
+
+	function OnAppointmentGivenSave() {
+		let oObj=BlindUnbind("divAppointmentGiven");
+		oObj.LeadID = iLeadID;
+
+		LeadNotes.InsertAppointmentGivenObject(oObj, function () {
+			UserMessages.Display("Appointment set", "Success");
+			Page.Reload();
+		});
+
+	}
+</script>
+
+
+	<%})
+	}%>
+
+
+	<%function GetLeadNoteEditControls
+	{
+	(returnex{%>
+
+
+<div class="modal fade" id="divLeadNoteEdit" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 80%">
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title">Edit Note</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+
+			<div class="modal-body">
+
+				<div class="row mb-3">
+					<p>Edit the note then click save.</p>
+				</div>
+				<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote">
+
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Lead Note ID
+						</label>
+						<div class="col-sm-6">
+
+							<input type="text" class="form-control" disabled="disabled" kcs:FieldName="LeadNoteID" />
+						</div>
+					</div>
+
+
+					<div class="row mb-3 hidden">
+						<label class="col-sm-3 control-label InputLabel">
+							Sales Representative
+						</label>
+						<div class="col-sm-6">
+
+
+							<%SalesRepresentativesAdmin.GetDropDown Name SalesRepresentativeID SalesRepresentativeID '<option value="">None</option>'%>
+
+
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Follow Up Date
+						</label>
+						<div class="col-sm-6">
+
+
+
+
+							<input type="datetime-local" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+
+
+
+						</div>
+					</div>
+
+
+
+
+					<div class="row mb-3">
+						<label class="col-sm-3 control-label InputLabel">
+							Notes
+						</label>
+
+						<div class="col-sm-6">
+
+							<textarea id="txtLeadNoteEdit" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+						</div>
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" onclick="OnUpdateLeadNote()">Save</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function OnEditLeadNote(LeadNoteID) {
+		jQuery("#divLeadNoteEdit").modal('show');
+
+		LeadNotes.GetLeadNote(LeadNoteID, function (oLeadNote) {
+			BlindBind("divLeadNoteEdit", oLeadNote);
+			oTinyMCESimple.selector="textarea#txtLeadNoteEdit";
+			oTinyMCESimple.file_picker_callback=FilePickerCallback
+			tinymce.init(oTinyMCESimple);
+		});
+
+
+	}
+
+	function OnUpdateLeadNote() {
+		let oObj=BlindUnbind("divLeadNoteEdit");
+		LeadNotes.GetLeadNote(oObj.LeadNoteID, function (oLeadNote) {
+			oObj=$merge(oLeadNote, oObj);
+			LeadNotes.UpdateLeadNoteObject(oObj, function () {
+				UserMessages.Display("Note updated", "Success");
+				Page.Reload();
+			});
+		});
+
+
+	}
+</script>
+
+
+
+
+	<%})
+	}%>
+
+
+<%function GetPhoneDisplay sPhone sPhoneExtension sName
+{
+
+	(declare rowPhoneNumber (PhoneNumbers.GetPhoneNumberInfo (sPhone)))
+
+	(returnex{%>
+
+		<%ifneq (rowPhoneNumber) ""{%>
+			<%StringToPhone (sPhone)%>
+			<%ifneq (sPhoneExtension) ""{%>
+				<b>Ext.</b> <%sPhoneExtension%>
+			<%}%>
+
+			
+			<button value="" onclick="OnCallLead('<%sPhone%>', '<%ToJsonSafeString (sName)%>')" class="float-end Insert btn btn-outline-primary " <%if (not (rowPhoneNumber.IsCallable)) "disabled=disabled"%>><i class="fas fa-phone"></i> Call</button>
+			<%ifneq (rowPhoneNumber.AreaCode) ""{%>
+				<br />Area Code: <%rowPhoneNumber.AreaCode.Region%> (<%rowPhoneNumber.AreaCode.TimeZone%>)
+			<%}%>
+
+			<br /><span class="spanLineType">Type: <%rowPhoneNumber.PhoneType%></span>
+			<%if (rowPhoneNumber.IsBlocked) {%>
+				<span class="badge bg-danger">Blocked</span>
+			<%}%>
+
+			<%if (rowPhoneNumber.IsSpam) {%>
+				<span class="badge bg-warning text-dark">Spam</span>
+			<%}%>
+		<%}%>
+	<%})
+}%>
+
+
+
+	<%function GetGoogleAttachmentControls
+	{
+	(returnex{%>
+
+	<%LeadNotesAdmin.GetGoogleDocAttachmentControls%>
+
+	<script type="text/javascript">
+
+		function OnBlurGoogleDocID(ctrl) {
+			let sGoogleDocID = ControlUtil.GetValue(ctrl);
+
+			if (StringUtil.IsEmpty(sGoogleDocID)) {
+				return;
+			}
+
+			if (StringUtil.InString(sGoogleDocID, "http")) {
+				const startIndex = sGoogleDocID.indexOf("document/d/") + "document/d/".length;
+
+				if (startIndex > -1) {
+					const endIndex = sGoogleDocID.indexOf("/", startIndex);
+					if (endIndex > -1) {
+						sGoogleDocID = sGoogleDocID.substring(startIndex, endIndex);
+					} else {
+						sGoogleDocID = sGoogleDocID.substring(startIndex);
+					}
+				}
+
+				ControlUtil.SetValue(ctrl, sGoogleDocID);
+			}
+		}
+
+
+		function OnAttachFile() {
+			OnInsertFile();
+		}
+
+		function OnInsertFile() {
+			jQuery("#divGoogleDocFileAttachments").modal('show');
+		}
+
+		function OnSaveGoogleDoc() {
+			let oObj=BlindUnbind("divGoogleDocFileAttachments");
+			
+			if(StringUtil.IsEmpty(oObj.DocumentID)){
+                UserMessages.DisplayNow("Please enter a Google Doc ID", "Warning");
+                return;
+            }
+
+			LeadNotes.InsertGoogleDocFile(iLeadID, iSalesRepresentativeID , oObj.DocumentID, function (oRes) {
+				UserMessages.Display("File Imported", "Success");
+				Page.Reload();
+			});
+		}
+
+	function copyEmail() {
+		var AgentEmail = document.getElementById("AgentEmail").innerText;
+		navigator.clipboard.writeText(AgentEmail);
+	}
+
+	</script>
+
+
+	<%})
+}%>

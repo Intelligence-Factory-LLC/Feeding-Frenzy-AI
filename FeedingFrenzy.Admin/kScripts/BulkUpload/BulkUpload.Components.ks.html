@@ -1,0 +1,809 @@
+<%class BulkUploadComponents
+{
+	(function NewColumn
+	{
+		(returnex{%>
+	
+	
+<div class="modal fade" id="divInsertColumn" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">New Column</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs">
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Column:
+						</label>
+						<div class="col-sm-6">
+							<input type="text"  kcs:FieldName="ColumnName" class="InputString" maxlength="255"/>
+							
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Default Value:
+						</label>
+						<div class="col-sm-6">
+							<input type="text" "  kcs:FieldName="DefaultValue" class="InputString form-control" maxlength="255"/>												
+											
+
+						</div>
+					</div>
+										
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" onclick="OnInsertColumnComplete()">Save Column</button>
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+
+
+		</div>
+	</div>
+</div>	
+
+	<script type="text/javascript">
+		function OnInsertColumn() {
+			Page.Modals.divInsertColumn.ShowContent();
+		}
+
+		function OnInsertColumnComplete() {
+
+			Page.Modals.divInsertColumn.HideContent();
+			let oObj=BlindUnbind("divInsertColumn");
+
+			InsertColumn(oObj.ColumnName, oObj.DefaultValue);
+
+			PreviewBulkUpload();
+		}
+
+		function InsertColumn(sCol, sDefault) {
+
+			oDatasetEditor.SaveUndo();
+
+			oDatasetEditor.Sheet.forEach(row => {
+				row[sCol]=sDefault;
+			});
+
+			oDatasetEditor.m_cachedColumns=null;
+		}
+	</script>
+
+
+
+		<%})
+	})
+
+	(function DeleteColumn
+	{
+		(returnex{%>
+
+	
+<div class="modal fade" id="divDeleteColumn" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<h4 class="modal-title">Remove Column</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs">
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Column:
+						</label>
+						<div class="col-sm-6">
+							<select id="ddlDeleteColumn" kcs:FieldName="ColumnName" class="InputString form-select" ></select>
+							
+						</div>
+					</div>
+					
+
+										
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" onclick="OnDeleteColumnComplete()">Remove Column</button>
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+
+
+		</div>
+	</div>
+</div>	
+
+	
+	<script type="text/javascript">
+		function OnDeleteColumn() {
+			Page.Modals.divDeleteColumn.ShowContent();
+			ControlUtil.GetControl("ddlDeleteColumn").innerHTML="";
+			oDatasetEditor.Columns().forEach(x => {
+				ControlUtil.AddOption("ddlDeleteColumn", x.ColumnName, x.ColumnName);
+			});
+		}
+
+		function OnDeleteColumnComplete() {
+
+			Page.Modals.divDeleteColumn.HideContent();
+			let oObj=BlindUnbind("divDeleteColumn");
+			let sCol=oObj.ColumnName;
+
+			oDatasetEditor.SaveUndo();
+
+			oDatasetEditor.Sheet.forEach(row => {
+				if (ObjectUtil.IsDefined(row[sCol])) {
+					delete row[sCol];
+				}
+			})
+
+			oDatasetEditor.Transforms.forEach(x => {
+				if (x.SourceName==sCol) {
+					oDatasetEditor.RemoveTransform(x);
+				}
+			})
+
+			oDatasetEditor.m_cachedColumns=null;
+
+			PreviewBulkUpload();
+		}
+		
+
+
+	</script>
+		<%})
+	})
+
+
+
+	(function EditColumn
+	{
+		(returnex{%>
+
+
+<div class="modal fade" id="divEditColumnTransforms" tabindex="-1" aria-labelledby="columnTransformModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="columnTransformModalLabel">Column Transform</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Source Name:</label>
+                        <input type="hidden" kcs:FieldName="ID" class="form-control" maxlength="255"/>
+                        <input type="text" kcs:FieldName="SourceName" class="form-control" maxlength="255"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Target Name:</label>
+                        <input type="text" list="dataTargetName" kcs:FieldName="TargetName" class="form-control" maxlength="255"/>
+                        <datalist id="dataTargetName"></datalist>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Filter:</label>
+                        <input type="text" list="dataFilter" kcs:FieldName="Filter" class="form-control" maxlength="255"/>
+                        <datalist id="dataFilter"></datalist>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="OnSaveColumnTransform()">Save Transform</button>
+                <button type="button" class="btn btn-danger" onclick="OnRemoveColumnTransform()">Remove Transform</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+	<script type="text/javascript">
+
+
+	</script>
+
+		<%})
+	})
+
+
+	(function EditProcessor
+	{
+		(returnex{%>
+	<div id="divEditProcessor" class="modal fade">
+
+		<div class="modal-dialog modal-xl" style="width: 90%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Processor</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body" id="">
+					<div class="form-horizontal row-border Inputs">
+						<div class="form-group">
+							<label class="col-sm-3 control-label InputLabel">
+								Name:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" kcs:fieldname="FileName" class="InputString" maxlength="255" />
+								<input type="hidden" kcs:fieldname="FileID" class="InputString" maxlength="255" />
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label InputLabel">
+								Processor:
+							</label>
+							<div class="col-sm-6">
+								<textarea id="txtProcessor" style="min-height: 600px;" class="InputJavaScript">
+class SampleProcessor{
+
+	i = 0;
+
+	Process(oRow) {		
+		oRow.RowNumber = this.i++;	
+		return oRow;
+	}
+}
+
+function RunSampleProcessor() {
+	BulkUploader2(oDatasetEditor.Sheet, null, new SampleProcessor(), null, function () {
+		PreviewBulkUpload();
+	})		
+}
+
+console.log("Starting processor...");
+RunSampleProcessor();
+console.log("Done processing...");
+
+						</textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label InputLabel">
+								Description:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" kcs:fieldname="FileDescription" class="InputString" maxlength="255" />
+								
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-default" onclick="OnSaveProcessorFile()">Save</button>
+					<button type="button" class="btn btn-default" onclick="OnRunProcessor()">Execute</button>
+
+					<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+
+	<script src="/js/plugins/codemirror/lib/codemirror.js"></script>
+	<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+	<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+	<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+	<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+	<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+	<style>
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+      }
+    </style>
+	<script type="text/javascript">
+		function OnEditCode() {
+			if (!window.editor) {
+				window.editor=CodeMirror.fromTextArea(_$('txtProcessor'), {
+					mode: "javascript",
+					indentWithTabs: true,
+					smartIndent: true,
+					lineNumbers: true,
+					matchBrackets: true,
+					autofocus: true
+				});
+			}
+			else
+			{
+				window.editor.setValue(ControlUtil.GetValue('txtProcessor'));
+			}
+		}
+
+		function OnLoadEditProcessor() {
+			Page.Modals.divEditProcessor.ShowContent();
+			OnEditCode.delay(1000);
+		}
+
+		async function OnRunProcessor() {
+			var sContent = window.editor.getValue(); // ControlUtil.GetValue("txtProcessor");
+
+			try {
+				// Wrap the code in an immediately invoked asynchronous function
+				const asyncCode = `(async function() { ${sContent} })();`;
+
+				// Create a Blob from the code
+				const blob = new Blob([asyncCode], { type: 'application/javascript' });
+
+				// Create a script element and set its source to the Blob
+				const script = document.createElement('script');
+				script.src = URL.createObjectURL(blob);
+
+				// Append the script to the document
+				document.head.appendChild(script);
+
+				// Wait for the script to be loaded and executed
+				await new Promise((resolve, reject) => {
+					script.onload = resolve;
+					script.onerror = reject;
+				});
+
+				// Cleanup: remove the script element and revoke the Blob URL
+				document.head.removeChild(script);
+				URL.revokeObjectURL(script.src);
+			} catch (error) {
+				console.error('Error executing code:', error);
+			}
+		}
+
+		function OnSaveProcessorFile() {			
+			var oFile = BlindUnbind(_$("divEditProcessor"));
+			var sContents = window.editor.getValue();
+
+			Files.InsertOrUpdateDatabaseFile("Bulk Upload Processor", oFile.FileName, oFile.FileDescription, sContents, function () {
+				UserMessages.DisplayNow("Processor saved", "Success");
+			})
+		}
+
+
+
+
+	</script>
+
+
+
+
+
+		<%})
+	})
+
+	(function LoadProcessor
+	{
+		(returnex{%>
+
+	<div id="divLoadProcessor" class="modal fade">
+
+		<div class="modal-dialog modal-xl" style="width: 90%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Load Processor</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body" id="">
+					<div style="margin: 10px 0px 10px 0px;">
+						<label for="txtProcessorSearch">Search:</label>
+						<input type="text" id="txtProcessorSearch" style="width: 50%" class="ModalFocus" />
+						<span>Type the File Name, Description or Label to search</span>
+					</div>
+					<div id="divProcessorFiles">
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-default" onclick="OnCreateNewProcessor()" data-bs-dismiss="modal">Create New</button>
+
+					<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		Page.AddOnload(function () {
+
+			var oGrid=new JsonWsGrid3();
+			Page.ProcessorFilesGrid=oGrid;
+			Page.Grids.Insert("ProcessorFilesGrid", oGrid);
+			oGrid.JsonWsGridMethod="GetGridByFileTypeIDHtml";
+			oGrid.AllowPageSizeEditing=true;
+			oGrid.JsonWsCountMethod="GetGridByFileTypeIDCount";
+			oGrid.ContentControlID="divProcessorFiles";
+			oGrid.JsonWsUrl='/JsonWs/FeedingFrenzy.Admin.UI.FilesAdmin.ashx';
+			//oGrid.SearchControlID='txtSearchTerm';
+			oGrid.OnRowClick=LoadProcessorFile;
+			//oGrid.EmptyDataTemplateID="divFilesEmpty";
+			oGrid.ExtraParams={ FileTypeID: 2 };
+			oGrid.OnComplete=function () { OnFormatDate("divProcessorFiles") };
+			oGrid.m_ObjectsName="ProcessorFiles";
+			oGrid.fromHistory();
+			oGrid.StartRefreshing();
+
+			oGrid.OnFilterInput=function (sInput) {
+				return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+			};
+		})
+
+		function LoadProcessorFile(iID) {
+			Files.GetFile(iID, function (oFile) {
+				oFile.Data=JSON.parse(oFile.Data);
+				oFile.Data.Contents=oFile.Data.Contents.replace(/\\n/g, "\n");
+				BlindBind("divEditProcessor", oFile);
+				ControlUtil.SetValue("txtProcessor", oFile.Data.Contents);
+
+				UserMessages.DisplayNow(oFile.FileName+" processor loaded successfully", "Success");
+				Page.Modals["divLoadProcessor"].HideContent();
+
+				OnLoadEditProcessor();
+
+				iProcessorFileID=oFile.FileID;
+			});
+		}
+
+		function OnLoadProcessor() {
+			Page.Modals.divLoadProcessor.ShowContent();
+			Page.Grids.ProcessorFilesGrid.Refresh(true);
+		}
+
+		function OnCreateNewProcessor() {
+			OnLoadEditProcessor();
+		}
+
+	</script>
+		<%})
+	})
+
+	(function LoadSheet
+	{
+		(returnex{%>
+
+<div class="modal fade" id="divLoadFile" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<h4 class="modal-title">Load File</h4>
+				
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs">
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							File Name:
+						</label>
+						<div class="col-sm-6">
+							<input type="text" id="txtFile" style="width: 50%" class="ModalFocus form-control" value="c:\temp\bulk_upload_files\"/>			
+							
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" onclick="OnLoadFile()">Load File</button>
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+
+		<div class="modal-header">
+
+				<h4 class="modal-title">Load Google Sheet</h4>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs">
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Sheet ID:
+						</label>
+						<div class="col-sm-6">
+							<input type="text" kcs:FieldName="SheetID" style="width: 50%" class="form-control" onblur="OnBlurSheetID(this)"/>			
+							
+						</div>
+					</div>				
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Tab:
+						</label>
+						<div class="col-sm-6">
+							<input type="text" kcs:FieldName="SheetName" style="width: 50%" class="form-control" list="dataSheetName"/>			
+							<datalist id="dataSheetName">	
+						</datalist>
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" onclick="OnLoadSheet()">Load Sheet</button>
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+			
+		<div class="modal-header">
+
+				<h4 class="modal-title">Load Saved File</h4>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs" id="divFiles">
+								
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+
+		</div>
+	</div>
+</div>
+	<%LoadSheetScripts%>
+
+		<%})
+	})
+
+	(function LoadSheetScripts
+	{
+		(returnex{%>
+	<script type="text/javascript">
+
+		function OnBlurSheetID(ctrl) {
+			let sSheetID = ControlUtil.GetValue(ctrl);
+
+			if (StringUtil.IsEmpty(sSheetID))
+				return;
+
+			if (StringUtil.InString(sSheetID, "http")) {
+				sSheetID = sSheetID.substring(sSheetID.indexOf("spreadsheets/d/") + 15);
+				sSheetID = sSheetID.substring(0, sSheetID.indexOf("/"));
+
+				ControlUtil.SetValue(ctrl, sSheetID);
+			}
+
+
+			BulkUploadWorkbench.GetTabsFromGoogleSheet(sSheetID, function (oTabs) {
+
+				Page.LocalSettings.GoogleSheetID = sSheetID
+
+				let list=document.getElementById('dataSheetName');
+				list.innerHTML="";
+				oTabs.forEach(item => {
+					var option=document.createElement('option');
+					option.value=item;
+					option.text=item;
+					list.appendChild(option);
+				});
+
+			});
+		}
+
+
+		async function OnLoadSheet() {
+			
+			if (StringUtil.IsEmpty(ControlUtil.GetValue("sheetID"))) {
+				UserMessages.DisplayNow("Enter a valid spreadsheet", "Error");
+				return;
+			}
+
+            if (StringUtil.IsEmpty(ControlUtil.GetValue("sheetName"))) {
+                UserMessages.DisplayNow("Enter a valid Tab", "Error");
+                return;
+            }
+			let oArgs = BlindUnbind("divLoadFile");
+			Page.LocalSettings.GoogleSheetTab = oArgs.SheetName;
+
+			let f = new Promise(resolve => {
+				BulkUploadWorkbench.GetDataSetFromGoogleSheetObject(oArgs, function (oRes) {
+					Page.LocalSettings.File = null;
+					Page.LocalSettings.DatasetFileID = null;
+					oDatas = oRes;
+					LoadDatasetFile2(oDatas);
+
+					if (!StringUtil.IsEmpty(Page.LocalSettings.SelectedSheet)) {
+						SelectSheet(Page.LocalSettings.SelectedSheet);
+						ControlUtil.SetValue("ddlTables", Page.LocalSettings.SelectedSheet);
+					}
+
+					//set a default
+					if (StringUtil.IsEmpty(ControlUtil.GetValue("ddlTables")) && _$("ddlTables").options.length > 1) {
+						_$("ddlTables").options[1].selected = true;
+						SelectSheet(_$("ddlTables").options[1].value);
+					}
+
+					resolve();
+				});
+			});
+
+			await f;
+		}
+
+		function OnLoadDataset() {
+			if (!StringUtil.IsEmpty(Page.LocalSettings.GoogleSheetID)) {
+				let ctrl = _$("divLoadFile").getElements("[kcs:FieldName='SheetID']")[0];
+				ControlUtil.SetValue(ctrl, Page.LocalSettings.GoogleSheetID);
+
+			}
+			Page.Modals.divLoadFile.ShowContent();
+		}
+
+		Page.AddOnload(async function () {
+
+			if (_$("divFiles")) {
+				var oGrid = new JsonWsGrid3();
+				Page.FilesGrid = oGrid;
+				Page.Grids.Insert("Files", oGrid);
+				oGrid.JsonWsGridMethod = "GetGridByFileTypeIDHtml";
+				oGrid.AllowPageSizeEditing = true;
+				oGrid.JsonWsCountMethod = "GetGridByFileTypeIDCount";
+				oGrid.ContentControlID = "divFiles";
+				oGrid.JsonWsUrl = '/JsonWs/FeedingFrenzy.Admin.UI.FilesAdmin.ashx';
+				oGrid.ExtraParams = { FileTypeID: 3 };
+				oGrid.OnRowClick = OnClickFile;
+				oGrid.EmptyDataTemplateID = "divFilesEmpty";
+				oGrid.OnComplete = function () { OnFormatDate("divFiles") };
+				oGrid.m_ObjectsName = "Files";
+				oGrid.fromHistory();
+				oGrid.StartRefreshing();
+
+				oGrid.OnFilterInput = function (sInput) {
+					return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+				};
+			}
+		});
+
+		function OnClickFile(iFileID) {
+			LoadDatasetFile(iFileID);
+		}
+		
+		function OnLoadFile() {
+            var sFile = ControlUtil.GetValue("fileInput");
+			LoadDataSetFromFile(sFile);
+		}
+		function GoToLeads()
+		{
+            Page.Redirect("/leads");
+		}
+        function CloseImportPanel() {
+            Page.Redirect("/bulk-upload-workbench");
+        }
+
+	</script>
+		<%})
+	})
+
+	(function SaveSheet
+	{
+		(returnex{%>
+
+	
+<div class="modal fade" id="divSaveFile" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-xl" style="width: 90%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Save Dataset</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body" id="">
+				<div class="form-horizontal row-border Inputs">
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							File Name:
+						</label>
+						<div class="col-sm-6">
+							<input type="text"  kcs:FieldName="FileName" class="InputString" maxlength="255"/>
+							
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Description:
+						</label>
+						<div class="col-sm-6">
+							<input type="text"  kcs:FieldName="FileDescription" class="InputString" maxlength="255"/>
+							
+						</div>
+					</div>
+										<div class="form-group">
+						<label class="col-sm-3 control-label InputLabel">
+							Label:
+						</label>
+						<div class="col-sm-6">
+							<input type="text"  kcs:FieldName="Label" class="InputString" maxlength="255"/>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-default" onclick="OnSaveFile()">Save File</button>
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function OnSaveFileAs() {
+		oDatasetEditor.DatasetFileID=null;
+		Page.LocalSettings.DatasetFileID=null;
+		Page.Modals["divSaveFile"].ShowContent();
+	}
+
+	function OnShowSaveFile() {
+		if (oDatasetEditor.DatasetFileID!=null) {
+			oDatasetEditor.SaveState();
+			var sContents=JSON.stringify(oDatasetEditor);
+			Files.UpdateFileContents(oDatasetEditor.DatasetFileID, sContents, function () {
+				UserMessages.DisplayNow("Dataset updated", "Success");
+			});
+		}
+		else {
+			Page.Modals["divSaveFile"].ShowContent();
+			BlindBind("divSaveFile", { FileName: oDatasetEditor.SelectedSheetName });
+		}
+	}
+	function OnSaveFile() {
+
+		oDatasetEditor.SaveState();
+
+		{
+			var oFile = BlindUnbind("divSaveFile");
+			oFile.FileType = "Bulk Upload Data";
+			oFile.Extension = ".json";	
+			oFile.Contents=JSON.stringify(oDatasetEditor);
+
+			Files.InsertOrUpdatePhysicalFileObject(oFile, function (oRes) {
+				UserMessages.DisplayNow("The file has been saved, thank you", "Success");
+				Page.Modals["divSaveFile"].HideContent();
+				oDatasetEditor.DatasetFileID=oRes;
+				Page.LocalSettings.DatasetFileID=oRes;
+			});
+		}
+	}
+
+
+
+</script>
+	
+
+		<%})
+	})
+
+
+}%>

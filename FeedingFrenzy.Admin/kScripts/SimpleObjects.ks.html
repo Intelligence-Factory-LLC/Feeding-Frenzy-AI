@@ -1,0 +1,533 @@
+<%class SimpleObjectsPage
+{
+	(declare UseShortButtonNames true)
+
+	(declare Metadata
+		{
+			ObjectName : "",
+			ObjectsName : "",
+			
+			FriendlyObjectName : "",
+			FriendlyObjectsName : "",
+			
+			ObjectsUrl : "",
+			DetailsUrl : "",
+			EditUrl : "",
+			InsertUrl : "",
+
+			UINamespace : "",
+			BusinessNamespace: ""
+		}
+	)
+	
+	(function MetadataFile File
+	{
+		(Metadata (json (include (File))))
+	})
+		
+	(function ObjectName
+	{
+		(return (Metadata.ObjectName))
+	})
+	
+	(function ObjectsName
+	{
+		(return (Metadata.ObjectsName))
+	})
+	
+	(function FriendlyObjectName
+	{
+		(return (Metadata.FriendlyObjectName))
+	})
+	
+	(function FriendlyObjectsName
+	{
+		(return (Metadata.FriendlyObjectsName))
+	})
+	
+	(function ObjectsUrl 
+	{
+		(return (Metadata.ObjectsUrl))
+	})
+
+	(function DetailsUrl 
+	{
+		(return (Metadata.DetailsUrl))
+	})
+
+	(function InsertUrl 
+	{
+		(return (Metadata.InsertUrl))
+	})
+	
+	(function EditUrl 
+	{
+		(return (Metadata.EditUrl))
+	})	
+	
+	(declare AllowInsert true)
+	(declare AllowDelete false)
+	(declare AllowExportImport false)
+	(declare AllowBulkEditing false)
+	(function AllowSelectingRows{ (return false) })
+    (declare AllowDuplicate false)
+
+
+	(function ShowInsertButton
+	{
+		(return (and (AllowInsert) (not (StringUtil.IsEmpty (Metadata.InsertUrl)))))
+	})
+
+	(function Title 
+	{
+		(returnex{%>
+			<%FriendlyObjectsName%> - <%Application.Title%>
+		<%})
+
+	})
+	
+	(function QuickHelp
+	{
+		(returnex{%>
+			The page shows all <%FriendlyObjectsName%>.
+
+			<ul>
+				<li><b>Search</b> by typing into the search box. Results appear automatically.</li>
+				<li><b>Sort</b> by clicking a column header once for ascending and twice for descending.</li>
+				<li><b>Open</b> a record by clicking on it.</li>
+				<li><b>Add a <%FriendlyObjectName%></b> by clicking the button "Add <%FriendlyObjectName%>"</li>
+			</ul> 
+		<%})
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			<%FriendlyObjectsName%>
+		<%})
+	})
+
+	(function MainPanelTitleOptions
+	{
+		(returnex{%>
+<div class="options">
+    <div class="btn-toolbar">
+        <%CommandButtons%>
+    </div>
+</div>
+        <%})
+	})
+
+
+	(function MainPanelTabs
+	{
+		(returnex{%>
+			
+		<%})
+	})
+
+	(function MainPanelColor
+	{
+		(return (Metadata.GetStringOrDefault MainPanelColor panel-primary))
+	})
+		
+	(function Breadcrumbs
+	{
+		(returnex{%>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Main</a></li>
+            <li class="breadcrumb-item"><%FriendlyObjectsName%></li>
+        </ol>
+
+        <%})
+    })
+
+	(function SearchOptions
+	{
+		(return "")
+	})
+
+	(function SearchByString
+	{
+		(returnex{%>Search<%})
+	})
+
+	(function MainPanelText 
+	{
+		(returnex{%>
+			
+		<%})
+	})
+	
+	(function MainPanelContent
+	{
+		(returnex{%>
+
+			<%if (AllowExportImport){%>
+				<%using FilesAdmin.ks.html%>
+				<%FilesAdmin.GetBulkUploadControl%>
+			<%}%>
+			
+			
+
+		
+
+			
+
+			<div id="div<%ObjectsName%>Empty" class="EmptyDataTemplate Hidden mt-2">No <%FriendlyObjectsName%> found.</div>
+			
+			
+			    <div class="row">
+				    <div class="col-12">
+                    <div class="card <%MainPanelColor%>" style="margin-bottom: 200px;">
+
+                        <div class="card-body">
+
+						<%ifneq (MainPanelTabs) ""{%>
+							<div class="float-sm-end mb-sm-0">
+								<div class="row g-2">
+									<div class="col-auto">
+										
+									</div>
+									<div class="col-auto">
+   										<%MainPanelTabs%>
+									</div>
+								</div>
+							</div> 
+						<%}%>
+
+
+						<div class="row">
+							<div class="col">
+								<div class="d-flex align-items-center">
+									<span class="me-2">Recent:</span>
+									<ol class="breadcrumb recent m-0 p-0" id="lstRecent"></ol>                         
+								</div>
+							</div>
+							<div class="col-auto text-end">
+								<div class="mt-2 mt-sm-0">
+									<%CommandButtons%>
+								</div>
+							</div>
+						</div>
+		
+						<%MainPanelText%>
+
+						<div class="clerfix"></div>
+                        	<div class="dataTables_wrapper">
+                        	
+                        		<div class="row">
+                        			<div class="col-xs-6">
+										<input type="text" id="txtSearchTerm" class="Focus InputSearch form-control " placeholder="<%SearchByString%>"/> 
+									</div>
+								</div>
+							    
+<div class="SelectControls Hidden row" style="padding-top: 10px;">
+    <div class="col-12">
+        <span class="SelectedCount">0</span> Rows Selected.
+        <button value="" class="SelectPage btn btn-primary-alt mb-2">
+            <i class="fa fa-hand-o-down"></i> Select Page
+        </button>
+        <button value="Select All" class="SelectAll btn btn-primary-alt  mb-2 d-none">Select All</button>
+        <button value="Cancel" class="Cancel btn btn-primary-alt  mb-2">
+            <i class="fa fa-times"></i> Cancel
+        </button>
+    </div>
+</div>
+
+			<%SearchOptions%>
+							<div class="row">
+								 <div id="div<%ObjectsName%>" style="padding-top: 10px; overflow-x: auto; overflow-y: hidden;" >						
+									Loading...       
+								</div>							
+							</div>
+
+
+							</div>
+					
+							
+								<div class="row mt-3">
+				      		<div class="col-12 text-center">
+			      				<%CommandButtons%>
+				      		</div>
+				      	</div>
+                        </div>
+                   
+                    </div>
+					</div>
+				<%GetQuickHelpControls (QuickHelp) (AllowEditQuickHelp)%> 
+				</div>
+		<%})
+	})
+
+	(function AllowEditQuickHelp { (return (UserState.Permission.AllowEditQuickHelp)) })
+
+	(function CommandButtons
+	{
+		(returnex{%>
+
+			<%if (ShowInsertButton){%>
+				<button value="" onclick="OnAdd<%ObjectName%>()" class="Insert btn btn-primary mb-2"><i class="mdi mdi-plus-circle me-1"></i> New <%FriendlyObjectName%></button>
+			<%}%>
+			<%if (AllowSelectingRows){%>
+				<button value="" onclick="OnSelectRows()" class="btn btn-primary-alt mb-2"><i class="fa fa-hand-o-right"></i> Select Rows</button>
+			<%}%>
+
+			<%if (AllowDelete){%>
+			<button value="" onclick="OnDelete<%ObjectsName%>()" class="Hidden SelectControls" >Delete <%FriendlyObjectsName%></button>
+			<%}%>
+
+            <%if (AllowDuplicate){%>
+			<button value="" onclick="OnCopy<%ObjectsName%>()" class="Hidden SelectControls">Duplicate <%FriendlyObjectsName%></button>
+            <%}%>
+			<%if (AllowBulkEditing){%>    
+				<button value="" onclick="OnBulkEdit()" id="btnBulkEdit">Bulk Edit</button>
+				<button value="" onclick="OnBulkEditExit()" id="btnBulkEditExit" class="Hidden">Done Editing</button>
+			<%}%> 
+			
+			<%if (AllowExportImport){%>
+				<button value="" class="btn btn-primary" onclick="OnBulkEdit()" id="btnBulkEdit">Bulk Edit</button>
+				<button value="" class="btn btn-primary Hidden" onclick="OnBulkEditExit()" id="btnBulkEditExit">Done Editing</button>
+			<%}%>
+			<%AdditionalCommands%>
+		<%})
+	})
+
+	(function AdditionalCommands
+	{
+		(return "")
+	})
+
+	(declare GridHtmlMethod GetGridHtml)
+	(declare GridCountMethod GetGridCount)
+	
+	(function GridInitializer
+	{
+		(returnex{%>
+        var searchValue = '', sortColumn = '<%ObjectName%>ID', sortAscending = false;
+        
+          
+        if(location.href.contains("#search")){
+            var oValues = new LocalStorage().get("<%FriendlyObjectsName%>/<%ObjectsName%>Grid")
+            if(oValues)
+            {
+                if(oValues.Search)
+                   searchValue =  oValues.Search;
+                if(oValues.SortColumn)
+                   sortColumn = oValues.SortColumn;
+                if(oValues.SortAscending)
+                   sortAscending = oValues.SortAscending
+            }            
+        }
+
+        ControlUtil.GetControl('txtSearchTerm').value = searchValue;
+
+        var oGrid = new JsonWsGrid4();
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+        oGrid.JsonWsGridMethod = "<%GridHtmlMethod%>";
+		oGrid.AllowPageSizeEditing = true;		
+        oGrid.SortAscending = sortAscending;
+		oGrid.sort = sortColumn;
+        oGrid.JsonWsCountMethod = "<%GridCountMethod%>";
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = OnClick<%ObjectName%>;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() { 
+			OnFormatGrid("div<%ObjectsName%>");
+		};		
+		oGrid.OnFilterInput = function(sInput)
+		{
+			return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+		};
+
+        <%})
+    })
+
+	(function JsObjectInitializers
+	{
+		(returnex{%>
+			<script language="javascript" type="text/javascript">
+				var strUserName = "<%UserState.get_UserName%>";
+			</script>
+		<%})
+	})
+
+	(function AdditionalScripts
+	{
+		(return "")
+	})
+
+	(function BottomScripts
+	{
+		(returnex{%>
+			<script type="text/javascript" src="/JsonWs/<%Metadata.BusinessNamespace%>.<%ObjectsName%>.ashx.js?v=<%JsVersion%>"></script>
+			
+			<%JsObjectInitializers%>
+
+			<script type="text/javascript" language="javascript">
+				var ObjectName = "<%ObjectName%>";
+				var ObjectsName = "<%ObjectsName%>";
+
+				function OnEdit<%ObjectName%>(i<%ObjectName%>ID) {
+					Page.Redirect("<%EditUrl%>", { <%ObjectName%>ID: i<%ObjectName%>ID });
+				}
+
+				function OnAdd<%ObjectName%>() {
+					Page.Redirect("<%InsertUrl%>");
+				}
+
+            function OnClick<%ObjectName%>(i<%ObjectName%>ID, e, el, bCtrl) {
+                var search = '', sortColumn = '', sortAscending = '', sendFilter = false;
+                if(!StringUtil.IsEmpty(Page.<%ObjectsName%>Grid.search))
+                {
+                    search = Page.<%ObjectsName%>Grid.search;
+                    sendFilter = true;
+                }                    
+
+                if(!StringUtil.IsEmpty(Page.<%ObjectsName%>Grid.sort))
+                {
+                    sortColumn = Page.<%ObjectsName%>Grid.sort;
+                    sendFilter = true;
+                }
+
+                if(!StringUtil.IsEmpty(Page.<%ObjectsName%>Grid.SortAscending))
+                {
+                    sortAscending = Page.<%ObjectsName%>Grid.SortAscending
+                    sendFilter = true;
+                }
+                if(sendFilter)
+                    new LocalStorage().set("<%FriendlyObjectsName%>/<%ObjectsName%>Grid", {Search: search, SortColumn: sortColumn,  SortAscending : sortAscending });
+                else
+                    new LocalStorage().remove("<%FriendlyObjectsName%>/<%ObjectsName%>Grid");
+
+                Page.Redirect("<%DetailsUrl%>", { <%ObjectName%>ID: i<%ObjectName%>ID }, bCtrl ? "_blank" : "_self");
+
+                
+            }
+
+            function OnSelectRows() {
+                $$(".SelectControls").removeClass("Hidden");
+                Page.<%ObjectsName%>GridSelector = new GridSelector(Page.<%ObjectsName%>Grid);
+                Page.<%ObjectsName%>GridSelector.OnStartSelect();
+            }
+
+				function OnDelete<%ObjectsName%>() {
+					var oSelected = Page.<%ObjectsName%>GridSelector.GetSelected();
+					if (oSelected.empty()) {
+						UserMessages.DisplayNow("No rows selected for deletion", "Error");
+					}
+					else {
+						oSelected.each(function(iID) {
+							try
+							{
+								<%ObjectsName%>.Remove<%ObjectName%>(iID);
+							}
+							catch (err)
+							{
+								trace('ehre');
+							}
+						});
+
+						UserMessages.DisplayNow(oSelected.length + " <%FriendlyObjectsName%> deleted", "Success");
+						Page.<%ObjectsName%>Grid.Refresh(true);
+					}
+				}
+				
+				function OnCopy<%ObjectsName%>() {
+					var oSelected = Page.<%ObjectsName%>GridSelector.GetSelected();
+					if (oSelected.empty()) {
+						UserMessages.DisplayNow("No rows selected for duplication", "Error");
+					}
+					else {
+						oSelected.each(function(iID) {
+							<%ObjectsName%>.Copy<%ObjectName%>(iID);
+						});
+
+						UserMessages.DisplayNow(oSelected.length + " <%FriendlyObjectsName%> duplicated", "Success");
+						Page.<%ObjectsName%>Grid.Refresh(true);
+					}
+				}
+			<%if (AllowBulkEditing){%>        
+				function OnBulkEdit() {
+					ControlUtil.GetControl("btnBulkEdit").addClass("Hidden");
+					ControlUtil.GetControl("btnBulkEditExit").removeClass("Hidden");
+				
+					Page.<%ObjectsName%>Grid.OnRowClick = function() { };
+					Page.<%ObjectsName%>Grid.JsonWsGridMethod = "GetGridEditHtml";
+					Page.<%ObjectsName%>Grid.OnComplete = function() {
+
+						Page.<%ObjectsName%>Grid.GetDataRows().each(function(oTr) {
+							var oObj = JSON.decode(ControlUtil.GetAttribute(oTr, "kcs:Object"));
+							BlindBind(oTr, oObj);
+
+							ControlUtil.GetChildControls(oTr).each(function(oCtrl) {
+								ControlUtil.AddChange(oCtrl, function() {
+									var oObj = JSON.decode(ControlUtil.GetAttribute(oTr, "kcs:Object"));
+									var oChanged = BlindUnbind(oTr);
+									oObj = Object.merge(oObj, oChanged);
+									<%ObjectsName%>.Update<%ObjectName%>Object(oChanged, function() {
+										UserMessages.DisplayNow("<%FriendlyObjectName%> " + oChanged.<%ObjectName%>ID + " was updated", "Success");
+									});
+								});
+							});
+						});
+
+					}
+					
+					Page.<%ObjectsName%>Grid.Refresh(true);
+
+				}
+
+				function OnBulkEditExit() {
+					Page.Reload();
+				}
+			<%}%>
+				
+				Page.AddOnload(function() {
+					<%GridInitializer%>
+				}); 
+				
+
+			
+                Page.AddOnload(function() {
+					var oRecent = new LocalStorage().get("<%ObjectsName%>");
+
+					var oLst = ControlUtil.GetControl("lstRecent");
+					if (!ObjectUtil.HasValue(oLst))
+						return;
+
+                    if (null != oRecent)
+                    {
+                        oRecent.each(function(o)
+						{
+							var oLst = ControlUtil.GetControl("lstRecent");
+							if (oLst) {
+								oLst.appendChild($$$([li, ['a', { href: o.Url }, o.Title]]));
+							}
+                        });
+                    }
+
+                    if (null == oRecent || oRecent.length == 0)
+                        ControlUtil.GetControl("lstRecent").addClass("Hidden");
+                });
+
+									function ShowQuickHelp()
+					{
+						let oDiv = _$("divQuickHelp");
+						oDiv.removeClass("hidden");
+						oDiv.parentElement.children[0].className = "col-8";
+					}
+			</script>
+
+
+
+							<%AdditionalScripts%>
+
+		<%})
+	})
+}%>

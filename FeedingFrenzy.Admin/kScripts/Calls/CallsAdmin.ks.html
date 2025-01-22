@@ -1,0 +1,1285 @@
+<%
+class CallsAdmin
+{
+
+	(function GetDetails CallID
+	{
+		(declare Call (Calls.GetCall (CallID)))
+
+		(returnex{%>
+
+<table class="Inputs table table-condensed">
+	<colgroup>
+		<col class="col-md-2">
+		<col class="col-md-10">
+	</colgroup>
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Call ID
+		</td>
+		<td>
+
+			<%Call.CallID%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Calling Phone
+		</td>
+		<td>
+
+			<%StringToPhone (Call.CallingPhone)%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Called Phone
+		</td>
+		<td>
+
+			<%StringToPhone (Call.CalledPhone)%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Duration
+		</td>
+		<td>
+
+			<%Call.Duration%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Recorded
+		</td>
+		<td>
+
+			<%if (Call.IsRecorded) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Recording URL
+		</td>
+		<td>
+
+			<%Call.RecordingURL%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Conference
+		</td>
+		<td>
+
+			<%if (Call.IsConference) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Streamed
+		</td>
+		<td>
+
+			<%if (Call.IsStreamed) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Incoming
+		</td>
+		<td>
+
+			<%if (Call.IsIncoming) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Call Status
+		</td>
+		<td>
+
+			<%Call.CallStatus%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Last Call Status Update
+		</td>
+		<td>
+
+			<%Call.LastCallStatusUpdate%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Transcribed
+		</td>
+		<td>
+
+			<%if (Call.IsTranscribed) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Is Empty Transcription
+		</td>
+		<td>
+
+			<%if (Call.IsEmptyTranscription) Yes No%>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Transcription Summary
+		</td>
+		<td>
+
+			<%Call.TranscriptionSummary%>
+
+		</td>
+	</tr>
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Data
+		</td>
+		<td>
+		</td>
+	</tr>
+
+	<%Call.DataObject.each o{%>
+	<tr>
+		<td class="InputLabel">
+			&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+		</td>
+		<td>
+			<div style="max-width: 600px;">
+				<%Call.DataObject.get (o)%>
+			</div>
+
+		</td>
+	</tr>
+	<%}%>
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Date Created
+		</td>
+		<td>
+
+			<span class="DateOnly"><%Call.DateCreated%></span>
+
+		</td>
+	</tr>
+
+
+
+
+
+
+	<tr>
+		<td class="InputLabel">
+			Last Updated
+		</td>
+		<td>
+
+			<span class="DateOnly"><%Call.LastUpdated%></span>
+
+		</td>
+	</tr>
+
+
+
+</table>
+		<%})
+	})
+
+
+	(function GetDropDown
+	{
+		(return (GetDropDown CallName CallID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown CallName CallID  CallID "<option value=''>None</option>"))
+	})
+
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})
+
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})
+
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetCallsSp)
+		(returnex {%>
+<select kcs:FieldName="<%FieldName%>" class="form-select">
+	<%PreOptions%>
+	<%Options.each Option{%>
+	<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+	<%}%>
+</select>
+		<%})
+	})
+
+	(function GetEdit CallID
+	{
+		(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Call">
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Call ID
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input type="text" kcs:FieldName="CallID" class="InputString form-control" readonly="readonly" value="<%CallID%>" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Calling Phone
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtCallingPhone" kcs:FieldName="CallingPhone" class="InputPhone form-control" maxlength="255" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Called Phone
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtCalledPhone" kcs:FieldName="CalledPhone" class="InputPhone form-control" maxlength="255" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Duration
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input type="number" id="txtDuration" kcs:FieldName="Duration" class="InputDecimal form-control" maxlength="18" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Recorded
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input" id="chkIsRecorded" kcs:FieldName="IsRecorded" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Recording URL
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input type="text" id="txtRecordingURL" kcs:FieldName="RecordingURL" class="InputUrl form-control" maxlength="512" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Conference
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input" id="chkIsConference" kcs:FieldName="IsConference" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Streamed
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input" id="chkIsStreamed" kcs:FieldName="IsStreamed" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Incoming
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input" id="chkIsIncoming" kcs:FieldName="IsIncoming" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Call Status
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input type="text" id="txtCallStatus" kcs:FieldName="CallStatus" class="InputString form-control" maxlength="255" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Last Call Status Update
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<input type="datetime" id="txtLastCallStatusUpdate" kcs:FieldName="LastCallStatusUpdate" class="InputDateTime form-control" maxlength="20" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Transcribed
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input" id="chkIsTranscribed" kcs:FieldName="IsTranscribed" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Empty Transcription
+		</label>
+		<div class="col-sm-6 form-switch">
+
+
+
+			<input type="checkbox" class="form-check-input"
+				   id="chkIsEmptyTranscription" kcs:FieldName="IsEmptyTranscription" />
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Transcription Summary
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<textarea id="txtTranscriptionSummary" kcs:FieldName="TranscriptionSummary" class="InputText form-control"></textarea>
+
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Data
+		</label>
+		<div class="col-sm-6">
+
+
+
+			<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+
+
+		</div>
+	</div>
+
+
+</div>
+		<%})
+	})
+
+
+
+
+	(function GetGrid
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+
+	(function GetGridHtml
+	{
+		(return (GetGridHtml  '' '' true 0 20))
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+
+		(declare dtCalls (Calls.GetCallsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))
+		(return (GetGridHtmlInternal (dtCalls)))
+
+	})
+
+	(function GetGridCount  Search
+
+	{
+		(ado.row Calls GetCallsSp_CountSp  (Search))
+		(return (Calls.get Total))
+	})
+
+
+
+
+	(function GetGridHtmlInternal Calls
+	{
+		(returnex{%>
+<table class="Grid">
+	<tr>
+
+
+
+		<th kcs:SortColumn="CallID">
+			Call ID
+		</th>
+
+
+		<th>
+			
+		</th>
+
+
+
+
+		<th kcs:SortColumn="CallingPhone">
+			Calling Phone
+		</th>
+
+
+
+
+		<th kcs:SortColumn="CalledPhone">
+			Called Phone
+		</th>
+
+
+
+
+		<th kcs:SortColumn="Duration">
+			Duration
+		</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<th kcs:SortColumn="CallStatus">
+			Call Status
+
+
+
+
+		</th>
+
+
+
+
+
+
+
+
+
+
+		<th kcs:SortColumn="TranscriptionSummary">
+			Summary
+		</th>
+
+
+
+
+
+
+		<th kcs:SortColumn="DateCreated">
+			Date
+		</th>
+
+
+
+
+
+
+
+	</tr>
+	<%Calls.each Call{%>
+	<tr kcs:RowKey="<%Call.get CallID%>">
+
+
+
+		<td>
+			<%Call.CallID%>
+		</td>
+
+		<td>
+			<%ifneq (Call.DataObject.GetIntOrNull LeadNoteID) ""{%>
+				<span data-bs-toggle="tooltip" data-bs-placement="top" title="This call has been tied to a known lead">
+					<i class="fas fa-user-check" title=""></i> 
+				</span>
+			<%}{%>
+				<span data-bs-toggle="tooltip" data-bs-placement="top" title="Open this call to tie it to a lead">
+					<i class="fas fa-question-circle" ></i> 
+				</span>
+			<%}%>
+
+			<%ifeq (Call.ExternalKey) ""{%>
+			<span data-bs-toggle="tooltip" data-bs-placement="top" title="Open this call to push it to an external system">
+				<i class="fas fa-upload"></i> 
+			</span>
+			<%}{%>
+			<span data-bs-toggle="tooltip" data-bs-placement="top" title="This call has been pushed to an external system">
+				<i class="fas fa-check-circle"></i> <!-- Check Circle Icon (Indicates completion) -->
+			</span>
+			<%}%>
+		</td>
+
+
+
+		<td>
+			<%StringToPhone (Call.CallingPhone)%>
+		</td>
+
+
+
+		<td>
+			<%StringToPhone (Call.CalledPhone)%>
+		</td>
+
+
+
+		<td>
+			<%Call.Duration%> sec.
+		</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<td>
+			<%GetCallStatusDisplay (Call.CallStatus)%>
+		</td>
+
+
+
+
+
+
+
+
+
+		<td>
+			<%Call.TranscriptionSummary%>
+		</td>
+
+
+
+
+
+
+		<td>
+			<span class="DateOnly"><%Call.DateCreated%></span>
+		</td>
+
+
+
+
+
+
+	</tr>
+	<%}%>
+	<%GridFooter 8%>
+</table>
+		<%})
+	})
+
+
+
+
+
+
+
+	(function GetInsert
+	{
+		(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Call">
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Calling Phone
+		</label>
+		<div class="col-sm-6">
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtCallingPhone" kcs:FieldName="CallingPhone" class="InputPhone form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Called Phone
+		</label>
+		<div class="col-sm-6">
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtCalledPhone" kcs:FieldName="CalledPhone" class="InputPhone form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Duration
+		</label>
+		<div class="col-sm-6">
+
+			<input type="number" id="txtDuration" kcs:FieldName="Duration" class="InputDecimal form-control" maxlength="18" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Recorded
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsRecorded" kcs:FieldName="IsRecorded" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Recording URL
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtRecordingURL" kcs:FieldName="RecordingURL" class="InputUrl form-control" maxlength="512" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Conference
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsConference" kcs:FieldName="IsConference" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Streamed
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsStreamed" kcs:FieldName="IsStreamed" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Incoming
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsIncoming" kcs:FieldName="IsIncoming" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Call Status
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtCallStatus" kcs:FieldName="CallStatus" class="InputString form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Last Call Status Update
+		</label>
+		<div class="col-sm-6">
+
+			<input type="datetime" id="txtLastCallStatusUpdate" kcs:FieldName="LastCallStatusUpdate" class="InputDateTime form-control" maxlength="20" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Transcribed
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsTranscribed" kcs:FieldName="IsTranscribed" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Is Empty Transcription
+		</label>
+		<div class="col-sm-6 form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsEmptyTranscription" kcs:FieldName="IsEmptyTranscription" />
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Transcription Summary
+		</label>
+		<div class="col-sm-6">
+
+			<textarea id="txtTranscriptionSummary" kcs:FieldName="TranscriptionSummary" class="InputText form-control"></textarea>
+
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Data
+		</label>
+		<div class="col-sm-6">
+
+			<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+
+		</div>
+	</div>
+
+
+</div>
+		<%})
+	})
+
+
+	(function GetTranscriptionJavascript
+	{
+		(returnex{%>
+
+<script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.Calls.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript">
+
+
+	function toggleSummarizedContent(ctrl) {
+		var content = ctrl;
+		if (content.hasClass("expanded"))
+			return;
+		content.classList.toggle('expanded');
+		var indicators = ctrl.getElements(".summary-indicator");
+		if (indicators.length > 0) {
+			let indicator = indicators[0];
+			indicator.classList.toggle("hidden");
+		}
+	}
+
+	function OnSeekAudio(id, dOffset) {
+		let ctrl = _$("audio_" + id);
+		if (ctrl) {
+			ctrl.currentTime = dOffset;
+			ctrl.play();
+		}
+	}
+
+	function OnVideoTimeUpdate(ctrl) {
+		let sID = StringUtil.RightOfFirst(ctrl.id, "_");
+
+		let oDiv = _$("divTranscription_" + sID);
+		if (oDiv) {
+			let sTime = ctrl.currentTime;
+			let oSpans = oDiv.getElements(".conversation");
+			for (let i = 0; i < oSpans.length; i++) {
+				let oSpan = oSpans[i];
+				let sStart = parseFloat(oSpan.getAttribute("data-start"));
+				let sEnd = parseFloat(oSpan.getAttribute("data-stop"));
+				if (sTime >= sStart && sTime <= sEnd) {
+					oSpan.classList.add("reproducing");
+				}
+				else {
+					oSpan.classList.remove("reproducing");
+				}
+			}
+		}
+	}
+
+    function OnTranscribe(iCallID, ctrl) {
+        ctrl.disabled = true;
+        UserMessages.DisplayNow("Starting transcription...", "Info");
+        Calls.PostProcessCall(iCallID, true,function () {
+            UserMessages.DisplayNow("Transcription available", "Success");
+            Page.Reload();
+        });
+    }
+
+</script>
+
+
+		<%})
+	})
+
+
+	(function GetTranscriptionDisplay rowCall
+	{
+		(declare segments (rowCall.DataObject.GetJsonArrayOrDefault TranscriptionCombined))
+		(declare jsonExtractedData (rowCall.DataObject.GetJsonObjectOrDefault ExtractedData))
+		(declare jsonSuggestedActions (rowCall.DataObject.GetJsonArrayOrDefault SuggestedActions))
+		(declare jsonCallEvents (rowCall.DataObject.GetJsonArrayOrDefault Events))
+
+		(returnex{%>
+
+
+			<%if (rowCall.IsEmptyTranscription){%>
+<div class="alert alert-warning">Audio file is too short</div>
+			<%}{%>
+<div class="row" id="divTranscription_<%rowCall.CallID%>">
+	<div class="col-md-12" onclick="">
+		<%ifneq (jsonExtractedData.GetStringOrNull Summary) ""{%>
+<div class="summary-container">
+			<h4>Call Summary</h4>
+			<%jsonExtractedData.GetStringOrNull Summary%>
+
+			<h4>Important Points</h4>
+			<ul style="margin-top: 20px; margin-bottom:10px;">
+				<%ifneq (jsonExtractedData.GetStringOrDefault AnswerersName Unknown) Unknown{%>
+					<li><strong>Answered By:</strong> <%jsonExtractedData.GetStringOrDefault AnswerersName Unknown%></li>
+				<%}%>
+
+				<%JsonObject jsonContact (jsonExtractedData.GetJsonObjectOrDefault Contact)%>
+				<%ifneq (jsonContact.GetStringOrNull Name) ""{%>
+				<li><strong>Contact:</strong> <%jsonContact.GetStringOrDefault Name Unknown%></li>
+				<%}%>
+				<%ifneq (jsonContact.GetStringOrNull Phone) ""{%>
+					<li><strong>Phone:</strong> <%StringToPhone (jsonContact.GetStringOrNull Phone)%></li>
+				<%}%>
+				<%ifneq (jsonContact.GetStringOrNull Email) ""{%>
+					<li><strong>Email:</strong> <%jsonContact.GetStringOrNull Email%></li>
+				<%}%>
+				<%ifneq (jsonExtractedData.GetStringOrNull Address) ""{%>
+					<li><strong>Address:</strong> <%jsonExtractedData.GetStringOrNull Address%></li>
+				<%}%>
+
+				<li><strong>Topic:</strong> <%jsonExtractedData.GetStringOrDefault MainTopic Unknown%></li>
+				
+				<%if (jsonExtractedData.GetStringOrDefault WasAppointmentScheduled Unknown){%>
+					<li><strong>Appointment Scheduled:</strong> <%jsonExtractedData.GetStringOrDefault DateAndTimeOfAppointment ''%> (<i>"<%jsonExtractedData.GetStringOrDefault WasAppointmentScheduledResponse ''%>"</i>)</li>
+					<li><strong>Reason:</strong> <%jsonExtractedData.GetStringOrDefault AppointmentReason ''%> </li>
+					<li><strong>Details:</strong> <%jsonExtractedData.GetStringOrDefault AppointmentDetails ''%> </li>
+				<%}%>
+				<li><strong>Objections:</strong> <%jsonExtractedData.GetStringOrDefault MainObjection None%></li>
+
+				
+				
+				<%jsonSuggestedActions.each jsonSuggestedAction{%>
+				<li><strong><%jsonSuggestedAction.GetStringOrNull Action%>:</strong> <%jsonSuggestedAction.GetStringOrNull Description%></li>
+				<%}%>
+			</ul>
+		</div>
+
+		<%}%>
+		<div class="summary-indicator hidden">Read more...</div>
+		<h4 style="border-bottom: solid 1px #494949; padding-bottom: 8px; text-transform: uppercase; margin-bottom:30px;">Full Transcription</h4>
+		<%segments.each segment{%>
+		
+		<div class="conversation <%ifeq (segment.GetIntOrNull LeftOrRight) 0 user1 user2%> <%segment.GetStringOrNull SentimentLabel%>" title='Sentiment: <%segment.GetStringOrNull SentimentLabel%>' onclick="OnSeekAudio(<%rowCall.CallID%>, <%segment.GetDoubleOrNull Start%>)" data-start="<%segment.GetDoubleOrNull Start%>" data-stop="<%segment.GetDoubleOrNull Stop%>">
+			<div class="icon">
+				<div class="face"></div>
+			<span></span>
+			</div>
+			<div class="text-block">
+				<label class="<%ifeq (segment.GetIntOrNull LeftOrRight) 0 rep lead%>"><%ifeq (segment.GetIntOrNull LeftOrRight) 0 Rep Lead%></label>
+				<%segment.GetStringOrNull Text%>			
+			</div>
+			<div>				
+				<%jsonCallEvents.each oEvent{%>
+					<%ifeq (segment.GetDoubleOrNull Start) (oEvent.Details.GetStringOrNull Start) {%>
+						<button type="button" class="btn btn-xs btn-primary waves-effect waves-light" title="<%oEvent.Details.Message%> - <%oEvent.Timestamp%>"><i class="mdi mdi-calendar-check me-1"></i> <%oEvent.EventType%> </button>
+					<%}%>
+				<%}%>
+			</div>
+		</div>
+		<%}%>
+		<div class="call-end">
+			<div class="lineCE"></div>
+			<span>Call end</span>
+			<div class="lineCE"></div>
+		</div>
+		<%ifneq (rowCall.RecordingURL) ""{%>
+		<div class="audio-container" style="">
+			<div class="audio-media">
+				<label>Audio</label>
+			</div>
+			<div style=" display: flex; justify-content: space-between; align-items: center;">
+
+				<video controls name="media" id="audio_<%rowCall.CallID%>" ontimeupdate="OnVideoTimeUpdate(this)" style="padding-top: 5px;">
+					<source src="<%rowCall.RecordingURL%>" type="audio/mpeg">
+					Your browser does not support the video tag.
+				</video>
+
+				<button onclick="OnTranscribe('<%rowCall.CallID%>', this)" class="pull-right re-transcribe-btn">Re-Transcribe</button>
+			</div>
+
+
+		</div>
+		<%}%>
+
+	</div>
+
+</div>
+			<%}%>
+		<%})
+	})
+
+	(function GetCallStatusDisplay callStatus
+	{
+		(returnex{%>
+			<% ifeq (callStatus) "ringing" {%>
+				<span class="badge bg-warning text-dark">Ringing</span>
+			<%}%>
+
+			<% ifeq (callStatus) "in-progress" {%>
+				<span class="badge bg-primary">Connected</span>
+			<%}%>
+
+			<% ifeq (callStatus) "completed" {%>
+				<span class="badge bg-secondary">Complete</span>
+			<%}%>
+
+			<% ifeq (callStatus) "no-answer" {%>
+				<span class="badge bg-secondary">No Answer</span>
+			<%}%>
+
+			<%ifeq (callStatus) "streaming" {%>
+				<span class="badge bg-pink"></span>
+			<%}%>
+		<%})
+	})
+
+(function GetSentimentSliderDisplay rowCall {
+    (declare average (rowCall.DataObject.GetDoubleOrNull AverageSentiment))
+    (returnex{%>
+
+        <!-- Input for the slider -->
+        <input type="text" id="range_02">
+
+        <script type="text/javascript">
+
+            function getGradientColor(score) {
+                return `linear-gradient(to right, #FF0000, #FF8C00, #4A4A4A, #00CC00, #008000)`;
+            }
+
+            // Initialize the ionRangeSlider for range_02
+            Page.AddOnLoad(function () {
+                // Get the initial sentiment score and parse it
+                let dAverage = parseFloat('<%average%>'); // Ensure it's a number
+
+                // Initialize the slider
+                $("#range_02").ionRangeSlider({
+                    min: -1,
+                    max: 1,
+                    from: dAverage,
+                    prettify: function (num) {
+                        // Replace numeric labels with Bootstrap icons
+                        if (num > 0.75) {
+                            return `<i class="bi bi-emoji-heart-eyes-fill" style="color: #008000; font-size: 20px;"></i>`; // Very Positive
+                        }
+                        if (num > 0.25) {
+                            return `<i class="bi bi-emoji-smile-fill" style="color: #00CC00; font-size: 20px;"></i>`; // Positive
+                        }
+                        if (num < -0.75) {
+                            return `<i class="bi bi-emoji-dizzy-fill" style="color: #FF0000; font-size: 20px;"></i>`; // Very Negative
+                        }
+                        if (num < -0.25) {
+                            return `<i class="bi bi-emoji-sad-fill" style="color: #FF8C00; font-size: 20px;"></i>`; // Negative
+                        }
+                        return `<i class="bi bi-emoji-expressionless-fill" style="color: #4A4A4A; font-size: 20px;"></i>`; // Neutral
+                    },
+                    disable: true, // Make the slider view-only
+                    onStart: function (data) {
+                        // Apply gradient to the slider bar dynamically
+                        const gradient = getGradientColor(data.from);
+                        $(".irs-bar").css({
+                            background: gradient,
+                            "background-size": "100% 100%",
+                            "background-repeat": "no-repeat",
+                        });
+                        $(".irs-bar-edge").css("background-color", "transparent");
+                        $(".irs-single").css("background-color", "white"); // Handle color
+                    },
+                });
+
+                // Apply the gradient bar color dynamically based on the score
+                const gradient = getGradientColor(dAverage);
+                $(".irs-bar").css({
+                    background: gradient,
+                    "background-size": "100% 100%",
+                    "background-repeat": "no-repeat",
+                });
+                $(".irs-bar-edge").css("background-color", "transparent");
+                $(".irs-single").css("background-color", "white"); // Handle color
+            });
+        </script>
+
+    <%})
+})
+
+
+
+
+
+
+}%>

@@ -1,0 +1,17 @@
+﻿@page
+@model gauthModel
+
+<div>This window will close when you are logged in</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the authorization process is complete
+            var isAuthorized = @Model.IsAuthorized.ToString().ToLower();
+            if (isAuthorized) {
+                // Redirect to /default
+                window.location.href = '/';
+            }
+        });
+    </script>
+}

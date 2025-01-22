@@ -1,0 +1,1239 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">LeadSubStatuses</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/lead-sub-statuses" "/JsonWs/FeedingFrenzy.Admin.Business.LeadSubStatuses.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.LeadSubStatuses.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.CopyLeadSubStatus</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadSubStatus">
+
+				<h3>LeadSubStatuses.CopyLeadSubStatus</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/copy-lead-sub-status</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyLeadSubStatus">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/copy-lead-sub-status" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Sub Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadSubStatusID" kcs:FieldName="LeadSubStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyLeadSubStatus
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/copy-lead-sub-status
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: LeadSubStatusID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyLeadSubStatusClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyLeadSubStatusClick()
+										{
+											var oObj = BlindUnbind("divCopyLeadSubStatus");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/copy-lead-sub-status")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.CopyLeadSubStatusObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyLeadSubStatus", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadSubStatus">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyLeadSubStatus" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.GetLeadSubStatus</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatus">
+
+				<h3>LeadSubStatuses.GetLeadSubStatus</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadSubStatus">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadSubStatusesRow.ks.html&Class=SimpleApiHarnessPage">LeadSubStatusesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Sub Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadSubStatusID" kcs:FieldName="LeadSubStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadSubStatus
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status
+
+## Returns
+LeadSubStatusesRow
+
+## Parameters 
+
+	Name: LeadSubStatusID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadSubStatusClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadSubStatusClick()
+										{
+											var oObj = BlindUnbind("divGetLeadSubStatus");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.GetLeadSubStatusObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadSubStatus", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatus">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadSubStatus" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.GetLeadSubStatusBySubStatusName</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatusBySubStatusName">
+
+				<h3>LeadSubStatuses.GetLeadSubStatusBySubStatusName</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status-by-sub-status-name</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadSubStatusBySubStatusName">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status-by-sub-status-name" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadSubStatusesRow.ks.html&Class=SimpleApiHarnessPage">LeadSubStatusesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sub Status Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSubStatusName" kcs:FieldName="SubStatusName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadSubStatusBySubStatusName
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status-by-sub-status-name
+
+## Returns
+LeadSubStatusesRow
+
+## Parameters 
+
+	Name: SubStatusName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadSubStatusBySubStatusNameClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadSubStatusBySubStatusNameClick()
+										{
+											var oObj = BlindUnbind("divGetLeadSubStatusBySubStatusName");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-status-by-sub-status-name")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.GetLeadSubStatusBySubStatusNameObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadSubStatusBySubStatusName", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatusBySubStatusName">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadSubStatusBySubStatusName" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.GetLeadSubStatuses</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatuses">
+
+				<h3>LeadSubStatuses.GetLeadSubStatuses</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadSubStatuses">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadSubStatusesRow.ks.html&Class=SimpleApiHarnessPage">LeadSubStatusesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadSubStatuses
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses
+
+## Returns
+LeadSubStatusesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadSubStatusesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadSubStatusesClick()
+										{
+											var oObj = BlindUnbind("divGetLeadSubStatuses");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.GetLeadSubStatusesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadSubStatuses", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatuses">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadSubStatuses" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.GetLeadSubStatusesByLeadStatusID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatusesByLeadStatusID">
+
+				<h3>LeadSubStatuses.GetLeadSubStatusesByLeadStatusID</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses-by-lead-status-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadSubStatusesByLeadStatusID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses-by-lead-status-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadSubStatusesRow.ks.html&Class=SimpleApiHarnessPage">LeadSubStatusesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadStatusID" kcs:FieldName="LeadStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadSubStatusesByLeadStatusID
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses-by-lead-status-id
+
+## Returns
+LeadSubStatusesRow[]
+
+## Parameters 
+
+	Name: LeadStatusID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadSubStatusesByLeadStatusIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadSubStatusesByLeadStatusIDClick()
+										{
+											var oObj = BlindUnbind("divGetLeadSubStatusesByLeadStatusID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/get-lead-sub-statuses-by-lead-status-id")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.GetLeadSubStatusesByLeadStatusIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadSubStatusesByLeadStatusID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadSubStatusesByLeadStatusID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadSubStatusesByLeadStatusID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.InsertLeadSubStatus</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadSubStatus">
+
+				<h3>LeadSubStatuses.InsertLeadSubStatus</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/insert-lead-sub-status</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertLeadSubStatus">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/insert-lead-sub-status" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadStatusID" kcs:FieldName="LeadStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sub Status Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSubStatusName" kcs:FieldName="SubStatusName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertLeadSubStatus
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/insert-lead-sub-status
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: LeadStatusID, Type: ID
+
+	Name: SubStatusName, Type: String
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertLeadSubStatusClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertLeadSubStatusClick()
+										{
+											var oObj = BlindUnbind("divInsertLeadSubStatus");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/insert-lead-sub-status")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.InsertLeadSubStatusObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertLeadSubStatus", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadSubStatus">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertLeadSubStatus" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.RemoveLeadSubStatus</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadSubStatus">
+
+				<h3>LeadSubStatuses.RemoveLeadSubStatus</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/remove-lead-sub-status</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveLeadSubStatus">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/remove-lead-sub-status" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Sub Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadSubStatusID" kcs:FieldName="LeadSubStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveLeadSubStatus
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/remove-lead-sub-status
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadSubStatusID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveLeadSubStatusClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveLeadSubStatusClick()
+										{
+											var oObj = BlindUnbind("divRemoveLeadSubStatus");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/remove-lead-sub-status")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.RemoveLeadSubStatusObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveLeadSubStatus", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadSubStatus">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveLeadSubStatus" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.UpdateLeadSubStatus</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadSubStatus">
+
+				<h3>LeadSubStatuses.UpdateLeadSubStatus</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadSubStatus">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadStatusID" kcs:FieldName="LeadStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sub Status Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSubStatusName" kcs:FieldName="SubStatusName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Sub Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadSubStatusID" kcs:FieldName="LeadSubStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadSubStatus
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadStatusID, Type: ID
+
+	Name: SubStatusName, Type: String
+
+	Name: Data, Type: Data
+
+	Name: LeadSubStatusID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadSubStatusClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadSubStatusClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadSubStatus");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.UpdateLeadSubStatusObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadSubStatus", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadSubStatus">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadSubStatus" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadSubStatuses.UpdateLeadSubStatusData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadSubStatusData">
+
+				<h3>LeadSubStatuses.UpdateLeadSubStatusData</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadSubStatusData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Sub Status ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadSubStatusID" kcs:FieldName="LeadSubStatusID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadSubStatusData
+
+## Url
+/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadSubStatusID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadSubStatusDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadSubStatusDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadSubStatusData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-sub-statuses/update-lead-sub-status-data")
+																		LeadSubStatuses.Url = oObj.BaseUrl;
+
+																	LeadSubStatuses.UpdateLeadSubStatusDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadSubStatusData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadSubStatusData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadSubStatusData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

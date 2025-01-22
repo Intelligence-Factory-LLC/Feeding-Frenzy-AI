@@ -1,0 +1,3732 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">Authorizations</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/authorizations" "/JsonWs/FeedingFrenzy.Admin.Business.Authorizations.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.Authorizations.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.CopyAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyAuthorization">
+
+				<h3>Authorizations.CopyAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/copy-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/copy-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/copy-authorization
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divCopyAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/copy-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.CopyAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GeneratePassword</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGeneratePassword">
+
+				<h3>Authorizations.GeneratePassword</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/generate-password</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GeneratePassword">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/generate-password" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GeneratePassword
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/generate-password
+
+## Returns
+String
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGeneratePasswordClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGeneratePasswordClick()
+										{
+											var oObj = BlindUnbind("divGeneratePassword");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/generate-password")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GeneratePasswordObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGeneratePassword", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGeneratePassword">
+				<h3>Results</h3>
+				<textarea id="txtResultsGeneratePassword" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAndUpdate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAndUpdate">
+
+				<h3>Authorizations.GetAndUpdate</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-and-update</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAndUpdate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-and-update" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAndUpdate
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-and-update
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: AuthorizationToken, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAndUpdateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAndUpdateClick()
+										{
+											var oObj = BlindUnbind("divGetAndUpdate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-and-update")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAndUpdateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAndUpdate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAndUpdate">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAndUpdate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetApiKeyByUserIDSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetApiKeyByUserIDSp_PagingSp">
+
+				<h3>Authorizations.GetApiKeyByUserIDSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-api-key-by-user-id-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetApiKeyByUserIDSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-api-key-by-user-id-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetApiKeyByUserIDSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-api-key-by-user-id-sp-_-paging-sp
+
+## Returns
+AuthorizationsRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetApiKeyByUserIDSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetApiKeyByUserIDSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetApiKeyByUserIDSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-api-key-by-user-id-sp-_-paging-sp")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetApiKeyByUserIDSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetApiKeyByUserIDSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetApiKeyByUserIDSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetApiKeyByUserIDSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorization">
+
+				<h3>Authorizations.GetAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Password
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPassword" kcs:FieldName="Password" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorization
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: Email, Type: String
+
+	Name: Password, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorization">
+
+				<h3>Authorizations.GetAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorization
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizationByAuthorizationToken</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationByAuthorizationToken">
+
+				<h3>Authorizations.GetAuthorizationByAuthorizationToken</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-authorization-token</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizationByAuthorizationToken">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-authorization-token" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizationByAuthorizationToken
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-authorization-token
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: AuthorizationToken, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationByAuthorizationTokenClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationByAuthorizationTokenClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizationByAuthorizationToken");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-authorization-token")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationByAuthorizationTokenObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizationByAuthorizationToken", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationByAuthorizationToken">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizationByAuthorizationToken" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizationByRefreshToken</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationByRefreshToken">
+
+				<h3>Authorizations.GetAuthorizationByRefreshToken</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-refresh-token</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizationByRefreshToken">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-refresh-token" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Refresh Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizationByRefreshToken
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-refresh-token
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: RefreshToken, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationByRefreshTokenClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationByRefreshTokenClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizationByRefreshToken");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorization-by-refresh-token")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationByRefreshTokenObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizationByRefreshToken", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationByRefreshToken">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizationByRefreshToken" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizations</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizations">
+
+				<h3>Authorizations.GetAuthorizations</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorizations</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizations">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorizations" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizations
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorizations
+
+## Returns
+AuthorizationsRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationsClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizations");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorizations")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizations", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizations">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizations" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizationsByUserID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsByUserID">
+
+				<h3>Authorizations.GetAuthorizationsByUserID</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizationsByUserID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizationsByUserID
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id
+
+## Returns
+AuthorizationsRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationsByUserIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationsByUserIDClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizationsByUserID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationsByUserIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizationsByUserID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsByUserID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizationsByUserID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizationsByUserIDSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsByUserIDSp_PagingSp">
+
+				<h3>Authorizations.GetAuthorizationsByUserIDSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizationsByUserIDSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizationsByUserIDSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id-sp-_-paging-sp
+
+## Returns
+AuthorizationsRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationsByUserIDSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationsByUserIDSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizationsByUserIDSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorizations-by-user-id-sp-_-paging-sp")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationsByUserIDSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizationsByUserIDSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsByUserIDSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizationsByUserIDSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.GetAuthorizationsSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsSp_PagingSp">
+
+				<h3>Authorizations.GetAuthorizationsSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/get-authorizations-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetAuthorizationsSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/get-authorizations-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetAuthorizationsSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/get-authorizations-sp-_-paging-sp
+
+## Returns
+AuthorizationsRow[]
+
+## Parameters 
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetAuthorizationsSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetAuthorizationsSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetAuthorizationsSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/get-authorizations-sp-_-paging-sp")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.GetAuthorizationsSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetAuthorizationsSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetAuthorizationsSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetAuthorizationsSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.InsertAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertAuthorization">
+
+				<h3>Authorizations.InsertAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/insert-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/insert-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Refresh Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Expiration
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtExpiration" kcs:FieldName="Expiration" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Refreshed Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastRefreshedDate" kcs:FieldName="LastRefreshedDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Activity Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastActivityDate" kcs:FieldName="LastActivityDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Expired
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsExpired" kcs:FieldName="IsExpired"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Revoked
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsRevoked" kcs:FieldName="IsRevoked"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Encrypted
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEncrypted" kcs:FieldName="IsEncrypted"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/insert-authorization
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: AuthorizationToken, Type: String
+
+	Name: RefreshToken, Type: String
+
+	Name: Expiration, Type: DateTime
+
+	Name: UserID, Type: ID
+
+	Name: LastRefreshedDate, Type: DateTime
+
+	Name: LastActivityDate, Type: DateTime
+
+	Name: IsExpired, Type: Boolean
+
+	Name: IsRevoked, Type: Boolean
+
+	Name: IsEncrypted, Type: Boolean
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divInsertAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/insert-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.InsertAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.IsAuthorized</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divIsAuthorized">
+
+				<h3>Authorizations.IsAuthorized</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/is-authorized</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="IsAuthorized">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/is-authorized" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Tuple`2.ks.html&Class=SimpleApiHarnessPage">Tuple`2</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: IsAuthorized
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/is-authorized
+
+## Returns
+Tuple`2
+
+## Parameters 
+
+	Name: AuthorizationToken, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnIsAuthorizedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnIsAuthorizedClick()
+										{
+											var oObj = BlindUnbind("divIsAuthorized");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/is-authorized")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.IsAuthorizedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsIsAuthorized", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divIsAuthorized">
+				<h3>Results</h3>
+				<textarea id="txtResultsIsAuthorized" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.IsAuthorized2</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divIsAuthorized2">
+
+				<h3>Authorizations.IsAuthorized2</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/is-authorized-2</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="IsAuthorized2">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/is-authorized-2" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Tuple`2.ks.html&Class=SimpleApiHarnessPage">Tuple`2</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: IsAuthorized2
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/is-authorized-2
+
+## Returns
+Tuple`2
+
+## Parameters 
+
+	Name: AuthorizationToken, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnIsAuthorized2Click()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnIsAuthorized2Click()
+										{
+											var oObj = BlindUnbind("divIsAuthorized2");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/is-authorized-2")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.IsAuthorized2Object(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsIsAuthorized2", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divIsAuthorized2">
+				<h3>Results</h3>
+				<textarea id="txtResultsIsAuthorized2" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsEncrypted</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsEncrypted">
+
+				<h3>Authorizations.MarkAuthorizationAsEncrypted</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-encrypted</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsEncrypted">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-encrypted" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsEncrypted
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-encrypted
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsEncryptedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsEncryptedClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsEncrypted");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-encrypted")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsEncryptedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsEncrypted", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsEncrypted">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsEncrypted" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsExpired</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsExpired">
+
+				<h3>Authorizations.MarkAuthorizationAsExpired</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-expired</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsExpired">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-expired" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsExpired
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-expired
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsExpiredClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsExpiredClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsExpired");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-expired")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsExpiredObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsExpired", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsExpired">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsExpired" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsNotEncrypted</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotEncrypted">
+
+				<h3>Authorizations.MarkAuthorizationAsNotEncrypted</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-encrypted</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsNotEncrypted">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-encrypted" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsNotEncrypted
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-encrypted
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsNotEncryptedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsNotEncryptedClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsNotEncrypted");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-encrypted")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsNotEncryptedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsNotEncrypted", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotEncrypted">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsNotEncrypted" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsNotExpired</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotExpired">
+
+				<h3>Authorizations.MarkAuthorizationAsNotExpired</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-expired</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsNotExpired">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-expired" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsNotExpired
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-expired
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsNotExpiredClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsNotExpiredClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsNotExpired");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-expired")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsNotExpiredObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsNotExpired", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotExpired">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsNotExpired" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsNotRevoked</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotRevoked">
+
+				<h3>Authorizations.MarkAuthorizationAsNotRevoked</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-revoked</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsNotRevoked">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-revoked" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsNotRevoked
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-revoked
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsNotRevokedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsNotRevokedClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsNotRevoked");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-not-revoked")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsNotRevokedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsNotRevoked", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsNotRevoked">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsNotRevoked" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.MarkAuthorizationAsRevoked</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsRevoked">
+
+				<h3>Authorizations.MarkAuthorizationAsRevoked</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-revoked</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkAuthorizationAsRevoked">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-revoked" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkAuthorizationAsRevoked
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-revoked
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkAuthorizationAsRevokedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkAuthorizationAsRevokedClick()
+										{
+											var oObj = BlindUnbind("divMarkAuthorizationAsRevoked");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/mark-authorization-as-revoked")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.MarkAuthorizationAsRevokedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkAuthorizationAsRevoked", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkAuthorizationAsRevoked">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkAuthorizationAsRevoked" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.RefreshAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRefreshAuthorization">
+
+				<h3>Authorizations.RefreshAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/refresh-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RefreshAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/refresh-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.AuthorizationsRow.ks.html&Class=SimpleApiHarnessPage">AuthorizationsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Refresh Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RefreshAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/refresh-authorization
+
+## Returns
+AuthorizationsRow
+
+## Parameters 
+
+	Name: RefreshToken, Type: String
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRefreshAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRefreshAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divRefreshAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/refresh-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.RefreshAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRefreshAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRefreshAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsRefreshAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.RemoveAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveAuthorization">
+
+				<h3>Authorizations.RemoveAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/remove-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/remove-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/remove-authorization
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divRemoveAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/remove-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.RemoveAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.UpdateAuthorization</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateAuthorization">
+
+				<h3>Authorizations.UpdateAuthorization</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/update-authorization</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateAuthorization">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/update-authorization" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Refresh Token
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Expiration
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtExpiration" kcs:FieldName="Expiration" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Refreshed Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastRefreshedDate" kcs:FieldName="LastRefreshedDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Activity Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastActivityDate" kcs:FieldName="LastActivityDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Expired
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsExpired" kcs:FieldName="IsExpired"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Revoked
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsRevoked" kcs:FieldName="IsRevoked"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Encrypted
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEncrypted" kcs:FieldName="IsEncrypted"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateAuthorization
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/update-authorization
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+	Name: AuthorizationToken, Type: String
+
+	Name: RefreshToken, Type: String
+
+	Name: Expiration, Type: DateTime
+
+	Name: UserID, Type: ID
+
+	Name: LastRefreshedDate, Type: DateTime
+
+	Name: LastActivityDate, Type: DateTime
+
+	Name: IsExpired, Type: Boolean
+
+	Name: IsRevoked, Type: Boolean
+
+	Name: IsEncrypted, Type: Boolean
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateAuthorizationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateAuthorizationClick()
+										{
+											var oObj = BlindUnbind("divUpdateAuthorization");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/update-authorization")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.UpdateAuthorizationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateAuthorization", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateAuthorization">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateAuthorization" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Authorizations.UpdateAuthorizationData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateAuthorizationData">
+
+				<h3>Authorizations.UpdateAuthorizationData</h3>
+				<p>/api/feedingfrenzy.admin.business/authorizations/update-authorization-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateAuthorizationData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/authorizations/update-authorization-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Authorization ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorizationID" kcs:FieldName="AuthorizationID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateAuthorizationData
+
+## Url
+/api/feedingfrenzy.admin.business/authorizations/update-authorization-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: AuthorizationID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateAuthorizationDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateAuthorizationDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateAuthorizationData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/authorizations/update-authorization-data")
+																		Authorizations.Url = oObj.BaseUrl;
+
+																	Authorizations.UpdateAuthorizationDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateAuthorizationData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateAuthorizationData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateAuthorizationData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

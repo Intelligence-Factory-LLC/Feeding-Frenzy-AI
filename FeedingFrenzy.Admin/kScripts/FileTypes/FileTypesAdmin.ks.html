@@ -1,0 +1,436 @@
+<%
+class FileTypesAdmin
+{
+			
+	(function GetDetails FileTypeID
+	{
+		(declare FileType (FileTypes.GetFileType (FileTypeID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File Type ID
+							</td>
+							<td>
+								
+									<%FileType.FileTypeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File Type
+							</td>
+							<td>
+								
+									<%FileType.FileType%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Allowed Extensions
+							</td>
+							<td>
+								
+									<%FileType.AllowedExtensions%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%FileType.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%FileType.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown FileType FileTypeID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown FileType FileTypeID  FileTypeID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetFileTypesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit FileTypeID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="FileType">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Type ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="FileTypeID" class="InputString form-control" readonly="readonly" value="<%FileTypeID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Type
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFileType" kcs:FieldName="FileType" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Allowed Extensions
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAllowedExtensions" kcs:FieldName="AllowedExtensions" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view FileTypes GetFileTypesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FileTypeID">
+						File Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileType">
+						File Type
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AllowedExtensions">
+						Allowed Extensions
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%FileTypes.each FileType{%> 
+				<tr kcs:RowKey="<%FileType.get FileTypeID%>" >
+							
+			
+					
+					<td>
+						<%FileType.FileTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%FileType.FileType%>
+					</td>
+					
+			
+					
+					<td>
+						<%FileType.AllowedExtensions%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%FileType.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%FileType.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row FileTypes GetFileTypesSp_CountSp  (Search))
+		(return (FileTypes.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal FileTypes
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FileTypeID">
+						File Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileType">
+						File Type
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AllowedExtensions">
+						Allowed Extensions
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%FileTypes.each FileType{%> 
+				<tr kcs:RowKey="<%FileType.get FileTypeID%>" >
+							
+			
+					
+					<td>
+						<%FileType.FileTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%FileType.FileType%>
+					</td>
+					
+			
+					
+					<td>
+						<%FileType.AllowedExtensions%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%FileType.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%FileType.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="FileType">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Type
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtFileType" kcs:FieldName="FileType" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Allowed Extensions
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtAllowedExtensions" kcs:FieldName="AllowedExtensions" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

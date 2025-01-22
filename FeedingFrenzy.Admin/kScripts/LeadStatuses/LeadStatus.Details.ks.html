@@ -1,0 +1,40 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using LeadStatusesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile LeadStatuses.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare tabLeadSubStatuses {Title : "Lead Sub Statuses", ControlID : "tab-LeadSubStatuses", Content : "" })
+	(tabLeadSubStatuses.Content (GetRelatedObjectTab LeadSubStatuses "Lead Sub Statuses" true))	
+	(tabs.push (tabLeadSubStatuses))
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex {%>
+			<%GetRelatedObjectTabInitializer LeadSubStatuses {AllowSearch: true, MetaFile:'LeadSubStatuses.meta.json' }%>		
+		
+		<script type="text/javascript">
+			OnObjectsTitleClick = function () {
+				var sHref = new LocalStorage().get("LeadStatusesPage");
+
+				if (!StringUtil.IsEmpty(sHref))
+					Page.Redirect(sHref);
+				else
+					Page.Redirect("/lead-statuses");
+			};
+		</script>
+
+
+	<%})
+}%>

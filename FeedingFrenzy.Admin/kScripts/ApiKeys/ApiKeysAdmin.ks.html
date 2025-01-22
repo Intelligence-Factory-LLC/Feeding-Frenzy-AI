@@ -1,0 +1,919 @@
+<%
+class ApiKeysAdmin
+{
+			
+	(function GetDetails AuthorizationID
+	{
+		(declare Authorization (Authorizations.GetAuthorization (AuthorizationID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Authorization ID
+							</td>
+							<td>
+								
+									<%Authorization.AuthorizationID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Authorization Token
+							</td>
+							<td>
+								
+									<%Authorization.AuthorizationToken%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Refresh Token
+							</td>
+							<td>
+								
+									<%Authorization.RefreshToken%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Expiration
+							</td>
+							<td>
+								
+									<%Authorization.Expiration%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								User ID
+							</td>
+							<td>
+								
+									<%Authorization.UserID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Refreshed Date
+							</td>
+							<td>
+								
+									<%Authorization.LastRefreshedDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Activity Date
+							</td>
+							<td>
+								
+									<%Authorization.LastActivityDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Expired
+							</td>
+							<td>
+								
+									<%if (Authorization.IsExpired) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Revoked
+							</td>
+							<td>
+								
+									<%if (Authorization.IsRevoked) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Encrypted
+							</td>
+							<td>
+								
+									<%if (Authorization.IsEncrypted) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Authorization.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Authorization.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Authorization.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Authorization.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown AuthorizationToken AuthorizationID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown AuthorizationToken AuthorizationID  AuthorizationID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetAuthorizationsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit AuthorizationID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Authorization">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Authorization ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="AuthorizationID" class="InputString form-control" readonly="readonly" value="<%AuthorizationID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Authorization Token
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Refresh Token
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Expiration
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtExpiration" kcs:FieldName="Expiration" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						User
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using UsersAdmin.ks.html%>
+							    
+								    <%UsersAdmin.GetDropDown Email UserID UserID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Refreshed Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtLastRefreshedDate" kcs:FieldName="LastRefreshedDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Activity Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtLastActivityDate" kcs:FieldName="LastActivityDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Expired
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsExpired" kcs:FieldName="IsExpired"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Revoked
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsRevoked" kcs:FieldName="IsRevoked"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Encrypted
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="checkbox" id="chkIsEncrypted" kcs:FieldName="IsEncrypted"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Authorizations GetAuthorizationsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AuthorizationID">
+						Authorization ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AuthorizationToken">
+						Authorization Token
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RefreshToken">
+						Refresh Token
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Expiration">
+						Expiration
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastRefreshedDate">
+						Last Refreshed Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastActivityDate">
+						Last Activity Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsExpired">
+						Is Expired
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsRevoked">
+						Is Revoked
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsEncrypted">
+						Is Encrypted
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+									
+				</tr>
+			<%Authorizations.each Authorization{%> 
+				<tr kcs:RowKey="<%Authorization.get AuthorizationID%>" >
+							
+			
+					
+					<td>
+						<%Authorization.AuthorizationID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.AuthorizationToken%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.RefreshToken%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.Expiration%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.UserID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.LastRefreshedDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%Authorization.LastActivityDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Authorization.IsExpired) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Authorization.IsRevoked) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Authorization.IsEncrypted) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Authorization.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Authorization.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 12%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Authorizations GetAuthorizationsSp_CountSp  (Search))
+		(return (Authorizations.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByUserID UserID 
+	{
+		(return (GetGridByUserID (UserID) '' '' true 0 20))
+	})
+
+	(function GetGridByUserID UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByUserIDHtml (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByUserIDCount (UserID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByUserIDHtml UserID 
+	{
+		(return (GetGridByUserIDHtml (UserID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByUserIDHtml UserID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			<%declare dtAuthorizations (Authorizations.GetApiKeyByUserIDSp_PagingSp (UserID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+			<table class="Grid">
+				<tr>
+		
+			
+				
+					<th kcs:SortColumn="AuthorizationID">
+						Name
+					</th>
+							
+		
+				
+					<th kcs:SortColumn="AuthorizationToken">
+						Secret Key
+					</th>
+					
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+			
+				
+					<th kcs:SortColumn="Expiration">
+						Expiration
+					</th>
+
+					
+			
+					<th kcs:SortColumn="LastActivityDate">
+						Last Activity Date
+					</th>				
+									
+				</tr>
+			<%dtAuthorizations.each Authorization{%> 
+				<tr kcs:RowKey="<%Authorization.AuthorizationID%>" >
+							
+			
+				<td>
+					<%Authorization.KeyName%>
+				</td>
+		
+
+		
+				<td>
+					<span class="key text-body fw-bold">KEY-....<%Authorization.Last4%></span>
+				</td>
+		
+
+		
+				<td>
+					<span class="DateOnly"><%Authorization.DateCreated%></span>
+				</td>
+		
+		
+				<td>
+					<span class="DateOnly"><%Authorization.Expiration%></span>
+				</td>
+					
+				<td>
+					<span class="DateOnly"><%Authorization.LastActivityDate%></span>
+				</td>					
+				
+					
+									
+				</tr>
+			<%}%>
+				
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByUserIDCount UserID  Search
+	
+	{
+		(ado.row Authorizations GetAuthorizationsByUserIDSp_CountSp (UserID) (Search))
+		(return (Authorizations.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Authorization">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Authorization Token
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtAuthorizationToken" kcs:FieldName="AuthorizationToken" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Refresh Token
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtRefreshToken" kcs:FieldName="RefreshToken" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Expiration
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="datetime" id="txtExpiration" kcs:FieldName="Expiration" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						User
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using UsersAdmin.ks.html%>
+							
+								<%UsersAdmin.GetDropDown Email UserID UserID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Refreshed Date
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="datetime" id="txtLastRefreshedDate" kcs:FieldName="LastRefreshedDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Activity Date
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="datetime" id="txtLastActivityDate" kcs:FieldName="LastActivityDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Expired
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsExpired" kcs:FieldName="IsExpired"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Revoked
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsRevoked" kcs:FieldName="IsRevoked"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Encrypted
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsEncrypted" kcs:FieldName="IsEncrypted"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

@@ -1,0 +1,971 @@
+<%addpath FileTypes%>
+
+<%
+class FilesAdmin
+{
+			
+	(function GetDetails FileID
+	{
+		(declare File (Files.GetFile (FileID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File ID
+							</td>
+							<td>
+								
+									<%File.FileID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File Type ID
+							</td>
+							<td>
+								
+									<%File.FileTypeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Physical Path
+							</td>
+							<td>
+								
+									<%File.PhysicalPath%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File Name
+							</td>
+							<td>
+								
+									<%File.FileName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								File Description
+							</td>
+							<td>
+								
+									<%File.FileDescription%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Label
+							</td>
+							<td>
+								
+									<%File.Label%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%File.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%File.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Deleted
+							</td>
+							<td>
+								
+									<%if (File.IsDeleted) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%File.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%File.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown FileName FileID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown FileName FileID  FileID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetFilesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit FileID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="File">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="FileID" class="InputString form-control" readonly="readonly" value="<%FileID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Type
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using FileTypesAdmin.ks.html%>
+							    
+								    <%FileTypesAdmin.GetDropDown FileType FileTypeID FileTypeID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Physical Path
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtPhysicalPath" kcs:FieldName="PhysicalPath" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Description
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Label
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Deleted
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsDeleted" kcs:FieldName="IsDeleted"  />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view Files GetFilesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FileID">
+						File ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileTypeID">
+						File Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PhysicalPath">
+						Physical Path
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileName">
+						File Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileDescription">
+						File Description
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsDeleted">
+						Deleted
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Files.each File{%> 
+				<tr kcs:RowKey="<%File.get FileID%>" >
+							
+			
+					
+					<td>
+						<%File.FileID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.PhysicalPath%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileName%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileDescription%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.Label%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (File.IsDeleted) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 9%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Files GetFilesSp_CountSp  (Search))
+		(return (Files.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal Files
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FileID">
+						File ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileTypeID">
+						File Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PhysicalPath">
+						Physical Path
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileName">
+						File Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileDescription">
+						File Description
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsDeleted">
+						Deleted
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Files.each File{%> 
+				<tr kcs:RowKey="<%File.get FileID%>" >
+							
+			
+					
+					<td>
+						<%File.FileID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.PhysicalPath%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileName%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileDescription%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.Label%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (File.IsDeleted) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 9%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+		
+		
+	(function GetGridByFileTypeID FileTypeID 
+	{
+		(return (GetGridByFileTypeID (FileTypeID) '' '' true 0 20))
+	})
+
+	(function GetGridByFileTypeID FileTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByFileTypeIDHtml (FileTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByFileTypeIDCount (FileTypeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByFileTypeIDHtml FileTypeID 
+	{
+		(return (GetGridByFileTypeIDHtml (FileTypeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByFileTypeIDHtml FileTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view Files GetFilesByFileTypeIDSp_PagingSp (FileTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FileID">
+						File ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileTypeID">
+						File Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PhysicalPath">
+						Physical Path
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileName">
+						File Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FileDescription">
+						File Description
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Label">
+						Label
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsDeleted">
+						Deleted
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%Files.each File{%> 
+				<tr kcs:RowKey="<%File.get FileID%>" >
+							
+			
+					
+					<td>
+						<%File.FileID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.PhysicalPath%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileName%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.FileDescription%>
+					</td>
+					
+			
+					
+					<td>
+						<%File.Label%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (File.IsDeleted) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%File.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 9%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridByFileTypeIDCount FileTypeID  Search
+	
+	{
+		(ado.row Files GetFilesByFileTypeIDSp_CountSp (FileTypeID) (Search))
+		(return (Files.get Total))
+	})
+
+
+	
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="File">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Type
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using FileTypesAdmin.ks.html%>
+							
+								<%FileTypesAdmin.GetDropDown FileType FileTypeID FileTypeID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Physical Path
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtPhysicalPath" kcs:FieldName="PhysicalPath" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtFileName" kcs:FieldName="FileName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						File Description
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtFileDescription" kcs:FieldName="FileDescription" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Label
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtLabel" kcs:FieldName="Label" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Deleted
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsDeleted" kcs:FieldName="IsDeleted"  />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

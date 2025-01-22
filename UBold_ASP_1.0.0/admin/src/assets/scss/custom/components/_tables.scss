@@ -1,0 +1,91 @@
+//
+// tables.scss
+//
+
+th {
+    font-weight: $table-head-font-weight;
+}
+
+//Table centered (Custom)
+.table-centered {
+
+    td,
+    th {
+        vertical-align: middle !important;
+    }
+}
+
+// Table
+.table-nowrap {
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+}
+
+// Custom table components (Custom)
+.table {
+
+    // Highlight border color between thead, tbody and tfoot.
+    > :not(:first-child) {
+        border-top: (2 * $table-border-width) solid $table-group-separator-color;
+    }
+
+    .table-user {
+        img {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    &.table-bordered {
+        tbody {
+            border-top: $border-width solid;
+            border-top-color: inherit;
+        }
+    }
+}
+
+.table-borderless {
+
+    // stylelint-disable-next-line selector-max-universal
+    > :not(caption)>*>* {
+        border-bottom-width: 0;
+    }
+
+    > :not(:first-child) {
+        border-top-width: 0;
+    }
+}
+
+.action-icon {
+    color: var(--#{$prefix}gray-600);
+    font-size: 1.2rem;
+    display: inline-block;
+    padding: 0 3px;
+
+    &:hover {
+        color: var(--#{$prefix}gray-700);
+    }
+}
+
+
+
+// Dark Mode light and dark table
+body[data-theme="dark"] {
+    .table-light {
+        --#{$prefix}table-bg: #3e4954;
+        color: $white;
+        --#{$prefix}table-border-color: #{$table-group-separator-color};
+    }
+
+    .table-dark {
+        --#{$prefix}table-bg: var(--#{$prefix}light);
+
+        tbody,
+        tr {
+            border-color: var(--#{$prefix}gray-300);
+        }
+    }
+}

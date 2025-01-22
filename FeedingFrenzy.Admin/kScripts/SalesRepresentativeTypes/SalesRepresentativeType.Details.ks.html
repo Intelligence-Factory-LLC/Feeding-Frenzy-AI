@@ -1,0 +1,25 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using SalesRepresentativeTypesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile SalesRepresentativeTypes.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>

@@ -1,0 +1,755 @@
+<%using Simple.ks.html%>
+
+<%redefinefunction SimplePage.Title
+{
+	(return "Ontology - Logging Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "Logging Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTabs
+{
+	(returnex{%>
+
+	<%})
+}%>
+
+
+<%redefinefunction SimplePage.DetailsPanel
+{
+	(declare tabs [])
+	(declare tabWatcher {Title : "Watch", ControlID : "tab-Watch", Content : "" })
+	(declare tabLongestRequestByElapsed {Title : "Longest Requests by Elapsed Time", ControlID : "tab-LongestRequestByElapsed", Content : "", Hidden: true })
+	(declare tabLongestRequestByLineCount {Title : "Longest Requests by Line Count", ControlID : "tab-LongestRequestByLineCount", Content : "", Hidden: true })
+	(declare tabTimersByTime {Title : "Longest Timers By Elapsed Time", ControlID : "tab-TimersByTime", Content : "", Hidden: true })
+	(declare tabTimersByLines {Title : "Longest Timers By Line Count", ControlID : "tab-TimersByLines", Content : "", Hidden: true })
+	(declare tabRequest {Title : "Request", ControlID : "tab-Request", Content : "", Hidden: true })
+	
+	(tabs.push (tabWatcher))
+	(tabs.push (tabLongestRequestByElapsed))
+	(tabs.push (tabLongestRequestByLineCount))
+	(tabs.push (tabTimersByTime))
+	(tabs.push (tabTimersByLines))
+	(tabs.push (tabRequest))
+
+	(returnex{%>
+<div class="container py-3 Inputs" kcs:ObjectName="Directive" id="divDirective">
+    <div class="row mb-3" id="divFileContainer">
+        <div class="col-12">
+            <div id="divFiles"></div>
+        </div>
+    </div>
+
+<div class="row mb-3 align-items-center">
+    <div class="col-sm-6" id="divFile"></div>
+    <div class="col-sm-1 text-center" id="divStatus"></div>
+
+
+    <div class="col-sm-1">
+		<label for="chkIgnoreTimers" class=" col-form-label">
+			Timers
+		</label>        
+		<div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chkIgnoreTimers" kcs:FieldName="Timers">
+        </div>
+    </div>
+
+
+    <div class="col-sm-1">
+		<label for="chkSeparateErrors" class="col-form-label">
+			Errors
+		</label>
+		<div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chkSeparateErrors" checked kcs:FieldName="SeparateErrors">
+        </div>
+    </div>
+
+
+    <div class="col-sm-1">
+		<label for="chkAnalysisOnly" class="col-form-label">
+			Analysis
+		</label>
+		<div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chkAnalysisOnly" kcs:FieldName="AnalysisOnly">
+        </div>
+    </div>
+</div>
+
+    <div class="row mb-3">
+        <label for="txtFilter" class="col-sm-1 col-form-label">
+            Filter
+        </label>
+        <div class="col-sm-4">
+            <input type="text" id="txtFilter" kcs:FieldName="Filter" class="form-control" />
+        </div>
+    </div>
+
+            <%tabWatcher.Content{%>
+
+    <div class="row">
+        <div class="col-12" id="divPinned"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table id="tblAnalysis" class="Grid table table-striped table-bordered datatables dataTable" style="table-layout:fixed;">
+                <thead>
+                    <tr>
+                        <th style="width: 65px;">Lines</th>
+                        <th style="width: 125px;">Time</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <table id="tblErrors" class="Grid table table-striped table-bordered datatables dataTable" style="table-layout:fixed;">
+                <thead>
+                    <tr>
+                        <th style="width: 55px;">#</th>
+                        <th style="width: 125px;"></th>
+                        <th style="width: 45px;"><span class="fa fa-tasks"></span></th>
+                        <th style="width: 150px;">Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <table id="tblLogs" class="Grid table table-striped table-bordered datatables dataTable" style="table-layout:fixed;">
+                <thead>
+                    <tr>
+                        <th style="width: 55px;">#</th>
+                        <th style="width: 125px;"></th>
+                        <th style="width: 55px;"><span class="fa fa-tasks"></span></th>
+                        <th style="width: 150px;">Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+            <%}%>
+
+            <%SimplePage.GetTabs (tabs)%>
+</div>
+
+
+
+
+	<%})
+}%>
+
+<%redefinefunction SimplePage.CommandButtons
+{
+	(returnex{%>
+<div class="d-flex gap-2 mb-3">
+    <button type="button" onclick="OnAnalyze()" class="Insert btn btn-primary">
+        Analyze
+    </button>
+    <button type="button" onclick="OnStopWatching()" class="Insert btn btn-danger">
+        Stop All
+    </button>
+    <button type="button" onclick="OnPause()" class="Insert btn btn-warning" id="btnPause">
+        Pause
+    </button>
+    <button type="button" onclick="OnResume()" class="Insert btn btn-success" id="btnResume">
+        Resume
+    </button>
+    <button type="button" onclick="OnClear()" class="Insert btn btn-secondary">
+        Clear
+    </button>
+</div>
+
+	<%})
+}%>
+
+
+
+<%redefinefunction SimplePage.BottomScripts
+{
+	(returnex{%>
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.LoggingWorkbench.ashx.js?v=2"></script>
+<script type="text/javascript">
+	Page.PreserveViewState();
+
+	Page.LocalSettings = {
+		IsPaused: false,
+		File: null
+	}
+
+	Page.PreserveLocalSettings();
+
+	var iLength = 0;
+
+
+	function getSelectedText() {
+		if (window.getSelection) {
+			return window.getSelection().toString();
+		} else if (document.selection) {
+			return document.selection.createRange().text;
+		}
+		return '';
+	}
+
+	function FormatJSON(sJSON) {
+
+		if (typeof sJSON === "string") {
+			try {
+				sJSON = JSON.decode(sJSON);
+			}
+			catch (err) {
+			
+			}
+		}
+		return JSON.stringify(sJSON, null, '\t');
+	}
+
+
+
+	function FormatLineHTML(oLine) {
+		if (oLine.Event.length > 20)
+			oLine.Description = "<br/>" + oLine.Description;
+		return [tr,
+			[td, oLine.LineNumber],
+			[td, oLine.Timestamp],
+			[td, oLine.Thread],
+			[td, oLine.Event],
+			[td, oLine.Description]
+		]
+	}
+
+	function FormatLineJSON(oLine) {
+
+
+		return [tr,
+	[td, { "colspan": 5 },
+		["div", { "class": "fa fa-map-pin", style: "float: right; padding: 10px;", click: function () { OnPin(oLine.Description) } }],
+		["pre", { style: "white-space: pre;" }, FormatJSON(oLine.Description)]
+	]
+		];
+	}
+
+	function FormatDescription(sDesc) {
+
+//		var sDesc = oLine.Description;
+	//	sDesc = StringUtil.ReplaceAll(sDesc, "\t", "&nbsp;&nbsp;");
+	//	sDesc = StringUtil.ReplaceAll(sDesc, "\r\n", "<br/>");
+
+		return [tr,
+			[td, { "colspan": 5 },
+				["div", { "class": "fa fa-map-pin", style: "float: right; padding: 10px;", click: function () { OnPin(sDesc) } }],
+				["pre", { style: "white-space: pre; overflow-x: scroll;" }, sDesc]
+			]
+		]
+	}
+
+	function FormatTimerStart(oLine)
+	{
+		return [tr,
+			[td, oLine.LineNumber],
+			[td, oLine.Timestamp],
+			[td, oLine.Thread],
+			[td, { colspan: '2' }, oLine.Event]
+		]
+	}
+
+	function FormatTimerStop(oLine) {
+		return [tr,
+			[td, oLine.LineNumber],
+			[td, oLine.Timestamp],
+			[td, oLine.Thread],
+			[td, { colspan: '2' }, oLine.Event + " " + oLine.Description]
+		]
+	}
+
+	function OnPin(sDesc)
+	{
+		var oTr = [div, ["pre", { style: "white-space: pre;" }, sDesc]];
+		$$$(oTr).injectBottom(_$("divPinned"));
+	}
+
+
+	function FormatCSharpException(oLine)
+	{
+		var desc = [td];
+		var oError = JSON.decode(oLine.Description);
+
+		if (oError.Message.indexOf("\r\n") > 0)
+			desc.push(["pre", oError.Message]);
+		else if (StringUtil.StartsWith(oError.Message, "{") && StringUtil.EndsWith(oError.Message, "}"))
+			desc.push(["pre", { style: "white-space: pre;" }, FormatJSON(oLine.Message)]);
+		else
+			desc.push(oError.Message);
+
+		if (!StringUtil.IsEmpty(oLine.Description))
+			oLine.Description = oLine.Description.trim();
+
+		var raw = [td];
+		if (Json.IsValid(oLine.Description))
+			raw.push(["pre", {style: "white-space: pre;" }, FormatJSON(oLine.Description)]);
+		else
+			raw.push(oLine.Description);
+
+		var tblError = [table, {style: 'table-layout: fixed; width: 100%;'}, [
+			[tr, [td, { style: "width: 100px" }, "Message"], desc],
+			[tr, [td, "StackTrace"], [td, ["pre", {style: 'white-space: pre; overflow-x: scroll'}, StringUtil.ReplaceAll(oError.StackTrace, " in ", "\r\n\tin ")]]],
+			[tr, [td, "Raw"], raw]
+		]];
+
+		return [tr,
+	[td, oLine.LineNumber],
+	[td, oLine.Timestamp],
+	[td, oLine.Thread],
+	[td,	
+		[span, { "class": "badge bg-danger" }, oLine.Event]
+	],
+	[td,
+		["div", { "class": "glypicon glyphicon-fire", style: "float: right; padding: 10px;", click: function () { OnCSharpException(oError) } }],
+		tblError]
+		];
+	}
+
+	function OnPause()
+	{
+		Page.LocalSettings.IsPaused = true;
+
+	}
+
+	function OnResume() {
+		OnWatchFile(Page.LocalSettings.File);
+	}
+
+	function OnWatchFile(sFile)
+	{
+		Page.LocalSettings.IsPaused = false;
+		Page.LocalSettings.File = sFile;
+
+
+		LoggingWorkbench.WatchFile(sFile, function (oRes) {
+			UserMessages.DisplayNow("Watching file: " + sFile, "Success");
+
+			let bAnalysis =  ControlUtil.GetValue("chkAnalysisOnly");
+			if (bAnalysis) {
+				LoggingWorkbench.StartJsonWsAnalyzing(Page.LocalSettings.File);
+				(function () {
+					OnAnalysisTimer(sFile);
+				}).periodical(1000);
+				(function () {
+					OnAnalysisDisplayTimer(sFile);
+				}).periodical(10 * 1000);
+			}
+			else {
+				OnWatchTimer(sFile);
+			
+				connection.RegisterHandler("LogFileChanged", function (msg) {
+					OnWatchTimer(sFile);
+				});
+			}
+		})
+
+
+	}
+
+	function IsIgnored(oLine)
+	{
+		//Ignore calls to the logging workbench
+		var sIgnores = ['GetNewLines', 'GetWatchedFiles', 'GetLogFiles', "LoggingWorkbench", "OAuth Token"];
+
+		if (StringUtil.InString(oLine.Event, "LoggingWorkbench") || StringUtil.InString(oLine.Description, "LoggingWorkbench") )
+			return true; 
+
+		return sIgnores.any(function (x) { return StringUtil.EqualNoCase(x, oLine.Event) || StringUtil.EqualNoCase(x, oLine.Description); });
+	}
+
+	function OnAnalysisTimer(sFile) {
+		if (!Page.LocalSettings.IsPaused) {
+
+			LoggingWorkbench.AnalyzeNewLines(sFile, function (iCount) {
+				console.log("Analyzed: " + iCount);
+			});
+		}
+	}
+
+	function OnAnalysisDisplayTimer(sFile) {
+		if (!Page.LocalSettings.IsPaused) {
+			LoggingWorkbench.GetLongestByElapsed(Page.LocalSettings.File, 10, function (oRes) {
+				OnDisplayAnalysis(oRes);
+			})
+		}
+	}
+
+	var bSeparateErrors = false;
+
+	function OnWatchTimer(sFile)
+	{
+		if (!Page.LocalSettings.IsPaused) {
+			var tbl = _$("tblLogs");
+			var tblErrors = _$("tblErrors");
+			var sFilter = ControlUtil.GetValue("txtFilter");
+			var bTimers = ControlUtil.GetValue("chkIgnoreTimers");
+			bSeparateErrors = ControlUtil.GetValue("chkSeparateErrors");
+			let bAnalysis = ControlUtil.GetValue("chkAnalysisOnly");
+
+
+			LoggingWorkbench.GetNewLines.onErrorReceived = function (oErr) {
+				console.log("error received" + oErr);
+				_$("divStatus").innerHTML = "<span class='badge bg-danger'>Off</span>";
+				Page.LocalSettings.IsPaused = true;
+			}
+
+			LoggingWorkbench.GetNewLines(sFile, function (oNewLines) {
+
+				console.log(oNewLines.length + " new lines");
+				_$("divStatus").innerHTML = "<span class='badge bg-success'>OK</span>";
+
+				BindNewLines(oNewLines);
+
+				while (tbl.rows.length > 500)
+					tbl.deleteRow(500)
+
+				ControlUtil.SetValue("txtResults", oNewLines);
+			})
+
+			_$("btnPause").removeClass("hidden");
+			_$("btnResume").addClass("hidden");		
+		}
+		else {
+			_$("btnPause").addClass("hidden");
+			_$("btnResume").removeClass("hidden");	
+			_$("divStatus").innerHTML = "<span class='badge bg-danger'>Off</span>";
+		}
+	}
+
+	function BindNewLines(oNewLines) {
+		var tbl = _$("tblLogs");
+		var tblErrors = _$("tblErrors");
+		var sFilter = ControlUtil.GetValue("txtFilter");
+		var bTimers = ControlUtil.GetValue("chkIgnoreTimers");
+
+		oNewLines.each(function (oLine) {
+			if (null != oLine) {
+
+				if (!StringUtil.IsEmpty(sFilter) && !StringUtil.InString(oLine.Event, sFilter) && !StringUtil.InString(oLine.Description, sFilter))
+					return;
+
+				if (IsIgnored(oLine))
+					return;
+
+				oLine.Timestamp = StringUtil.RightOfFirst(oLine.Timestamp, " ");
+				oLine.Description = oLine.Description.trim();
+
+				//var row = tbl.insertRow(1);
+				if (oLine.Event == "Error") {
+					try {
+						$$$(FormatCSharpException(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+						//var row2 = $("tblErrors").insertRow(1);
+						//row2.outerHTML =
+						if (bSeparateErrors)
+							$$$(FormatCSharpException(oLine)).injectTop(tblErrors.children[tblErrors.children.length - 1]);
+					}
+					catch (err) {
+						var sDesc = oLine.Description;
+						oLine.Description = "Couldn't format...";
+						$$$(FormatLineHTML(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+
+						//row = tbl.insertRow(2);
+						$$$(FormatDescription(sDesc)).injectTop(tbl.children[tbl.children.length - 1]);;
+					}
+				}
+				else if (oLine.Description.indexOf("\r\n") >= 0) {
+					var sDesc = oLine.Description;
+					oLine.Description = "..."
+					$$$(FormatLineHTML(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+
+					//row = tbl.insertRow(2);
+					$$$(FormatDescription(sDesc)).injectTop(tbl.children[tbl.children.length - 1]);
+				}
+				else if (StringUtil.StartsWith(oLine.Event, "Starting ") && StringUtil.IsEmpty(oLine.Description)) {
+					if (bTimers) {
+						$$$(FormatTimerStart(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+					}
+				}
+				else if (StringUtil.StartsWith(oLine.Event, "Stopping ") && StringUtil.InString(oLine.Description, " total seconds")) {
+					if (bTimers) {
+						$$$(FormatTimerStop(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+					}
+				}
+				else if (StringUtil.StartsWith(oLine.Description, "{") && StringUtil.EndsWith(oLine.Description, "}")) {
+					$$$(FormatLineJSON(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+					oLine.Description = "json";
+					$$$(FormatLineHTML(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+
+
+				}
+
+				else {
+					$$$(FormatLineHTML(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+				}
+
+
+			}
+		})
+	}
+
+	function OnClear()
+	{
+		if (!StringUtil.IsEmpty(Page.LocalSettings.File)) {
+			var tbl = _$("tblLogs");
+			var tblErrors = _$("tblErrors");
+			while (tbl.rows.length > 1)
+				tbl.deleteRow(1);
+			while (tblErrors.rows.length > 1)
+				tblErrors.deleteRow(1);
+		}
+		else {
+			LoggingWorkbench.Clear(function () {
+				OnRefreshDirectories();
+			});
+		}
+	}
+
+	function OnAnalyze() {
+		LoggingWorkbench.StopWatchingAll();
+
+		LoggingWorkbench.AnalyzingFile(Page.LocalSettings.File, function () {
+			LoggingWorkbench.GetLongestByElapsed(Page.LocalSettings.File, 20, function (sJSON) {
+
+				let oJSON = JSON.decode(sJSON);
+
+				oJSON.forEach(x => {
+					x.RequestID = "<a href='javascript:OnGetCall(\"" + x.RequestID + "\")'>" + x.RequestID + "</a>";
+				});
+
+				let oDiv = [div,
+					["h2", "Longest Requests by Elapsed Time"],
+					JsonToTable(oJSON)];
+				_$("tab-LongestRequestByElapsed").appendChild($$$(oDiv));
+				_$("nav-tab-LongestRequestByElapsed").removeClass("hidden");
+			});
+
+			LoggingWorkbench.GetLongestByLines(Page.LocalSettings.File, 20, function (sJSON) {
+				let oJSON = JSON.decode(sJSON);
+
+				oJSON.forEach(x => {
+					x.RequestID = "<a href='javascript:OnGetCall(\"" + x.RequestID + "\")'>" + x.RequestID + "</a>";
+				});
+
+				let oDiv = [div,
+					["h2", "Longest Requests by Line Count"],
+					JsonToTable(oJSON)];
+				_$("tab-LongestRequestByLineCount").appendChild($$$(oDiv));
+				_$("nav-tab-LongestRequestByLineCount").removeClass("hidden");
+			});
+
+			
+			LoggingWorkbench.GetTimersByLongest(Page.LocalSettings.File, 20, function (oJSON) {
+
+				let oDiv = [div,
+					["h2", "Timers By Elapsed Time"],
+					JsonToTable(oJSON)];
+				_$("tab-TimersByTime").appendChild($$$(oDiv));
+				_$("nav-tab-TimersByTime").removeClass("hidden");
+			});
+
+						
+			LoggingWorkbench.GetTimersByCount(Page.LocalSettings.File, 20, function (oJSON) {
+
+				let oDiv = [div,
+					["h2", "Timers By Line Count"],
+					JsonToTable(oJSON)];
+				_$("tab-TimersByLines").appendChild($$$(oDiv));
+				_$("nav-tab-TimersByLines").removeClass("hidden");
+			});
+		});
+	}
+
+	function OnGetCall(sRequestID) {
+		LoggingWorkbench.GetJsonWsCall.Serialize = { Lines: true };
+		LoggingWorkbench.GetJsonWsCall(Page.LocalSettings.File, sRequestID, function (oJSON) {
+		
+			let oDiv = [div,
+					["h2", oJSON.RequestID],
+					JsonToTable(oJSON.Lines)];
+			_$("tab-Request").appendChild($$$(oDiv));
+			_$("nav-tab-Request").removeClass("hidden");
+			_$("nav-tab-Request").children[0].innerHTML = "Request " + sRequestID;
+		});
+	}
+
+	function JsonToTable(oJson) {
+		var oCols = [];
+
+		oJson.each(function (o) {
+			for (var i in o) {
+				if (!oCols.contains(i))
+					oCols.push(i);
+			}
+		});
+
+		var oTrs = [];
+		var oTh = [tr, [th, "#"]];
+
+		oCols.each(function (oCol) {
+			oTh.push([th, oCol.toString()]);
+		});
+
+		oTrs.push(oTh);
+
+		var i = 0;
+		oJson.each(function (o) {
+			var oTd=[tr, [td, i+1]];
+			if (i < 1000) {
+				oCols.each(function (oCol) {
+					if ($defined(o[oCol]))
+						oTd.push([td, o[oCol]]);
+					else
+						oTd.push([td, ""]);
+				});
+
+				oTrs.push(oTd);
+			}
+
+			i++;
+		});
+
+		var oTable = [table,
+				{ border: "1", "class": "Grid table table-striped table-bordered datatables dataTable" },	
+					[tbody, oTrs]
+				];
+
+		return oTable;
+	}
+
+	var oWatchedFiles = [];
+
+	function OnRefreshDirectories()
+	{
+
+		LoggingWorkbench.GetWatchedFiles(function (oFiles) {
+			oWatchedFiles = oFiles;
+		});
+
+		LoggingWorkbench.GetLogFiles(function (oFiles) {
+			var sFiles = "<ul>";
+			oFiles.each(function (oFile) {
+
+				var bWatched =oWatchedFiles.contains(oFile);
+				
+				sFiles += "<li><a href='/logging-workbench?file=" + oFile + "' target='_blank'>" + oFile + "</a>";
+				if (bWatched)
+					sFiles += " <span class='badge bg-success'>Watching</span>"
+				sFiles += "</li>";
+			})
+			sFiles += "</ul>";
+			_$("divFiles").innerHTML = sFiles;
+		})
+	}
+
+	function OnStopWatching()
+	{
+		LoggingWorkbench.StopWatchingAll();
+	}
+
+	Page.AddOnLoad(function () {
+
+		if (StringUtil.IsEmpty(Page.QueryString()["file"])) {			
+			OnRefreshDirectories();
+
+	
+			connection.RegisterHandler("LogFileAdded", function (msg) {
+				OnRefreshDirectories();
+			});
+
+			connection.RegisterHandler("LogFileRemoved", function (msg) {
+				OnRefreshDirectories();
+			});
+		}
+		else
+		{
+			_$("divFileContainer").addClass("hidden");
+			Page.LocalSettings.File = Page.QueryString()["file"];
+			document.title = StringUtil.RightOfLast(Page.LocalSettings.File, "\\");
+			_$("divFile").innerHTML = "<p><a href='file:///" + Page.LocalSettings.File + "' target='_blank'>" + Page.LocalSettings.File + "</a></p>";
+			OnWatchFile(Page.LocalSettings.File);
+		}
+	})
+
+	function GetSolution() {
+		var sDirectory = StringUtil.Between(Page.LocalSettings.File, "c:\\logs\\", "\\");
+		var sSolution = Page.LocalStorage.get(sDirectory);
+		if (!ObjectUtil.HasValue(sSolution)) {
+			sSolution = prompt("Solution name?");
+			Page.LocalStorage.set(sDirectory);
+		}
+
+		return sSolution.toLowerCase();
+	}
+
+	function OnCSharpException(oError)
+	{
+		var sSolutionName = GetSolution();
+
+		var oActiveContexts = CodeModelWorkbench.GetActiveContexts();
+		if (!oActiveContexts.contains(sSolutionName))
+		{
+			UserMessages.DisplayNow("Loading " + sSolutionName, "Info");
+			CodeModelWorkbench.SetSolution(sSolutionName, function () {
+				DescribeError(sSolutionName, oError);
+			});
+		}
+		else
+		{
+			DescribeError(sSolutionName, oError);
+		}
+	}
+
+	function DescribeError(sSolutionName, oError)
+	{
+		CodeModelWorkbench.DescribeError(sSolutionName, JSON.encode(oError), function (oRes) {
+			var myMBox = new mBox({
+				content: "<div style='height: 500px; max-width: 800px; overflow: scroll' id='divRuntimeDesc'><pre>" + oRes + "</pre></div>",
+				fade: { open: false, close: false },
+				footer: '<div><button value=""  class="Insert btn">Button</button></div>'
+			});
+			myMBox.open();
+		});
+	}
+
+	function FormatAnalysis(oLine)
+	{
+		return [tr,
+			[td, oLine.LineCount],
+			[td, oLine.Elapsed],
+			[td, "<a href='javascript:OnLoadApiCall(\"" + oLine.RequestID + "\")'>" + oLine.RequestID + "</a>"+ "<br/>" + oLine.Url + "<br/>" + oLine.Method + oLine.Parameters]
+		]
+	}
+
+	function OnDisplayAnalysis(sResults) {
+		let oResults = JSON.decode(sResults);
+		$$("#tblAnalysis tbody tr").forEach(x => x.remove()); 
+		let tbl = _$("tblAnalysis");
+
+		for (let i = oResults.length - 1; i >= 0; i--) {
+			let oLine = oResults[i];
+			$$$(FormatAnalysis(oLine)).injectTop(tbl.children[tbl.children.length - 1]);
+		}
+	}
+
+	function OnLoadApiCall(sRequestID) {
+		LoggingWorkbench.GetJsonWsCall(Page.LocalSettings.File, sRequestID, function (oCall) {
+			BindNewLines(oCall.Lines.reverse());
+		});
+	}
+
+</script>
+	<%})
+}%>
+

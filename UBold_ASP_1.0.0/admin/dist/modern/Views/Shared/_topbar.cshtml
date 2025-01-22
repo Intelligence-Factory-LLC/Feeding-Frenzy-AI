@@ -1,0 +1,364 @@
+﻿<div class="topnav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-airplay me-1"></i> Dashboards <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-dashboard">
+                            <a href="/" class="dropdown-item">Dashboard 1</a>
+                            <a href="/dashboard-2" class="dropdown-item">Dashboard 2</a>
+                            <a href="/dashboard-3" class="dropdown-item">Dashboard 3</a>
+                            <a href="/dashboard-4" class="dropdown-item">Dashboard 4</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-grid me-1"></i> Apps <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-apps">
+
+                            <a asp-controller="apps" asp-action="apps-calendar" class="dropdown-item"><i class="fe-calendar me-1"></i> Calendar</a>
+                            <a asp-controller="apps" asp-action="apps-chat" class="dropdown-item"><i class="fe-message-square me-1"></i> Chat</a>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-ecommerce"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-shopping-cart me-1"></i> Ecommerce <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-ecommerce">
+                                    <a asp-controller="apps" asp-action="ecommerce-dashboard" class="dropdown-item">Dashboard</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-products" class="dropdown-item">Products</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-product-detail" class="dropdown-item">Product Detail</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-product-edit" class="dropdown-item">Add Product</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-customers" class="dropdown-item">Customers</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-orders" class="dropdown-item">Orders</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-order-detail" class="dropdown-item">Order Detail</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-sellers" class="dropdown-item">Sellers</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-cart" class="dropdown-item">Shopping Cart</a>
+                                    <a asp-controller="apps" asp-action="ecommerce-checkout" class="dropdown-item">Checkout</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-mail me-1"></i> Email <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <a asp-controller="apps" asp-action="email-inbox" class="dropdown-item">Inbox</a>
+                                    <a asp-controller="apps" asp-action="email-read" class="dropdown-item">Read Email</a>
+                                    <a asp-controller="apps" asp-action="email-compose" class="dropdown-item">Compose Email</a>
+                                    <a asp-controller="apps" asp-action="email-templates" class="dropdown-item">Email Templates</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-crm"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-users me-1"></i> CRM <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-crm">
+                                    <a asp-controller="apps" asp-action="crm-dashboard" class="dropdown-item">Dashboard</a>
+                                    <a asp-controller="apps" asp-action="crm-contacts" class="dropdown-item">Contacts</a>
+                                    <a asp-controller="apps" asp-action="crm-opportunities" class="dropdown-item">Opportunities</a>
+                                    <a asp-controller="apps" asp-action="crm-leads" class="dropdown-item">Leads</a>
+                                    <a asp-controller="apps" asp-action="crm-customers" class="dropdown-item">Customers</a>
+                                </div>
+                            </div>
+
+                            <a asp-controller="apps" asp-action="apps-social-feed" class="dropdown-item"><i class="fe-rss me-1"></i> Social Feed</a>
+                            <a asp-controller="apps" asp-action="apps-companies" class="dropdown-item"><i class="fe-activity me-1"></i> Companies</a>
+
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-project"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-briefcase me-1"></i> Projects <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-project">
+                                    <a asp-controller="apps" asp-action="project-list" class="dropdown-item">List</a>
+                                    <a asp-controller="apps" asp-action="project-detail" class="dropdown-item">Detail</a>
+                                    <a asp-controller="apps" asp-action="project-create" class="dropdown-item">Create Project</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-task"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-clipboard me-1"></i> Tasks <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-task">
+                                    <a asp-controller="apps" asp-action="task-list" class="dropdown-item">List</a>
+                                    <a asp-controller="apps" asp-action="task-details" class="dropdown-item">Details</a>
+                                    <a asp-controller="apps" asp-action="task-kanban-board" class="dropdown-item">Kanban Board</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-contact"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-book me-1"></i> Contacts <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-contact">
+                                    <a asp-controller="apps" asp-action="contacts-list" class="dropdown-item">Members List</a>
+                                    <a asp-controller="apps" asp-action="contacts-profile" class="dropdown-item">Profile</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-tickets"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-aperture me-1"></i> Tickets <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-tickets">
+                                    <a asp-controller="apps" asp-action="tickets-list" class="dropdown-item">List</a>
+                                    <a asp-controller="apps" asp-action="tickets-detail" class="dropdown-item">Detail</a>
+                                </div>
+                            </div>
+                            <a asp-controller="apps" asp-action="apps-file-manager" class="dropdown-item"><i class="fe-folder-plus me-1"></i> File Manager</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-ui" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-briefcase me-1"></i> UI Elements <div class="arrow-down"></div>
+                        </a>
+
+                        <div class="dropdown-menu mega-dropdown-menu dropdown-mega-menu-xl" aria-labelledby="topnav-ui">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div>
+                                        <a asp-controller="Component" asp-action="ui-buttons" class="dropdown-item">Buttons</a>
+                                        <a asp-controller="Component" asp-action="ui-cards" class="dropdown-item">Cards</a>
+                                        <a asp-controller="Component" asp-action="ui-avatars" class="dropdown-item">Avatars</a>
+                                        <a asp-controller="Component" asp-action="ui-portlets" class="dropdown-item">Portlets</a>
+                                        <a asp-controller="Component" asp-action="ui-tabs-accordions" class="dropdown-item">Tabs & Accordions</a>
+                                        <a asp-controller="Component" asp-action="ui-modals" class="dropdown-item">Modals</a>
+                                        <a asp-controller="Component" asp-action="ui-progress" class="dropdown-item">Progress</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div>
+                                        <a asp-controller="Component" asp-action="ui-notifications" class="dropdown-item">Notifications</a>
+                                        <a asp-controller="Component" asp-action="ui-placeholders" class="dropdown-item">Placeholders</a>
+                                        <a asp-controller="Component" asp-action="ui-offcanvas" class="dropdown-item">Offcanvas</a>
+                                        <a asp-controller="Component" asp-action="ui-spinners" class="dropdown-item">Spinners</a>
+                                        <a asp-controller="Component" asp-action="ui-images" class="dropdown-item">Images</a>
+                                        <a asp-controller="Component" asp-action="ui-carousel" class="dropdown-item">Carousel</a>
+                                        <a asp-controller="Component" asp-action="ui-list-group" class="dropdown-item">List Group</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div>
+                                        <a asp-controller="Component" asp-action="ui-video" class="dropdown-item">Embed Video</a>
+                                        <a asp-controller="Component" asp-action="ui-dropdowns" class="dropdown-item">Dropdowns</a>
+                                        <a asp-controller="Component" asp-action="ui-ribbons" class="dropdown-item">Ribbons</a>
+                                        <a asp-controller="Component" asp-action="ui-tooltips-popovers" class="dropdown-item">Tooltips & Popovers</a>
+                                        <a asp-controller="Component" asp-action="ui-general" class="dropdown-item">General UI</a>
+                                        <a asp-controller="Component" asp-action="ui-typography" class="dropdown-item">Typography</a>
+                                        <a asp-controller="Component" asp-action="ui-grid" class="dropdown-item">Grid</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-layers me-1"></i> Components <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-components">
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-extendedui"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-pocket me-1"></i> Extended UI <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-extendedui">
+                                    <a asp-controller="Component" asp-action="extended-nestable" class="dropdown-item">Nestable List</a>
+                                    <a asp-controller="Component" asp-action="extended-range-slider" class="dropdown-item">Range Slider</a>
+                                    <a asp-controller="Component" asp-action="extended-dragula" class="dropdown-item">Dragula</a>
+                                    <a asp-controller="Component" asp-action="extended-animation" class="dropdown-item">Animation</a>
+                                    <a asp-controller="Component" asp-action="extended-sweet-alert" class="dropdown-item">Sweet Alert</a>
+                                    <a asp-controller="Component" asp-action="extended-tour" class="dropdown-item">Tour Page</a>
+                                    <a asp-controller="Component" asp-action="extended-scrollspy" class="dropdown-item">Scrollspy</a>
+                                    <a asp-controller="Component" asp-action="extended-loading-buttons" class="dropdown-item">Loading Buttons</a>
+                                </div>
+                            </div>
+                            <a asp-controller="Component" asp-action="widgets" class="dropdown-item"><i class="fe-gift me-1"></i> Widgets</a>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-form"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-bookmark me-1"></i> Forms <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-form">
+                                    <a asp-controller="Component" asp-action="forms-elements" class="dropdown-item">General Elements</a>
+                                    <a asp-controller="Component" asp-action="forms-advanced" class="dropdown-item">Advanced</a>
+                                    <a asp-controller="Component" asp-action="forms-validation" class="dropdown-item">Validation</a>
+                                    <a asp-controller="Component" asp-action="forms-pickers" class="dropdown-item">Pickers</a>
+                                    <a asp-controller="Component" asp-action="forms-wizard" class="dropdown-item">Wizard</a>
+                                    <a asp-controller="Component" asp-action="forms-masks" class="dropdown-item">Masks</a>
+                                    <a asp-controller="Component" asp-action="forms-quilljs" class="dropdown-item">Quilljs Editor</a>
+                                    <a asp-controller="Component" asp-action="forms-file-uploads" class="dropdown-item">File Uploads</a>
+                                    <a asp-controller="Component" asp-action="forms-x-editable" class="dropdown-item">X Editable</a>
+                                    <a asp-controller="Component" asp-action="forms-image-crop" class="dropdown-item">Image Crop</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-bar-chart-2 me-1"></i> Charts <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-charts">
+                                    <a asp-controller="Component" asp-action="charts-apex" class="dropdown-item">Apex Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-flot" class="dropdown-item">Flot Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-morris" class="dropdown-item">Morris Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-chartjs" class="dropdown-item">Chartjs Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-peity" class="dropdown-item">Peity Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-chartist" class="dropdown-item">Chartist Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-c3" class="dropdown-item">C3 Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-sparklines" class="dropdown-item">Sparklines Charts</a>
+                                    <a asp-controller="Component" asp-action="charts-knob" class="dropdown-item">Jquery Knob Charts</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-table"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-grid me-1"></i> Tables <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-table">
+                                    <a asp-controller="Component" asp-action="tables-basic" class="dropdown-item">Basic Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-datatables" class="dropdown-item">Data Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-editable" class="dropdown-item">Editable Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-responsive" class="dropdown-item">Responsive Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-footables" class="dropdown-item">FooTable</a>
+                                    <a asp-controller="Component" asp-action="tables-bootstrap" class="dropdown-item">Bootstrap Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-tablesaw" class="dropdown-item">Tablesaw Tables</a>
+                                    <a asp-controller="Component" asp-action="tables-jsgrid" class="dropdown-item">JsGrid Tables</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-icons"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-cpu me-1"></i> Icons <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-icons">
+                                    <a asp-controller="Component" asp-action="icons-material-symbols" class="dropdown-item">Material Symbols Icons</a>
+                                    <a asp-controller="Component" asp-action="icons-two-tone" class="dropdown-item">Two Tone Icons</a>
+                                    <a asp-controller="Component" asp-action="icons-feather" class="dropdown-item">Feather Icons</a>
+                                    <a asp-controller="Component" asp-action="icons-mdi" class="dropdown-item">Material Design Icons</a>
+                                    <a asp-controller="Component" asp-action="icons-dripicons" class="dropdown-item">Dripicons</a>
+                                    <a asp-controller="Component" asp-action="icons-font-awesome" class="dropdown-item">Font Awesome 5</a>
+                                    <a asp-controller="Component" asp-action="icons-themify" class="dropdown-item">Themify</a>
+                                    <a asp-controller="Component" asp-action="icons-simple-line" class="dropdown-item">Simple Line</a>
+                                    <a asp-controller="Component" asp-action="icons-weather" class="dropdown-item">Weather</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-map"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fe-map me-1"></i> Maps <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-map">
+                                    <a asp-controller="Component" asp-action="maps-google" class="dropdown-item">Google Maps</a>
+                                    <a asp-controller="Component" asp-action="maps-vector" class="dropdown-item">Vector Maps</a>
+                                    <a asp-controller="Component" asp-action="maps-mapael" class="dropdown-item">Mapael Maps</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-package me-1"></i> Pages <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-auth"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Auth Style 1 <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-auth">
+                                    <a asp-controller="Custom" asp-action="auth-login" class="dropdown-item">Log In</a>
+                                    <a asp-controller="Custom" asp-action="auth-register" class="dropdown-item">Register</a>
+                                    <a asp-controller="Custom" asp-action="auth-signin-signup" class="dropdown-item">Signin - Signup</a>
+                                    <a asp-controller="Custom" asp-action="auth-recoverpw" class="dropdown-item">Recover Password</a>
+                                    <a asp-controller="Custom" asp-action="auth-lock-screen" class="dropdown-item">Lock Screen</a>
+                                    <a asp-controller="Custom" asp-action="auth-logout" class="dropdown-item">Logout</a>
+                                    <a asp-controller="Custom" asp-action="auth-confirm-mail" class="dropdown-item">Confirm Mail</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-auth2"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Auth Style 2 <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-auth2">
+                                    <a asp-controller="Custom" asp-action="auth-login-2" class="dropdown-item">Log In 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-register-2" class="dropdown-item">Register 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-signin-signup-2" class="dropdown-item">Signin - Signup 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-recoverpw-2" class="dropdown-item">Recover Password 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-lock-screen-2" class="dropdown-item">Lock Screen 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-logout-2" class="dropdown-item">Logout 2</a>
+                                    <a asp-controller="Custom" asp-action="auth-confirm-mail-2" class="dropdown-item">Confirm Mail 2</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-error"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Errors <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-error">
+                                    <a asp-controller="Custom" asp-action="pages-404" class="dropdown-item">Error 404</a>
+                                    <a asp-controller="Custom" asp-action="pages-404-two" class="dropdown-item">Error 404 Two</a>
+                                    <a asp-controller="Custom" asp-action="pages-404-alt" class="dropdown-item">Error 404-alt</a>
+                                    <a asp-controller="Custom" asp-action="pages-500" class="dropdown-item">Error 500</a>
+                                    <a asp-controller="Custom" asp-action="pages-500-two" class="dropdown-item">Error 500 Two</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-utility"
+                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Utility <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-utility">
+                                    <a asp-controller="Custom" asp-action="pages-starter" class="dropdown-item">Starter</a>
+                                    <a asp-controller="Custom" asp-action="pages-timeline" class="dropdown-item">Timeline</a>
+                                    <a asp-controller="Custom" asp-action="pages-sitemap" class="dropdown-item">Sitemap</a>
+                                    <a asp-controller="Custom" asp-action="pages-invoice" class="dropdown-item">Invoice</a>
+                                    <a asp-controller="Custom" asp-action="pages-faqs" class="dropdown-item">FAQs</a>
+                                    <a asp-controller="Custom" asp-action="pages-search-results" class="dropdown-item">Search Results</a>
+                                    <a asp-controller="Custom" asp-action="pages-pricing" class="dropdown-item">Pricing</a>
+                                    <a asp-controller="Custom" asp-action="pages-maintenance" class="dropdown-item">Maintenance</a>
+                                    <a asp-controller="Custom" asp-action="pages-coming-soon" class="dropdown-item">Coming Soon</a>
+                                    <a asp-controller="Custom" asp-action="pages-gallery" class="dropdown-item">Gallery</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-layout" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe-sidebar me-1"></i> Layouts <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                            <a asp-controller="Custom" asp-action="layouts-vertical" class="dropdown-item">Vertical</a>
+                            <a asp-controller="Custom" asp-action="layouts-detached" class="dropdown-item">Detached</a>
+                            <a asp-controller="Custom" asp-action="layouts-two-column" class="dropdown-item">Two Column Menu</a>
+                            <a asp-controller="Custom" asp-action="layouts-two-tone-icons" class="dropdown-item">Two Tones Icons</a>
+                            <a asp-controller="Custom" asp-action="layouts-preloader" class="dropdown-item">Preloader</a>
+                        </div>
+                    </li>
+                </ul> <!-- end navbar-->
+            </div> <!-- end .collapsed-->
+        </nav>
+    </div> <!-- end container-fluid -->
+</div> <!-- end topnav-->

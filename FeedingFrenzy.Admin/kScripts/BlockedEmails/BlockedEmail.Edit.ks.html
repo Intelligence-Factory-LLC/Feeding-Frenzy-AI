@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using BlockedEmailsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile BlockedEmails.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (BlockedEmails.GetBlockedEmail (ObjectID)))
+}%>
+

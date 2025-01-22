@@ -1,0 +1,1432 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">PageLayouts</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/page-layouts" "/JsonWs/FeedingFrenzy.Admin.Business.PageLayouts.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.PageLayouts.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.CopyPageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyPageLayout">
+
+				<h3>PageLayouts.CopyPageLayout</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/copy-page-layout</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyPageLayout">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/copy-page-layout" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyPageLayout
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/copy-page-layout
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyPageLayoutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyPageLayoutClick()
+										{
+											var oObj = BlindUnbind("divCopyPageLayout");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/copy-page-layout")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.CopyPageLayoutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyPageLayout", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyPageLayout">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyPageLayout" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.GetPageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayout">
+
+				<h3>PageLayouts.GetPageLayout</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/get-page-layout</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPageLayout">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/get-page-layout" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PageLayoutsRow.ks.html&Class=SimpleApiHarnessPage">PageLayoutsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPageLayout
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/get-page-layout
+
+## Returns
+PageLayoutsRow
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPageLayoutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPageLayoutClick()
+										{
+											var oObj = BlindUnbind("divGetPageLayout");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/get-page-layout")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.GetPageLayoutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPageLayout", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayout">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPageLayout" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.GetPageLayoutByUrl</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayoutByUrl">
+
+				<h3>PageLayouts.GetPageLayoutByUrl</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/get-page-layout-by-url</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPageLayoutByUrl">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/get-page-layout-by-url" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PageLayoutsRow.ks.html&Class=SimpleApiHarnessPage">PageLayoutsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUrl" kcs:FieldName="Url" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPageLayoutByUrl
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/get-page-layout-by-url
+
+## Returns
+PageLayoutsRow
+
+## Parameters 
+
+	Name: Url, Type: Url
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPageLayoutByUrlClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPageLayoutByUrlClick()
+										{
+											var oObj = BlindUnbind("divGetPageLayoutByUrl");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/get-page-layout-by-url")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.GetPageLayoutByUrlObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPageLayoutByUrl", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayoutByUrl">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPageLayoutByUrl" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.GetPageLayouts</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayouts">
+
+				<h3>PageLayouts.GetPageLayouts</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/get-page-layouts</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPageLayouts">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/get-page-layouts" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PageLayoutsRow.ks.html&Class=SimpleApiHarnessPage">PageLayoutsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPageLayouts
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/get-page-layouts
+
+## Returns
+PageLayoutsRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPageLayoutsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPageLayoutsClick()
+										{
+											var oObj = BlindUnbind("divGetPageLayouts");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/get-page-layouts")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.GetPageLayoutsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPageLayouts", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPageLayouts">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPageLayouts" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.GetQuickHelpContentByURL</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetQuickHelpContentByURL">
+
+				<h3>PageLayouts.GetQuickHelpContentByURL</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/get-quick-help-content-by-url</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetQuickHelpContentByURL">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/get-quick-help-content-by-url" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.ContentsRow.ks.html&Class=SimpleApiHarnessPage">ContentsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtURL" kcs:FieldName="URL" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			DefaultContent
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtDefaultContent" kcs:FieldName="DefaultContent" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetQuickHelpContentByURL
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/get-quick-help-content-by-url
+
+## Returns
+ContentsRow
+
+## Parameters 
+
+	Name: URL, Type: Url
+
+	Name: DefaultContent, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetQuickHelpContentByURLClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetQuickHelpContentByURLClick()
+										{
+											var oObj = BlindUnbind("divGetQuickHelpContentByURL");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/get-quick-help-content-by-url")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.GetQuickHelpContentByURLObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetQuickHelpContentByURL", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetQuickHelpContentByURL">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetQuickHelpContentByURL" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.InsertPageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertPageLayout">
+
+				<h3>PageLayouts.InsertPageLayout</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/insert-page-layout</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertPageLayout">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/insert-page-layout" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUrl" kcs:FieldName="Url" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Handler
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtHandler" kcs:FieldName="Handler" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Title
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageTitle" kcs:FieldName="PageTitle" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Site
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSiteID" kcs:FieldName="SiteID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertPageLayout
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/insert-page-layout
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Url, Type: Url
+
+	Name: Handler, Type: Url
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: PageTitle, Type: String
+
+	Name: SiteID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertPageLayoutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertPageLayoutClick()
+										{
+											var oObj = BlindUnbind("divInsertPageLayout");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/insert-page-layout")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.InsertPageLayoutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertPageLayout", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertPageLayout">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertPageLayout" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.MarkPageLayoutAsEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPageLayoutAsEnabled">
+
+				<h3>PageLayouts.MarkPageLayoutAsEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPageLayoutAsEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPageLayoutAsEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPageLayoutAsEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPageLayoutAsEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkPageLayoutAsEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-enabled")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.MarkPageLayoutAsEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPageLayoutAsEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPageLayoutAsEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPageLayoutAsEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.MarkPageLayoutAsNotEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPageLayoutAsNotEnabled">
+
+				<h3>PageLayouts.MarkPageLayoutAsNotEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-not-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPageLayoutAsNotEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-not-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPageLayoutAsNotEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-not-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPageLayoutAsNotEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPageLayoutAsNotEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkPageLayoutAsNotEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/mark-page-layout-as-not-enabled")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.MarkPageLayoutAsNotEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPageLayoutAsNotEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPageLayoutAsNotEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPageLayoutAsNotEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.RemovePageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemovePageLayout">
+
+				<h3>PageLayouts.RemovePageLayout</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/remove-page-layout</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemovePageLayout">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/remove-page-layout" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemovePageLayout
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/remove-page-layout
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemovePageLayoutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemovePageLayoutClick()
+										{
+											var oObj = BlindUnbind("divRemovePageLayout");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/remove-page-layout")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.RemovePageLayoutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemovePageLayout", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemovePageLayout">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemovePageLayout" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayouts.UpdatePageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePageLayout">
+
+				<h3>PageLayouts.UpdatePageLayout</h3>
+				<p>/api/feedingfrenzy.admin.business/page-layouts/update-page-layout</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdatePageLayout">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/page-layouts/update-page-layout" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Layout ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageLayoutID" kcs:FieldName="PageLayoutID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUrl" kcs:FieldName="Url" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Handler
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtHandler" kcs:FieldName="Handler" class="InputUrl form-control" maxlength="512" />
+		</div>
+		<label class="col-3 control-label">
+			Url
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Page Title
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPageTitle" kcs:FieldName="PageTitle" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Site
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSiteID" kcs:FieldName="SiteID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdatePageLayout
+
+## Url
+/api/feedingfrenzy.admin.business/page-layouts/update-page-layout
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PageLayoutID, Type: ID
+
+	Name: Url, Type: Url
+
+	Name: Handler, Type: Url
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: PageTitle, Type: String
+
+	Name: SiteID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdatePageLayoutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdatePageLayoutClick()
+										{
+											var oObj = BlindUnbind("divUpdatePageLayout");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/page-layouts/update-page-layout")
+																		PageLayouts.Url = oObj.BaseUrl;
+
+																	PageLayouts.UpdatePageLayoutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdatePageLayout", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePageLayout">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdatePageLayout" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

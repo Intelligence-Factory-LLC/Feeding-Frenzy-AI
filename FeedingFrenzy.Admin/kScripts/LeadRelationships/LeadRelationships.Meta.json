@@ -1,0 +1,17 @@
+{
+	ObjectName : "LeadRelationship",
+	ObjectsName : "LeadRelationships",
+
+	
+	
+	FriendlyObjectName : "Lead Relationship",
+	FriendlyObjectsName : "Lead Relationships",
+	
+	ObjectsUrl : "lead-relationships",
+	DetailsUrl : "lead-relationship",
+	EditUrl : "lead-relationship-edit",
+	InsertUrl : "lead-relationship-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

@@ -1,0 +1,397 @@
+<%
+class BlockedEmailsAdmin
+{
+			
+	(function GetDetails BlockedEmailID
+	{
+		(declare BlockedEmail (BlockedEmails.GetBlockedEmail (BlockedEmailID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Blocked Email ID
+							</td>
+							<td>
+								
+									<%BlockedEmail.BlockedEmailID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%BlockedEmail.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Notes
+							</td>
+							<td>
+								
+									<%BlockedEmail.Notes%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%BlockedEmail.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%BlockedEmail.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%BlockedEmail.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%BlockedEmail.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown Email BlockedEmailID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetBlockedEmailsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit BlockedEmailID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="BlockedEmail">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Blocked Email ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="BlockedEmailID" class="InputString form-control" readonly="readonly" value="<%BlockedEmailID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Notes
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view BlockedEmails GetBlockedEmailsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="BlockedEmailID">
+						Blocked Email ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Notes">
+						Notes
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+									
+				</tr>
+			<%BlockedEmails.each BlockedEmail{%> 
+				<tr kcs:RowKey="<%BlockedEmail.get BlockedEmailID%>" >
+							
+			
+					
+					<td>
+						<%BlockedEmail.BlockedEmailID%>
+					</td>
+					
+			
+					
+					<td>
+						<%BlockedEmail.Email%>
+					</td>
+					
+			
+					
+					<td>
+						<%BlockedEmail.Notes%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%BlockedEmail.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%BlockedEmail.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row BlockedEmails GetBlockedEmailsSp_CountSp  (Search))
+		(return (BlockedEmails.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="BlockedEmail">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Email
+					</label>
+					<div class="col-6">
+						
+							<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Notes
+					</label>
+					<div class="col-6">
+						
+							<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

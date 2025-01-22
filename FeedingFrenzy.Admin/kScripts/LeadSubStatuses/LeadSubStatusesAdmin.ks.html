@@ -1,0 +1,528 @@
+<%
+class LeadSubStatusesAdmin
+{
+			
+	(function GetDetails LeadSubStatusID
+	{
+		(declare LeadSubStatus (LeadSubStatuses.GetLeadSubStatus (LeadSubStatusID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Sub Status ID
+							</td>
+							<td>
+								
+									<%LeadSubStatus.LeadSubStatusID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Sub Status Name
+							</td>
+							<td>
+								
+									<%LeadSubStatus.SubStatusName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Lead Status ID
+							</td>
+							<td>
+                               
+                                <a href="lead-status?LeadStatusID=<%LeadSubStatus.LeadStatusID%>">
+                                    <%ifneq  (LeadSubStatus.LeadStatus) ""{%>
+
+                                        
+                                            <%LeadSubStatus.LeadStatus.StatusName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadSubStatus.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadSubStatus.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadSubStatus.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadSubStatus.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown SubStatusName LeadSubStatusID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadSubStatusesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadSubStatusID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadSubStatus">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Status
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using LeadStatusesAdmin.ks.html%>
+							    
+								    <%LeadStatusesAdmin.GetDropDown StatusName LeadStatusID LeadStatusID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sub Status Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtSubStatusName" kcs:FieldName="SubStatusName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Sub Status ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadSubStatusID" class="InputString form-control" readonly="readonly" value="<%LeadSubStatusID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadSubStatuses GetLeadSubStatusesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadStatusID">
+						Lead Status ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SubStatusName">
+						Sub Status Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadSubStatusID">
+						Lead Sub Status ID
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadSubStatuses.each LeadSubStatus{%> 
+				<tr kcs:RowKey="<%LeadSubStatus.get LeadSubStatusID%>" >
+							
+			
+					
+					<td>
+						<%LeadSubStatus.LeadStatusID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadSubStatus.SubStatusName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadSubStatus.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadSubStatus.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadSubStatus.LeadSubStatusID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadSubStatuses GetLeadSubStatusesSp_CountSp  (Search))
+		(return (LeadSubStatuses.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadStatusID LeadStatusID 
+	{
+		(return (GetGridByLeadStatusID (LeadStatusID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadStatusID LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadStatusIDHtml (LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadStatusIDCount (LeadStatusID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadStatusIDHtml LeadStatusID 
+	{
+		(return (GetGridByLeadStatusIDHtml (LeadStatusID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadStatusIDHtml LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadSubStatuses GetLeadSubStatusesByLeadStatusIDSp_PagingSp (LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadStatusID">
+						Lead Status ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SubStatusName">
+						Sub Status Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadSubStatusID">
+						Lead Sub Status ID
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadSubStatuses.each LeadSubStatus{%> 
+				<tr kcs:RowKey="<%LeadSubStatus.get LeadSubStatusID%>" >
+							
+			
+					
+					<td>
+						<%LeadSubStatus.LeadStatusID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadSubStatus.SubStatusName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadSubStatus.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadSubStatus.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadSubStatus.LeadSubStatusID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadStatusIDCount LeadStatusID  Search
+	
+	{
+		(ado.row LeadSubStatuses GetLeadSubStatusesByLeadStatusIDSp_CountSp (LeadStatusID) (Search))
+		(return (LeadSubStatuses.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadSubStatus">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead Status
+					</label>
+					<div class="col-6">
+						
+							
+							<%using LeadStatusesAdmin.ks.html%>
+							
+								<%LeadStatusesAdmin.GetDropDown StatusName LeadStatusID LeadStatusID%>							
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Sub Status Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtSubStatusName" kcs:FieldName="SubStatusName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

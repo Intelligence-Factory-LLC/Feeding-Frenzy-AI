@@ -1,0 +1,17 @@
+{
+	ObjectName : "LeadTag",
+	ObjectsName : "LeadTags",
+
+	
+	
+	FriendlyObjectName : "Lead Tag",
+	FriendlyObjectsName : "Lead Tags",
+	
+	ObjectsUrl : "lead-tags",
+	DetailsUrl : "lead-tag",
+	EditUrl : "lead-tag-edit",
+	InsertUrl : "lead-tag-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

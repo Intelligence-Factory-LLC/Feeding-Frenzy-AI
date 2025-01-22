@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeedingFrenzy.Data\FeedingFrenzy.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BasicUtilities">
+      <HintPath>..\lib\BasicUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Cache">
+      <HintPath>..\lib\RooTrax.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Common">
+      <HintPath>..\lib\RooTrax.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Common.DB">
+      <HintPath>..\lib\RooTrax.Common.DB.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

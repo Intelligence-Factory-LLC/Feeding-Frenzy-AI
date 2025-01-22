@@ -1,0 +1,656 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile Leads.Meta.json%>
+<%using LeadNotesAdmin.ks.html%>
+
+<%redefinefunction LeadNotesAdmin.GetGridByLeadIDHtml LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+
+			<%declare LeadNotes (LeadNotesRepository.GetLeadNotesByLeadIDSp_PagingSp (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+			<%LeadNotesAdmin.GetGridInternal (LeadNotes)%>
+		<%})
+	}
+%>
+<%redefinefunction LeadNotesAdmin.GetGridHtmlInternal LeadNotes
+{
+	(return (LeadNotesAdmin.GetGridInternal (LeadNotes)))	  
+}%>
+
+<%redefinefunction LeadNotesAdmin.GetGridInternal LeadNotes
+{
+		(returnex{%>
+
+<table class="Grid">
+	<tr>
+
+
+
+		<th kcs:SortColumn="LeadNoteID">
+			ID
+		</th>
+
+		<th kcs:SortColumn="LeadID">
+			Lead ID
+		</th>
+
+
+
+
+
+
+		<th kcs:SortColumn="SalesRepresentativeID">
+			Sales Representative
+		</th>
+
+
+
+
+		<th kcs:SortColumn="Notes">
+			Notes
+		</th>
+
+
+
+
+		<th kcs:SortColumn="FollowUpDate">
+			Follow Up
+		</th>
+
+
+
+
+		<th >
+			Type
+		</th>
+
+
+
+
+
+
+		<th kcs:SortColumn="DateCreated">
+			Created
+		</th>
+
+
+
+
+
+	</tr>
+	<%LeadNotes.each LeadNote{%>
+
+		<%declare oLeadNoteType (LeadNote.LeadNoteType)%>
+		<%ifeq (LeadNote.LeadNoteTypeID) ""{
+			(oLeadNoteType (LeadNoteTypes.GetLeadNoteTypeByLeadNoteTypeName Default))
+		}%>
+
+	    <%JsonObject oDataObject (LeadNote.DataObject)%>
+
+	<tr kcs:RowKey="<%LeadNote.LeadNoteID%>">
+
+
+
+		<td>
+			<%LeadNote.LeadNoteID%>
+			<input type="hidden" value="<%LeadNote.LeadID%>" id="hdnLeadNote<%LeadNote.LeadNoteID%>"/>
+		</td>
+
+		<td>
+			<%LeadNote.get LeadID%>
+			<a href="/lead?LeadID=<%LeadNote.LeadID%>"><i class="fas fa-external-link-alt"></i></a>
+		</td>
+
+
+
+		<td>
+			<%LeadNote.SalesRepresentative.Name%>
+		</td>
+
+
+
+		<td >
+
+
+			<div style="max-width: 60vw;">
+
+			<%ifneq (oDataObject.GetIntOrNull CallID) ""{%>
+				<%GetTranscriptionDisplay (LeadNote)%>
+			<%}{%>
+
+				<%if (oLeadNoteType.DataObject.GetBooleanOrFalse IsEditable){%>
+					<%ifeq (oLeadNoteType.LeadNoteTypeName) "Appointment Set"{%>
+					<button onclick="OnEditAppointment('<%LeadNote.LeadNoteID%>', this)" class="tabledit-edit-button btn btn-success float-end"><i class="mdi mdi-pencil"> </i></button>
+					<%}{%>
+					<button onclick="OnEditLeadNote('<%LeadNote.LeadNoteID%>', this)" class="tabledit-edit-button btn btn-success float-end"><i class="mdi mdi-pencil"> </i></button>
+					<%}%>
+				<%}%>
+
+				<%ifneq (oDataObject.GetStringOrNull EmailTrackingID) ""{%>
+					<div>Tracking Email: <%if (oDataObject.GetBooleanOrFalse IsOpened){%>
+					<span class="label label-success">Opened</span>, # of Opens : <span class="badge"><%oDataObject.GetIntOrDefault OpenCount 1%></span>, Last Opened: <span class="Date"><%oDataObject.GetDateTimeOrNull LastOpenedDate%></span>
+					<%}{%>
+						<span class="label label-default">Not Opened</span>
+					<%}%></div>
+				<%}%>
+		  		<%if (neq (oDataObject.GetIntOrDefault RawEmailID 0) 0){%>
+			  
+				  <%declare rowRawEmail (RawEmails.GetRawEmail (oDataObject.GetIntOrNull RawEmailID))%>
+					<%ifneq (rowRawEmail) ""{%>
+					<span class="email-msg" kcs:RawEmailID="<%oDataObject.GetIntOrNull RawEmailID%>">
+					  <button onclick="OnOpenRawEmail(<%oDataObject.GetIntOrNull RawEmailID%>)" class="btn btn-info-alt btn-label float-end">Preview</button>
+					  <button onclick="OnOpenRawEmailInGmail('<%rowRawEmail.ImportKey%>')" class="btn btn-info-alt btn-label float-end">Gmail</button>
+					<b><%rowRawEmail.From%></b> to <%rowRawEmail.To%><br/> <b><%rowRawEmail.Subject%></b>
+				
+					  <%ifneq (rowRawEmail.DataObject.GetStringOrNull Snippet) ""{ (StripTrackingPixel (rowRawEmail.DataObject.GetStringOrNull Snippet)) } { (StripTrackingPixel (rowRawEmail.BodyHtml)) }%>
+					</span>
+					<%}%>
+				<%}(oDataObject.GetBooleanOrFalse IsSentEmailTemplate){%>
+					<button onclick="OnOpenRawEmailInGmail('<%oDataObject.GetStringOrNull MessageID%>')" class="btn btn-info-alt btn-label float-end">Gmail</button>
+					 <%LeadNote.get Notes%> (Email Template)
+				<%}{%>
+					<%LeadNote.get Notes%>
+				<%}%>
+
+			<%}%>
+
+			</div>
+
+			
+		</td>
+
+
+
+		<td>
+			<span class="DateOnly"><%LeadNote.FollowUpDate%></span>
+		</td>
+
+
+
+			
+
+		<td>
+			<%ifneq (oLeadNoteType) ""{%>
+				<%oLeadNoteType.LeadNoteTypeName%>
+			<%}%>
+		</td>
+
+
+
+
+		<td>
+			<span class="Date"><%LeadNote.DateCreated%></span>
+		</td>
+
+
+
+
+	</tr>
+	<%}%>
+	<%GridFooter 7%>
+</table>
+
+		<%})
+	}%>
+
+<%function StripTrackingPixel sHtml
+{
+	(return (StringUtil.Remove (StringUtil.Remove (sHtml) 'https://admin.medekrpm.com/tr/le/') 'https%3a%2f%2fadmin.medekrpm.com%2ftr%2fle%2f'))
+}%>
+
+<%redefinefunction LeadNotesAdmin.GetInsert2 LeadID SalesRepresentativeID
+	{
+		(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote" id="divLeadNote">
+
+
+
+	<div class="form-group Hidden">
+		<label class="col-sm-3 control-label InputLabel">
+			Lead
+		</label>
+		<div class="col-sm-6">
+
+
+			<input type="text" kcs:FieldName="LeadID" value="<%LeadID%>" />
+
+
+		</div>
+	</div>
+
+
+	<div class="form-group Hidden">
+		<label class="col-sm-3 control-label InputLabel">
+			Sales Representative
+		</label>
+		<div class="col-sm-6">
+
+
+			<input type="text" kcs:FieldName="SalesRepresentativeID" value="<%SalesRepresentativeID%>" />
+
+
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label InputLabel">
+			Notes
+		</label> 
+
+		<div class="col-sm-9">
+
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+		</div>
+
+	</div>
+
+
+	<div class="form-group hidden">
+		<label class="col-sm-3 control-label InputLabel">
+			Type
+		</label> 
+
+		<div class="col-sm-9">
+			<%declare Options (LeadNoteTypes.GetLeadNoteTypes)%>
+				<select kcs:FieldName="LeadNoteTypeID" class="form-select">
+					<option value="">None</option>
+					<%Options.each Option{%>
+						<%if (Option.DataObject.GetBooleanOrDefault IsUserSelectable true){%>
+						<option value="<%Option.LeadNoteTypeID%>"><%Option.LeadNoteTypeName%></option>
+						<%}%>
+					<%}%>
+			</select>
+
+		</div>
+
+	</div>
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label InputLabel">
+			Follow Up Date
+		</label>
+		<div class="col-sm-6">
+
+			
+
+	
+			<input type="datetime-local" id="txtFollowUpDate" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+     
+     
+
+
+			<a href="javascript:OnFollowUpDate('later')">Later Today</a> |
+			<a href="javascript:OnFollowUpDate('tomorrow')">Tomorrow</a> |
+			<a href="javascript:OnFollowUpDate('week')">Next Week</a> |
+			<a href="javascript:OnFollowUpDate('month')">Next Month</a>
+
+			<script type="text/javascript">
+
+				function GetDateFromShortCut(val) {
+					var date = new Date();
+
+					if (StringUtil.EqualNoCase(val, 'tomorrow')) {
+						date = DateUtil.AddDays(date, 1);
+					}
+
+					else if (StringUtil.EqualNoCase(val, 'week')) {
+						date = DateUtil.AddDays(date, 7);
+					}
+
+					else if (StringUtil.EqualNoCase(val, 'month')) {
+						date = DateUtil.AddDays(date, 30);
+					}
+					else if (StringUtil.EqualNoCase(val, 'later')) {
+						date = DateUtil.AddHours(date, 3);
+					}
+
+					date=DateUtil.LocalToUTC(date);
+
+					var sDate = DateUtil.ToShortDateTime(date);
+
+					return sDate;
+				}
+
+				function OnFollowUpDate(val) {
+					var sDate = GetDateFromShortCut(val);
+					ControlUtil.SetValue("txtFollowUpDate", sDate);
+					
+					var sNotes = ControlUtil.GetValue("txtNotes");
+					if (StringUtil.IsEmpty(sNotes))
+						ControlUtil.SetValue("txtNotes", "Follow Up");
+
+				}
+			</script>
+		</div>
+	</div>
+
+
+
+
+
+</div>
+		<%})
+	}%>
+
+
+
+
+
+
+
+<%redefinefunction LeadNotesAdmin.GetAppointmentControls 
+{
+	(returnex{%>
+
+<div class="modal fade" id="divAppointmentSet" tabindex="-1" role="dialog">
+	<div class="modal-dialog"  style="width: 80%" >
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title">Set Appointment</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+	
+			<div class="modal-body">
+
+				<div class="form-group">
+					<p>Setup a new appointment for a presentation with the client.</p>
+				</div>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadNote">
+
+
+
+
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Set By 
+		</label>
+		<div class="col-sm-12">
+
+
+			<%SalesRepresentativesAdmin.GetDropDownOfEnabledReps Name SalesRepresentativeID SalesRepresentativeID '<option value="">None</option>'%>
+
+
+		</div>
+	</div>
+
+	
+	<div class="form-group mb-3">
+		<label class="col-sm-6 control-label InputLabel">
+			Appointment Date
+		</label>
+		<div class="col-sm-12">
+
+			
+
+	
+					<input type="datetime-local" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+		
+     
+
+		</div>
+	</div>
+
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Presenting 
+		</label>
+		<div class="col-sm-12">
+
+
+			<%SalesRepresentativesAdmin.GetDropDownOfEnabledReps Name SalesRepresentativeID DataObject.AppointmentPresentedBy '<option value="">None</option>'%>
+
+
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Lead
+		</label>
+		<div class="col-sm-12">
+
+			
+				<input type="hidden" kcs:FieldName="LeadNoteID"/>
+				<input type="hidden" kcs:FieldName="LeadID"/>
+	
+				<input id="txtLeadDescription" disabled="disabled" class="form-control" />
+     
+
+		</div>
+	</div>
+
+
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Notes
+		</label> 
+
+		<div class="col-sm-12">
+
+			<textarea id="txtAppointmentNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+		</div>
+
+	</div>
+
+
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Status
+		</label> 
+
+		<div class="col-sm-12">
+
+			<select class="form-select" kcs:FieldName="DataObject.AppointmentStatus">
+				<option value="">None</option>
+				<option value="Scheduled">Scheduled</option>
+				<option value="Rescheduled">Rescheduled</option>
+				<option value="No Show">No Show</option>
+				<option value="Agreement Review">Agreement Review</option>
+				<option value="Closed / Won">Closed / Won</option>
+				<option>Closed / Lost</option>
+				<option value="Presented">Presented</option>
+				<option>Onboarding</option>
+			</select>
+
+		</div>
+
+	</div>
+
+	
+	<div class="form-group mb-3">
+		<label class="col-sm-3 control-label InputLabel">
+			Completed
+		</label> 
+
+		<div class="col-sm-12 form-switch">
+
+			<input type="checkbox" class="form-check-input"
+kcs:FieldName="DataObject.IsAppointmentCompleted"/>
+
+		</div>
+
+	</div>
+
+</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+				<button type="button"  class="btn btn-primary" onclick="OnAppointmentSetSave()">Save</button>
+			</div>
+
+		
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function OnEditAppointment(iLeadNoteID) {
+		jQuery("#divAppointmentSet").modal('show');
+
+		LeadNotes.GetLeadNote.Serialize={
+			Lead: { DataObject: false }
+		};
+
+		LeadNotes.GetLeadNote(iLeadNoteID, function (oLeadNote) {
+			if (!StringUtil.IsEmpty(oLeadNote.Data))
+				oLeadNote.DataObject=JSON.parse(oLeadNote.Data);
+
+			
+			BlindBind("divAppointmentSet", oLeadNote);
+			oTinyMCESimple.selector="textarea#txtAppointmentNotes";
+			oTinyMCESimple.file_picker_callback=FilePickerCallback
+			tinymce.init(oTinyMCESimple);
+
+			ControlUtil.SetValue("txtLeadDescription", oLeadNote.Lead.Company);
+		});
+	}
+
+	function OnInsertAppointment() {
+		jQuery("#divAppointmentSet").modal('show');
+		let ddl=ControlUtil.GetChildren("divAppointmentSet", "[kcs:FieldName='SalesRepresentativeID']")[0];
+		ControlUtil.SetValue(ddl, iSalesRepresentativeID);
+		oTinyMCESimple.selector="textarea#txtAppointmentNotes";
+		oTinyMCESimple.file_picker_callback=FilePickerCallback
+		tinymce.init(oTinyMCESimple);
+	}
+
+	
+	
+	function OnAppointmentSetSave() {
+		let oObj=BlindUnbind("divAppointmentSet");
+		LeadNotes.GetLeadNote(oObj.LeadNoteID, function (oLeadNote) {
+			if (!StringUtil.IsEmpty(oLeadNote.Data))
+				oLeadNote.DataObject=JSON.parse(oLeadNote.Data);
+
+			oObj=$merge(oLeadNote, oObj);
+			oObj.Data=JSON.stringify(oObj.DataObject);
+
+			LeadNotes.UpdateLeadNoteObject(oObj, function () {
+				UserMessages.Display("Appointment updated", "Success");
+				Page.Reload();
+			});
+		});
+
+
+	}
+
+</script>
+
+
+
+
+
+	<%})
+}%>
+
+<%redefinefunction LeadNotesAdmin.GetTranscriptionJavascript 
+{
+	(returnex{%>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Calls.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+
+
+    function toggleSummarizedContent(ctrl) {
+		var content = ctrl;
+		if (content.hasClass("expanded"))
+			return;
+        content.classList.toggle('expanded');
+		var indicators = ctrl.getElements(".summary-indicator");
+		if (indicators.length > 0) {
+			let indicator = indicators[0];
+			indicator.classList.toggle("hidden");
+		}
+    }
+
+	function OnSeekAudio(id, dOffset) {
+		let ctrl = _$("audio_" + id);
+		if (ctrl) {
+			ctrl.currentTime = dOffset;
+			ctrl.play();
+		}
+	}
+
+	function OnVideoTimeUpdate(ctrl) {
+		let sID = StringUtil.RightOfFirst(ctrl.id, "_");
+
+		let oDiv = _$("divTranscription_" + sID);
+		if (oDiv) {
+			let sTime = ctrl.currentTime;
+			let oSpans = oDiv.getElements(".conversation");
+			for (let i = 0; i < oSpans.length; i++) {
+				let oSpan = oSpans[i];
+				let sStart = parseFloat(oSpan.getAttribute("data-start"));
+				let sEnd = parseFloat(oSpan.getAttribute("data-stop"));
+				if (sTime >= sStart && sTime <= sEnd) {
+					oSpan.classList.add("reproducing");
+				}
+				else {
+					oSpan.classList.remove("reproducing");
+				}
+			}
+		}
+	}
+
+
+
+	  function OnTranscribe(iCallID, ctrl) {
+		if (ctrl)
+			ctrl.disabled = true;
+        UserMessages.DisplayNow("Starting transcription...", "Info");
+        Calls.PostProcessCall(iCallID, true,function () {
+            UserMessages.DisplayNow("Transcription available", "Success");
+            Page.Reload();
+        });
+    }
+
+</script>
+
+	<%})
+}%>
+
+<%redefinefunction LeadNotesAdmin.GetGoogleDocAttachmentControls 
+{
+    (returnex{%>
+
+
+<div class="modal fade" id="divGoogleDocFileAttachments" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title">Import Google Doc File</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+					<p class="card-text">
+						Alternatively, you can load a Google Sheet by providing the Sheet ID and Tab name below.<br />
+						Make sure you share your google doc with our AI Agent email:<br />
+						<b><span id="AgentEmail">aaron-david@sheets-integration-436118.iam.gserviceaccount.com</span></b>
+						<button type="button" class="btn btn-white ms-2" onclick="copyEmail()">
+							<i class="fas fa-copy"></i>
+						</button>
+					</p>
+                    <div class="mb-3">
+                        <label for="txtUrl" class="form-label">Google Doc ID:</label>
+                        <input type="text" class="form-control" id="txtUrl"  kcs:FieldName="DocumentID" onblur="OnBlurGoogleDocID(this)" />
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="OnSaveGoogleDoc()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<%})
+}%>

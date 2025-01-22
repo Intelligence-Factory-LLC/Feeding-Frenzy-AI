@@ -1,0 +1,116 @@
+<%addpath PhoneNumbers%>
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile PhoneNumbers.Meta.json%>
+
+<%SimpleObjectsPage.Metadata.InsertUrl ""%>
+<%SimpleObjectsPage.GridHtmlMethod GetCallingGridHtml%>
+
+<%redefinefunction SimpleObjectsPage.Title 
+{
+	(return "Make a Call")
+}%>
+
+<%redefinefunction SimpleObjectsPage.MainPanelTitle 
+{
+	(return "Make a Call")
+}%>
+
+<%redefinefunction SimpleObjectsPage.Breadcrumbs 
+{
+	(returnex{%>
+
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Main</a></li>
+			<li class="breadcrumb-item">Call</li>
+		</ol>
+
+    <%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+	(returnex{%>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.UI.PhoneNumbersAdmin.ashx.js?v=<%JsVersion%>"></script>
+
+	<script type="text/javascript">
+		Page.AddOnload(function () {
+			$$("#lstRecent li a").forEach(x => {
+				x.innerHTML = StringToPhone(x.innerHTML);
+			});
+
+			Page.PhoneNumbersGrid.OnEmptyData = OnEmptyData;
+		});
+
+		function OnMakeCall(sPhone) {
+			let sCallerID = "<%TwilioFeature.Feature.FromNumber%>";
+			var sUrl="/tw_call.html?"+toQueryString(
+			{
+				phone: sPhone,
+				record : true,
+				CallerID: sCallerID
+			});
+
+			window.open(sUrl, 'caller_' + sPhone, 'toolbar=no, menubar=no, resizable=yes, scrollbars=yes, width=500, height=900')
+		}
+
+		function OnEmptyData() {
+			let sText = "No Contacts Found";
+			let sPhone = ControlUtil.GetValue("txtSearchTerm");
+			sPhone = Clean(sPhone, "0123456789");
+
+			if (IsValidPhoneNumber(sPhone)) {
+				sText = PhoneNumbersAdmin.GetSingleNumberDialer(sPhone);
+			}
+			else {
+				sText = "Not a valid number";
+			}
+
+			_$("divPhoneNumbersEmpty").innerHTML = sText;
+		}
+
+		function IsValidPhoneNumber(phoneNumber) {
+			if (phoneNumber === null || phoneNumber === undefined) {
+				return false;
+			}
+
+			// Clean the phone number to keep only digits
+			phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+
+			if (!phoneNumber || phoneNumber.trim() === '') {
+				return false;
+			}
+
+			// Ensure the phone number consists only of digits and is exactly 10 digits long
+			if (!/^\d{10}$/.test(phoneNumber)) {
+				return false;
+			}
+
+			// Check for obviously fake numbers
+			const fakePrefixes = ["555", "123", "000", "911", "411", "211", "311", "511", "611", "711", "811"];
+			if (fakePrefixes.some(prefix => phoneNumber.startsWith(prefix))) {
+				return false;
+			}
+
+			// Check for repeated digits
+			if (/(\d)\1{9}/.test(phoneNumber)) {
+				return false;
+			}
+
+			// Check for sequential numbers (both ascending and descending)
+			if (phoneNumber === "1234567890" || phoneNumber === "9876543210") {
+				return false;
+			}
+
+			// Check if the first digit is not 0 or 1
+			if (phoneNumber.startsWith("0") || phoneNumber.startsWith("1")) {
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+	<%})
+}%>
+
+

@@ -1,0 +1,384 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile Leads.Meta.json%>
+
+<%redefinefunction SimpleObjectsPage.FriendlyObjectsName
+{
+	(return "My Leads")
+}%>
+
+<%redefinefunction SimpleObjectsPage.AllowSelectingRows
+{
+	(return true)
+}%>
+
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalCommands
+{
+	(returnex{%>
+<div class="dropdown Hidden SelectControls" style="display: inline;">
+    <button class="btn btn btn-blue mb-2 waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+        Bulk Actions <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="javascript:OnBulkUpdateStatus()">Update Status</a></li>
+        <li><a class="dropdown-item" href="javascript:OnBulkAddTag()">Add Tag</a></li>
+        <li><a class="dropdown-item" href="javascript:OnBulkForfeitLeads()">Forfeit</a></li>
+    </ul>
+</div>
+  	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(returnex{%>
+
+        var oGrid = new JsonWsGrid4();
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.MainPanelTabs
+{
+    (declare oStatuses (LeadStatuses.GetLeadStatuses))
+    (declare oTags (Tags.GetTags))
+
+	(declare oSalesRepresentativeID (UserState.get_SalesRepresentativeID))
+
+
+	(returnex{%>
+<div class="btn-group">
+    <!-- Dropdown for Tags -->
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownTagButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="divTagName">Tag</span> <i class="mdi mdi-chevron-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownTagButton">
+        <a class="dropdown-item" href="javascript:SelectTagID(null, 'All Tags')">All Tags</a>
+        <%oTags.each oTag{%>
+            <%ifeq (oTag.SalesRepresentativeID) ""{%>
+                <a class="dropdown-item" href="javascript:SelectTagID(<%oTag.TagID%>, '<%oTag.TagName%>')"><%oTag.TagName%></a>
+            <%}%>
+        <%}%>
+        <hr/>
+        <%oTags.each oTag{%>
+            <%ifeq (oTag.SalesRepresentativeID) (UserState.SalesRepresentativeID){%>
+                <a class="dropdown-item" href="javascript:SelectTagID(<%oTag.TagID%>, '<%oTag.TagName%>')"><%oTag.TagName%></a>
+            <%}%>
+        <%}%>
+    </div>
+</div>
+
+<div class="btn-group">
+    <!-- Dropdown for Status -->
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownStatusButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="divStatusName">Status</span> <i class="mdi mdi-chevron-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownStatusButton" style="max-height: 60vh; overflow-y: scroll;">
+        <a class="dropdown-item" href="javascript:SelectStatusID(null, 'All Status')">All Status</a>
+        <%oStatuses.each oStatus{%>
+            <a class="dropdown-item" href="javascript:SelectStatusID(<%oStatus.LeadStatusID%>, '<%oStatus.StatusName%>')"><b><%oStatus.StatusName%></b></a>
+            <%oStatus.LeadSubStatuses.each oSubStatus{%>
+                <a class="dropdown-item" href="javascript:SelectSubStatusID(<%oStatus.LeadStatusID%>, <%oSubStatus.LeadSubStatusID%>, '<%oStatus.StatusName%>', '<%oSubStatus.SubStatusName%>')">
+                    <%oStatus.StatusName%> - <%oSubStatus.SubStatusName%>
+                </a>
+            <%}%>
+        <%}%>
+    </div>
+</div>
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+    (returnex{%>
+
+<script type="text/javascript">
+	var iSalesRepresentativeID = <% UserState.SalesRepresentativeID %>;
+
+	Page.LocalSettings={
+		SalesRepresentativeID: iSalesRepresentativeID,
+		TagID: null,
+		TagName: null,
+		StatusID: null,
+		SubStatusID: null,
+		StatusName : null,
+		SortAscending: false,
+		SortColumn: "LeadID"
+	}
+
+	Page.PreserveLocalSettings(function () {
+		Page.LocalSettings.SalesRepresentativeID = iSalesRepresentativeID;
+	});
+
+	Page.AddOnload(function () {
+		ConfigureGrid(Page.LeadsGrid);
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.TagName))
+			_$("divTagName").innerHTML = Page.LocalSettings.TagName;
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.StatusName))
+			_$("divStatusName").innerHTML = Page.LocalSettings.StatusName;
+
+
+		new LocalStorage().set("LeadsPage", document.location.href);
+		_$("btnExport").removeClass("Hidden");
+	})
+
+	function ConfigureGrid(oGrid) {
+
+		let oSettings = Page.LocalSettings;
+
+		if (null!=oSettings.TagID&&null!=oSettings.LeadSubStatusID) {
+			oGrid.JsonWsGridMethod="GetGridByTagIDSubStatusIDSalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod="GetGridByTagIDSubStatusIDSalesRepresentativeIDCount";
+			oGrid.ExtraParams={ TagID: oSettings.TagID, LeadSubStatusID: oSettings.LeadSubStatusID, SalesRepresentativeID: oSettings.SalesRepresentativeID }
+		}
+		else if (null!=oSettings.TagID&&null!=oSettings.LeadStatusID) {
+			oGrid.JsonWsGridMethod = "GetGridByTagIDStatusIDSalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod = "GetGridByTagIDStatusIDSalesRepresentativeIDCount";
+			oGrid.ExtraParams = { TagID: oSettings.TagID, LeadStatusID: oSettings.LeadStatusID, SalesRepresentativeID: oSettings.SalesRepresentativeID }
+		}
+		else if (null!=oSettings.LeadSubStatusID) {
+			oGrid.JsonWsGridMethod="GetGridBySubStatusIDSalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod="GetGridBySubStatusIDSalesRepresentativeIDCount";
+			oGrid.ExtraParams={ LeadSubStatusID: oSettings.LeadSubStatusID, SalesRepresentativeID: oSettings.SalesRepresentativeID };
+		}
+		else if (null != oSettings.LeadStatusID) {
+			oGrid.JsonWsGridMethod = "GetGridByStatusIDSalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod = "GetGridByStatusIDSalesRepresentativeIDCount";
+			oGrid.ExtraParams = { LeadStatusID: oSettings.LeadStatusID, SalesRepresentativeID: oSettings.SalesRepresentativeID };
+		}
+		else if (null != oSettings.TagID) {
+			oGrid.JsonWsGridMethod = "GetGridByTagIDSalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod = "GetGridByTagIDSalesRepresentativeIDCount";
+			oGrid.ExtraParams = { TagID: oSettings.TagID, SalesRepresentativeID: oSettings.SalesRepresentativeID };
+		}
+		else {
+			oGrid.JsonWsGridMethod = "GetGridBySalesRepresentativeIDHtml";
+			oGrid.JsonWsCountMethod = "GetGridBySalesRepresentativeIDCount";
+			oGrid.ExtraParams = { SalesRepresentativeID: oSettings.SalesRepresentativeID };
+		}
+
+		oGrid.SortAscending = oSettings.SortAscending;
+		oGrid.sort = oSettings.SortColumn;
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = OnClick<%ObjectName%>;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function () { OnFormatDate("divLeads") };
+		oGrid.OnEmptyData = OnEmptyData();
+	}
+
+	function OnEmptyData() {
+		let sText = "No Leads Found";
+		if (Page.LocalSettings.TagID != null || Page.LocalSettings.LeadStatusID != null || Page.LocalSettings.LeadSubStatusID != null)
+			sText += ", but you have filters applied. You may want to expand your search: <a href='javascript:OnClearFilters()'>Clear Filters</a>";
+		_$("divLeadsEmpty").innerHTML =sText;
+	}
+
+	function OnClearFilters() {
+		Page.LocalSettings.TagID = null;
+		_$("divTagName").innerHTML = Page.LocalSettings.TagName = "All Tags";
+		Page.LocalSettings.LeadStatusID=null;
+		Page.LocalSettings.LeadSubStatusID = null;
+		_$("divStatusName").innerHTML = Page.LocalSettings.StatusName = "All Status";
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+	function SelectTagID(iTagID, sTagName) {
+		Page.LocalSettings.TagID = iTagID;
+		Page.LocalSettings.TagName = sTagName;
+		_$("divTagName").innerHTML = sTagName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+	function SelectStatusID(iStatusID, sStatusName) {
+		Page.LocalSettings.LeadStatusID=iStatusID;
+		Page.LocalSettings.LeadSubStatusID = null;
+		Page.LocalSettings.StatusName = sStatusName;
+
+		_$("divStatusName").innerHTML = sStatusName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+	function SelectSubStatusID(iStatusID, iSubStatusID, sStatusName, sSubStatusName) {
+		Page.LocalSettings.LeadStatusID = iStatusID;
+		Page.LocalSettings.LeadSubStatusID = iSubStatusID;
+		Page.LocalSettings.StatusName = sStatusName+" - "+sSubStatusName;
+		_$("divStatusName").innerHTML=Page.LocalSettings.StatusName;
+		ConfigureGrid(Page.LeadsGrid);
+		Page.LeadsGrid.Refresh(true);
+	}
+
+
+	function OnExportLeads() {
+
+		if(Page.LocalSettings.TagID == null)
+		{
+			UserMessages.DisplayNow("Please select a tag", "Warning");
+			return;
+		}
+
+		if(Page.LocalSettings.LeadStatusID == null)
+		{
+			UserMessages.DisplayNow("Please select Lead Status", "Warning");
+			return;
+		}
+
+		Leads.ExportLeads2(iSalesRepresentativeID, Page.LocalSettings.LeadStatusID, Page.LocalSettings.TagID, function (sFile) {
+			Page.Redirect("/reports/" + sFile, {}, "_blank");
+		})
+	}
+
+	function EnableMassDefunct() {
+		Page.Grids.Leads.SkipSize = 100;
+		Page.Grids.Leads.OnComplete = function () {
+			console.log('here')
+			$$("[kcs:Row='StatusID']").forEach(function (oTd) {
+				var iLeadID = oTd.getAttribute("kcs:Value");
+				if (StringUtil.EqualNoCase(oTd.innerHTML, "Not Contacted")) {
+					$$$(["button", { mousedown: function () { DefunctLead(iLeadID); return false; } }, "Defunct"]).inject(oTd);
+				}
+			});
+		};
+
+		Page.Grids.Leads.Refresh(true);
+
+
+	}
+
+	function DefunctLead(iLeadID) {
+		Leads.UpdateLeadStatus(iLeadID, <% UserState.get_SalesRepresentativeID %>, "Defunct", "Not a Good Fit",
+			function () {
+				UserMessages.DisplayNow("Lead " + iLeadID + " defunct", "Success");
+			});
+	}
+</script>
+
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.SalesRepresentatives.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadTags.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="/js/lead_bulk_operations.js"></script>
+
+<script type="text/javascript">
+
+	function OnBulkForfeitLeads() {
+		let lstSelected = Page.LeadsGridSelector.m_setSelected.ToArray();
+		if (lstSelected.length == 0) {
+			UserMessages.DisplayNow("No rows selected", "Error");
+		}
+		else {
+			ControlUtil.SetValue("txtBulkForfeitNumOfLeads", lstSelected.length);
+			jQuery("#divBulkForfeit").modal('show');
+		}
+	}
+
+	async function OnBulkForfeitLeadsComplete() {
+
+		let lstSelected = Page.LeadsGridSelector.m_setSelected.ToArray();
+
+		jQuery("#divBulkForfeit").modal('hide');
+
+		{
+			UserMessages.DisplayNow("Starting forfeit", "Info")
+			Leads.ForfeitLead.DisableRequestCancelling = true;
+			lstSelected.each(async x => {
+				let f=new Promise((resolve) => {
+					Leads.ForfeitLead(x, iSalesRepresentativeID, function () {
+						resolve();
+					})
+				});
+
+				await f;
+			});
+
+			UserMessages.Display("Forfeited " + lstSelected.length + " leads", "Success");
+			Page.Reload();
+		}
+	}
+
+
+
+
+	function OnShowSearchFilters() {
+		_$('divSearchFilters').removeClass("hidden");
+	}
+
+	function OnApplySearchFilters() {
+		let oOptions = BlindUnbind(_$("divSearchFilters"));
+		Page.LocalSettings.SearchFilters = oOptions;
+
+		let oGrid = Page.LeadsGrid;
+
+		oGrid.JsonWsGridMethod = "GetUnassignedGridWithSearchHtml"
+	    oGrid.JsonWsCountMethod = "GetUnassignedGridWithSearchCount";
+		oGrid.ExtraParams = { SearchOptions : Page.LocalSettings.SearchFilters };
+		oGrid.Refresh(true);
+	}
+
+
+
+
+</script>
+
+<div class="modal fade" id="divBulkForfeit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title">Forfeit Leads</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="txtBulkForfeitNumOfLeads" class="form-label">Leads Selected</label>
+                        <input type="text" class="form-control" readonly="readonly" id="txtBulkForfeitNumOfLeads" />
+                    </div>
+                    <!-- Additional fields can be added here if needed -->
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="OnBulkForfeitLeadsComplete()">Forfeit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<%LeadsAdmin.GetBulkUpdateStatusModal%>
+	<%LeadsAdmin.GetBulkAssignModal%>
+	<%LeadsAdmin.GetBulkAddTagModal%>
+
+    <%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.CommandButtons
+{
+	(returnex{%>
+		<%if (AllowInsert){%>
+			<button value="" onclick="OnAdd<%ObjectName%>()" class="Insert btn btn-primary mb-2"><i class="fa fa-plus"></i> New <%FriendlyObjectName%></button>
+		<%}%>
+		<%if (AllowSelectingRows){%>
+			<button value="" onclick="OnSelectRows()" class="Insert btn btn-primary mb-2"><i class="fa fa-hand-point-right"></i> Select Rows</button>
+		<%}%>
+			<button value="" class="Hidden Insert btn btn-primary mb-2" id="btnExport" onclick="OnExport<%ObjectsName%>()"><i class="fa fa-file"></i> Export <%FriendlyObjectsName%></button>
+
+		<%AdditionalCommands%>
+
+	<%})
+}%>
+
+
+<%declare oPermission (UserState.get_Permission)%>
+<%SimpleObjectsPage.AllowInsert (oPermission.InsertLead)%>

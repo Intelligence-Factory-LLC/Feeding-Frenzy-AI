@@ -1,0 +1,873 @@
+<%
+class EmailHistoriesAdmin
+{
+			
+	(function GetDetails EmailHistoryID
+	{
+		(declare EmailHistory (EmailHistories.GetEmailHistory (EmailHistoryID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email History ID
+							</td>
+							<td>
+								
+									<%EmailHistory.EmailHistoryID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								To
+							</td>
+							<td>
+								
+									<%EmailHistory.To%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								From
+							</td>
+							<td>
+								
+									<%EmailHistory.From%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email Template ID
+							</td>
+							<td>
+								
+									<%EmailHistory.EmailTemplateID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Subject
+							</td>
+							<td>
+								
+									<%EmailHistory.Subject%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%EmailHistory.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%EmailHistory.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Pending
+							</td>
+							<td>
+								
+									<%if (EmailHistory.IsPending) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Sent
+							</td>
+							<td>
+								
+									<%if (EmailHistory.IsSent) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%EmailHistory.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%EmailHistory.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%EmailHistory.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown EmailHistoryName EmailHistoryID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetEmailHistoriesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit EmailHistoryID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="EmailHistory">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email History ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="EmailHistoryID" class="InputString form-control" readonly="readonly" value="<%EmailHistoryID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						To
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						From
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Template ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnEmailTemplateID" kcs:FieldName="EmailTemplateID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Subject
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtSubject" kcs:FieldName="Subject" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtEmail" kcs:FieldName="Email" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Pending
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsPending" kcs:FieldName="IsPending"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sent
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input" id="chkIsSent" kcs:FieldName="IsSent"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view EmailHistories GetEmailHistoriesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailHistoryID">
+						Email History ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="To">
+						To
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="From">
+						From
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailTemplateID">
+						Email Template ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Subject">
+						Subject
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsPending">
+						Pending
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsSent">
+						Sent
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailHistories.each EmailHistory{%> 
+				<tr kcs:RowKey="<%EmailHistory.get EmailHistoryID%>" >
+							
+			
+					
+					<td>
+						<%EmailHistory.EmailHistoryID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.To%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.From%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.EmailTemplateID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.Subject%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.Email%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailHistory.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailHistory.IsPending) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailHistory.IsSent) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailHistory.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 10%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row EmailHistories GetEmailHistoriesSp_CountSp  (Search))
+		(return (EmailHistories.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByEmailTemplateID EmailTemplateID 
+	{
+		(return (GetGridByEmailTemplateID (EmailTemplateID) '' '' true 0 20))
+	})
+
+	(function GetGridByEmailTemplateID EmailTemplateID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByEmailTemplateIDHtml (EmailTemplateID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByEmailTemplateIDCount (EmailTemplateID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByEmailTemplateIDHtml EmailTemplateID 
+	{
+		(return (GetGridByEmailTemplateIDHtml (EmailTemplateID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByEmailTemplateIDHtml EmailTemplateID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view EmailHistories GetEmailHistoriesByEmailTemplateIDSp_PagingSp (EmailTemplateID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="EmailHistoryID">
+						Email History ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="To">
+						To
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="From">
+						From
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="EmailTemplateID">
+						Email Template ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Subject">
+						Subject
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsPending">
+						Pending
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsSent">
+						Sent
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%EmailHistories.each EmailHistory{%> 
+				<tr kcs:RowKey="<%EmailHistory.get EmailHistoryID%>" >
+							
+			
+					
+					<td>
+						<%EmailHistory.EmailHistoryID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.To%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.From%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.EmailTemplateID%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.Subject%>
+					</td>
+					
+			
+					
+					<td>
+						<%EmailHistory.Email%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailHistory.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailHistory.IsPending) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (EmailHistory.IsSent) Yes No%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%EmailHistory.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 10%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByEmailTemplateIDCount EmailTemplateID  Search
+	
+	{
+		(ado.row EmailHistories GetEmailHistoriesByEmailTemplateIDSp_CountSp (EmailTemplateID) (Search))
+		(return (EmailHistories.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="EmailHistory">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						To
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						From
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Email Template ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnEmailTemplateID" kcs:FieldName="EmailTemplateID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Subject
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtSubject" kcs:FieldName="Subject" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Email
+					</label>
+					<div class="col-6">
+						
+							<textarea id="txtEmail" kcs:FieldName="Email" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Pending
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input" id="chkIsPending" kcs:FieldName="IsPending"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Sent
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsSent" kcs:FieldName="IsSent"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

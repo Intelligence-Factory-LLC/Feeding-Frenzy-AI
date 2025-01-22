@@ -1,0 +1,1112 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">BlockedEmails</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/blocked-emails" "/JsonWs/FeedingFrenzy.Admin.Business.BlockedEmails.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.BlockedEmails.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.CopyBlockedEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyBlockedEmail">
+
+				<h3>BlockedEmails.CopyBlockedEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/copy-blocked-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyBlockedEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/copy-blocked-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Blocked Email ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBlockedEmailID" kcs:FieldName="BlockedEmailID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyBlockedEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/copy-blocked-email
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: BlockedEmailID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyBlockedEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyBlockedEmailClick()
+										{
+											var oObj = BlindUnbind("divCopyBlockedEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/copy-blocked-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.CopyBlockedEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyBlockedEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyBlockedEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyBlockedEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.GetBlockedEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmail">
+
+				<h3>BlockedEmails.GetBlockedEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetBlockedEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.BlockedEmailsRow.ks.html&Class=SimpleApiHarnessPage">BlockedEmailsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Blocked Email ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBlockedEmailID" kcs:FieldName="BlockedEmailID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetBlockedEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email
+
+## Returns
+BlockedEmailsRow
+
+## Parameters 
+
+	Name: BlockedEmailID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetBlockedEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetBlockedEmailClick()
+										{
+											var oObj = BlindUnbind("divGetBlockedEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.GetBlockedEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetBlockedEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetBlockedEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.GetBlockedEmailByEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmailByEmail">
+
+				<h3>BlockedEmails.GetBlockedEmailByEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email-by-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetBlockedEmailByEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email-by-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.BlockedEmailsRow.ks.html&Class=SimpleApiHarnessPage">BlockedEmailsRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetBlockedEmailByEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email-by-email
+
+## Returns
+BlockedEmailsRow
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetBlockedEmailByEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetBlockedEmailByEmailClick()
+										{
+											var oObj = BlindUnbind("divGetBlockedEmailByEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-email-by-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.GetBlockedEmailByEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetBlockedEmailByEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmailByEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetBlockedEmailByEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.GetBlockedEmails</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmails">
+
+				<h3>BlockedEmails.GetBlockedEmails</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-emails</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetBlockedEmails">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-emails" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.BlockedEmailsRow.ks.html&Class=SimpleApiHarnessPage">BlockedEmailsRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetBlockedEmails
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-emails
+
+## Returns
+BlockedEmailsRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetBlockedEmailsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetBlockedEmailsClick()
+										{
+											var oObj = BlindUnbind("divGetBlockedEmails");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/get-blocked-emails")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.GetBlockedEmailsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetBlockedEmails", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetBlockedEmails">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetBlockedEmails" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.InsertBlockedEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertBlockedEmail">
+
+				<h3>BlockedEmails.InsertBlockedEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/insert-blocked-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertBlockedEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/insert-blocked-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Notes
+		</label>
+		<div class="col-6">
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertBlockedEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/insert-blocked-email
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+	Name: Notes, Type: Text
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertBlockedEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertBlockedEmailClick()
+										{
+											var oObj = BlindUnbind("divInsertBlockedEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/insert-blocked-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.InsertBlockedEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertBlockedEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertBlockedEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertBlockedEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.RemoveBlockedEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveBlockedEmail">
+
+				<h3>BlockedEmails.RemoveBlockedEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/remove-blocked-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveBlockedEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/remove-blocked-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Blocked Email ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBlockedEmailID" kcs:FieldName="BlockedEmailID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveBlockedEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/remove-blocked-email
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: BlockedEmailID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveBlockedEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveBlockedEmailClick()
+										{
+											var oObj = BlindUnbind("divRemoveBlockedEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/remove-blocked-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.RemoveBlockedEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveBlockedEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveBlockedEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveBlockedEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.UpdateBlockedEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateBlockedEmail">
+
+				<h3>BlockedEmails.UpdateBlockedEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateBlockedEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Blocked Email ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBlockedEmailID" kcs:FieldName="BlockedEmailID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Notes
+		</label>
+		<div class="col-6">
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateBlockedEmail
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: BlockedEmailID, Type: ID
+
+	Name: Email, Type: Email
+
+	Name: Notes, Type: Text
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateBlockedEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateBlockedEmailClick()
+										{
+											var oObj = BlindUnbind("divUpdateBlockedEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.UpdateBlockedEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateBlockedEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateBlockedEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateBlockedEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>BlockedEmails.UpdateBlockedEmailData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateBlockedEmailData">
+
+				<h3>BlockedEmails.UpdateBlockedEmailData</h3>
+				<p>/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateBlockedEmailData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Blocked Email ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBlockedEmailID" kcs:FieldName="BlockedEmailID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateBlockedEmailData
+
+## Url
+/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: BlockedEmailID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateBlockedEmailDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateBlockedEmailDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateBlockedEmailData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/blocked-emails/update-blocked-email-data")
+																		BlockedEmails.Url = oObj.BaseUrl;
+
+																	BlockedEmails.UpdateBlockedEmailDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateBlockedEmailData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateBlockedEmailData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateBlockedEmailData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

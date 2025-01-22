@@ -1,0 +1,19 @@
+{
+	ObjectName : "PageLayout",
+	ObjectsName : "PageLayouts",
+
+	
+	NaturalKey : "Url",
+	
+	
+	FriendlyObjectName : "Page Layout",
+	FriendlyObjectsName : "Page Layouts",
+	
+	ObjectsUrl : "page-layouts",
+	DetailsUrl : "page-layout",
+	EditUrl : "page-layout-edit",
+	InsertUrl : "page-layout-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

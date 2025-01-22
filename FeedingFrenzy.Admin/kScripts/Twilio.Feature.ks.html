@@ -1,0 +1,315 @@
+
+
+<%using SimpleObjectEdit.ks.html%>
+<%using Features\FeaturesAdmin.ks.html%>
+<%addpath Features%>
+
+<%SimpleObjectEditPage.MetadataFile Features.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Features.GetFeatureByFeatureName "Twilio Feature"))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.ObjectID
+{
+	(declare oObj (Object))
+	(return (oObj.FeatureID))
+}%>
+
+
+<%redefinefunction SimpleObjectEditPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript">
+
+	//todo: merge
+
+	Validators.Data = function (oElement) {
+		if ($type(oElement) == 'object')
+			return true;
+		else if (!StringUtil.IsEmpty(oElement))
+			return Json.IsValid(new String(oElement));
+		return true;
+	}
+
+	//todo: hack 
+	Json.IsValid = function () {
+		return true;
+	} 
+
+		UnbindFeature = function()
+		{
+			var oObj = BlindUnbind(_$("divFeature"));
+			oObj.FeatureID = iFeatureID;
+			oObj = $merge(oFeature, oObj);
+
+			oObj.Settings = BlindUnbind($$("[kcs:ObjectName='Settings']")[0]);
+			return oObj;
+		}
+
+		BindFeature = function(oObj)
+		{
+			BlindBind(_$("divFeature"), oObj);
+			if (!StringUtil.IsEmpty(oObj.Settings))
+			{
+				BlindBind($$("[kcs:ObjectName='Settings']")[0], JSON.decode(oObj.Settings));
+			}
+		}
+</script>
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectEditPage.EditPanel
+{
+	(returnex{%>
+
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Feature">
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Feature ID
+        </label>
+        <div class="col-sm-6">
+            <input type="text" readonly="readonly" id="hdnFeatureID" kcs:FieldName="FeatureID" value="4781" />
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Feature Name
+        </label>
+        <div class="col-sm-6">
+            <input type="text" id="txtFeatureName" kcs:FieldName="FeatureName" class="InputString form-control" maxlength="255" />
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Version
+        </label>
+        <div class="col-sm-6">
+            <input type="text" id="txtVersion" kcs:FieldName="Version" class="InputString form-control" maxlength="255" />
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Enabled
+        </label>
+        <div class="col-sm-6 form-switch">
+            <input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled" />
+        </div>
+    </div>
+
+
+    <fieldset kcs:ObjectName="Settings">
+        <legend>Settings</legend>
+
+
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Twilio Feature ID
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="hdnTwilioFeatureID" kcs:FieldName="TwilioFeatureID" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Account SID
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtAccountSID" kcs:FieldName="AccountSID" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Auth Token
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtAuthToken" kcs:FieldName="AuthToken" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Api Key
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtApiKey" kcs:FieldName="ApiKey" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Api Secret
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtApiSecret" kcs:FieldName="ApiSecret" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Application Sid
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtApplicationSid" kcs:FieldName="ApplicationSid" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Jwt
+            </label>
+            <div class="col-sm-6">
+                <textarea id="txtJwt" kcs:FieldName="Jwt" class="InputText form-control"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Expiration
+            </label>
+            <div class="col-sm-6">
+                <input type="datetime" id="txtExpiration" kcs:FieldName="Expiration" class="InputDateTime form-control" maxlength="20" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                From Number
+            </label>
+            <div class="col-sm-6">
+                <input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtFromNumber" kcs:FieldName="FromNumber" class="InputPhone form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Recording Handler
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtRecordingHandler" kcs:FieldName="RecordingHandler" class="InputUrl form-control" maxlength="512" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Call Status Handler
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtCallStatusHandler" kcs:FieldName="CallStatusHandler" class="InputUrl form-control" maxlength="512" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Call Stream Handler
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtCallStreamHandler" kcs:FieldName="CallStreamHandler" class="InputUrl form-control" maxlength="512" />
+            </div>
+        </div>
+               
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Call Stream Incoming XML
+            </label>
+            <div class="col-sm-6">
+				<textarea kcs:FieldName="CallStreamIncomingXml" class="InputText form-control"></textarea>               
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Cache Directory
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtCacheDirectory" kcs:FieldName="CacheDirectory" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3 Bucket Name
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3BucketName" kcs:FieldName="S3BucketName" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3 Bucket URL
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3BucketURL" kcs:FieldName="S3BucketURL" class="InputUrl form-control" maxlength="512" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3Access Key ID
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3AccessKeyID" kcs:FieldName="S3AccessKeyID" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3 Secret Access Key
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3SecretAccessKey" kcs:FieldName="S3SecretAccessKey" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3 Region
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3Region" kcs:FieldName="S3Region" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                S3 Folder
+            </label>
+            <div class="col-sm-6">
+                <input type="text" id="txtS3Folder" kcs:FieldName="S3Folder" class="InputString form-control" maxlength="255" />
+            </div>
+        </div>
+        
+
+
+    </fieldset>
+
+
+
+</div>
+
+	<%})
+}%>
+
+
+
+    

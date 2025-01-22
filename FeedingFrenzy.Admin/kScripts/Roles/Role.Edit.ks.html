@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using RolesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Roles.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Roles.GetRole (ObjectID)))
+}%>
+

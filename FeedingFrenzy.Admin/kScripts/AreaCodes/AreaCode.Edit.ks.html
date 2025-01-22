@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using AreaCodesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile AreaCodes.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (AreaCodes.GetAreaCode (ObjectID)))
+}%>
+

@@ -1,0 +1,335 @@
+<%addpath Agents%>
+<%using Simple.ks.html%>
+<%using AgentsBuilderAdmin.ks.html%>
+
+<%redefinefunction SimplePage.Title
+{
+	(return "Quick Agent Builder")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "Quick Agent Builder")
+}%>
+
+<%function GetVoiceAgents
+{
+	(declare dtAgents (Agents.GetAgentsByAgentTypeIDSp_PagingSp '2' '' 'AgentID' true 0 10))
+
+    (returnex{%>	
+		<%dtAgents.each rowAgent{%>
+			 <option value="<%rowAgent.AgentID%>"><%rowAgent.AgentName%></option>
+		<%}%>
+	<%})
+}%>
+
+<%redefinefunction SimplePage.DetailsPanel 
+{
+	(returnex{%>
+	<div class="container-fluid">
+		<div class="card m-3" id="divSelectAgent">
+			<div class="card-body">
+				<h3 class="card-title">
+					<i class="bi bi-person-bounding-box me-2"></i>Select Voice Agent
+				</h3>
+				<p class="card-text">
+					Choose a voice agent from the list below to proceed with training and analysis.
+				</p>
+				<div class="row mb-3">
+					<div class="col-sm-12">
+						<select kcs:FieldName="DataObject.Voice" id="agentSelect" class="form-select">
+							<%GetVoiceAgents%>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<div class="card m-3" id="divTrain">
+			<div class="card-body">
+				<h3 class="card-title">
+					<i class="bi bi-globe me-2"></i>Website
+				</h3>
+				<p class="card-text">
+					Follow these steps to let the AI agent analyze your website content and generate answers for common customer questions:
+				</p>
+				<ol>
+					<li>Enter the URL of your website in the text field where it says "Enter a URL address."</li>
+					<li>Click on the "Scan a full page" option.</li>
+					<li>The AI agent will scan your website content and automatically generate answers for customer questions based on your site's information.</li>
+				</ol>
+				<div class="mb-3">
+					<label for="urlInput" class="form-label">Enter URL Address:</label>
+					<input type="url" id="urlInput" class="form-control w-50" placeholder="https://yourwebsite.com" />
+				</div>
+				<div class="text-end">
+					<button type="button" class="btn btn-primary" onclick="OnScanFullPage()">Scan a full page</button>
+					<button type="button" class="btn btn-secondary" onclick="OnCancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Spinner card, initially hidden -->
+		<div class="col-lg-6" id="loadingSpinner" style="display: none;">
+			<div class="card">
+				<div class="card-body">        
+					<h4 class="mt-0 header-title">Loading</h4>
+					<p class="text-muted mb-4">The scan is in progress. Please wait...</p>        
+					<div class="spinner-border m-2" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div><!-- end card-body -->
+			</div><!-- end card -->
+		</div> <!-- end col -->
+	</div>
+
+<div class="container-fluid">
+	<div class="card m-3" id="divParsedData" style="display: none;">
+		<div class="card-body">
+			<h3 class="card-title"><i class="bi bi-robot me-2"></i>Scrapped Data</h3>
+			<p class="card-text">
+				These are the items your agent will use to train and provide answers to customer questions. Review the details below, and click "Confirm & Save" to store them.
+			</p>
+			<div id="parsedDataContent">
+				<div class="accordion" id="accordionData">
+					<!-- HTML Content -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingHtml">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHtml" style="background-color: #e7f1ff;">
+								<i class="bi bi-code-slash me-2"></i>HTML Content
+							</button>
+						</h2>
+						<div id="collapseHtml" class="accordion-collapse collapse">
+							<div class="accordion-body">
+								<pre id="htmlContent"></pre>
+							</div>
+						</div>
+					</div>
+
+					<!-- Text Content -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingText">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseText" style="background-color: #e0f8e9;">
+								<i class="bi bi-file-text me-2"></i>Text Content
+							</button>
+						</h2>
+						<div id="collapseText" class="accordion-collapse collapse">
+							<div class="accordion-body">
+								<pre id="textContent"></pre>
+							</div>
+						</div>
+					</div>
+
+					<!-- Metadata -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingMetadata">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMetadata" style="background-color: #e0f7fa;">
+								<i class="bi bi-card-list me-2"></i>Metadata
+							</button>
+						</h2>
+						<div id="collapseMetadata" class="accordion-collapse collapse">
+							<div class="accordion-body" id="metadataContent"></div>
+						</div>
+					</div>
+
+					<!-- Images -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingImages">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImages" style="background-color: #fff4e5;">
+								<i class="bi bi-images me-2"></i>Images
+							</button>
+						</h2>
+						<div id="collapseImages" class="accordion-collapse collapse">
+							<div class="accordion-body" id="imagesContent"></div>
+						</div>
+					</div>
+
+					<!-- Headings -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingHeadings">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHeadings" style="background-color: #e5f6ff;">
+								<i class="bi bi-list-ul me-2"></i>Headings
+							</button>
+						</h2>
+						<div id="collapseHeadings" class="accordion-collapse collapse">
+							<div class="accordion-body" id="headingsContent"></div>
+						</div>
+					</div>
+
+					<!-- Links -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingLinks">
+							<button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" style="background-color: #ffe5e9;">
+								<i class="bi bi-link-45deg me-2"></i>Links
+							</button>
+						</h2>
+						<div id="collapseLinks" class="accordion-collapse collapse">
+							<div class="accordion-body" id="linksContent"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="text-end mt-4">
+					<!-- Main button with spinner and text -->
+					<button id="confirmButton" type="button" class="btn btn-success" onclick="OnConfirmData()">
+						<span id="confirmButtonSpinner" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" style="display: none;"></span>
+						<span id="confirmButtonText">Train Agent</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+	<%})
+}%>
+
+<%redefinefunction SimplePage.BottomScripts
+{
+	(returnex{%>
+		<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.AgentBuilder.ashx.js"></script>
+
+		<script type="text/javascript">
+			let data = {};
+
+			Page.AddOnLoad(function () {
+				// Get the AgentID from the query string
+				let iAgentID = Page.QueryString()["AgentID"];
+				let dropdown = document.getElementById("agentSelect");
+
+				// If AgentID is found in the query string, set the dropdown to that value
+				if (iAgentID) {
+					dropdown.value = iAgentID;
+				}
+
+			});
+
+			function OnScanFullPage() {
+				// Clear previous content
+				$("#htmlContent").empty();
+				$("#textContent").empty();
+				$("#metadataContent").empty();
+				$("#imagesContent").empty();
+				$("#headingsContent").empty();
+				$("#linksContent").empty();
+				$("#divParsedData").hide();
+
+				let urlInput = $("#urlInput").val();
+
+				if(!urlInput) {
+                    UserMessages.DisplayNow("Please enter a valid URL.", "Warning");
+                    return;
+                }	
+
+				// Show the spinner and hide other content
+				$("#loadingSpinner").show();
+
+				AgentBuilder.GetAgentData(urlInput, function (jsonData) {
+  					data = JSON.parse(jsonData);
+					if (data) {
+						// Hide the spinner and show the parsed data
+						$("#loadingSpinner").hide();
+						$("#divParsedData").show();
+
+						// Populate HTML Content
+						$("#htmlContent").text(data.Html);
+
+						// Clean and populate Text Content, preserving line breaks
+						let cleanedTextContent = data.TextContent
+							.replace(/[\t ]+/g, ' ')            // Replace multiple spaces/tabs with a single space
+							.replace(/\s*\n\s*/g, '\n')         // Trim spaces around newlines
+							.replace(/\n{2,}/g, '\n\n')         // Replace multiple newlines with a single blank line
+							.trim();                            // Final trim for any leading/trailing whitespace
+
+						$("#textContent").text(cleanedTextContent);
+
+						// Populate Metadata
+						let metadataHtml = "";
+						Object.entries(data.Metadata || {}).forEach(([key, value]) => {
+							metadataHtml += `<p><strong>${key}</strong>: ${value}</p>`;
+						});
+						$("#metadataContent").html(metadataHtml);
+
+						// Populate Images
+						let imagesHtml = "";
+						(data.Images || []).forEach(img => {
+							imagesHtml += `<img src="${img}" class="img-thumbnail m-1" alt="Image" width="100"/>`;
+						});
+						$("#imagesContent").html(imagesHtml);
+
+						// Populate Headings
+						let headingsHtml = "";
+						(data.Headings || []).forEach(heading => {
+							headingsHtml += `<p>${heading}</p>`;
+						});
+						$("#headingsContent").html(headingsHtml);
+
+						// Populate Links
+						let linksHtml = "";
+						(data.HtmlLinks || []).forEach(link => {
+							linksHtml += `<p><a href="${link.Href}" target="_blank">${link.InnerText}</a></p>`;
+						});
+						$("#linksContent").html(linksHtml);
+
+					} else {
+						UserMessages.DisplayNow("No content found. Please check the URL and try again.", "Warning");
+						$("#loadingSpinner").hide();
+						$("#divTrain").show();
+					}
+				}, function () {
+					UserMessages.DisplayNow("An error occurred while scanning. Please try again.", "Error");
+					$("#loadingSpinner").hide();
+					$("#divTrain").show();
+				});
+			}
+
+			function OnConfirmData() {
+				// Get button and spinner elements
+				const confirmButton = $("#confirmButton");
+				const confirmButtonSpinner = $("#confirmButtonSpinner");
+				const confirmButtonText = $("#confirmButtonText");
+
+				// Disable button and show spinner
+				confirmButton.prop("disabled", true);
+				confirmButtonSpinner.show();
+				confirmButtonText.text("Training Agent...");
+
+				let url = $("#urlInput").val();
+				let htmlContent = data; // Replace 'data' with the actual content you want to send
+
+				let iAgentID = Page.QueryString()["AgentID"] || $("#agentSelect").val();
+
+				if(!iAgentID) {
+					UserMessages.Display('Please create an agent before proceeding with training.', "Warning");
+					return;
+                }
+
+				// Call the training method
+				AgentBuilder.InitializeAgentTraining(url, htmlContent, iAgentID, function () {
+
+					// Show success message
+					UserMessages.Display('The agent has been successfully trained and is ready for use!', "Success");
+
+					// Redirect to voice-agent page
+					Page.Redirect("voice-agent", { AgentID: iAgentID });
+
+					// Re-enable button and hide spinner (in case of future use)
+					confirmButton.prop("disabled", false);
+					confirmButtonSpinner.hide();
+					confirmButtonText.text("Confirm & Save");
+				});
+			}
+
+			function OnCancel() {
+				$("#urlInput").val('');
+				$("#divTrain").show();
+				$("#divAgent, #loadingSpinner, #divParsedData").hide();
+				Page.Reload();
+			}
+		</script>
+	<%})
+}%>

@@ -1,0 +1,131 @@
+//
+// custom-variables
+//
+
+// Google Font - Rubik
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+//Background left-sidebar
+$bg-leftbar:                                        var(--#{$prefix}bg-leftbar);
+$bg-leftbar-dark:                                   var(--#{$prefix}bg-leftbar-dark);
+$bg-leftbar-brand:                                  var(--#{$prefix}bg-leftbar-brand);
+$bg-leftbar-gradient:                               var(--#{$prefix}bg-leftbar-gradient);
+
+// Leftbar width
+$leftbar-width:                                     240px;
+$leftbar-width-condensed:                           70px;
+
+// Small Leftbar Width
+$leftbar-width-sm:                                  160px;
+
+// Boxed layout width
+$boxed-layout-width:                                1300px;
+
+// Compact sidebar
+$twocolumn-sidebar-width:                           220px;
+$twocolumn-sidebar-iconview-width:                  70px;
+$twocolumn-sidebar-bg:                              var(--#{$prefix}twocolumn-sidebar-bg);
+$twocolumn-sidebar-iconview-bg:                     var(--#{$prefix}twocolumn-sidebar-iconview-bg);
+
+// Dark leftbar menu color
+$menu-item-color-dark:                              var(--#{$prefix}menu-item-color-dark);
+$menu-item-hover-color-dark:                        var(--#{$prefix}menu-item-hover-color-dark);
+$menu-item-active-color-dark:                       var(--#{$prefix}menu-item-active-color-dark);
+
+//Menu item
+$menu-item:                                         var(--#{$prefix}menu-item);
+$menu-item-hover:                                   var(--#{$prefix}menu-item-hover);
+$menu-item-active:                                  var(--#{$prefix}menu-item-active);
+$menu-sub-item-active:                              var(--#{$prefix}menu-sub-item-active);
+$menu-item-size:                                    14px;
+$menu-sub-item-size:                                13.7px;
+
+$menuitem-active-bg:                                var(--#{$prefix}menuitem-active-bg);
+
+// Horizontal Menu Item
+$hori-menu-item-color:                              var(--#{$prefix}hori-menu-item-color);
+
+//Rightbar Width
+$rightbar-width:                                    260px;
+$rightbar-bg:                                       var(--#{$prefix}rightbar-bg);
+
+//Topbar Background
+$bg-topbar-light:                                   var(--#{$prefix}bg-topbar-light);
+$bg-topbar-dark:                                    var(--#{$prefix}bg-topbar-dark);
+
+// app-search-box-bg
+$app-search-box-bg:                                  var(--#{$prefix}app-search-box-bg);
+
+// Leftbar item shadow (Condensed item)
+$box-shadow-condensed:                              var(--#{$prefix}box-shadow-condensed); 
+
+// Footer
+$footer-bg:                                         var(--#{$prefix}footer-bg);
+
+// Topnav Height (Horizontal)
+$topnav-height:                                     55px;
+
+// Topbar Height
+$topbar-height:                                     70px;
+
+// Horizontal Layout
+$horizontal-layout-width:                           90%;
+
+// Body minimum height
+$body-min-height:                                   1750px;
+
+
+// Secondary font
+$font-family-secondary:                             'Rubik', sans-serif;
+
+// Font weight
+$font-weight-medium:                                500;
+$font-weight-semibold:                              600;
+
+// Dropdown Large
+$dropdown-lg-width:                                 320px;
+
+// Logo Display
+$logo-dark-display:                                 none;
+$logo-light-display:                                block;
+
+// Logo Display - Auth Pages
+$logo-auth-dark-display:                            block;
+$logo-auth-light-display:                           none;
+
+// User authentication Background
+$auth-bg:                                           var(--#{$prefix}auth-bg);
+$auth-bg-alt:                                       var(--#{$prefix}auth-bg-alt);
+$auth-img-bg:                                       url("../images/bg-auth.jpg");
+$auth-img-pattern-bg:                               url("../images/bg-pattern.png");
+
+// Apex chart
+$apex-grid-color:                                   var(--#{$prefix}apex-grid-color);
+
+// lighten color
+$lighten-300:                                       var(--#{$prefix}lighten-300);
+
+// Chat widget
+$chat-primary-user-bg:                              var(--#{$prefix}chat-primary-user-bg);
+$chat-secondary-user-bg:                            var(--#{$prefix}chat-secondary-user-bg);
+
+// Text-color (h1 to h6)
+$heading-color:                                      var(--#{$prefix}heading-color);
+
+// Card overlay 
+$card-overlay-color:                                var(--#{$prefix}card-overlay-color);
+$card-overlay-bg:                                   var(--#{$prefix}card-overlay-bg);
+
+// Input light gray
+$input-light-bg:                                    var(--#{$prefix}input-light-bg);
+
+// Components Shadows
+$components-shadow-sm:                              none;
+$components-shadow:                                 none;
+$components-shadow-lg:                              none;
+
+// label 
+$label-font-weight:                                 400;
+
+// Table Head
+$table-head-font-weight:                            500;

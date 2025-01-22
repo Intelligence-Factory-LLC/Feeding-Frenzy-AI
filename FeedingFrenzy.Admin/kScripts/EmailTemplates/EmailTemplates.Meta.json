@@ -1,0 +1,19 @@
+{
+	ObjectName : "EmailTemplate",
+	ObjectsName : "EmailTemplates",
+
+	
+	NaturalKey : "Name",
+	
+	
+	FriendlyObjectName : "Email Template",
+	FriendlyObjectsName : "Email Templates",
+	
+	ObjectsUrl : "email-templates",
+	DetailsUrl : "email-template",
+	EditUrl : "email-template-edit",
+	InsertUrl : "email-template-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

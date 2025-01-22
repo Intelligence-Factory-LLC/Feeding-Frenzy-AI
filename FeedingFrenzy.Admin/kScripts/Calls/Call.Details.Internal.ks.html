@@ -1,0 +1,325 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using CallsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Calls.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsPanel
+{
+		(declare Call (Calls.GetCall (ObjectID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call ID
+							</td>
+							<td>
+								
+									<%Call.CallID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Calling Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Call.CallingPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Called Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Call.CalledPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Duration
+							</td>
+							<td>
+								
+									<%Call.Duration%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Recorded
+							</td>
+							<td>
+								
+									<%if (Call.IsRecorded) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Recording URL
+							</td>
+							<td>
+								
+									<%Call.RecordingURL%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Conference
+							</td>
+							<td>
+								
+									<%if (Call.IsConference) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Streamed
+							</td>
+							<td>
+								
+									<%if (Call.IsStreamed) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Incoming
+							</td>
+							<td>
+								
+									<%if (Call.IsIncoming) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call Status
+							</td>
+							<td>
+								
+									<%Call.CallStatus%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Call Status Update
+							</td>
+							<td>
+								
+									<%Call.LastCallStatusUpdate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Transcribed
+							</td>
+							<td>
+								
+									<%if (Call.IsTranscribed) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Empty Transcription
+							</td>
+							<td>
+								
+									<%if (Call.IsEmptyTranscription) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Transcription Summary
+							</td>
+							<td>
+								
+									<%Call.TranscriptionSummary%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Call.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Call.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Call.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Call.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+}%>

@@ -1,0 +1,19 @@
+{
+	ObjectName : "AreaCode",
+	ObjectsName : "AreaCodes",
+
+	
+	NaturalKey : "AreaCode",
+	
+	
+	FriendlyObjectName : "Area Code",
+	FriendlyObjectsName : "Area Codes",
+	
+	ObjectsUrl : "area-codes",
+	DetailsUrl : "area-code",
+	EditUrl : "area-code-edit",
+	InsertUrl : "area-code-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

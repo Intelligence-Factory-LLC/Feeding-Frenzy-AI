@@ -1,0 +1,130 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using ContentsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile CallScripts.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsPanel
+{
+	(declare ContentID (ObjectID))
+
+		(declare Content (Contents.GetContent (ContentID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call Script ID
+							</td>
+							<td>
+								
+									<%Content.ContentID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Call Script Name
+							</td>
+							<td>
+								
+									<%Content.ContentName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+						
+						
+                        
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Content
+							</td>
+							<td>
+								
+									<%Content.Content%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Content.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Content.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+											
+			</table>
+		<%})
+}%>

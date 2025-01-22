@@ -1,0 +1,290 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">PageLayout</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PageLayout</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+
+				<h3>PageLayout</h3>
+				<br>
+
+
+				<h3>Properties</h3>
+				<table class="Grid table table-striped table-bordered datatables dataTable">
+					<tr>
+
+						<th></th>
+
+
+						<th kcs:SortColumn="PropertyName">
+							Property Name
+						</th>
+
+						<th kcs:SortColumn="FriendlyPropertyName">
+							Friendly Property Name
+						</th>
+
+						<th kcs:SortColumn="TypeID">
+							Type
+						</th>
+
+						<th kcs:SortColumn="">
+							Unique
+						</th>
+						<th kcs:SortColumn="">
+							Nullable
+						</th>
+
+						<th kcs:SortColumn="">
+							Default
+						</th>
+
+						<th kcs:SortColumn="">
+							Natural Key
+						</th>
+
+
+					</tr>
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							PageLayoutID
+						</td>
+						<td>
+							Page Layout ID
+						</td>
+						<td>
+							ID
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Url
+						</td>
+						<td>
+							Url
+						</td>
+						<td>
+							Url
+						</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td></td>
+						<td>Yes</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							Handler
+						</td>
+						<td>
+							Handler
+						</td>
+						<td>
+							Url
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							IsEnabled
+						</td>
+						<td>
+							Enabled
+						</td>
+						<td>
+							Boolean
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							DateCreated
+						</td>
+						<td>
+							Date Created
+						</td>
+						<td>
+							DateCreated
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							LastUpdated
+						</td>
+						<td>
+							Last Updated
+						</td>
+						<td>
+							LastUpdated
+						</td>
+						<td>No</td>
+						<td>No</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							PageTitle
+						</td>
+						<td>
+							Page Title
+						</td>
+						<td>
+							String
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+
+
+					<tr>
+						<td></td>
+						<td class="InputLabel">
+							SiteID
+						</td>
+						<td>
+							Site
+						</td>
+						<td>
+							ID
+						</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td></td>
+						<td>No</td>
+					</tr>
+
+
+					
+				</table>
+
+				<h3>Relationships</h3>
+				<table class="Grid table table-striped table-bordered datatables dataTable">
+					<tr>
+
+						<th></th>
+
+
+						<th kcs:SortColumn="PropertyName">
+							Relationship Name
+						</th>
+
+						<th kcs:SortColumn="FriendlyPropertyName">
+							Friendly Property Name
+						</th>
+
+
+					</tr>
+
+					
+					<tr>
+						<td></td>
+						
+						
+						<td>
+							<a href="k?Output=FeedingFrenzy.Admin.Business.SitesRow.ks.html&Class=SimpleApiHarnessPage">Site</a>
+						</td>
+						<td>
+							A one-to-one relationship from PageLayout -> Sites
+						</td>
+						
+						
+					</tr>
+					
+
+				</table>
+
+			</div>
+			<div class="card-footer">
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+        <%})
+
+        }%>
+
+        

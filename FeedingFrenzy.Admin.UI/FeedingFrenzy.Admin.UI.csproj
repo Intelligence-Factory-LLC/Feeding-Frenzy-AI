@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3627" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeedingFrenzy.Admin.Business\FeedingFrenzy.Admin.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BasicUtilities">
+      <HintPath>..\lib\BasicUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="kScript">
+      <HintPath>..\lib\kScript.dll</HintPath>
+    </Reference>
+    <Reference Include="RooTrax.Common">
+      <HintPath>..\lib\RooTrax.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="WebAppUtilities">
+      <HintPath>..\lib\WebAppUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

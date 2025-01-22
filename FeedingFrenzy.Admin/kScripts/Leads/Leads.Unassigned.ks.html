@@ -1,0 +1,187 @@
+<%using SimpleObjects.ks.html%>
+<%using LeadsAdmin.ks.html%>
+<%using SalesRepresentatives\SalesRepresentativesAdmin.ks.html%>
+<%SimpleObjectsPage.MetadataFile Leads.Meta.json%>
+
+
+<%declare oPermission (UserState.Permission)%>
+<%SimpleObjectsPage.AllowInsert (oPermission.InsertLead)%>
+
+<%redefinefunction SimpleObjectsPage.AllowSelectingRows
+{
+	(return (oPermission.AllowBulkLeadOperations))
+}%>
+
+<%redefinefunction SimpleObjectsPage.MainPanelTitle 
+{
+	(declare sTitle "Unassigned Leads")
+	(return (sTitle))
+}%>
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(declare SalesRepresentative (SalesRepresentatives.GetSalesRepresentative (UserState.get_SalesRepresentativeID)))
+
+	(returnex{%>
+        var searchValue = '', sortColumn = '<%ObjectName%>ID', sortAscending = true;
+
+
+        if(location.href.contains("#search")){
+            var oValues = new LocalStorage().get("<%FriendlyObjectsName%>/<%ObjectsName%>Grid")
+            if(oValues)
+            {
+                if(oValues.Search)
+                   searchValue =  oValues.Search;
+                if(oValues.SortColumn)
+                   sortColumn = oValues.SortColumn;
+                if(oValues.SortAscending)
+                   sortAscending = oValues.SortAscending
+            }
+        }
+
+        _$('txtSearchTerm').value = searchValue;
+
+        var oGrid = new JsonWsGrid4();
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+        oGrid.JsonWsGridMethod = "<%GridHtmlMethod%>";
+		oGrid.AllowPageSizeEditing = true;		
+
+		if (null == Page.LocalSettings.SearchFilters)
+		{
+			oGrid.JsonWsGridMethod = "GetUnassignedGrid2Html";
+			oGrid.JsonWsCountMethod = "GetUnassignedGrid2Count";
+		}
+		else
+		{
+			oGrid.JsonWsGridMethod = "GetUnassignedGridWithSearchHtml"
+	        oGrid.JsonWsCountMethod = "GetUnassignedGridWithSearchCount";
+			oGrid.ExtraParams = {SearchOptions : Page.LocalSettings.SearchFilters };        
+		}
+
+        oGrid.SortAscending = sortAscending;
+		oGrid.sort = sortColumn;
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = OnClick<%ObjectName%>;
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() { 
+			OnFormatGrid("div<%ObjectsName%>");
+		};		
+		oGrid.OnFilterInput = function(sInput)
+		{
+			return StringUtil.ReplaceAll(sInput, /\[/, "[[]");
+		};
+
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+    (returnex{%>
+
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.SalesRepresentatives.ashx.js?v=<%JsVersion%>"></script>
+<script type="text/javascript" src="/js/lead_bulk_operations.js"></script>
+
+<script type="text/javascript">
+	var iSalesRepresentativeID = <% UserState.get_SalesRepresentativeID %>;
+	
+
+	Page.LocalSettings = { SearchFilters: null };
+    Page.AddOnload(function () {
+        new LocalStorage().set("LeadsPage", document.location.href);
+    })
+  
+
+
+	function OnShowSearchFilters() {
+		_$('divSearchFilters').removeClass("hidden");
+	}
+
+	function OnApplySearchFilters() {
+		let oOptions = BlindUnbind(_$("divSearchFilters"));
+		Page.LocalSettings.SearchFilters = oOptions;
+
+		let oGrid = Page.LeadsGrid;
+
+		oGrid.JsonWsGridMethod = "GetUnassignedGridWithSearchHtml"
+	    oGrid.JsonWsCountMethod = "GetUnassignedGridWithSearchCount";
+		oGrid.ExtraParams = { SearchOptions : Page.LocalSettings.SearchFilters };        
+		oGrid.Refresh(true);
+	}
+
+</script>
+
+	<%LeadsAdmin.GetBulkUpdateStatusModal%>
+	<%LeadsAdmin.GetBulkAssignModal%>
+
+
+    <%})
+}%>
+	  
+<%redefinefunction SimpleObjectsPage.AdditionalCommands
+{
+	(returnex{%>
+  		<div class="dropdown Hidden SelectControls" style="display: inline;">
+		    <button class="btn btn btn-blue mb-2 waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+			Bulk Actions <span class="caret"></span>
+		  </button>
+		  <ul  class="dropdown-menu">
+				<li><a class="dropdown-item" href="javascript:OnBulkAssignLeads()">Assign Leads</a></li>
+				<li><a class="dropdown-item" href="javascript:OnBulkUpdateStatus()">Update Status</a></li>
+			</ul>
+		</div>
+  	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.SearchOptions 
+{
+	(returnex{%>
+		<div class="hidden row" style="padding-top: 10px;" id="divSearchFilters">
+			<div class="form-horizontal row-border Inputs">
+				<div class="form-group col-sm-12">
+					<label class="col-sm-1 control-label">
+						Source
+					</label>
+					<div class="col-sm-2">
+						<%using SourcesAdmin.ks.html%>
+						<%SourcesAdmin.GetDropDown SourceName SourceID SourceID{%>
+							<option value="">All Sources</option>
+						<%}%>
+
+					</div>
+					<label class="col-sm-1 control-label">
+						
+					</label>
+					<div class="col-sm-2">
+					
+				       <button type="button" class="btn btn-primary" onclick="OnApplySearchFilters()">Search</button>
+
+					</div>
+				</div>
+				</div>
+			</div>
+	<%})
+}%>
+
+
+<%redefinefunction SimpleObjectsPage.CommandButtons
+{
+	(returnex{%>
+		<%if (AllowInsert){%>
+			<button value="" onclick="OnAdd<%ObjectName%>()" class="Insert btn btn-primary mb-2"><i class="fa fa-plus"></i> New <%FriendlyObjectName%></button>
+		<%}%>
+		<%if (AllowSelectingRows){%>
+			<button value="" onclick="OnSelectRows()" class="Insert btn btn-primary mb-2"><i class="fa fa-hand-point-right"></i> Select Rows</button>
+		<%}%>
+        <button type="button" class="Insert btn btn-primary-alt mb-2" onclick="OnShowSearchFilters()"><i class="fa fa-search-plus"></i> Search Filters</button>
+
+		<%AdditionalCommands%>
+
+	<%})
+}%>
+

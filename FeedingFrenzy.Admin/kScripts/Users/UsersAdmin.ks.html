@@ -1,0 +1,1039 @@
+<%addpath Roles%>
+<%addpath Authorizations%>
+<%
+class UsersAdmin
+{
+			
+
+	(function GetDetails UserID
+	{
+		(declare User (Users.GetUser (UserID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								User ID
+							</td>
+							<td>
+								
+									<%User.UserID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%User.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (User.Phone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Enabled
+							</td>
+							<td>
+								
+									<%if (User.IsEnabled) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Has Logged In
+							</td>
+							<td>
+								
+									<%if (User.HasLoggedIn) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Login Date
+							</td>
+							<td>
+								
+									<%User.LastLoginDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Locked Out
+							</td>
+							<td>
+								
+									<%if (User.IsLockedOut) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Invited Date
+							</td>
+							<td>
+								
+									<%User.InvitedDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%User.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%User.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown Email UserID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetUsersSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit UserID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="User">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						User ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="UserID" class="InputString form-control" readonly="readonly" value="<%UserID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Enabled
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Password
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtPassword" kcs:FieldName="Password" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Has Logged In
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkHasLoggedIn" kcs:FieldName="HasLoggedIn"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Login Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtLastLoginDate" kcs:FieldName="LastLoginDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Locked Out
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsLockedOut" kcs:FieldName="IsLockedOut"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Invitation Code
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtInvitationCode" kcs:FieldName="InvitationCode" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Invitation Expiration
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtInvitationExpiration" kcs:FieldName="InvitationExpiration" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Invited
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsInvited" kcs:FieldName="IsInvited"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Invited Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtInvitedDate" kcs:FieldName="InvitedDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%declare Users (Users.GetUsersSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+			<%GetGridHtmlInternal (Users)%>
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Users GetUsersSp_CountSp  (Search))
+		(return (Users.get Total))
+	})
+
+
+	(function GetGridHtmlInternal Users
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+				
+					<th kcs:SortColumn="FirstName">
+						Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+					
+					<th kcs:SortColumn="">
+						Roles
+					</th>
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastLoginDate">
+						Last Login
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsEnabled">
+						Enabled
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+			
+				
+									
+				</tr>
+			<%Users.each User{%> 
+				<tr kcs:RowKey="<%User.get UserID%>" >
+							
+			
+					
+					<td>
+						<%User.UserID%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<%User.FirstName%> <%User.LastName%>
+					</td>
+					
+			
+				
+					<td>
+						<%User.Email%>
+					</td>
+					
+			
+					<td>
+						<%User.UserRoleRoles.each oRole{%>
+							<span class="badge <%ifeq (oRole.RoleName) Administrator badge-outline-primary badge-outline-secondary%>"><%oRole.RoleName%></span>
+
+						<%}%>
+
+					</td>
+					
+					<td>
+						<%StringToPhone (User.Phone)%>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+					<td>
+						<%User.LastLoginDate%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (User.IsEnabled) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%User.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		<%})
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="User">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Enabled
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Email
+					</label>
+					<div class="col-6">
+						
+							<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Phone
+					</label>
+					<div class="col-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Password
+					</label>
+					<div class="col-6">
+						
+							<textarea id="txtPassword" kcs:FieldName="Password" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Has Logged In
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkHasLoggedIn" kcs:FieldName="HasLoggedIn"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Last Login Date
+					</label>
+					<div class="col-6">
+						
+							<input type="datetime" id="txtLastLoginDate" kcs:FieldName="LastLoginDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Is Locked Out
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsLockedOut" kcs:FieldName="IsLockedOut"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Invitation Code
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtInvitationCode" kcs:FieldName="InvitationCode" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Invitation Expiration
+					</label>
+					<div class="col-6">
+						
+							<input type="datetime" id="txtInvitationExpiration" kcs:FieldName="InvitationExpiration" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Is Invited
+					</label>
+					<div class="col-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsInvited" kcs:FieldName="IsInvited"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Invited Date
+					</label>
+					<div class="col-6">
+						
+							<input type="datetime" id="txtInvitedDate" kcs:FieldName="InvitedDate" class="InputDateTime form-control" maxlength="20" />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+
+
+
+		
+		
+	(function GetGridByRoleID RoleID 
+	{
+		(return (GetGridByRoleID (RoleID) '' '' true 0 20))
+	})
+
+	(function GetGridByRoleID RoleID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByRoleIDHtml (RoleID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByRoleIDCount (RoleID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByRoleIDHtml RoleID 
+	{
+		(return (GetGridByRoleIDHtml (RoleID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByRoleIDHtml RoleID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Users GetUsersByUserRoleRoleIDSp_PagingSp (RoleID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="UserID">
+						User ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsEnabled">
+						Enabled
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Password">
+						Password
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="HasLoggedIn">
+						Has Logged In
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastLoginDate">
+						Last Login Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsLockedOut">
+						Is Locked Out
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="InvitationCode">
+						Invitation Code
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="InvitationExpiration">
+						Invitation Expiration
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsInvited">
+						Is Invited
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="InvitedDate">
+						Invited Date
+					</th>
+					
+				
+									
+				</tr>
+			<%Users.each User{%> 
+				<tr kcs:RowKey="<%User.get UserID%>" >
+							
+			
+					
+					<td>
+						<%User.UserID%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (User.IsEnabled) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%User.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%User.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%User.Email%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (User.Phone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%User.Password%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (User.HasLoggedIn) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%User.LastLoginDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (User.IsLockedOut) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%User.InvitationCode%>
+					</td>
+					
+			
+					
+					<td>
+						<%User.InvitationExpiration%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (User.IsInvited) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%User.InvitedDate%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 14%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByRoleIDCount RoleID  Search
+	
+	{
+		(ado.row Users GetUsersByUserRoleRoleIDSp_CountSp (RoleID) (Search))
+		(return (Users.get Total))
+	})
+	
+		
+}%>

@@ -1,0 +1,2127 @@
+<%addpath Sources%>
+<%addpath Campaigns%>
+<%addpath LeadStatuses%>
+<%addpath LeadSubStatuses%>
+<%addpath LeadContacts%>
+<%addpath LeadRelationships%>
+
+<%
+class LeadsAdmin
+{
+			
+	(function GetDetails LeadID
+	{
+		(declare Lead (Leads.GetLead (LeadID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead ID
+							</td>
+							<td>
+								
+									<%Lead.LeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Company
+							</td>
+							<td>
+								
+									<%Lead.Company%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Priority
+							</td>
+							<td>
+								
+									<%Lead.Priority%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								First Name
+							</td>
+							<td>
+								
+									<%Lead.FirstName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Name
+							</td>
+							<td>
+								
+									<%Lead.LastName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Lead.Phone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%Lead.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Address
+							</td>
+							<td>
+								
+									<%Lead.Address%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Address 2
+							</td>
+							<td>
+								
+									<%Lead.Address2%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								City
+							</td>
+							<td>
+								
+									<%Lead.City%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								State
+							</td>
+							<td>
+								
+									<%Lead.State%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Zip Code
+							</td>
+							<td>
+								
+									<%Lead.ZipCode%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Opportunity Size
+							</td>
+							<td>
+								
+									<%Lead.OpportunitySize%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Contacted Date
+							</td>
+							<td>
+								
+									<%Lead.LastContactedDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Follow Up Date
+							</td>
+							<td>
+								
+									<%Lead.FollowUpDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Lead Status ID
+							</td>
+							<td>
+                               
+                                <a href="lead-status?LeadStatusID=<%Lead.LeadStatusID%>">
+                                    <%ifneq  (Lead.LeadStatus) ""{%>
+
+                                        
+                                            <%Lead.LeadStatus.StatusName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Lead Sub Status ID
+							</td>
+							<td>
+                               
+                                <a href="lead-sub-status?LeadSubStatusID=<%Lead.LeadSubStatusID%>">
+                                    <%ifneq  (Lead.LeadSubStatus) ""{%>
+
+                                        
+                                            <%Lead.LeadSubStatus.SubStatusName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Source ID
+							</td>
+							<td>
+                               
+                                <a href="source?SourceID=<%Lead.SourceID%>">
+                                    <%ifneq  (Lead.Source) ""{%>
+
+                                        
+                                            <%Lead.Source.SourceName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Campaign ID
+							</td>
+							<td>
+                               
+                                <a href="campaign?CampaignID=<%Lead.CampaignID%>">
+                                    <%ifneq  (Lead.Campaign) ""{%>
+
+                                        
+                                            <%Lead.Campaign.CampaignName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Lead.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Lead.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								DateCreated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Lead.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LastUpdated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Lead.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Sales Representative ID
+							</td>
+							<td>
+									<%Lead.SalesRepresentativeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Import Key
+							</td>
+							<td>
+								
+									<%Lead.ImportKey%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Generated Date
+							</td>
+							<td>
+								
+									<%Lead.GeneratedDate%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Account ID
+							</td>
+							<td>
+								
+									<%Lead.AccountID%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown LeadName LeadID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Lead">
+							
+				
+				<div class="form-group hidden">
+					<label class="col-sm-3 control-label">
+						Account ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnAccountID" kcs:FieldName="AccountID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadID" class="InputString form-control" readonly="readonly" value="<%LeadID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Company
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtCompany" kcs:FieldName="Company" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						First Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Last Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Address
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAddress" kcs:FieldName="Address" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Address 2
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAddress2" kcs:FieldName="Address2" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						City
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtCity" kcs:FieldName="City" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						State
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtState" kcs:FieldName="State" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Zip Code
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtZipCode" kcs:FieldName="ZipCode" class="InputZip form-control" maxlength="20"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Follow Up Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtFollowUpDate" kcs:FieldName="FollowUpDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+							
+			
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Priority
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="number" id="txtPriority"  kcs:FieldName="Priority" maxlength="10"  class="InputInteger form-control" maxlength="14"   />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Source
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using SourcesAdmin.ks.html%>
+							    
+								    <%SourcesAdmin.GetDropDown SourceName SourceID SourceID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Campaign
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using CampaignsAdmin.ks.html%>
+							    
+								    <%CampaignsAdmin.GetDropDown CampaignName CampaignID CampaignID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Status
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using LeadStatusesAdmin.ks.html%>
+							    
+								    <%LeadStatusesAdmin.GetDropDown StatusName LeadStatusID LeadStatusID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Sub Status
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using LeadSubStatusesAdmin.ks.html%>
+							    
+								    <%LeadSubStatusesAdmin.GetDropDown SubStatusName LeadSubStatusID LeadSubStatusID '<option value="">None</option>'%>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Opportunity Size
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="number" id="txtOpportunitySize"  kcs:FieldName="OpportunitySize" maxlength="10"  class="InputInteger form-control" maxlength="14"   />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sales Representative ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Import Key
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtImportKey" kcs:FieldName="ImportKey" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Generated Date
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="datetime" id="txtGeneratedDate" kcs:FieldName="GeneratedDate" class="InputDateTime form-control" maxlength="20" />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Leads GetLeadsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadSubStatusID">
+						Lead Sub Status ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FollowUpDate">
+						Follow Up Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Company">
+						Company
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FirstName">
+						First Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastName">
+						Last Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Address">
+						Address
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Address2">
+						Address 2
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="City">
+						City
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="State">
+						State
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ZipCode">
+						Zip Code
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SourceID">
+						Source ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastContactedDate">
+						Last Contacted Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Priority">
+						Priority
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadStatusID">
+						Lead Status ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="OpportunitySize">
+						Opportunity Size
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						DateCreated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						LastUpdated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SalesRepresentativeID">
+						Sales Representative ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ImportKey">
+						Import Key
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="GeneratedDate">
+						Generated Date
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="CampaignID">
+						Campaign ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AccountID">
+						Account ID
+					</th>
+					
+				
+									
+				</tr>
+			<%Leads.each Lead{%> 
+				<tr kcs:RowKey="<%Lead.get LeadID%>" >
+							
+			
+					
+					<td>
+						<%Lead.LeadSubStatusID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.FollowUpDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.Company%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.FirstName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.LastName%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (Lead.Phone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.Email%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.Address%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.Address2%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.City%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.State%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.ZipCode%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.SourceID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.LastContactedDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.Priority%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.LeadStatusID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.OpportunitySize%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Lead.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Lead.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.SalesRepresentativeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.ImportKey%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.GeneratedDate%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.CampaignID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Lead.AccountID%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 25%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Leads GetLeadsSp_CountSp  (Search))
+		(return (Leads.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByCampaignID CampaignID 
+	{
+		(return (GetGridByCampaignID (CampaignID) '' '' true 0 20))
+	})
+
+	(function GetGridByCampaignID CampaignID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByCampaignIDHtml (CampaignID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByCampaignIDCount (CampaignID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByCampaignIDHtml CampaignID 
+	{
+		(return (GetGridByCampaignIDHtml (CampaignID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByCampaignIDHtml CampaignID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Leads GetLeadsByCampaignIDSp_PagingSp (CampaignID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<%GetGridHtmlInternal (Leads)%>
+		
+		<%})
+	})
+		
+	(function GetGridByCampaignIDCount CampaignID  Search
+	
+	{
+		(ado.row Leads GetLeadsByCampaignIDSp_CountSp (CampaignID) (Search))
+		(return (Leads.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridBySourceID SourceID 
+	{
+		(return (GetGridBySourceID (SourceID) '' '' true 0 20))
+	})
+
+	(function GetGridBySourceID SourceID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySourceIDHtml (SourceID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySourceIDCount (SourceID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySourceIDHtml SourceID 
+	{
+		(return (GetGridBySourceIDHtml (SourceID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridBySourceIDHtml SourceID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Leads GetLeadsBySourceIDSp_PagingSp (SourceID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+				<%GetGridHtmlInternal (Leads)%>
+
+		
+		<%})
+	})
+		
+	(function GetGridBySourceIDCount SourceID  Search
+	
+	{
+		(ado.row Leads GetLeadsBySourceIDSp_CountSp (SourceID) (Search))
+		(return (Leads.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Lead">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Company
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtCompany" kcs:FieldName="Company" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						First Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Last Name
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Phone
+					</label>
+					<div class="col-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Email
+					</label>
+					<div class="col-6">
+						
+							<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Address
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtAddress" kcs:FieldName="Address" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Address 2
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtAddress2" kcs:FieldName="Address2" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						City
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtCity" kcs:FieldName="City" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						State
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtState" kcs:FieldName="State" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Zip Code
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="txtZipCode" kcs:FieldName="ZipCode" class="InputZip form-control" maxlength="20"  />
+						
+					</div>
+				</div>
+				
+			
+				
+			
+				
+			
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Priority
+		</label>
+		<div class="col-sm-6">
+
+			<select  kcs:FieldName="Priority" class="form-select">
+				<option value="1">Hot</option>
+				<option value="2">Warm</option>
+				<option value="3" selected>Normal</option>
+				<option value="4">Cold</option>
+			</select>
+
+		</div>
+	</div>
+
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Opportunity Size
+					</label>
+					<div class="col-6">
+						
+							<input type="number" id="txtOpportunitySize"  kcs:FieldName="OpportunitySize" maxlength="10"  class="InputInteger form-control" maxlength="14"   />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead Status
+					</label>
+					<div class="col-6">
+						
+							
+							<%using LeadStatusesAdmin.ks.html%>
+							
+								<%LeadStatusesAdmin.GetDropDown StatusName LeadStatusID LeadStatusID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead Sub Status
+					</label>
+					<div class="col-6">
+						
+							
+							<%using LeadSubStatusesAdmin.ks.html%>
+							
+								<%LeadSubStatusesAdmin.GetDropDown SubStatusName LeadSubStatusID LeadSubStatusID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Source
+					</label>
+					<div class="col-6">
+						
+							
+							<%using SourcesAdmin.ks.html%>
+							
+								<%SourcesAdmin.GetDropDown SourceName SourceID SourceID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Campaign
+					</label>
+					<div class="col-6">
+						
+							
+							<%using CampaignsAdmin.ks.html%>
+							
+								<%CampaignsAdmin.GetDropDown CampaignName CampaignID CampaignID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Sales Representative ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" />
+						
+					</div>
+				</div>
+				
+			
+				
+			
+				
+			
+				
+									
+			</div>
+		<%})
+	})	
+
+
+
+		
+		
+	(function GetGridByTagIDSubStatusIDSalesRepresentativeID TagID LeadSubStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDSubStatusIDSalesRepresentativeID (TagID)(LeadSubStatusID)(SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagIDSubStatusIDSalesRepresentativeID TagID LeadSubStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDSubStatusIDSalesRepresentativeIDHtml (TagID)(LeadSubStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDSubStatusIDSalesRepresentativeIDCount (TagID)(LeadSubStatusID)(SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDSubStatusIDSalesRepresentativeIDHtml TagID LeadSubStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDSubStatusIDSalesRepresentativeIDHtml (TagID)(LeadSubStatusID)(SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDSubStatusIDSalesRepresentativeIDHtml TagID LeadSubStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDSubStatusIDSalesRepresentativeIDSp_PagingSp (TagID)(LeadSubStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDSubStatusIDSalesRepresentativeIDCount TagID LeadSubStatusID SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDSubStatusIDSalesRepresentativeIDSp_CountSp (TagID)(LeadSubStatusID)(SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+		
+		
+	(function GetGridByTagIDStatusIDSalesRepresentativeID TagID LeadStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDStatusIDSalesRepresentativeID (TagID)(LeadStatusID)(SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagIDStatusIDSalesRepresentativeID TagID LeadStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDStatusIDSalesRepresentativeIDHtml (TagID)(LeadStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDStatusIDSalesRepresentativeIDCount (TagID)(LeadStatusID)(SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDStatusIDSalesRepresentativeIDHtml TagID LeadStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDStatusIDSalesRepresentativeIDHtml (TagID)(LeadStatusID)(SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDStatusIDSalesRepresentativeIDHtml TagID LeadStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDStatusIDSalesRepresentativeIDSp_PagingSp (TagID)(LeadStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDStatusIDSalesRepresentativeIDCount TagID LeadStatusID SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDStatusIDSalesRepresentativeIDSp_CountSp (TagID)(LeadStatusID)(SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+		
+		
+	(function GetGridBySubStatusIDSalesRepresentativeID LeadSubStatusID SalesRepresentativeID 
+	{
+		(return (GetGridBySubStatusIDSalesRepresentativeID (LeadSubStatusID)(SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridBySubStatusIDSalesRepresentativeID LeadSubStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySubStatusIDSalesRepresentativeIDHtml (LeadSubStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySubStatusIDSalesRepresentativeIDCount (LeadSubStatusID)(SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySubStatusIDSalesRepresentativeIDHtml LeadSubStatusID SalesRepresentativeID 
+	{
+		(return (GetGridBySubStatusIDSalesRepresentativeIDHtml (LeadSubStatusID)(SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridBySubStatusIDSalesRepresentativeIDHtml LeadSubStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsBySubStatusIDSalesRepresentativeIDSp_PagingSp (LeadSubStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridBySubStatusIDSalesRepresentativeIDCount LeadSubStatusID SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsBySubStatusIDSalesRepresentativeIDSp_CountSp (LeadSubStatusID)(SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+	
+		
+		
+	(function GetGridByStatusIDSalesRepresentativeID LeadStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByStatusIDSalesRepresentativeID (LeadStatusID)(SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridByStatusIDSalesRepresentativeID LeadStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByStatusIDSalesRepresentativeIDHtml (LeadStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByStatusIDSalesRepresentativeIDCount (LeadStatusID)(SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByStatusIDSalesRepresentativeIDHtml LeadStatusID SalesRepresentativeID 
+	{
+		(return (GetGridByStatusIDSalesRepresentativeIDHtml (LeadStatusID)(SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByStatusIDSalesRepresentativeIDHtml LeadStatusID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByStatusIDSalesRepresentativeIDSp_PagingSp (LeadStatusID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByStatusIDSalesRepresentativeIDCount LeadStatusID SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsByStatusIDSalesRepresentativeIDSp_CountSp (LeadStatusID)(SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+		
+		
+	(function GetGridByTagIDSalesRepresentativeID TagID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDSalesRepresentativeID (TagID)(SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagIDSalesRepresentativeID TagID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDSalesRepresentativeIDHtml (TagID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDSalesRepresentativeIDCount (TagID)(SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDSalesRepresentativeIDHtml TagID SalesRepresentativeID 
+	{
+		(return (GetGridByTagIDSalesRepresentativeIDHtml (TagID)(SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDSalesRepresentativeIDHtml TagID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDSalesRepresentativeIDSp_PagingSp (TagID)(SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDSalesRepresentativeIDCount TagID SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDSalesRepresentativeIDSp_CountSp (TagID)(SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+	
+		
+		
+	(function GetGridBySalesRepresentativeID SalesRepresentativeID 
+	{
+		(return (GetGridBySalesRepresentativeID (SalesRepresentativeID) '' '' true 0 20))
+	})
+
+	(function GetGridBySalesRepresentativeID SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySalesRepresentativeIDHtml (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySalesRepresentativeIDCount (SalesRepresentativeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySalesRepresentativeIDHtml SalesRepresentativeID 
+	{
+		(return (GetGridBySalesRepresentativeIDHtml (SalesRepresentativeID) '' '' true 0 20))	
+	})
+
+	(function GetGridBySalesRepresentativeIDHtml SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsBySalesRepresentativeIDSp_PagingSp (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridBySalesRepresentativeIDCount SalesRepresentativeID  Search
+	
+	{
+		(ado.row Leads GetLeadsBySalesRepresentativeIDSp_CountSp (SalesRepresentativeID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+		
+		
+	(function GetGridByTagID TagID 
+	{
+		(return (GetGridByTagID (TagID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagID TagID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDHtml (TagID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDCount (TagID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDHtml TagID 
+	{
+		(return (GetGridByTagIDHtml (TagID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDHtml TagID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDSp_PagingSp (TagID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDCount TagID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDSp_CountSp (TagID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+
+		
+		
+	(function GetGridByStatusID LeadStatusID 
+	{
+		(return (GetGridByStatusID (LeadStatusID) '' '' true 0 20))
+	})
+
+	(function GetGridByStatusID LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByStatusIDHtml (LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByStatusIDCount (LeadStatusID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByStatusIDHtml LeadStatusID 
+	{
+		(return (GetGridByStatusIDHtml (LeadStatusID) '' '' true 0 20))	
+	})
+
+	(function GetGridByStatusIDHtml LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByLeadStatusIDSp_PagingSp (LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByStatusIDCount LeadStatusID  Search
+	
+	{
+		(ado.row Leads GetLeadsByLeadStatusIDSp_CountSp (LeadStatusID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+	
+		
+		
+	(function GetGridBySubStatusID LeadSubStatusID 
+	{
+		(return (GetGridBySubStatusID (LeadSubStatusID) '' '' true 0 20))
+	})
+
+	(function GetGridBySubStatusID LeadSubStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridBySubStatusIDHtml (LeadSubStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridBySubStatusIDCount (LeadSubStatusID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridBySubStatusIDHtml LeadSubStatusID 
+	{
+		(return (GetGridBySubStatusIDHtml (LeadSubStatusID) '' '' true 0 20))	
+	})
+
+	(function GetGridBySubStatusIDHtml LeadSubStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByLeadSubStatusIDSp_PagingSp (LeadSubStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridBySubStatusIDCount LeadSubStatusID  Search
+	
+	{
+		(ado.row Leads GetLeadsByLeadSubStatusIDSp_CountSp (LeadSubStatusID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+
+		
+		
+	(function GetGridByTagIDStatusID TagID LeadStatusID 
+	{
+		(return (GetGridByTagIDStatusID (TagID)(LeadStatusID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagIDStatusID TagID LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDStatusIDHtml (TagID)(LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDStatusIDCount (TagID)(LeadStatusID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDStatusIDHtml TagID LeadStatusID 
+	{
+		(return (GetGridByTagIDStatusIDHtml (TagID)(LeadStatusID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDStatusIDHtml TagID LeadStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDStatusIDSp_PagingSp (TagID)(LeadStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDStatusIDCount TagID LeadStatusID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDStatusIDSp_CountSp (TagID)(LeadStatusID) (Search))
+		(return (Leads.get Total))
+	})
+
+
+	
+	
+	
+		
+		
+	(function GetGridByTagIDSubStatusID TagID LeadSubStatusID 
+	{
+		(return (GetGridByTagIDSubStatusID (TagID)(LeadSubStatusID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagIDSubStatusID TagID LeadSubStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDSubStatusIDHtml (TagID)(LeadSubStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDSubStatusIDCount (TagID)(LeadSubStatusID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDSubStatusIDHtml TagID LeadSubStatusID 
+	{
+		(return (GetGridByTagIDSubStatusIDHtml (TagID)(LeadSubStatusID) '' '' true 0 20))	
+	})
+
+	(function GetGridByTagIDSubStatusIDHtml TagID LeadSubStatusID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Leads GetLeadsByTagIDSubStatusIDSp_PagingSp (TagID)(LeadSubStatusID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Leads))) 
+		
+	})
+		
+	(function GetGridByTagIDSubStatusIDCount TagID LeadSubStatusID  Search
+	
+	{
+		(ado.row Leads GetLeadsByTagIDSubStatusIDSp_CountSp (TagID)(LeadSubStatusID) (Search))
+		(return (Leads.get Total))
+	})
+
+(function GetUnassignedGrid SalesRepresentativeID
+{
+	(return (GetUnassignedGrid SalesRepresentativeID '' '' true 0 20))
+})
+
+(function GetUnassignedGrid SalesRepresentativeID Search SortColumn SortAscending SkipRows NumRows
+{
+	(declare Grid {Grid: '', Count: 0})		
+	(Grid.Grid (GetUnassignedGridHtml (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+	(Grid.Count (GetUnassignedGridCount (SalesRepresentativeID) (Search)))
+	(return (Grid.ToJSON))
+})
+	
+(function GetUnassignedGridHtml SalesRepresentativeID
+{
+	(return (GetUnassignedGridHtml SalesRepresentativeID '' '' true 0 20))	
+})	
+	
+(function GetUnassignedGridHtml SalesRepresentativeID  Search SortColumn SortAscending SkipRows NumRows
+{
+	(returnex{%>
+			
+		<%ado.view Leads Leads_GetUnassigned_Sp_PagingSp (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+		<%LeadsAdmin.GetGridHtmlInternal (Leads)%>
+		
+	<%})
+})
+		
+(function GetUnassignedGridCount SalesRepresentativeID  Search
+	
+{
+	(ado.row Leads Leads_GetUnassigned_Sp_CountSp (SalesRepresentativeID)  (Search))
+	(return (Leads.get Total))
+})
+
+	
+(function GetUnassignedGrid2Html SalesRepresentativeID Search SortColumn SortAscending SkipRows NumRows
+{
+	(returnex{%>
+			
+		<%declare Leads (Leads.Leads_GetUnassigned_Sp_PagingSp  (SalesRepresentativeID)  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))%>
+		<%LeadsAdmin.GetGridHtmlInternal (Leads)%>
+		
+	<%})
+})
+		
+(function GetUnassignedGrid2Count SalesRepresentativeID Search
+	
+{
+	(declare iCount (Leads.Leads_GetUnassigned_Sp_CountSp  (SalesRepresentativeID)  (Search)))
+	(return (iCount))
+})
+
+
+	
+	(function GetMessagesByPhone Phone
+	{
+		(declare oMessages (Messages.GetMessagesByPhone (Phone)))
+
+		(returnex{%>
+
+				<%oMessages.each oMessage{%>
+					<%ifneq (oMessage.SentByPatientID) ""{%>
+<p>Patient message hidden</p>
+					<%}{%>
+
+						<%ifneq (oMessage.SentByPhone) (Phone){%>
+<div class='chatmsg' kcs:MessageID="<%oMessage.MessageID%>">
+	<p><%oMessage.MessageText%></p><span class='timestamp Date'><%oMessage.DateCreated%></span>
+	<%ifneq (oMessage.SalesRepresentative) ""{%> - <%oMessage.SalesRepresentative.Name%><%}%>
+</div>
+						<%}{%>
+<div class='chatmsg sent' kcs:MessageID="<%oMessage.MessageID%>"><p><%oMessage.MessageText%></p><span class='timestamp Date'><%oMessage.DateCreated%></span></div>
+
+						<%}%>
+
+					<%}%>
+				<%}%>
+
+				<%ifeq (oMessages.Count) 50{%>
+<p>Older messages may not be displayed...</p>
+				<%}%>
+		<%})
+
+	})	
+				
+}%>

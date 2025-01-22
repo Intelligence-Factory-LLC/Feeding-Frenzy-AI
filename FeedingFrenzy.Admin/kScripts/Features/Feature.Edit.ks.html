@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using FeaturesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Features.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Features.GetFeature (ObjectID)))
+}%>
+

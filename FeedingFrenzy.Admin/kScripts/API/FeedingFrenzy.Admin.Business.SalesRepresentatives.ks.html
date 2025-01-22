@@ -1,0 +1,2338 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">SalesRepresentatives</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/sales-representatives" "/JsonWs/FeedingFrenzy.Admin.Business.SalesRepresentatives.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.SalesRepresentatives.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.CopySalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopySalesRepresentative">
+
+				<h3>SalesRepresentatives.CopySalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/copy-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopySalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/copy-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopySalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/copy-sales-representative
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopySalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopySalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divCopySalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/copy-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.CopySalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopySalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopySalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopySalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetEnabledSalesRepresentatives</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEnabledSalesRepresentatives">
+
+				<h3>SalesRepresentatives.GetEnabledSalesRepresentatives</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-enabled-sales-representatives</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEnabledSalesRepresentatives">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-enabled-sales-representatives" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEnabledSalesRepresentatives
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-enabled-sales-representatives
+
+## Returns
+SalesRepresentativesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEnabledSalesRepresentativesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEnabledSalesRepresentativesClick()
+										{
+											var oObj = BlindUnbind("divGetEnabledSalesRepresentatives");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-enabled-sales-representatives")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetEnabledSalesRepresentativesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEnabledSalesRepresentatives", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEnabledSalesRepresentatives">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEnabledSalesRepresentatives" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetPermissionBySalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPermissionBySalesRepresentative">
+
+				<h3>SalesRepresentatives.GetPermissionBySalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-permission-by-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPermissionBySalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-permission-by-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Permissions.ks.html&Class=SimpleApiHarnessPage">Permissions</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			rowSalesRepresentative
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="rowSalesRepresentative" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPermissionBySalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-permission-by-sales-representative
+
+## Returns
+Permissions
+
+## Parameters 
+
+	Name: rowSalesRepresentative, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPermissionBySalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPermissionBySalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divGetPermissionBySalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-permission-by-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetPermissionBySalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPermissionBySalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPermissionBySalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPermissionBySalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetReportedSalesRepresentatives</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetReportedSalesRepresentatives">
+
+				<h3>SalesRepresentatives.GetReportedSalesRepresentatives</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-reported-sales-representatives</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetReportedSalesRepresentatives">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-reported-sales-representatives" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetReportedSalesRepresentatives
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-reported-sales-representatives
+
+## Returns
+SalesRepresentativesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetReportedSalesRepresentativesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetReportedSalesRepresentativesClick()
+										{
+											var oObj = BlindUnbind("divGetReportedSalesRepresentatives");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-reported-sales-representatives")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetReportedSalesRepresentativesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetReportedSalesRepresentatives", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetReportedSalesRepresentatives">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetReportedSalesRepresentatives" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetSalesRepAvailability</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepAvailability">
+
+				<h3>SalesRepresentatives.GetSalesRepAvailability</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-sales-rep-availability</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSalesRepAvailability">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-sales-rep-availability" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSalesRepAvailability
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-sales-rep-availability
+
+## Returns
+String
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSalesRepAvailabilityClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSalesRepAvailabilityClick()
+										{
+											var oObj = BlindUnbind("divGetSalesRepAvailability");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-sales-rep-availability")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetSalesRepAvailabilityObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSalesRepAvailability", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepAvailability">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSalesRepAvailability" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetSalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentative">
+
+				<h3>SalesRepresentatives.GetSalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative
+
+## Returns
+SalesRepresentativesRow
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divGetSalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetSalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetSalesRepresentativeByUserID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentativeByUserID">
+
+				<h3>SalesRepresentatives.GetSalesRepresentativeByUserID</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative-by-user-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSalesRepresentativeByUserID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative-by-user-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSalesRepresentativeByUserID
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative-by-user-id
+
+## Returns
+SalesRepresentativesRow
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSalesRepresentativeByUserIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSalesRepresentativeByUserIDClick()
+										{
+											var oObj = BlindUnbind("divGetSalesRepresentativeByUserID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representative-by-user-id")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetSalesRepresentativeByUserIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSalesRepresentativeByUserID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentativeByUserID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSalesRepresentativeByUserID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetSalesRepresentatives</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentatives">
+
+				<h3>SalesRepresentatives.GetSalesRepresentatives</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSalesRepresentatives">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSalesRepresentatives
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives
+
+## Returns
+SalesRepresentativesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSalesRepresentativesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSalesRepresentativesClick()
+										{
+											var oObj = BlindUnbind("divGetSalesRepresentatives");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetSalesRepresentativesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSalesRepresentatives", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentatives">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSalesRepresentatives" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.GetSalesRepresentativesBySalesRepresentativeTypeID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentativesBySalesRepresentativeTypeID">
+
+				<h3>SalesRepresentatives.GetSalesRepresentativesBySalesRepresentativeTypeID</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives-by-sales-representative-type-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetSalesRepresentativesBySalesRepresentativeTypeID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives-by-sales-representative-type-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.SalesRepresentativesRow.ks.html&Class=SimpleApiHarnessPage">SalesRepresentativesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeTypeID" kcs:FieldName="SalesRepresentativeTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetSalesRepresentativesBySalesRepresentativeTypeID
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives-by-sales-representative-type-id
+
+## Returns
+SalesRepresentativesRow[]
+
+## Parameters 
+
+	Name: SalesRepresentativeTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetSalesRepresentativesBySalesRepresentativeTypeIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetSalesRepresentativesBySalesRepresentativeTypeIDClick()
+										{
+											var oObj = BlindUnbind("divGetSalesRepresentativesBySalesRepresentativeTypeID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/get-sales-representatives-by-sales-representative-type-id")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.GetSalesRepresentativesBySalesRepresentativeTypeIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetSalesRepresentativesBySalesRepresentativeTypeID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetSalesRepresentativesBySalesRepresentativeTypeID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetSalesRepresentativesBySalesRepresentativeTypeID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.Impersonate</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divImpersonate">
+
+				<h3>SalesRepresentatives.Impersonate</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/impersonate</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Impersonate">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/impersonate" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			context
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="context" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: Impersonate
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/impersonate
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+	Name: context, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnImpersonateClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnImpersonateClick()
+										{
+											var oObj = BlindUnbind("divImpersonate");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/impersonate")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.ImpersonateObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsImpersonate", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divImpersonate">
+				<h3>Results</h3>
+				<textarea id="txtResultsImpersonate" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.InsertSalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSalesRepresentative">
+
+				<h3>SalesRepresentatives.InsertSalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertSalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Notes
+		</label>
+		<div class="col-6">
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeTypeID" kcs:FieldName="SalesRepresentativeTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertSalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Notes, Type: Text
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: Data, Type: Data
+
+	Name: Name, Type: String
+
+	Name: Email, Type: String
+
+	Name: Phone, Type: String
+
+	Name: SalesRepresentativeTypeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertSalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertSalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divInsertSalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.InsertSalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertSalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertSalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.InsertSalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSalesRepresentative">
+
+				<h3>SalesRepresentatives.InsertSalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertSalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Notes
+		</label>
+		<div class="col-6">
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeTypeID" kcs:FieldName="SalesRepresentativeTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertSalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Notes, Type: Text
+
+	Name: Data, Type: Data
+
+	Name: SalesRepresentativeTypeID, Type: ID
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertSalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertSalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divInsertSalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/insert-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.InsertSalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertSalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertSalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertSalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.MarkSalesRepresentativeAsEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkSalesRepresentativeAsEnabled">
+
+				<h3>SalesRepresentatives.MarkSalesRepresentativeAsEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkSalesRepresentativeAsEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkSalesRepresentativeAsEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkSalesRepresentativeAsEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkSalesRepresentativeAsEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkSalesRepresentativeAsEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-enabled")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.MarkSalesRepresentativeAsEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkSalesRepresentativeAsEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkSalesRepresentativeAsEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkSalesRepresentativeAsEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.MarkSalesRepresentativeAsNotEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkSalesRepresentativeAsNotEnabled">
+
+				<h3>SalesRepresentatives.MarkSalesRepresentativeAsNotEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-not-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkSalesRepresentativeAsNotEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-not-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkSalesRepresentativeAsNotEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-not-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkSalesRepresentativeAsNotEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkSalesRepresentativeAsNotEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkSalesRepresentativeAsNotEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/mark-sales-representative-as-not-enabled")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.MarkSalesRepresentativeAsNotEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkSalesRepresentativeAsNotEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkSalesRepresentativeAsNotEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkSalesRepresentativeAsNotEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.RemoveSalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveSalesRepresentative">
+
+				<h3>SalesRepresentatives.RemoveSalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/remove-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveSalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/remove-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveSalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/remove-sales-representative
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveSalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveSalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divRemoveSalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/remove-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.RemoveSalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveSalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveSalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveSalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.UpdateSalesRepresentative</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSalesRepresentative">
+
+				<h3>SalesRepresentatives.UpdateSalesRepresentative</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateSalesRepresentative">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Notes
+		</label>
+		<div class="col-6">
+			<textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative Type ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeTypeID" kcs:FieldName="SalesRepresentativeTypeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateSalesRepresentative
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+	Name: Notes, Type: Text
+
+	Name: Data, Type: Data
+
+	Name: SalesRepresentativeTypeID, Type: ID
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateSalesRepresentativeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateSalesRepresentativeClick()
+										{
+											var oObj = BlindUnbind("divUpdateSalesRepresentative");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.UpdateSalesRepresentativeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateSalesRepresentative", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSalesRepresentative">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateSalesRepresentative" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>SalesRepresentatives.UpdateSalesRepresentativeData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSalesRepresentativeData">
+
+				<h3>SalesRepresentatives.UpdateSalesRepresentativeData</h3>
+				<p>/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateSalesRepresentativeData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sales Representative ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSalesRepresentativeID" kcs:FieldName="SalesRepresentativeID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateSalesRepresentativeData
+
+## Url
+/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: SalesRepresentativeID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateSalesRepresentativeDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateSalesRepresentativeDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateSalesRepresentativeData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/sales-representatives/update-sales-representative-data")
+																		SalesRepresentatives.Url = oObj.BaseUrl;
+
+																	SalesRepresentatives.UpdateSalesRepresentativeDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateSalesRepresentativeData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateSalesRepresentativeData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateSalesRepresentativeData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

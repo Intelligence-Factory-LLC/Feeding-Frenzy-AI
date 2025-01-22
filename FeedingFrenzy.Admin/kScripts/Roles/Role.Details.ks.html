@@ -1,0 +1,28 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using RolesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Roles.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	(declare tabUsers {Title : "Users", ControlID : "tab-Users", Content : "" })
+	(tabUsers.Content (GetRelatedObjectTab Users "Users" true))	
+	(tabs.push (tabUsers))
+
+	(return (GetTabs (tabs)))		
+}%>
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+			(GetRelatedObjectTabInitializer Users {AllowSearch: true, MetaFile:'Users.meta.json' })		
+		
+		)
+	)
+}%>

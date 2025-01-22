@@ -1,0 +1,19 @@
+{
+	ObjectName : "RawEmail",
+	ObjectsName : "RawEmails",
+
+	
+	NaturalKey : "ImportKey",
+	
+	
+	FriendlyObjectName : "Raw Email",
+	FriendlyObjectsName : "Raw Emails",
+	
+	ObjectsUrl : "raw-emails",
+	DetailsUrl : "raw-email",
+	EditUrl : "raw-email-edit",
+	InsertUrl : "raw-email-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

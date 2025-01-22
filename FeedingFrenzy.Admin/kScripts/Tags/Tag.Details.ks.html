@@ -1,0 +1,34 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using TagsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Tags.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+
+		<script type="text/javascript">
+			OnObjectsTitleClick = function () {
+				var sHref = new LocalStorage().get("TagsPage");
+
+				if (!StringUtil.IsEmpty(sHref))
+					Page.Redirect(sHref);
+				else
+					Page.Redirect("/tags");
+			};
+		</script>
+
+	<%})
+}%>

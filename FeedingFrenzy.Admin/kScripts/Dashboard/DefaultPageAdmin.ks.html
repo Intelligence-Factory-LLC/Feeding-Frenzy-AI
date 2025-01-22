@@ -1,0 +1,318 @@
+﻿<%import FeedingFrenzy.Admin.Business FeedingFrenzy.Admin.Business.LeadAutomation LeadAutomation%>
+<%class DefaultPageAdmin
+{
+
+	(function GetMainCalendar SalesRepresentativeID CurrentDate
+    { 
+        (declare oSummaryDay
+			(LeadAutomation.ChatWithSalesRepresentativesDay (SalesRepresentativeID) (CurrentDate) 
+			(quote{%>
+
+Summarize the day and pull out key facts into JSON 
+
+{ 
+
+  Summary : give a short summary of the day in one or two sentences
+  Appointments : number of appointments,
+  Presentations : number of presentation,
+  PhoneCalls : number of phone calls,
+  Emails : number of emails,
+  MostImportantAction: [a list of the most important things that happened throughout the day]
+  KeyPoints: [a list of any other key points to bring up ]
+
+}
+
+			<%})
+			))		
+        
+		(returnex{%>
+            <div class="content">
+                <!-- Start Content-->
+                <div class="container-fluid">
+                    <!-- end page title -->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                             <div id="summarizeDay"></div>
+                                        </div>
+                                    </div>  <!-- end row -->
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div>
+
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div id="calendar"></div>
+                                        </div> <!-- end col -->
+
+                                    </div>  <!-- end row -->
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                            <!-- Add New Event MODAL -->
+                            <div class="modal fade" id="event-modal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header py-3 px-4 border-bottom-0 d-block">
+                                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title" id="modal-title">Event</h5>
+                                        </div>
+                                        <div class="modal-body px-4 pb-4 pt-0">
+                                            <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Event Name</label>
+                                                            <input class="form-control" placeholder="Insert Event Name"
+                                                                type="text" name="title" id="event-title" required />
+                                                            <div class="invalid-feedback">Please provide a valid event name</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Category</label>
+                                                            <select class="form-select" name="category" id="event-category" required>
+                                                                <option value="bg-danger" selected>Danger</option>
+                                                                <option value="bg-success">Success</option>
+                                                                <option value="bg-primary">Primary</option>
+                                                                <option value="bg-info">Info</option>
+                                                                <option value="bg-dark">Dark</option>
+                                                                <option value="bg-warning">Warning</option>
+                                                            </select>
+                                                            <div class="invalid-feedback">Please select a valid event category</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6 col-4">
+                                                        <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
+                                                    </div>
+                                                    <div class="col-md-6 col-8 text-end">
+                                                        <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div> <!-- end modal-content-->
+                                </div> <!-- end modal dialog-->
+                            </div>
+                            <!-- end modal-->
+                        </div>
+                        <!-- end col-12 -->
+                    </div> <!-- end row -->
+
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+         
+
+        <script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadNotes.ashx.js"></script>
+        <script type="text/javascript">
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                (function (l) {
+                    "use strict";
+
+                    function e() {
+                        this.$body = l("body");
+                        this.$modal = l("#event-modal");
+                        this.$calendar = l("#calendar");
+                        this.$formEvent = l("#form-event");
+                        this.$btnNewEvent = l("#btn-new-event");
+                        this.$btnDeleteEvent = l("#btn-delete-event");
+                        this.$btnSaveEvent = l("#btn-save-event");
+                        this.$modalTitle = l("#modal-title");
+                        this.$calendarObj = null;
+                        this.$selectedEvent = null;
+                        this.$newEventData = null;
+                    }
+
+                    e.prototype.onEventClick = function (e) {
+                        this.$formEvent[0].reset();
+                        this.$formEvent.removeClass("was-validated");
+                        this.$newEventData = null;
+                        this.$btnDeleteEvent.show();
+                        this.$modalTitle.text("Edit Event");
+                        this.$modal.show();
+                        this.$selectedEvent = e.event;
+                        l("#event-title").val(this.$selectedEvent.title);
+                        l("#event-category").val(this.$selectedEvent.classNames[0]);
+                    };
+
+                    e.prototype.onSelect = function (e) {
+                        this.$formEvent[0].reset();
+                        this.$formEvent.removeClass("was-validated");
+                        this.$selectedEvent = null;
+                        this.$newEventData = e;
+                        this.$btnDeleteEvent.hide();
+                        this.$modalTitle.text("Add New Event");
+                        this.$modal.show();
+                        this.$calendarObj.unselect();
+                    };
+
+                    e.prototype.init = function () {
+                        // Initialize the Bootstrap modal
+                        this.$modal = new bootstrap.Modal(document.getElementById("event-modal"), { keyboard: false });
+
+                        var a = this; // Reference to the current instance
+
+                        // Initialize an empty array for dynamic appointments
+                        var appointments = [];
+
+                        // Fetch appointments asynchronously
+                        LeadNotes.GetAppointments(function (oRes) {
+
+                            if (!Array.isArray(oRes)) {
+                                console.error("Invalid response format for appointments.");
+                                return;
+                            }
+
+                            oRes.forEach(function(appointment) {
+                                var startDate = new Date(appointment.Start);
+                                var endDate = appointment.End ? new Date(appointment.End) : null;
+
+                                var event = {
+                                    title: appointment.Title || "No Title Provided",
+                                    start: startDate,
+                                    className: appointment.ClassName || "bg-primary" // Default class if not provided
+                                };
+
+                                if (endDate) {
+                                    event.end = endDate;
+                                }
+
+                                appointments.push(event);
+                            });
+
+
+                            // Initialize the FullCalendar with the dynamic appointments
+                            a.$calendarObj = new FullCalendar.Calendar(a.$calendar[0], {
+                                initialView: "dayGridMonth",
+                                slotDuration: "00:15:00",
+                                slotMinTime: "08:00:00",
+                                slotMaxTime: "19:00:00",
+                                themeSystem: "bootstrap",
+                                buttonText: { today: "Today", month: "Month", week: "Week", day: "Day", list: "List", prev: "Prev", next: "Next" },
+                                headerToolbar: { left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth" },
+                                initialEvents: appointments, // Use the dynamically fetched appointments
+                                editable: true,
+                                droppable: true,
+                                selectable: true,
+                                dateClick: function (e) { a.onSelect(e); },
+                                eventClick: function (e) { a.onEventClick(e); }
+                            });
+
+                            a.$calendarObj.render(); // Render the calendar after initialization
+
+                        });
+
+                        // Event listeners for creating and deleting events
+                        a.$btnNewEvent.on("click", function () { a.onSelect({ date: new Date(), allDay: true }); });
+                        a.$formEvent.on("submit", function (e) {
+                            e.preventDefault();
+                            var form = a.$formEvent[0];
+                            if (form.checkValidity()) {
+                                if (a.$selectedEvent) {
+                                    a.$selectedEvent.setProp("title", l("#event-title").val());
+                                    a.$selectedEvent.setProp("classNames", [l("#event-category").val()]);
+                                } else {
+                                    var newEvent = {
+                                        title: l("#event-title").val(),
+                                        start: a.$newEventData.date,
+                                        allDay: a.$newEventData.allDay,
+                                        className: l("#event-category").val()
+                                    };
+                                    a.$calendarObj.addEvent(newEvent);
+                                }
+                                a.$modal.hide();
+                            } else {
+                                e.stopPropagation();
+                                form.classList.add("was-validated");
+                            }
+                        });
+
+                        a.$btnDeleteEvent.on("click", function () {
+                            if (a.$selectedEvent) {
+                                a.$selectedEvent.remove();
+                                a.$selectedEvent = null;
+                                a.$modal.hide();
+                            }
+                        });
+                    };
+
+                    l.CalendarApp = new e();
+                    l.CalendarApp.init();
+
+                })(window.jQuery);
+            });
+
+            Page.AddOnLoad(function () {
+
+                let summary = <%StringUtil.LeftOfFirst (StringUtil.RightOfFirst (oSummaryDay)  "json") "```"%>;
+
+
+
+
+                let styledHTML = ParseSummaryToHTML(summary);
+                document.getElementById('summarizeDay').innerHTML = styledHTML;
+			});
+
+			
+				function ParseSummaryToHTML(data) {
+    let html = `
+        <div class="card shadow-sm border-0 p-3">
+            <div class="card-body">
+                <h4 class="text-center mb-4 fw-bold">Hey, Here's a Snapshot of Your Day!</h4>
+                <div class="summary-content">
+    `;
+
+	html += `<p class="text-info fs-5"><span></span>${data.Summary}</p>`;
+
+    // Display numeric stats with corresponding icons
+    // Appointments
+    html += `<p class="text-info fs-5"><span>📅</span> Appointments: ${data.Appointments}</p>`;
+    // Presentations
+    html += `<p class="text-warning fs-5"><span>🎤</span> Presentations: ${data.Presentations}</p>`;
+    // Phone Calls
+    html += `<p class="text-success fs-5"><span>📞</span> Phone Calls: ${data.PhoneCalls}</p>`;
+    // Emails
+    html += `<p class="text-danger fs-5"><span>📧</span> Emails: ${data.Emails}</p>`;
+
+    // MostImportantAction items
+    if (Array.isArray(data.MostImportantAction) && data.MostImportantAction.length > 0) {
+        html += `<p class="text-primary fw-bold mb-4 fs-5">Most Important Actions</p>`;
+        data.MostImportantAction.forEach(action => {
+            html += `<p class="fs-5"><span>✔️</span> ${action}</p>`;
+        });
+    }
+
+    // KeyPoints
+    if (Array.isArray(data.KeyPoints) && data.KeyPoints.length > 0) {
+        data.KeyPoints.forEach(point => {
+            html += `<p class="text-danger fw-bold fs-5"><strong>Key Point:</strong> ${point}</p>`;
+        });
+    }
+
+    html += `
+                </div>
+            </div>
+        </div>
+    `;
+
+    return html;
+}
+
+        </script>
+
+
+        <%})
+	})
+
+}%>

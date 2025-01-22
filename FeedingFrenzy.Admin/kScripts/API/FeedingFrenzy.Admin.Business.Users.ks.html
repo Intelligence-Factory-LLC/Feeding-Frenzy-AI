@@ -1,0 +1,4241 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">Users</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/users" "/JsonWs/FeedingFrenzy.Admin.Business.Users.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.Users.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.AgreeTermsAndConditions</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divAgreeTermsAndConditions">
+
+				<h3>Users.AgreeTermsAndConditions</h3>
+				<p>/api/feedingfrenzy.admin.business/users/agree-terms-and-conditions</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="AgreeTermsAndConditions">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/agree-terms-and-conditions" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: AgreeTermsAndConditions
+
+## Url
+/api/feedingfrenzy.admin.business/users/agree-terms-and-conditions
+
+## Returns
+Void
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnAgreeTermsAndConditionsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnAgreeTermsAndConditionsClick()
+										{
+											var oObj = BlindUnbind("divAgreeTermsAndConditions");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/agree-terms-and-conditions")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.AgreeTermsAndConditionsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsAgreeTermsAndConditions", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divAgreeTermsAndConditions">
+				<h3>Results</h3>
+				<textarea id="txtResultsAgreeTermsAndConditions" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.CheckAgreeTermsAndConditions</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCheckAgreeTermsAndConditions">
+
+				<h3>Users.CheckAgreeTermsAndConditions</h3>
+				<p>/api/feedingfrenzy.admin.business/users/check-agree-terms-and-conditions</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CheckAgreeTermsAndConditions">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/check-agree-terms-and-conditions" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Boolean.ks.html&Class=SimpleApiHarnessPage">Boolean</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CheckAgreeTermsAndConditions
+
+## Url
+/api/feedingfrenzy.admin.business/users/check-agree-terms-and-conditions
+
+## Returns
+Boolean
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCheckAgreeTermsAndConditionsClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCheckAgreeTermsAndConditionsClick()
+										{
+											var oObj = BlindUnbind("divCheckAgreeTermsAndConditions");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/check-agree-terms-and-conditions")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.CheckAgreeTermsAndConditionsObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCheckAgreeTermsAndConditions", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCheckAgreeTermsAndConditions">
+				<h3>Results</h3>
+				<textarea id="txtResultsCheckAgreeTermsAndConditions" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.CopyUser</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyUser">
+
+				<h3>Users.CopyUser</h3>
+				<p>/api/feedingfrenzy.admin.business/users/copy-user</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyUser">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/copy-user" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyUser
+
+## Url
+/api/feedingfrenzy.admin.business/users/copy-user
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyUserClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyUserClick()
+										{
+											var oObj = BlindUnbind("divCopyUser");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/copy-user")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.CopyUserObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyUser", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyUser">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyUser" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.CreateAccount</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCreateAccount">
+
+				<h3>Users.CreateAccount</h3>
+				<p>/api/feedingfrenzy.admin.business/users/create-account</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CreateAccount">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/create-account" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			First Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Locked Out
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsLockedOut" kcs:FieldName="IsLockedOut"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			IsSalesRepresentative
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSalesRepresentative" kcs:FieldName="IsSalesRepresentative"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			IsAdministrator
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsAdministrator" kcs:FieldName="IsAdministrator"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CreateAccount
+
+## Url
+/api/feedingfrenzy.admin.business/users/create-account
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: FirstName, Type: String
+
+	Name: LastName, Type: String
+
+	Name: Email, Type: Email
+
+	Name: Phone, Type: Phone
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: IsLockedOut, Type: Boolean
+
+	Name: IsSalesRepresentative, Type: Boolean
+
+	Name: IsAdministrator, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCreateAccountClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCreateAccountClick()
+										{
+											var oObj = BlindUnbind("divCreateAccount");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/create-account")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.CreateAccountObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCreateAccount", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCreateAccount">
+				<h3>Results</h3>
+				<textarea id="txtResultsCreateAccount" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetInvitationCode</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetInvitationCode">
+
+				<h3>Users.GetInvitationCode</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-invitation-code</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetInvitationCode">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-invitation-code" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UserInvitationCodeDTO.ks.html&Class=SimpleApiHarnessPage">UserInvitationCodeDTO</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetInvitationCode
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-invitation-code
+
+## Returns
+UserInvitationCodeDTO
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetInvitationCodeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetInvitationCodeClick()
+										{
+											var oObj = BlindUnbind("divGetInvitationCode");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-invitation-code")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetInvitationCodeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetInvitationCode", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetInvitationCode">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetInvitationCode" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUser</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUser">
+
+				<h3>Users.GetUser</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-user</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUser">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-user" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUser
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-user
+
+## Returns
+UsersRow
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserClick()
+										{
+											var oObj = BlindUnbind("divGetUser");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-user")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUserObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUser", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUser">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUser" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUserByEmail</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserByEmail">
+
+				<h3>Users.GetUserByEmail</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-user-by-email</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUserByEmail">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-user-by-email" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUserByEmail
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-user-by-email
+
+## Returns
+UsersRow
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUserByEmailClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUserByEmailClick()
+										{
+											var oObj = BlindUnbind("divGetUserByEmail");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-user-by-email")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUserByEmailObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUserByEmail", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUserByEmail">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUserByEmail" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUsers</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsers">
+
+				<h3>Users.GetUsers</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-users</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUsers">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-users" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUsers
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-users
+
+## Returns
+UsersRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUsersClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUsersClick()
+										{
+											var oObj = BlindUnbind("divGetUsers");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-users")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUsersObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUsers", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsers">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUsers" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUsersByUserID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserID">
+
+				<h3>Users.GetUsersByUserID</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-users-by-user-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUsersByUserID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-users-by-user-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUsersByUserID
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-users-by-user-id
+
+## Returns
+UsersRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUsersByUserIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUsersByUserIDClick()
+										{
+											var oObj = BlindUnbind("divGetUsersByUserID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-users-by-user-id")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUsersByUserIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUsersByUserID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUsersByUserID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUsersByUserIDSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserIDSp_PagingSp">
+
+				<h3>Users.GetUsersByUserIDSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-users-by-user-id-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUsersByUserIDSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-users-by-user-id-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUsersByUserIDSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-users-by-user-id-sp-_-paging-sp
+
+## Returns
+UsersRow[]
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUsersByUserIDSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUsersByUserIDSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetUsersByUserIDSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-users-by-user-id-sp-_-paging-sp")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUsersByUserIDSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUsersByUserIDSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserIDSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUsersByUserIDSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUsersByUserRoleRoleIDSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserRoleRoleIDSp_PagingSp">
+
+				<h3>Users.GetUsersByUserRoleRoleIDSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-users-by-user-role-role-id-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUsersByUserRoleRoleIDSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-users-by-user-role-role-id-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			RoleID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtRoleID" kcs:FieldName="RoleID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUsersByUserRoleRoleIDSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-users-by-user-role-role-id-sp-_-paging-sp
+
+## Returns
+UsersRow[]
+
+## Parameters 
+
+	Name: RoleID, Type: Integer
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUsersByUserRoleRoleIDSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUsersByUserRoleRoleIDSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetUsersByUserRoleRoleIDSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-users-by-user-role-role-id-sp-_-paging-sp")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUsersByUserRoleRoleIDSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUsersByUserRoleRoleIDSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersByUserRoleRoleIDSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUsersByUserRoleRoleIDSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.GetUsersSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersSp_PagingSp">
+
+				<h3>Users.GetUsersSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/users/get-users-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetUsersSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/get-users-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.UsersRow.ks.html&Class=SimpleApiHarnessPage">UsersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetUsersSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/users/get-users-sp-_-paging-sp
+
+## Returns
+UsersRow[]
+
+## Parameters 
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetUsersSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetUsersSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetUsersSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/get-users-sp-_-paging-sp")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.GetUsersSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetUsersSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetUsersSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetUsersSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.InsertUser</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUser">
+
+				<h3>Users.InsertUser</h3>
+				<p>/api/feedingfrenzy.admin.business/users/insert-user</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertUser">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/insert-user" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Password
+		</label>
+		<div class="col-6">
+			<textarea id="txtPassword" kcs:FieldName="Password" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Has Logged In
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkHasLoggedIn" kcs:FieldName="HasLoggedIn"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Login Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastLoginDate" kcs:FieldName="LastLoginDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Locked Out
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsLockedOut" kcs:FieldName="IsLockedOut"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Invitation Code
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtInvitationCode" kcs:FieldName="InvitationCode" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Invitation Expiration
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtInvitationExpiration" kcs:FieldName="InvitationExpiration" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Invited
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsInvited" kcs:FieldName="IsInvited"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Invited Date
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtInvitedDate" kcs:FieldName="InvitedDate" class="InputDateTime form-control" maxlength="20" />
+		</div>
+		<label class="col-3 control-label">
+			DateTime
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			First Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertUser
+
+## Url
+/api/feedingfrenzy.admin.business/users/insert-user
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: Data, Type: Data
+
+	Name: Email, Type: Email
+
+	Name: Phone, Type: Phone
+
+	Name: Password, Type: Text
+
+	Name: HasLoggedIn, Type: Boolean
+
+	Name: LastLoginDate, Type: DateTime
+
+	Name: IsLockedOut, Type: Boolean
+
+	Name: InvitationCode, Type: String
+
+	Name: InvitationExpiration, Type: DateTime
+
+	Name: IsInvited, Type: Boolean
+
+	Name: InvitedDate, Type: DateTime
+
+	Name: FirstName, Type: String
+
+	Name: LastName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertUserClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertUserClick()
+										{
+											var oObj = BlindUnbind("divInsertUser");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/insert-user")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.InsertUserObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertUser", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUser">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertUser" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.InsertUser2</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUser2">
+
+				<h3>Users.InsertUser2</h3>
+				<p>/api/feedingfrenzy.admin.business/users/insert-user-2</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertUser2">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/insert-user-2" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Password
+		</label>
+		<div class="col-6">
+			<textarea id="txtPassword" kcs:FieldName="Password" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertUser2
+
+## Url
+/api/feedingfrenzy.admin.business/users/insert-user-2
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+	Name: Password, Type: Text
+
+	Name: Name, Type: String
+
+	Name: Phone, Type: Phone
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertUser2Click()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertUser2Click()
+										{
+											var oObj = BlindUnbind("divInsertUser2");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/insert-user-2")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.InsertUser2Object(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertUser2", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertUser2">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertUser2" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsEnabled">
+
+				<h3>Users.MarkUserAsEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-enabled")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsHasLoggedIn</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsHasLoggedIn">
+
+				<h3>Users.MarkUserAsHasLoggedIn</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-has-logged-in</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsHasLoggedIn">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-has-logged-in" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsHasLoggedIn
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-has-logged-in
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsHasLoggedInClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsHasLoggedInClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsHasLoggedIn");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-has-logged-in")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsHasLoggedInObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsHasLoggedIn", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsHasLoggedIn">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsHasLoggedIn" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsInvited</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsInvited">
+
+				<h3>Users.MarkUserAsInvited</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-invited</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsInvited">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-invited" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsInvited
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-invited
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsInvitedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsInvitedClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsInvited");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-invited")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsInvitedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsInvited", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsInvited">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsInvited" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsLockedOut</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsLockedOut">
+
+				<h3>Users.MarkUserAsLockedOut</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-locked-out</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsLockedOut">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-locked-out" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsLockedOut
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-locked-out
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsLockedOutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsLockedOutClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsLockedOut");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-locked-out")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsLockedOutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsLockedOut", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsLockedOut">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsLockedOut" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsNotEnabled</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotEnabled">
+
+				<h3>Users.MarkUserAsNotEnabled</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-not-enabled</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsNotEnabled">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-not-enabled" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsNotEnabled
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-not-enabled
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsNotEnabledClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsNotEnabledClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsNotEnabled");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-not-enabled")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsNotEnabledObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsNotEnabled", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotEnabled">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsNotEnabled" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsNotHasLoggedIn</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotHasLoggedIn">
+
+				<h3>Users.MarkUserAsNotHasLoggedIn</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-not-has-logged-in</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsNotHasLoggedIn">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-not-has-logged-in" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsNotHasLoggedIn
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-not-has-logged-in
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsNotHasLoggedInClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsNotHasLoggedInClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsNotHasLoggedIn");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-not-has-logged-in")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsNotHasLoggedInObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsNotHasLoggedIn", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotHasLoggedIn">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsNotHasLoggedIn" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsNotInvited</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotInvited">
+
+				<h3>Users.MarkUserAsNotInvited</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-not-invited</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsNotInvited">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-not-invited" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsNotInvited
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-not-invited
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsNotInvitedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsNotInvitedClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsNotInvited");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-not-invited")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsNotInvitedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsNotInvited", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotInvited">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsNotInvited" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.MarkUserAsNotLockedOut</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotLockedOut">
+
+				<h3>Users.MarkUserAsNotLockedOut</h3>
+				<p>/api/feedingfrenzy.admin.business/users/mark-user-as-not-locked-out</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkUserAsNotLockedOut">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/mark-user-as-not-locked-out" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkUserAsNotLockedOut
+
+## Url
+/api/feedingfrenzy.admin.business/users/mark-user-as-not-locked-out
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkUserAsNotLockedOutClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkUserAsNotLockedOutClick()
+										{
+											var oObj = BlindUnbind("divMarkUserAsNotLockedOut");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/mark-user-as-not-locked-out")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.MarkUserAsNotLockedOutObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkUserAsNotLockedOut", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkUserAsNotLockedOut">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkUserAsNotLockedOut" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.RemoveUser</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveUser">
+
+				<h3>Users.RemoveUser</h3>
+				<p>/api/feedingfrenzy.admin.business/users/remove-user</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveUser">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/remove-user" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveUser
+
+## Url
+/api/feedingfrenzy.admin.business/users/remove-user
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveUserClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveUserClick()
+										{
+											var oObj = BlindUnbind("divRemoveUser");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/remove-user")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.RemoveUserObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveUser", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveUser">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveUser" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.SendInvite</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendInvite">
+
+				<h3>Users.SendInvite</h3>
+				<p>/api/feedingfrenzy.admin.business/users/send-invite</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendInvite">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/send-invite" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendInvite
+
+## Url
+/api/feedingfrenzy.admin.business/users/send-invite
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendInviteClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendInviteClick()
+										{
+											var oObj = BlindUnbind("divSendInvite");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/send-invite")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.SendInviteObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendInvite", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendInvite">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendInvite" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.SendPasswordReset</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendPasswordReset">
+
+				<h3>Users.SendPasswordReset</h3>
+				<p>/api/feedingfrenzy.admin.business/users/send-password-reset</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendPasswordReset">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/send-password-reset" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendPasswordReset
+
+## Url
+/api/feedingfrenzy.admin.business/users/send-password-reset
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendPasswordResetClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendPasswordResetClick()
+										{
+											var oObj = BlindUnbind("divSendPasswordReset");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/send-password-reset")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.SendPasswordResetObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendPasswordReset", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendPasswordReset">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendPasswordReset" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.SendVoiceAgentConfirmation</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendVoiceAgentConfirmation">
+
+				<h3>Users.SendVoiceAgentConfirmation</h3>
+				<p>/api/feedingfrenzy.admin.business/users/send-voice-agent-confirmation</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SendVoiceAgentConfirmation">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/send-voice-agent-confirmation" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: SendVoiceAgentConfirmation
+
+## Url
+/api/feedingfrenzy.admin.business/users/send-voice-agent-confirmation
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnSendVoiceAgentConfirmationClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnSendVoiceAgentConfirmationClick()
+										{
+											var oObj = BlindUnbind("divSendVoiceAgentConfirmation");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/send-voice-agent-confirmation")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.SendVoiceAgentConfirmationObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsSendVoiceAgentConfirmation", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divSendVoiceAgentConfirmation">
+				<h3>Results</h3>
+				<textarea id="txtResultsSendVoiceAgentConfirmation" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.UpdateUserData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserData">
+
+				<h3>Users.UpdateUserData</h3>
+				<p>/api/feedingfrenzy.admin.business/users/update-user-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateUserData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/update-user-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			User ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtUserID" kcs:FieldName="UserID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateUserData
+
+## Url
+/api/feedingfrenzy.admin.business/users/update-user-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: UserID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateUserDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateUserDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateUserData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/update-user-data")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.UpdateUserDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateUserData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateUserData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>Users.UpdateUserInfo</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserInfo">
+
+				<h3>Users.UpdateUserInfo</h3>
+				<p>/api/feedingfrenzy.admin.business/users/update-user-info</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateUserInfo">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/users/update-user-info" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Email
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			First Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Last Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Enabled
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Locked Out
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsLockedOut" kcs:FieldName="IsLockedOut"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			IsSalesRepresentative
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSalesRepresentative" kcs:FieldName="IsSalesRepresentative"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			IsAdministrator
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsAdministrator" kcs:FieldName="IsAdministrator"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateUserInfo
+
+## Url
+/api/feedingfrenzy.admin.business/users/update-user-info
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: Email, Type: Email
+
+	Name: Phone, Type: Phone
+
+	Name: FirstName, Type: String
+
+	Name: LastName, Type: String
+
+	Name: IsEnabled, Type: Boolean
+
+	Name: IsLockedOut, Type: Boolean
+
+	Name: IsSalesRepresentative, Type: Boolean
+
+	Name: IsAdministrator, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateUserInfoClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateUserInfoClick()
+										{
+											var oObj = BlindUnbind("divUpdateUserInfo");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/users/update-user-info")
+																		Users.Url = oObj.BaseUrl;
+
+																	Users.UpdateUserInfoObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateUserInfo", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateUserInfo">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateUserInfo" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

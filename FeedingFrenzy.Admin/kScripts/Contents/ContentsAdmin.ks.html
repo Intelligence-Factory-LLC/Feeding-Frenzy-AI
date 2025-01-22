@@ -1,0 +1,560 @@
+<%
+class ContentsAdmin
+{
+			
+
+	(function GetDetails ContentID
+	{
+		(declare Content (Contents.GetContent (ContentID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Content ID
+							</td>
+							<td>
+								
+									<%Content.ContentID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Content Name
+							</td>
+							<td>
+								
+									<%Content.ContentName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+						
+						
+                        
+						<tr>
+							<td class="InputLabel">
+								Content Type ID
+							</td>
+							<td>
+                               
+                                <a href="content-type?ContentTypeID=<%Content.ContentTypeID%>">
+                                    <%ifneq  (Content.ContentType) ""{%>
+
+                                        
+                                            <%Content.ContentType.ContentTypeName%>
+                                        
+                                    <%}%>
+                                </a>
+								
+							</td>
+						</tr>
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Content
+							</td>
+							<td>
+								
+									<%Content.Content%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Content.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Content.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Content.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Content.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown ContentName ContentID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetContentsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit ContentID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Content">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="ContentID" class="InputString form-control" readonly="readonly" value="<%ContentID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtContentName" kcs:FieldName="ContentName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtContent" kcs:FieldName="Content" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view Contents GetContentsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="ContentID">
+						Content ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ContentName">
+						Content Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Content">
+						Content
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+									
+				</tr>
+			<%Contents.each Content{%> 
+				<tr kcs:RowKey="<%Content.get ContentID%>" >
+							
+			
+					
+					<td>
+						<%Content.ContentID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Content.ContentName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Content.Content%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Content.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Content.DateCreated%></span>
+					</td>
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Contents GetContentsSp_CountSp  (Search))
+		(return (Contents.get Total))
+	})
+	
+		
+
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Content">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtContentName" kcs:FieldName="ContentName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content Type
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using ContentTypes\ContentTypesAdmin.ks.html%>
+							
+								<%ContentTypesAdmin.GetDropDown ContentTypeName ContentTypeID ContentTypeID '<option value="">None</option>'%>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Content
+					</label>
+					<div class="col-sm-6">
+							
+						<a href="javascript:void(0)" onclick="OnEditHTML()">HTML</a> | <a href="javascript:void(0)" onclick="OnEditCode()">Code</a>
+						
+
+							<textarea id="txtContent" kcs:FieldName="Content" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+
+		
+		
+	(function GetGridByContentTypeID ContentTypeID 
+	{
+		(return (GetGridByContentTypeID (ContentTypeID) '' '' true 0 20))
+	})
+
+	(function GetGridByContentTypeID ContentTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByContentTypeIDHtml (ContentTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByContentTypeIDCount (ContentTypeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByContentTypeIDHtml ContentTypeID 
+	{
+		(return (GetGridByContentTypeIDHtml (ContentTypeID) '' '' true 0 20))	
+	})
+
+	(function GetGridByContentTypeIDHtml ContentTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(ado.view Contents GetContentsByContentTypeIDSp_PagingSp (ContentTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows))
+		(return (GetGridHtmlInternal (Contents))) 
+		
+	})
+		
+	(function GetGridByContentTypeIDCount ContentTypeID  Search
+	
+	{
+		(ado.row Contents GetContentsByContentTypeIDSp_CountSp (ContentTypeID) (Search))
+		(return (Contents.get Total))
+	})
+
+
+	(function GetGridHtmlInternal Contents
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="ContentID">
+						Content ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ContentName">
+						Content Name
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+									
+				</tr>
+			<%Contents.each Content{%> 
+				<tr kcs:RowKey="<%Content.get ContentID%>" >
+							
+			
+					
+					<td>
+						<%Content.ContentID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Content.ContentName%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Content.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 3%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+				
+		
+}%>

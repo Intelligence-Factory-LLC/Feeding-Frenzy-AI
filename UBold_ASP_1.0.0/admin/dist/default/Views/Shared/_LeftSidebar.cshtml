@@ -1,0 +1,784 @@
+﻿<div class="left-side-menu">
+
+    <div class="h-100" data-simplebar>
+
+        <!-- User box -->
+        <div class="user-box text-center">
+            <img src="~/images/users/user-1.jpg" alt="user-img" title="Mat Helme"
+                 class="rounded-circle avatar-md">
+            <div class="dropdown">
+                <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+                   data-bs-toggle="dropdown">Geneva Kennedy</a>
+                <div class="dropdown-menu user-pro-dropdown">
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-user me-1"></i>
+                        <span>My Account</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-settings me-1"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-lock me-1"></i>
+                        <span>Lock Screen</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-log-out me-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </div>
+            <p class="text-muted">Admin Head</p>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+
+            <ul id="side-menu">
+
+                <li class="menu-title">Navigation</li>
+
+                <li>
+                    <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                        <i data-feather="airplay"></i>
+                        <span class="badge bg-success rounded-pill float-end">4</span>
+                        <span> Dashboards </span>
+                    </a>
+                    <div class="collapse" id="sidebarDashboards">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="/">Dashboard 1</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard2">Dashboard 2</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard3">Dashboard 3</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard4">Dashboard 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-title mt-2">Apps</li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="calendar">
+                        <i data-feather="calendar"></i>
+                        <span> Calendar </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="chat">
+                        <i data-feather="message-square"></i>
+                        <span> Chat </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#sidebarEcommerce" data-bs-toggle="collapse">
+                        <i data-feather="shopping-cart"></i>
+                        <span> Ecommerce </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEcommerce">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="ecommerce-dashboard">Dashboard</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="products">Products</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="productdetail">Product Detail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="productedit">Add Product</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="customers">Customers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="orders">Orders</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="orderdetail">Order Detail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="sellers">Sellers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="cart">Shopping Cart</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="checkout">Checkout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarCrm" data-bs-toggle="collapse">
+                        <i data-feather="users"></i>
+                        <span> CRM </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarCrm">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="crm-dashboard">Dashboard</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="crm-contacts">Contacts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="crm-opportunities">Opportunities</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="crm-leads">Leads</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="crm-customers">Customers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarEmail" data-bs-toggle="collapse">
+                        <i data-feather="mail"></i>
+                        <span> Email </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarEmail">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="email-inbox">Inbox</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="email-read">Read Email</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="email-compose">Compose Email</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="email-templates">Email Templates</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="socialFeed">
+                        <span class="badge bg-pink float-end">Hot</span>
+                        <i data-feather="rss"></i>
+                        <span> Social Feed </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="companies">
+                        <i data-feather="activity"></i>
+                        <span> Companies </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#sidebarProjects" data-bs-toggle="collapse">
+                        <i data-feather="briefcase"></i>
+                        <span> Projects </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarProjects">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="project-list">List</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="project-detail">Detail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="project-create">Create Project</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarTasks" data-bs-toggle="collapse">
+                        <i data-feather="clipboard"></i>
+                        <span> Tasks </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarTasks">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="task-list">List</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="task-details">Details</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="task-kanban-board">Kanban Board</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarContacts" data-bs-toggle="collapse">
+                        <i data-feather="book"></i>
+                        <span> Contacts </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarContacts">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="contacts-list">Members List</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="contacts-profile">Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarTickets" data-bs-toggle="collapse">
+                        <i data-feather="aperture"></i>
+                        <span> Tickets </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarTickets">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="apps" asp-action="tickets-list">List</a>
+                            </li>
+                            <li>
+                                <a asp-controller="apps" asp-action="tickets-detail">Detail</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a asp-controller="apps" asp-action="fileManager">
+                        <i data-feather="folder-plus"></i>
+                        <span> File Manager </span>
+                    </a>
+                </li>
+
+                <li class="menu-title mt-2">Custom</li>
+
+                <li>
+                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                        <i data-feather="file-text"></i>
+                        <span> Auth Pages </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarAuth">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-login">Log In</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-login-2">Log In 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-register">Register</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-register-2">Register 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-signin-signup">Signin - Signup</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-signin-signup-2">Signin - Signup 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-recoverpw">Recover Password</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-recoverpw-2">Recover Password 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-lock-screen">Lock Screen</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-lock-screen-2">Lock Screen 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-logout">Logout</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-logout-2">Logout 2</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-confirm-mail">Confirm Mail</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="auth-confirm-mail-2">Confirm Mail 2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarExpages" data-bs-toggle="collapse">
+                        <i data-feather="package"></i>
+                        <span> Extra Pages </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarExpages">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-starter">Starter</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-timeline">Timeline</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-sitemap">Sitemap</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-invoice">Invoice</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-faqs">FAQs</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-search-results">Search Results</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-pricing">Pricing</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-maintenance">Maintenance</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-coming-soon">Coming Soon</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-gallery">Gallery</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-404">Error 404</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-404-two">Error 404 Two</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-404-alt">Error 404-alt</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-500">Error 500</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="pages-500-two">Error 500 Two</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarLayouts" data-bs-toggle="collapse">
+                        <i data-feather="layout"></i>
+                        <span class="badge bg-blue float-end">New</span>
+                        <span> Layouts </span>
+                    </a>
+                    <div class="collapse" id="sidebarLayouts">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="custom" asp-action="layouts-horizontal">Horizontal</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="layouts-detached">Detached</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="layouts-two-column">Two Column Menu</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="layouts-two-tone-icons">Two Tones Icons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="custom" asp-action="layouts-preloader">Preloader</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-title mt-2">Components</li>
+
+                <li>
+                    <a href="#sidebarBaseui" data-bs-toggle="collapse">
+                        <i data-feather="pocket"></i>
+                        <span> Base UI </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarBaseui">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="ui-buttons">Buttons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-cards">Cards</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-avatars">Avatars</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-portlets">Portlets</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-tabs-accordions">Tabs & Accordions</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-modals">Modals</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-progress">Progress</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-notifications">Notifications</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-offcanvas">Offcanvas</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-placeholders">Placeholders</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-spinners">Spinners</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-images">Images</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-carousel">Carousel</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-list-group">List Group</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-video">Embed Video</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-dropdowns">Dropdowns</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-ribbons">Ribbons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-tooltips-popovers">Tooltips & Popovers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-general">General UI</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-typography">Typography</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="ui-grid">Grid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarExtendedui" data-bs-toggle="collapse">
+                        <i data-feather="layers"></i>
+                        <span class="badge bg-info float-end">Hot</span>
+                        <span> Extended UI </span>
+                    </a>
+                    <div class="collapse" id="sidebarExtendedui">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="extended-nestable">Nestable List</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-range-slider">Range Slider</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-dragula">Dragula</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-animation">Animation</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-sweet-alert">Sweet Alert</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-tour">Tour Page</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-scrollspy">Scrollspy</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="extended-loading-buttons">Loading Buttons</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a asp-controller="component" asp-action="widgets">
+                        <i data-feather="gift"></i>
+                        <span> Widgets </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#sidebarIcons" data-bs-toggle="collapse">
+                        <i data-feather="cpu"></i>
+                        <span> Icons </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarIcons">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="icons-material-symbols">Material Symbols Icons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-two-tone">Two Tone Icons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-feather">Feather Icons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-mdi">Material Design Icons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-dripicons">Dripicons</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-font-awesome">Font Awesome 5</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-themify">Themify</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-simple-line">Simple Line</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="icons-weather">Weather</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarForms" data-bs-toggle="collapse">
+                        <i data-feather="bookmark"></i>
+                        <span> Forms </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarForms">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="forms-elements">General Elements</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-advanced">Advanced</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-validation">Validation</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-pickers">Pickers</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-wizard">Wizard</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-masks">Masks</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-quilljs">Quilljs Editor</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-file-uploads">File Uploads</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-x-editable">X Editable</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="forms-image-crop">Image Crop</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarTables" data-bs-toggle="collapse">
+                        <i data-feather="grid"></i>
+                        <span> Tables </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarTables">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="tables-basic">Basic Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-datatables">Data Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-editable">Editable Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-responsive">Responsive Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-footables">FooTable</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-bootstrap">Bootstrap Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-tablesaw">Tablesaw Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="tables-jsgrid">JsGrid Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarCharts" data-bs-toggle="collapse">
+                        <i data-feather="bar-chart-2"></i>
+                        <span> Charts </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarCharts">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="charts-apex">Apex Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-flot">Flot Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-morris">Morris Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-chartjs">Chartjs Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-peity">Peity Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-chartist">Chartist Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-c3">C3 Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-sparklines">Sparklines Charts</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="charts-knob">Jquery Knob Charts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarMaps" data-bs-toggle="collapse">
+                        <i data-feather="map"></i>
+                        <span> Maps </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarMaps">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a asp-controller="component" asp-action="maps-google">Google Maps</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="maps-vector">Vector Maps</a>
+                            </li>
+                            <li>
+                                <a asp-controller="component" asp-action="maps-mapael">Mapael Maps</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#sidebarMultilevel" data-bs-toggle="collapse">
+                        <i data-feather="share-2"></i>
+                        <span> Multi Level </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarMultilevel">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="#sidebarMultilevel2" data-bs-toggle="collapse">
+                                    Second Level <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarMultilevel2">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="javascript: void(0);">Item 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: void(0);">Item 2</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#sidebarMultilevel3" data-bs-toggle="collapse">
+                                    Third Level <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarMultilevel3">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="javascript: void(0);">Item 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#sidebarMultilevel4" data-bs-toggle="collapse">
+                                                Item 2 <span class="menu-arrow"></span>
+                                            </a>
+                                            <div class="collapse" id="sidebarMultilevel4">
+                                                <ul class="nav-second-level">
+                                                    <li>
+                                                        <a href="javascript: void(0);">Item 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript: void(0);">Item 2</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>

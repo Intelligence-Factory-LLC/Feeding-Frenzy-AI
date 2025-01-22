@@ -1,0 +1,369 @@
+﻿<%using application.ks%>
+
+<%class SimpleApiHarnessPage
+{
+	(declare Metadata
+		{
+			ObjectName : "",
+			ObjectsName : "",
+			
+			FriendlyObjectName : "",
+			FriendlyObjectsName : "",
+			
+			ObjectsUrl : "",
+			DetailsUrl : "",
+			EditUrl : "",
+			InsertUrl : "",
+
+			UINamespace : "",
+			BusinessNamespace: ""
+		}
+	)
+	
+	(function MetadataFile File
+	{
+		(Metadata (json (include (File))))
+	})
+		
+	(function ObjectName
+	{
+		(return (Metadata.ObjectName))
+	})
+	
+	(function ObjectsName
+	{
+		(return (Metadata.ObjectsName))
+	})
+	
+	(function FriendlyObjectName
+	{
+		(return (Metadata.FriendlyObjectName))
+	})
+	
+	(function FriendlyObjectsName
+	{
+		(return (Metadata.FriendlyObjectsName))
+	})
+	
+	(function ObjectsUrl 
+	{
+		(return (Metadata.ObjectsUrl))
+	})
+
+	(function DetailsUrl 
+	{
+		(return (Metadata.DetailsUrl))
+	})
+
+	(function InsertUrl 
+	{
+		(return (Metadata.InsertUrl))
+	})
+	
+	(function EditUrl 
+	{
+		(return (Metadata.EditUrl))
+	})
+	
+	
+	(function Title 
+	{
+		(returnex{%><%Application.Title%> - New <%FriendlyObjectName%><%})
+	})
+	
+	(function InsertPanel
+	{
+		(return ((concat (ObjectsName) Admin.GetInsert)))
+	})
+
+	(function QuickHelp
+	{
+		(returnex{%>
+			Create a new <%FriendlyObjectName%> using this form. Enter the information and click
+			"Save" when complete.
+		<%})
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			<%FriendlyObjectsName%>
+		<%})
+	})
+	
+	(function Breadcrumbs
+	{
+		(returnex{%>
+			<ol class="breadcrumb">
+				<li><a href="/default.aspx">Main</a></li>
+				<li><a href="<%ObjectsUrl%>"><%FriendlyObjectsName%></a></li>
+				<li>New <%FriendlyObjectName%></li>
+			</ol>
+
+		<%})
+	})
+	
+	(function MainPanelTabs
+	{
+		(returnex{%>
+			
+		<%})
+	})
+	
+	(function MainPanelContent
+	{
+		(returnex{%>
+			
+			<div class="row">
+				<div class="col-sm-12">
+				  <div class="panel panel-primary">
+				      <div class="panel-heading">
+				          <h4>Add <%FriendlyObjectName%></h4>
+				          
+				      </div>
+				      <div class="panel-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="div<%ObjectName%>">
+						
+						<h3>Create <%FriendlyObjectName%></h3>
+						<p>Create the <%FriendlyObjectName%> below and click "Save" when done making changes.</p>
+						<br>
+						
+						<%InsertPanel%>
+				      
+				      	
+				      </div>
+				      <div class="panel-footer">
+				      	<div class="row">
+				      		<div class="col-sm-6 col-sm-offset-3">
+				      			<div class="btn-toolbar">
+				      				<%CommandButtons%>
+				      			</div>
+				      		</div>
+				      	</div>
+				      </div>
+				  </div>
+				</div>
+			</div>
+		<%})
+	})
+
+	(function CommandButtons
+	{
+		(returnex{%>
+			<button id="btnUpdate<%ObjectName%>" value="Save <%FriendlyObjectName%>" onclick="OnUpdate<%ObjectName%>()" class="Save btn-primary btn">Save</button>
+			<button id="btnCancel<%ObjectName%>" value="Cancel" onclick="OnCancel<%ObjectName%>()" class="Cancel btn-default btn" >Cancel</button>
+
+		<%})
+	})
+	
+	(function AdditionalScripts
+	{
+			(returnex{%>
+
+
+			<%})
+
+	})
+	
+
+	(function ChatWithApiWindow sApi sJs
+	{
+		(returnex{%>
+<div class="card border-primary border">
+    <div class="card-header">
+        <h4>Chat with API</h4>
+    </div>
+    <div class="card-body" style="border-radius: 0;">
+		<p>Ask the API Agent to help write your integration code here. It knows all about the APIs 
+			and how to call them. </p>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label for="txtDirective" class="form-label">Directive</label>
+                    <textarea id="txtDirective" kcs:FieldName="Directive" class="form-control" style="width: 100%; height: 100px; white-space: pre-wrap; resize: vertical; padding: 10px; border-radius: 5px; border: 1px solid #ced4da;"></textarea>
+                </div>
+                <div class="d-flex align-items-center">
+					<div class="form-group">
+						<button value="" onclick="OnExecuteDirective(this)" class="btn btn-primary me-2">GO!</button>
+						<button value="" onclick="OnRefineCode(this)" class="btn btn-primary-alt me-2">Refine</button>
+					</div>
+                    <div class="form-group">
+                        <select class="form-control" id="ddlModel">
+                            <option value="gpt-4o-mini">gpt-4o-mini</option>
+                            <option value="gpt-4o">gpt-4</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+					 <div class="mb-3">
+                    <label for="txtCode" class="form-label" id="lblResultType">JavaScript</label>
+                    <textarea id="txtCode" kcs:FieldName="Query" class="form-control InputJavascript" style="width: 100%; height:200px; white-space: pre;"></textarea>
+                    <div id="divOffset"></div>
+						</div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <button value="" onclick="OnThumbsUp(this)" class="btn btn-primary me-2" title="This is a good response, save it.">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="divDescription"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-6 col-offset-3">
+                <div class="btn-toolbar">
+                    <!-- Add any additional buttons or controls here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+		<script type="text/javascript">
+			Page.PreserveViewState();
+
+			async function getFileContents(sFile) {
+				try {
+					const response = await fetch(sFile);
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`); // Handle errors
+					}
+					const text = await response.text();
+					return text;
+				} catch (error) {
+					console.error("Error fetching file:", error);
+					return null; // Or throw the error if you prefer
+				}
+			}
+
+			async function OnExecuteDirective(sender) {
+				let iFragmentID = await RebuildApiFragment();
+
+				APIWorkbench.InterpretDirective(iFragmentID,
+					ControlUtil.GetValue('txtDirective'),
+					ControlUtil.GetValue("ddlModel"),
+					null,
+					function (oResult) {
+						ControlUtil.SetValue('txtCode', oResult.Javascript);
+						if (!StringUtil.IsEmpty(oResult.Message)) {
+							UserMessages.DisplayNow(oResult.Message, "Info");
+						}
+					});
+			}
+
+			async function OnRefineCode(sender) {
+				let iFragmentID = await RebuildApiFragment();
+
+				APIWorkbench.RefineCode(iFragmentID,
+					ControlUtil.GetValue('txtDirective'),
+					ControlUtil.GetValue("txtCode"),
+					ControlUtil.GetValue("ddlModel"),
+					null,
+					function (oResult) {
+						ControlUtil.SetValue('txtCode', oResult.Javascript);
+						if (!StringUtil.IsEmpty(oResult.Message)) {
+							UserMessages.DisplayNow(oResult.Message, "Info");
+						}
+					});
+			}
+
+			async function RebuildApiFragment() {
+				let sFile = "<%sJs%>";
+				let sExistingCode = ControlUtil.GetValue('txtCode');
+				let sFileContents = await getFileContents(sFile);
+
+				var sCode = "";
+				$$("code").forEach(x => { sCode += x.innerHTML; });
+
+				sCode += "## Helper File\n" + sFileContents;
+
+				let iFragmentID = FragmentsHelper.InsertOrUpdateFragment("<%sApi%>", sCode);
+				return iFragmentID;
+			}
+
+	
+			function OnThumbsUp(sender) {
+				let sCode = ControlUtil.GetValue('txtCode');
+				let sDirective = ControlUtil.GetValue('txtDirective');
+
+				APIWorkbench.SaveDirectiveAndImplementation(sDirective, sCode, function (oResult) {
+					UserMessages.DisplayNow("Saved", "Success");
+				});
+			}
+
+
+		</script>
+
+			<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+			<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+			<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+			<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+			<style>
+				.CodeMirror {
+					border: 1px solid #eee;
+					height: auto;
+				}
+			</style>
+
+            <script>
+				Page.AddOnload(() => {
+					OnEditCode();
+				});
+
+				function OnEditCode() {
+					window.editor = CodeMirror.fromTextArea(document.getElementById('txtCode'), {
+						mode: "javascript",
+						indentWithTabs: true,
+						lineNumbers: true,
+						matchBrackets: true,
+						autofocus: true
+					});
+
+					// Keep the textarea updated on every change
+					window.editor.on('change', function (cm) {
+						cm.save(); // Synchronizes CodeMirror content with the textarea
+					});
+
+						   // Listen for keydown events in the editor
+					window.editor.on('keydown', function (cm, event) {
+						// Check if Alt+Space is pressed
+						if (event.ctrlKey && event.code === 'Space') {
+							event.preventDefault();
+						}
+					});
+				}
+
+			</script>
+
+
+		<%})
+	})
+
+	(function BottomScripts
+	{
+		(returnex{%>
+
+	<script type="text/javascript" src="/js/kcs/JsonMethod.js"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Services.FragmentsHelper.ashx.js"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Tools.APIWorkbench.ashx.js"></script>
+
+
+		<%})
+	})
+
+}%>
+	
+

@@ -1,0 +1,22 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile Agents.Meta.json%>
+
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts 
+{
+	(returnex{%>
+<script type="text/javascript">
+	OnClickAgent = function (iAgentID, e, el, bCtrl) {
+		let sAgentType = el.getAttribute("kcs:AgentType");
+		if (StringUtil.EqualNoCase(sAgentType, "Voice Agent")) {
+			Page.Redirect("/voice-agent", { AgentID: iAgentID }, bCtrl ? "_blank" : "_self");
+		}
+		else {
+			Page.Redirect("<%DetailsUrl%>", { AgentID: iAgentID }, bCtrl ? "_blank" : "_self");
+		}
+	}
+</script>
+	<%})
+}%>
+
+

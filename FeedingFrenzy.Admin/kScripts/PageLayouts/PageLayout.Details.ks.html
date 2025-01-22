@@ -1,0 +1,25 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using PageLayoutsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile PageLayouts.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>

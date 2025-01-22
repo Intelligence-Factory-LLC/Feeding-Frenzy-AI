@@ -1,0 +1,19 @@
+{
+	ObjectName : "BlockedEmail",
+	ObjectsName : "BlockedEmails",
+
+	
+	NaturalKey : "Email",
+	
+	
+	FriendlyObjectName : "Blocked Email",
+	FriendlyObjectsName : "Blocked Emails",
+	
+	ObjectsUrl : "blocked-emails",
+	DetailsUrl : "blocked-email",
+	EditUrl : "blocked-email-edit",
+	InsertUrl : "blocked-email-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

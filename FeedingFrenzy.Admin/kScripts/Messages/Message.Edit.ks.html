@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using MessagesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Messages.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Messages.GetMessage (ObjectID)))
+}%>
+

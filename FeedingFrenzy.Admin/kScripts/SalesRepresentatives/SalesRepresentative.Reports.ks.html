@@ -1,0 +1,482 @@
+﻿<%import FeedingFrenzy.Admin.Business FeedingFrenzy.Admin.Business.SalesRepresentativeReportHelper SalesRepresentativeReportHelper%>
+
+<%class SalesRepresentativeReports
+{
+
+	(function GetCallSummary SalesRepresentativeID StartDate StopDate
+	{
+
+		(ado.row CallSummary{%>
+
+				select		isnull(sum(case when lnt.LeadNoteTypeName = 'Appointment Set' then 1 else 0 end), 0) as AppointmentsSet,
+							isnull(sum(case when lnt.LeadNoteTypeName = 'Presented' then 1 else 0 end), 0) as AppointmentsGiven,
+							isnull(sum(case when lnt.LeadNoteTypeName = 'Email' then 1 else 0 end), 0) as Emails,
+							isnull(count(*), 0) as TotalActions,
+							isnull(sum(case when lnt.LeadNoteTypeName = 'Call' then 1 else 0 end), 0) as Calls
+
+
+				from 			LeadNotes ln with (nolock)
+				join			LeadNoteTypes lnt on ln.LeadNoteTypeID = lnt.LeadNoteTypeID
+				where			ln.DateCreated between '<%StartDate%>' and '<%StopDate%>'
+				 and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+
+		<%})
+
+		(ado.row rowMetrics{%>
+		select		isnull(count(distinct(LeadID)), 0) as LeadsCalled,	count(*) as Calls
+		from 			LeadNotes ln with (nolock)
+		join			LeadNoteTypes lnt on ln.LeadNoteTypeID = lnt.LeadNoteTypeID
+		where			ln.DateCreated between '<%StartDate%>' and '<%StopDate%>'
+		and			lnt.LeadNoteTypeName = 'Call' and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+		<%})
+
+		(declare oDays (SalesRepresentativeReportHelper.GetWorkDays (StartDate) (StopDate)))
+
+		(returnex{%>
+
+
+<div class="table-responsive-sm">
+	<table class="tiles- Grid table table-striped table-bordered datatables dataTable">
+		<tr>
+
+			<th>
+				Leads Called
+			</th>
+
+
+			<th>
+				Emails
+			</th>
+
+			<th>
+				Total Calls
+			</th>
+
+			<th>
+				Appointments Set
+			</th>
+
+
+
+			<th>
+				Total Actions
+			</th>
+
+
+
+		</tr>
+		<tr>
+
+			<td>
+				<%rowMetrics.LeadsCalled%>
+			</td>
+
+			<td>
+				<%CallSummary.Emails%>
+			</td>
+
+			<td>
+				<%CallSummary.Calls%>
+			</td>
+
+			<td>
+				<%CallSummary.AppointmentsSet%>
+			</td>
+
+			<td>
+				<%CallSummary.TotalActions%>
+			</td>
+
+		</tr>
+	</table>
+</div>
+<table class="tiles- Grid table table-striped table-bordered datatables dataTable">
+	<tr>
+		<td>
+			<%GetDailyTiles (SalesRepresentativeID) (StartDate) (StopDate)%>
+		</td>
+
+	</tr>
+	</table>
+
+
+
+
+
+
+	<%})
+	})
+
+
+
+	(function GetDailyTiles SalesRepresentativeID StartDate StopDate
+	{
+	(declare oDays (SalesRepresentativeReportHelper.GetWorkDays (StartDate) (StopDate)))
+
+
+	(ado.row rowMetrics2{%>
+
+	-- todo: replace with ContactProgressReport_GetMetricsByRange_Sp
+
+	select		isnull(sum(case when lnt.LeadNoteTypeName = 'Appointment Set' then 1 else 0 end), 0) as AppointmentsSet,
+	isnull(sum(case when lnt.LeadNoteTypeName = 'Presented' then 1 else 0 end), 0) as AppointmentsGiven,
+	isnull(sum(case when lnt.LeadNoteTypeName = 'Email' then 1 else 0 end), 0) as Emails
+	from 			LeadNotes ln with (nolock)
+	join			LeadNoteTypes lnt on ln.LeadNoteTypeID = lnt.LeadNoteTypeID
+	where			ln.DateCreated between '<%StartDate%>' and '<%StopDate%>'
+	and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+	<%})
+
+
+
+	(returnex{%>
+	<div class="row">
+
+
+		<%declare oSalesRep (SalesRepresentatives.GetSalesRepresentative (SalesRepresentativeID))%>
+
+		<%declare iCallThreshold (oSalesRep.DataObject.GetIntOrDefault MinimumCallsPerDay 0)%>
+		<%declare iLeadThreshold (oSalesRep.DataObject.GetIntOrDefault MinimumLeadsPerDay 0)%>
+
+		<%oDays.each oDay{%>
+
+		<%ado.row rowMetrics{%>
+		
+		
+		--todo: replace with ContactProgressReport_GetContactPoints_Sp
+
+		select		isnull(count(distinct(LeadID)), 0) as LeadsCalled,
+		count(*) as Calls,
+		case
+		when isnull(count(distinct(LeadID)), 0) >= <%iLeadThreshold%> then 'Over'
+		else 'Under' end as ThresholdLeads,
+		case
+		when count(*) >= <%iCallThreshold%> then 'Over'
+		else 'Under' end as ThresholdCalls
+		from 			LeadNotes ln
+		join			LeadNoteTypes lnt on ln.LeadNoteTypeID = lnt.LeadNoteTypeID
+		where			cast(ln.DateCreated as date) = '<%oDay%>'
+		and			lnt.LeadNoteTypeName = 'Call' and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+		<%}%>
+
+
+		<%ado.row rowMetrics3{%>
+		select		isnull(count(distinct(LeadID)), 0) as LeadsEmailed
+		from 			LeadNotes ln with (nolock)
+		join			LeadNoteTypes lnt on ln.LeadNoteTypeID = lnt.LeadNoteTypeID
+		where			cast(ln.DateCreated as date) = '<%oDay%>'
+		and			lnt.LeadNoteTypeName = 'Email' and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+		<%}%>
+
+		<%ifneq (iLeadThreshold) 0{%>
+
+		<div class="col-md-6 col-xl-3">
+			<div class="card">
+				<div class="card-body alert mb-0">
+					<div class="row align-items-center">
+						<div class="col-4">
+							<div class="avatar-lg rounded <%ifeq (rowMetrics.ThresholdLeads) Over bg-success bg-danger%>">
+								<i class="<%ifeq (rowMetrics.ThresholdLeads) Over fe-check fe-phone%> font-24 avatar-title text-white"></i>
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="text-end">
+								<h4 class="text-dark"><%oDay.DayOfWeek%> <span class="DateOnly"><%oDay%></span></h4>
+								<h3 class="text-dark mt-1"><span data-plugin="counterup"><%rowMetrics.LeadsCalled%></span></h3>
+								<p class="text-muted mb-1"><%rowMetrics.LeadsCalled%> leads called / <%rowMetrics3.LeadsEmailed%> emails</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<%}%>
+
+		<%ifneq (iCallThreshold) 0{%>
+		<div class="col-md-6 col-xl-3">
+			<div class="card">
+				<div class="card-body alert mb-0">
+					<div class="row align-items-center">
+						<div class="col-4">
+							<div class="avatar-lg rounded <%ifeq (rowMetrics.ThresholdCalls) Over bg-success bg-danger%>">
+								<i class="<%ifeq (rowMetrics.ThresholdCalls) Over fe-check fe-phone%> font-24 avatar-title text-white"></i>
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="text-end">
+								<h4 class="text-dark"><%oDay.DayOfWeek%> <span class="DateOnly"><%oDay%></span></h4>
+								<h3 class="text-dark mt-1"><span data-plugin="counterup"><%rowMetrics.Calls%></span></h3>
+								<p class="text-muted mb-1"><%rowMetrics.Calls%> calls / <%rowMetrics3.LeadsEmailed%> emails</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%}%>
+
+		<%}%>
+
+		<%ifneq (rowMetrics2.AppointmentsSet) -1{%>
+
+		<div class="col-md-6 col-xl-3">
+			<div class="card">
+				<div class="card-body alert mb-0">
+					<div class="row align-items-center">
+						<div class="col-4">
+							<div class="avatar-lg rounded" style="background-color: #3A80D8">
+								<strong><i class="fe-calendar font-24 avatar-title text-white"></i></strong>
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="text-end">
+								<h4 class="text-dark"><span class="DateOnly"><%StartDate%></span> - <span class="DateOnly"><%StopDate%></span></h4>
+								<h3 class="text-dark mt-1"><span data-plugin="counterup"><%rowMetrics2.AppointmentsSet%></span></h3>
+								<p class="text-muted mb-1">Appointments Set</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<%}%>
+
+		<%ifneq (rowMetrics2.AppointmentsGiven) -1{%>
+		<div class="col-md-6 col-xl-3">
+			<div class="card">
+				<div class="card-body alert mb-0">
+					<div class="row align-items-center">
+						<div class="col-4">
+							<div class="avatar-lg rounded" style="background-color: #60BAEA">
+								<i class="fe-tablet font-24 avatar-title text-white"></i>
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="text-end">
+								<h4 class="text-dark"><span class="DateOnly"><%StartDate%></span> - <span class="DateOnly"><%StopDate%></span></h4>
+								<h3 class="text-dark mt-1"><span data-plugin="counterup"><%rowMetrics2.AppointmentsGiven%></span></h3>
+								<p class="text-muted mb-1">Presentations Done</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%}%>
+	</div>
+	<%})
+
+	})
+
+	(function GetCallSummaryByTagID SalesRepresentativeID TagID StartDate StopDate
+	{
+
+	(ado.row CallSummary{%>
+
+	select
+	count(distinct(ln.LeadID)) as 'LeadsContacted',
+	sum(case when ln.Notes = 'Contacted - Called' then 1 else 0 end) as 'CalledAndSpoke',
+	sum(case when ln.Notes = 'Contacted - Left Voice Mail' then 1 else 0 end) as Voicemails,
+	sum(case when ln.Notes = 'Contacted - No Answer' then 1 else 0 end) as 'CalledNoAnswer',
+	sum(case when ln.Notes = 'Contacted - Emailed' then 1 else 0 end) as Emailed,
+	sum(case when ln.Notes = 'Contacted - Texted' then 1 else 0 end) as Texted,
+	sum(case when ln.Notes not in
+	('Contacted - Left Voice Mail', 'Contacted - Called', 'Contacted - No Answer', 'Contacted - Emailed',  'Contacted - Texted')
+	then 1 else 0 end) as 'Other'
+	from Leads l with (nolock)
+	join LeadTags lt with (nolock) on l.LeadID = lt.LeadID
+	JOIN LeadNotes ln with (nolock) ON l.LeadID = ln.LeadID
+	where ln.DateCreated between '<%StartDate%>' and '<%StopDate%>'
+	and ln.SalesRepresentativeID = <%SalesRepresentativeID%>
+	and lt.TagID = <%TagID%>
+
+	<%})
+
+	(returnex{%>
+
+
+	<div class="table-responsive-sm">
+		<table class="Grid table table-striped table-bordered datatables dataTable">
+			<tr>
+
+
+
+				<th>
+					Leads Contacted
+				</th>
+
+
+				<th>
+					Called and Spoke
+				</th>
+
+				<th>
+					Voicemails
+				</th>
+
+				<th>
+					No Answer
+				</th>
+
+				<th>
+					Emails
+				</th>
+
+				<th>
+					Texts
+				</th>
+
+				<th>
+					Other Actions
+				</th>
+
+
+
+			</tr>
+			<tr>
+
+				<td>
+					<%CallSummary.LeadsContacted%>
+				</td>
+
+				<td>
+					<%CallSummary.CalledAndSpoke%>
+				</td>
+
+				<td>
+					<%CallSummary.Voicemails%>
+				</td>
+
+				<td>
+					<%CallSummary.CalledNoAnswer%>
+				</td>
+
+				<td>
+					<%CallSummary.Emailed%>
+				</td>
+
+				<td>
+					<%CallSummary.Texted%>
+				</td>
+				<td>
+					<%CallSummary.Other%>
+				</td>
+
+			</tr>
+		</table>
+		</div>
+		<table class="Grid table table-striped table-bordered datatables dataTable">
+			<tr>
+				<td>
+					<%GetDailyTiles (SalesRepresentativeID) (StartDate) (StopDate)%>
+				</td>
+
+			</tr>
+
+		</table>
+
+
+
+		<%})
+		})
+
+		(function GetCallSummaryOverall StartDate StopDate
+		{
+		(declare oSalesReps (SalesRepresentatives.GetSalesRepresentatives))
+
+		(returnex{%>
+
+		<h2>All Leads</h2>
+		<h3><span class="DateOnly"><%StartDate%></span> - <span class="DateOnly"><%StopDate%></span></h3>
+
+		<%oSalesReps.each oSalesRep{%>
+		<%if (oSalesRep.DataObject.GetBooleanOrFalse IsShownOnReports){%>
+		<h3 class="mt-3"><%oSalesRep.Name%></h3>
+		<%SalesRepresentativeReports.GetCallSummary (oSalesRep.SalesRepresentativeID) (StartDate) (StopDate)%>
+		<%}%>
+		<%}%>
+		<%})
+		})
+
+		(function GetCallSummaryOverallByTagID TagID StartDate StopDate
+		{
+		(declare oSalesReps (SalesRepresentatives.GetSalesRepresentatives))
+		(declare oTag (Tags.GetTag (TagID)))
+
+		(returnex{%>
+		<h2><%oTag.TagName%></h2>
+		<h3><span class="DateOnly"><%StartDate%></span> - <span class="DateOnly"><%StopDate%></span></h3>
+
+		<%oSalesReps.each oSalesRep{%>
+		<%if (oSalesRep.DataObject.GetBooleanOrFalse IsShownOnReports){%>
+		<h3 class="mt-3"><%oSalesRep.Name%></h3>
+		<%SalesRepresentativeReports.GetCallSummaryByTagID (oSalesRep.SalesRepresentativeID)  (TagID)  (StartDate) (StopDate)%>
+		<%}%>
+		<%}%>
+		<%})
+		})
+
+
+
+	(function GetSalesRepresentativesDay iSalesRepresentativeID dtDate
+	{
+		(declare oSalesRep (SalesRepresentatives.GetSalesRepresentative (iSalesRepresentativeID)))
+				   
+		(declare iCallThreshold (oSalesRep.DataObject.GetIntOrDefault MinimumCallsPerDay 0))
+		(declare iLeadThreshold (oSalesRep.DataObject.GetIntOrDefault MinimumLeadsPerDay 0))
+
+		(ado.row rowAppointments ContactProgressReport_GetMetricsByRange_Sp (dtDate) (dtDate) (oSalesRep.SalesRepresentativeID))
+		(ado.row rowContactPoints ContactProgressReport_GetContactPoints_Sp (dtDate) (oSalesRep.SalesRepresentativeID) (iLeadThreshold) (iCallThreshold))
+
+		(ado.view viewLeadNotes {%> 
+  			select ln.*, l.Company, l.FirstName, l.LastName, lnt.LeadNoteTypeName
+  			from LeadNotes ln with (nolock) 
+  			join Leads l with (nolock)
+  			on ln.LeadID = l.LeadID 
+  			left outer join LeadNoteTypes lnt on lnt.LeadNoteTypeID = ln.LeadNoteTypeID  			
+  			where ln.SalesRepresentativeID = <%iSalesRepresentativeID%> and cast(ln.DateCreated as date) = cast('<%dtDate%>' as date)
+  		<%})
+		 
+		(returnex{%>
+# Daily Summary for <%oSalesRep.Name%> for <%dtDate%>
+  
+## Sales Representative Info
+  
+Sales Representative ID: <%oSalesRep.SalesRepresentativeID%>
+Name: <%oSalesRep.Name%>  
+Email: <%oSalesRep.Email%>  
+Phone: <%oSalesRep.Phone%>  
+Enabled: <%if (oSalesRep.IsEnabled) Yes No%>  
+  
+## Overall Performance 
+  
+Appointments Set: <%rowAppointments.AppointmentsSet%>
+Presentations Given: <%rowAppointments.AppointmentsGiven%>
+Phone Calls Made: <%rowContactPoints.Calls%> calls made to <%rowContactPoints.LeadsCalled%> unique leads. 
+	The minimum unique leads called per day for this sales rep is <%iLeadThreshold%> and they were <%rowContactPoints.ThresholdLeads%> this limit.
+	The minimum phone calls per day for this sales rep is <%iCallThreshold%> and they were <%rowContactPoints.ThresholdCalls%> this limit.
+Emails Sent: <%rowContactPoints.Emails%>
+
+
+## Actions Taken
+<%viewLeadNotes.each rowLeadNote{%>
+### Lead Note ID: <%rowLeadNote.LeadNoteID%>  <%rowLeadNote.LeadNoteTypeName%> to <%rowLeadNote.Company%>
+
+Lead: <%rowLeadNote.Company%>, Lead ID : <%rowLeadNote.LeadID%>
+Contact: <%rowLeadNote.FirstName%> <%rowLeadNote.LastName%> 
+Notes: 
+	<%rowLeadNote.Notes%> @<%rowLeadNote.DateCreated%>
+<%JsonObject oDataObject (rowLeadNote.Data)%>
+	<%ifneq (oDataObject.GetIntOrNull CallID) ""{%> 
+		<%declare rowCall (Calls.GetCall (oDataObject.GetIntOrNull CallID))%>
+Call Summary: <%rowCall.TranscriptionSummary%>
+Call Transcription: <%rowCall.Transcription%>
+	  <%}%>
+	<%}%>
+	  
+  		<%})
+	})
+
+}%>

@@ -1,0 +1,19 @@
+{
+	ObjectName : "Domain",
+	ObjectsName : "Domains",
+
+	
+	NaturalKey : "DomainName",
+	
+	
+	FriendlyObjectName : "Domain",
+	FriendlyObjectsName : "Domains",
+	
+	ObjectsUrl : "domains",
+	DetailsUrl : "domain",
+	EditUrl : "domain-edit",
+	InsertUrl : "domain-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

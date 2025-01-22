@@ -1,0 +1,1420 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">LeadAddresses</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/lead-addresses" "/JsonWs/FeedingFrenzy.Admin.Business.LeadAddresses.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.LeadAddresses.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.CopyLeadAddress</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadAddress">
+
+				<h3>LeadAddresses.CopyLeadAddress</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/copy-lead-address</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyLeadAddress">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/copy-lead-address" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Address ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadAddressID" kcs:FieldName="LeadAddressID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyLeadAddress
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/copy-lead-address
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: LeadAddressID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyLeadAddressClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyLeadAddressClick()
+										{
+											var oObj = BlindUnbind("divCopyLeadAddress");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/copy-lead-address")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.CopyLeadAddressObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyLeadAddress", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyLeadAddress">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyLeadAddress" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.GetLeadAddress</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddress">
+
+				<h3>LeadAddresses.GetLeadAddress</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/get-lead-address</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadAddress">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/get-lead-address" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadAddressesRow.ks.html&Class=SimpleApiHarnessPage">LeadAddressesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Address ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadAddressID" kcs:FieldName="LeadAddressID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadAddress
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/get-lead-address
+
+## Returns
+LeadAddressesRow
+
+## Parameters 
+
+	Name: LeadAddressID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadAddressClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadAddressClick()
+										{
+											var oObj = BlindUnbind("divGetLeadAddress");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/get-lead-address")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.GetLeadAddressObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadAddress", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddress">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadAddress" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.GetLeadAddresses</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddresses">
+
+				<h3>LeadAddresses.GetLeadAddresses</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadAddresses">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadAddressesRow.ks.html&Class=SimpleApiHarnessPage">LeadAddressesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadAddresses
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses
+
+## Returns
+LeadAddressesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadAddressesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadAddressesClick()
+										{
+											var oObj = BlindUnbind("divGetLeadAddresses");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.GetLeadAddressesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadAddresses", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddresses">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadAddresses" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.GetLeadAddressesByLeadID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddressesByLeadID">
+
+				<h3>LeadAddresses.GetLeadAddressesByLeadID</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses-by-lead-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLeadAddressesByLeadID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses-by-lead-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.LeadAddressesRow.ks.html&Class=SimpleApiHarnessPage">LeadAddressesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadID" kcs:FieldName="LeadID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLeadAddressesByLeadID
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses-by-lead-id
+
+## Returns
+LeadAddressesRow[]
+
+## Parameters 
+
+	Name: LeadID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLeadAddressesByLeadIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLeadAddressesByLeadIDClick()
+										{
+											var oObj = BlindUnbind("divGetLeadAddressesByLeadID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/get-lead-addresses-by-lead-id")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.GetLeadAddressesByLeadIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLeadAddressesByLeadID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLeadAddressesByLeadID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLeadAddressesByLeadID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.InsertLeadAddress</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadAddress">
+
+				<h3>LeadAddresses.InsertLeadAddress</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/insert-lead-address</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertLeadAddress">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/insert-lead-address" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Address Type
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAddressType" kcs:FieldName="AddressType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Fax
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFax" kcs:FieldName="Fax" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadID" kcs:FieldName="LeadID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Street
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLine1" kcs:FieldName="Line1" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLine2" kcs:FieldName="Line2" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			City
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCity" kcs:FieldName="City" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			State
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtState" kcs:FieldName="State" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Zip
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtZip" kcs:FieldName="Zip" class="InputZip form-control" maxlength="20"  />
+		</div>
+		<label class="col-3 control-label">
+			Zip
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Country
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertLeadAddress
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/insert-lead-address
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: Data, Type: Data
+
+	Name: AddressType, Type: String
+
+	Name: Phone, Type: Phone
+
+	Name: Fax, Type: Phone
+
+	Name: LeadID, Type: ID
+
+	Name: Name, Type: String
+
+	Name: Line1, Type: String
+
+	Name: Line2, Type: String
+
+	Name: City, Type: String
+
+	Name: State, Type: String
+
+	Name: Zip, Type: Zip
+
+	Name: Country, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertLeadAddressClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertLeadAddressClick()
+										{
+											var oObj = BlindUnbind("divInsertLeadAddress");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/insert-lead-address")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.InsertLeadAddressObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertLeadAddress", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertLeadAddress">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertLeadAddress" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.RemoveLeadAddress</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadAddress">
+
+				<h3>LeadAddresses.RemoveLeadAddress</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/remove-lead-address</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveLeadAddress">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/remove-lead-address" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Address ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadAddressID" kcs:FieldName="LeadAddressID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveLeadAddress
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/remove-lead-address
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadAddressID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveLeadAddressClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveLeadAddressClick()
+										{
+											var oObj = BlindUnbind("divRemoveLeadAddress");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/remove-lead-address")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.RemoveLeadAddressObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveLeadAddress", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveLeadAddress">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveLeadAddress" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.UpdateLeadAddress</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadAddress">
+
+				<h3>LeadAddresses.UpdateLeadAddress</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadAddress">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Address Type
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAddressType" kcs:FieldName="AddressType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Fax
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFax" kcs:FieldName="Fax" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Address ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadAddressID" kcs:FieldName="LeadAddressID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadID" kcs:FieldName="LeadID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Street
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLine1" kcs:FieldName="Line1" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLine2" kcs:FieldName="Line2" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			City
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCity" kcs:FieldName="City" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			State
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtState" kcs:FieldName="State" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Zip
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtZip" kcs:FieldName="Zip" class="InputZip form-control" maxlength="20"  />
+		</div>
+		<label class="col-3 control-label">
+			Zip
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Country
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadAddress
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: Data, Type: Data
+
+	Name: AddressType, Type: String
+
+	Name: Phone, Type: Phone
+
+	Name: Fax, Type: Phone
+
+	Name: LeadAddressID, Type: ID
+
+	Name: LeadID, Type: ID
+
+	Name: Name, Type: String
+
+	Name: Line1, Type: String
+
+	Name: Line2, Type: String
+
+	Name: City, Type: String
+
+	Name: State, Type: String
+
+	Name: Zip, Type: Zip
+
+	Name: Country, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadAddressClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadAddressClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadAddress");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.UpdateLeadAddressObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadAddress", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadAddress">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadAddress" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>LeadAddresses.UpdateLeadAddressData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadAddressData">
+
+				<h3>LeadAddresses.UpdateLeadAddressData</h3>
+				<p>/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateLeadAddressData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Lead Address ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtLeadAddressID" kcs:FieldName="LeadAddressID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateLeadAddressData
+
+## Url
+/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: LeadAddressID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateLeadAddressDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateLeadAddressDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateLeadAddressData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/lead-addresses/update-lead-address-data")
+																		LeadAddresses.Url = oObj.BaseUrl;
+
+																	LeadAddresses.UpdateLeadAddressDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateLeadAddressData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateLeadAddressData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateLeadAddressData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

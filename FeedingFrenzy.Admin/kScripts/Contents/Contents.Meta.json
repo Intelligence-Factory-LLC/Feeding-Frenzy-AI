@@ -1,0 +1,19 @@
+{
+	ObjectName : "Content",
+	ObjectsName : "Contents",
+
+	
+	NaturalKey : "ContentName",
+	
+	
+	FriendlyObjectName : "Content",
+	FriendlyObjectsName : "Contents",
+	
+	ObjectsUrl : "contents",
+	DetailsUrl : "content",
+	EditUrl : "content-edit",
+	InsertUrl : "content-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

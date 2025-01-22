@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using PhoneNumbersAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile PhoneNumbers.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (PhoneNumbers.GetPhoneNumber (ObjectID)))
+}%>
+

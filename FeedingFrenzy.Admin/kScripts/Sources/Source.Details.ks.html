@@ -1,0 +1,37 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using SourcesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Sources.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+	(declare tabLeads {Title : "Leads", ControlID : "tab-Leads", Content : "" })
+	(tabLeads.Content (GetRelatedObjectTab Leads "Leads" true))	
+	(tabs.push (tabLeads))
+	
+	(declare tabCampaigns {Title : "Campaigns", ControlID : "tab-Campaigns", Content : "" })
+	(tabCampaigns.Content (GetRelatedObjectTab Campaigns "Campaigns" true))	
+	(tabs.push (tabCampaigns))
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+			(GetRelatedObjectTabInitializer Leads {AllowSearch: true, MetaFile:'Leads.meta.json' })		
+		
+			(GetRelatedObjectTabInitializer Campaigns {AllowSearch: true, MetaFile:'Campaigns.meta.json' })		
+		
+		)
+	)
+}%>

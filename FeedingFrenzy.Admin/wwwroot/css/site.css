@@ -1,0 +1,132 @@
+
+.hidden { display: none !important;}
+
+.NoWrap {
+	white-space: nowrap;
+}
+
+.Hidden {
+	display: none !important;
+}
+
+.SemiTransparent {
+	background: #FFF;
+	opacity: .90;
+	filter: alpha(opacity = 95);
+}
+
+.Transparent {
+	background: #FFF;
+	opacity: .50;
+	filter: alpha(opacity = 50);
+}
+
+.Raised {
+	border-top: solid 1px #CCC;
+	border-left: solid 1px #CCC;
+	border-bottom: solid 2px black;
+	border-right: solid 2px black;
+}
+
+.Modal {
+	z-index: 2;
+	overflow: visible;
+	padding: 0px;
+	background: #FFF;
+}
+
+.Group {
+	white-space: nowrap;
+}
+
+.DropDownText {
+	width: 100px;
+	padding: 2px;
+	margin: 2px;
+	position: relative;
+}
+
+.DropDownButton {
+	position: relative;
+	left: -22px;
+	border: none;
+	vertical-align: text-bottom;
+	background-image: url('../images/ddl.gif');
+	width: 20px;
+	height: 20px;
+	top: 3px;
+	padding: 0px !important;
+}
+/*.DropDownButton:hover,.DropDownButton:active {}*/
+
+.DropDownList {
+	width: 133px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.Sortable {
+	cursor: pointer;
+}
+
+
+.InputLabel, .DisplayLabel {
+	font-weight: bold;
+}
+
+td.InputLabel {
+	text-align: right;
+}
+
+.Selected {
+	font-weight: bold;
+}
+
+	.Selected td {
+		font-weight: bold;
+	}
+
+
+
+
+.GridFooterRow > div{
+	padding: 10px;
+	font-weight: bold !important;
+}
+
+/*
+.Grid {
+	width: 100%;
+	font-weight: bold;
+}
+
+	.Grid th {
+		white-space: nowrap;
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	.Grid td {
+		padding: 5px;
+		text-align: center;
+		font-weight: normal;
+	}
+
+.GridHeader td {
+	white-space: nowrap;
+	padding: 10px;
+	font-weight: bold;
+}
+	*/
+.GridFirst, .GridLast, .GridNext, .GridPrev {
+	cursor: pointer;
+	padding: 5px;
+}
+	.GridFirst:hover, .GridLast:hover, .GridNext:hover, .GridPrev :hover {
+		border: solid 1px blue;
+	}
+
+
+.Selected td {
+	font-weight: bold;
+}

@@ -1,0 +1,828 @@
+<%
+class PhoneNumbersAdmin
+{
+			
+	(function GetDetails PhoneNumberID
+	{
+		(declare PhoneNumber (PhoneNumbers.GetPhoneNumber (PhoneNumberID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone Number ID
+							</td>
+							<td>
+								
+									<%PhoneNumber.PhoneNumberID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone Number
+							</td>
+							<td>
+								
+									<%StringToPhone (PhoneNumber.PhoneNumber)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone Type
+							</td>
+							<td>
+								
+									<%PhoneNumber.PhoneType%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Internal
+							</td>
+							<td>
+								
+									<%if (PhoneNumber.IsInternal) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Caller Name
+							</td>
+							<td>
+								
+									<%PhoneNumber.CallerName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Country
+							</td>
+							<td>
+								
+									<%PhoneNumber.Country%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%PhoneNumber.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%PhoneNumber.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%PhoneNumber.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%PhoneNumber.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Blocked
+							</td>
+							<td>
+								
+									<%if (PhoneNumber.IsBlocked) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Spam
+							</td>
+							<td>
+								
+									<%if (PhoneNumber.IsSpam) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown PhoneNumber PhoneNumberID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown PhoneNumber PhoneNumberID  PhoneNumberID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetPhoneNumbersSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-control">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit PhoneNumberID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="PhoneNumber">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Phone Number ID
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+								
+								<input type="text" kcs:FieldName="PhoneNumberID" class="InputString form-control" readonly="readonly" value="<%PhoneNumberID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Phone Number
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Phone Type
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+							
+								<input type="text" id="txtPhoneType" kcs:FieldName="PhoneType" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Is Internal
+					</label>
+					<div class="col-sm-6 form-switch mb-2">
+						
+						
+							
+								<input type="checkbox"  class="form-check-input"  id="chkIsInternal" kcs:FieldName="IsInternal" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Caller Name
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+							
+								<input type="text" id="txtCallerName" kcs:FieldName="CallerName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Country
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+							
+								<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Data
+					</label>
+					<div class="col-sm-6 mb-2">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Is Blocked
+					</label>
+					<div class="col-sm-6 form-switch mb-2">
+						
+						
+							
+								<input type="checkbox"  class="form-check-input" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label mb-2">
+						Is Spam
+					</label>
+					<div class="col-sm-6 form-switch mb-2">
+						
+						
+							
+								<input type="checkbox" class="form-check-input" id="chkIsSpam" kcs:FieldName="IsSpam"  />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare dtPhoneNumbers (PhoneNumbers.GetPhoneNumbersSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))
+		
+		(returnex{%>
+			
+			<%GetGridHtmlInternal2 (dtPhoneNumbers)%>
+		
+		<%})
+		
+	})
+
+	(function GetCallingGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare dtPhoneNumbers (PhoneNumbers.GetPhoneNumbersSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))
+		
+		(returnex{%>
+			
+			<%GetGridHtmlInternal (dtPhoneNumbers)%>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row PhoneNumbers GetPhoneNumbersSp_CountSp  (Search))
+		(return (PhoneNumbers.get Total))
+	})
+
+
+	(function GetSingleNumberDialer sPhoneNumber
+	{
+		(declare PhoneNumber (PhoneNumbers.GetPhoneNumberInfo (sPhoneNumber)))
+
+		(returnex{%>
+				<div class="list-group-item d-flex justify-content-between align-items-center" onclick="OnMakeCall('<%PhoneNumber.PhoneNumber%>')">
+					<div class="d-flex align-items-center">
+						<!-- Icon for Phone Type -->
+						<%ifeq (PhoneNumber.PhoneType) Mobile {%>
+							<i class="bi bi-phone"></i> <!-- Bootstrap icon for mobile -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) Landline {%>
+							<i class="bi bi-house"></i> <!-- Bootstrap icon for landline -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) VOIP {%>
+							<i class="bi bi-globe"></i> <!-- Bootstrap icon for VOIP -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) Invalid {%>
+							<i class="bi bi-x-circle"></i> <!-- Bootstrap icon for invalid number -->
+						<%}%>
+
+						<%ifeq (PhoneNumber.PhoneType) ""{%>
+							<i class="bi bi-question-circle"></i>
+						<%}%>
+            
+						<div class="ms-3 d-flex flex-column">
+							<span class="fw-bold"><%StringToPhone(PhoneNumber.PhoneNumber)%></span>
+							<small><%PhoneNumber.CallerName%></small>
+							<%ifneq (PhoneNumber.AreaCode) ""{%>						
+								<small class="text-muted"><%PhoneNumber.AreaCode.Region%> (<%PhoneNumber.AreaCode.TimeZone%>)</small>
+							<%}%>
+						</div>
+					</div>
+					<div class="d-flex flex-column align-items-end">
+						<%if (PhoneNumber.IsBlocked) {%>
+						<span class="badge bg-danger">Blocked</span>
+						<%}%>
+						<%if (PhoneNumber.IsSpam) {%>
+						<span class="badge bg-warning">Spam</span>
+						<%}%>
+
+						<!-- Last Contacted / Frequently Contacted -->
+						<%ifneq (PhoneNumber.LastContacted) "" {%>
+						<small>Last contacted: <span class="DateOnly"><%PhoneNumber.LastContacted%></span></small>
+						<%}%>
+
+						<%if (PhoneNumber.IsFrequentlyContacted) {%>
+						<span class="badge bg-info">Frequent Contact</span>
+						<%}%>
+					</div>
+				</div>
+
+		<%})
+
+	})
+	
+
+	(function GetGridHtmlInternal PhoneNumbers
+	{
+		(returnex{%>
+			<div class="list-group">
+				<%PhoneNumbers.each PhoneNumber{%> 
+				<div class="list-group-item d-flex justify-content-between align-items-center" onclick="OnMakeCall('<%PhoneNumber.PhoneNumber%>')">
+					<div class="d-flex align-items-center">
+						<!-- Icon for Phone Type -->
+						<%ifeq (PhoneNumber.PhoneType) Mobile {%>
+							<i class="bi bi-phone"></i> <!-- Bootstrap icon for mobile -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) Landline {%>
+							<i class="bi bi-house"></i> <!-- Bootstrap icon for landline -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) VOIP {%>
+							<i class="bi bi-globe"></i> <!-- Bootstrap icon for VOIP -->
+						<%}%>
+						<%ifeq (PhoneNumber.PhoneType) Invalid {%>
+							<i class="bi bi-x-circle"></i> <!-- Bootstrap icon for invalid number -->
+						<%}%>
+
+						<%ifeq (PhoneNumber.PhoneType) ""{%>
+							<i class="bi bi-question-circle"></i>
+						<%}%>
+            
+						<div class="ms-3 d-flex flex-column">
+							<span class="fw-bold"><%StringToPhone(PhoneNumber.PhoneNumber)%></span>
+							<small><%PhoneNumber.CallerName%></small>
+							<%ifneq (PhoneNumber.AreaCode) ""{%>						
+								<small class="text-muted"><%PhoneNumber.AreaCode.Region%> (<%PhoneNumber.AreaCode.TimeZone%>)</small>
+							<%}%>
+						</div>
+					</div>
+					<div class="d-flex flex-column align-items-end">
+						<%if (PhoneNumber.IsBlocked) {%>
+						<span class="badge bg-danger">Blocked</span>
+						<%}%>
+						<%if (PhoneNumber.IsSpam) {%>
+						<span class="badge bg-warning">Spam</span>
+						<%}%>
+
+						<!-- Last Contacted / Frequently Contacted -->
+						<%ifneq (PhoneNumber.LastContacted) "" {%>
+						<small>Last contacted: <span class="DateOnly"><%PhoneNumber.LastContacted%></span></small>
+						<%}%>
+
+						<%if (PhoneNumber.IsFrequentlyContacted) {%>
+						<span class="badge bg-info">Frequent Contact</span>
+						<%}%>
+					</div>
+				</div>
+				<%}%>
+			</div>
+		<%})
+	})
+
+	(function GetGridHtmlInternal2 PhoneNumbers
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="PhoneNumberID">
+						Phone Number ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PhoneNumber">
+						Phone Number
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="PhoneType">
+						Phone Type
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsInternal">
+						Is Internal
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="CallerName">
+						Caller Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Country">
+						Country
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsBlocked">
+						Is Blocked
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsSpam">
+						Is Spam
+					</th>
+					
+				
+									
+				</tr>
+			<%PhoneNumbers.each PhoneNumber{%> 
+				<tr kcs:RowKey="<%PhoneNumber.get PhoneNumberID%>" >
+							
+			
+					
+					<td>
+						<%PhoneNumber.PhoneNumberID%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (PhoneNumber.PhoneNumber)%>
+					</td>
+					
+			
+					
+					<td>
+						<%PhoneNumber.PhoneType%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (PhoneNumber.IsInternal) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%PhoneNumber.CallerName%>
+					</td>
+					
+			
+					
+					<td>
+						<%PhoneNumber.Country%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%PhoneNumber.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%PhoneNumber.LastUpdated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<%if (PhoneNumber.IsBlocked) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (PhoneNumber.IsSpam) Yes No%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 10%>
+			</table>
+		<%})
+	})
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="PhoneNumber">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone Number
+					</label>
+					<div class="col-sm-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone Type
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtPhoneType" kcs:FieldName="PhoneType" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Internal
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsInternal" kcs:FieldName="IsInternal"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Caller Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtCallerName" kcs:FieldName="CallerName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Country
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Blocked
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Spam
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="checkbox" id="chkIsSpam" kcs:FieldName="IsSpam"  />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

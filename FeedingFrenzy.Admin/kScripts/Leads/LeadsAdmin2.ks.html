@@ -1,0 +1,682 @@
+<%using Leads\LeadsAdmin.ks.html%>
+<%using SalesRepresentatives\SalesRepresentativesAdmin.ks.html%>
+<%function GetLeadPriority Priority
+{
+	(declare css 
+	{	
+		1 : 'badge bg-soft-danger text-danger',
+		2 : 'badge bg-soft-warning text-warning',
+		3 : 'badge bg-soft-info text-info',
+		4 : 'badge bg-soft-primary text-primary'
+	})
+
+	(declare name 
+	{
+		1 : 'Hot',
+		2 : 'Warm',
+		3 : 'Normal',
+		4 : 'Cold'
+	})
+
+	(returnex{%>
+		<span class="<%dot (css) (Priority)%>"><%dot (name) (Priority)%></span>
+	<%})
+}%>
+
+
+
+<%redefinefunction LeadsAdmin.GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+{
+	(returnex{%>
+			
+			<%ado.view Leads GetLeadsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<%LeadsAdmin.GetGridHtmlInternal (Leads)%>
+	<%})
+}%>
+
+<%redefinefunction LeadsAdmin.GetGridHtmlInternal  Leads
+{
+	(returnex{%>
+
+			<table class="Grid">
+				<tr>
+
+
+
+					<th kcs:SortColumn="LeadID">
+						ID
+					</th>
+
+
+
+
+					<th kcs:SortColumn="Company">
+						Company
+					</th>
+
+
+
+
+					<th kcs:SortColumn="FirstName">
+						First Name
+					</th>
+
+
+
+
+					<th kcs:SortColumn="LastName">
+						Last Name
+					</th>
+
+
+
+
+
+
+
+
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+
+
+
+
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+
+
+
+
+
+
+					<th>
+						Campaign
+					</th>
+
+
+
+
+					<th kcs:SortColumn="">
+						Size
+					</th>
+
+
+
+
+
+
+
+
+
+
+					<th kcs:SortColumn="LastContactedDate">
+						Last Contacted
+					</th>
+
+
+
+
+					<th kcs:SortColumn="Priority">
+						Priority
+					</th>
+
+
+
+
+
+					<th kcs:SortColumn="LeadStatusID">
+						Status
+					</th>
+
+
+
+
+
+
+					<th kcs:SortColumn="SalesRepresentativeID">
+						Rep
+					</th>
+
+
+					<th kcs:SortColumn="FollowUpDate">
+						Follow Up
+					</th>
+
+
+
+				</tr>
+			<%Leads.each Lead{%> 
+				<tr kcs:RowKey="<%Lead.get LeadID%>">
+
+
+
+					<td>
+						<%Lead.get LeadID%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get Company%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get FirstName%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get LastName%>
+					</td>
+
+
+
+
+
+
+
+					<td>
+						<%StringToPhone (Lead.get Phone)%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get Email%>
+					</td>
+
+
+
+
+
+
+					<td>
+						<%ifneq (Lead.CampaignID) ""
+						{
+						(declare oCampaign (Campaigns.GetCampaign (Lead.CampaignID)))
+						(oCampaign.CampaignName)
+						}%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get OpportunitySize%>
+					</td>
+
+
+
+
+
+
+
+
+
+					<td>
+						<span class="Date"><%Lead.get LastContactedDate%></span>
+					</td>
+
+
+
+					<td class="text-center">
+						<%GetLeadPriority (Lead.get Priority)%>
+					</td>
+
+
+
+
+
+					<td kcs:Row="StatusID" kcs:Value="<%Lead.LeadID%>">
+						<%declare oStatus (LeadStatuses.GetLeadStatus (Lead.LeadStatusID))%>
+						<%oStatus.StatusName%>
+						
+						<%ifneq (Lead.LeadSubStatusID) ""{%>
+							<%declare oSubStatus (LeadSubStatuses.GetLeadSubStatus (Lead.LeadSubStatusID))%>
+							- <%oSubStatus.SubStatusName%>
+						<%}%>
+					</td>
+
+
+					<td>
+						<%ifneq (Lead.SalesRepresentativeID) ""
+						{
+						(declare oSalesRep (SalesRepresentatives.GetSalesRepresentative (Lead.SalesRepresentativeID)))
+						(oSalesRep.Name)
+						}%>
+					</td>
+
+					<td>
+						<span class="DateOnly"><%Lead.FollowUpDate%></span>
+					</td>
+
+				</tr>
+			<%}%>
+				<%GridFooter 13%>
+			</table>
+		
+		<%})
+}%>
+
+<%redefinefunction LeadsAdmin.GetGridHtmlInternal2  Leads
+{
+	(returnex{%>
+
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadID">
+						ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Company">
+						Company
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FirstName">
+						First Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastName">
+						Last Name
+					</th>
+					
+				
+			
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th>
+						Campaign
+					</th>
+					
+				
+			
+								
+			
+				
+					<th kcs:SortColumn="LastContactedDate">
+						Last Contacted
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Priority">
+						Priority
+					</th>
+					
+				
+			
+				
+						
+					<th kcs:SortColumn="StatusID">
+						Status
+					</th>
+					
+				
+			
+				
+								
+						
+					<th kcs:SortColumn="FollowUpDate">
+						Follow Up
+					</th>
+					
+		
+					
+				
+									
+				</tr>
+			<%Leads.each Lead{%> 
+				<tr kcs:RowKey="<%Lead.get LeadID%>">
+
+
+
+					<td>
+						<%Lead.get LeadID%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get Company%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get FirstName%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get LastName%>
+					</td>
+
+
+
+
+
+
+
+					<td>
+						<%StringToPhone (Lead.get Phone)%>
+					</td>
+
+
+
+					<td>
+						<%Lead.get Email%>
+					</td>
+
+
+
+
+
+
+					<td>
+						<%ifneq (Lead.CampaignID) ""
+						{
+							(declare oCampaign (Campaigns.GetCampaign (Lead.CampaignID)))
+							(oCampaign.CampaignName)
+						}%>
+					</td>
+
+
+
+
+
+
+
+
+
+
+
+					<td>
+						<span class="Date"><%Lead.get LastContactedDate%></span>
+					</td>
+
+
+
+					<td class="text-center">
+						<%GetLeadPriority (Lead.get Priority)%>
+					</td>
+
+
+
+
+
+					<td kcs:Row="StatusID" kcs:Value="<%Lead.LeadID%>">
+						<%declare oStatus (LeadStatuses.GetLeadStatus (Lead.LeadStatusID))%>
+						<%oStatus.StatusName%>
+
+						<%ifneq (Lead.LeadSubStatusID) ""{%>
+							<%declare oSubStatus (LeadSubStatuses.GetSubStatus (Lead.LeadSubStatusID))%>
+							- <%oSubStatus.SubStatusName%>
+						<%}%>
+					</td>
+
+					
+					<td>
+						<span class="DateOnly"><%Lead.FollowUpDate%></span>
+					</td>
+
+
+				</tr>
+			<%}%>
+				<%GridFooter 12%>
+			</table>
+		
+		<%})
+}%>
+
+<%redefinefunction LeadsAdmin.GetUnassignedGridWithSearchHtml SalesRepresentativeID Search SortColumn SortAscending SkipRows NumRows SearchOptions
+{
+	(declare dtLeads (Leads.GetUnassignedGridWithSearchHtml  (SalesRepresentativeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows) (SearchOptions)))
+	(returnex{%>
+			<%LeadsAdmin.GetGridHtmlInternal (dtLeads)%>
+	<%})
+}%>
+
+<%redefinefunction LeadsAdmin.GetUnassignedGridWithSearchCount SalesRepresentativeID Search SearchOptions
+{
+	(declare iCount (Leads.GetUnassignedGridWithSearchCount (SalesRepresentativeID) (Search) (SearchOptions)))
+	(return (iCount))
+}%>
+
+
+
+
+<%redefinefunction LeadsAdmin.GetBulkAddTagModal
+{
+    (returnex{%>
+
+<div class="modal fade" id="divBulkAddTag" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title">Add Tag</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="txtBulkAddTagNumOfLeads" class="form-label">Leads Selected</label>
+                        <input type="text" class="form-control" readonly="readonly" id="txtBulkAddTagNumOfLeads" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlQuickTags" class="form-label">Tag:</label>
+                        <%declare oTags (Tags.GetTags)%>
+                        <select kcs:FieldName="Status" class="form-select" id="ddlQuickTags">
+                            <option value=""></option>
+                            <%oTags.each oTag{%>
+                                <option value="<%oTag.TagName%>"><%oTag.TagName%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="OnBulkAddTagComplete()">Update Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%})
+}%>
+
+
+<%redefinefunction LeadsAdmin.GetBulkUpdateStatusModal
+{
+    (returnex{%>
+
+<div class="modal fade" id="divBulkUpdateStatus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title">Update Status</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="txtBulkUpdateStatusNumOfLeads" class="form-label">Leads Selected</label>
+                        <input type="text" class="form-control" readonly="readonly" id="txtBulkUpdateStatusNumOfLeads" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlQuickStatus" class="form-label">Status:</label>
+                        <%declare oStatuses (LeadStatuses.GetLeadStatuses)%>
+                        <select kcs:FieldName="Status" class="form-select" id="ddlQuickStatus">
+                            <option value=""></option>
+                            <%oStatuses.each oStatus{%>
+                                <%declare oSubStatuses (oStatus.LeadSubStatuses)%>
+                                <optgroup label="<%oStatus.StatusName%>">
+                                    <%ifneq (oSubStatuses.Count) 0{%>
+                                        <%oSubStatuses.each oSubStatus{%>
+                                            <option value="<%oStatus.StatusName%>|<%oSubStatus.SubStatusName%>">
+                                                <%oStatus.StatusName%> - <%oSubStatus.SubStatusName%>
+                                            </option>
+                                        <%}%>
+                                    <%}{%>
+                                        <option value="<%oStatus.StatusName%>"><%oStatus.StatusName%></option>
+                                    <%}%>
+                                </optgroup>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="OnBulkUpdateStatusComplete()">Update Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%})
+}%>
+
+
+<%redefinefunction LeadsAdmin.GetBulkAssignModal
+{
+    (returnex{%>
+
+<div class="modal fade" id="divBulkAssign" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title">Assign Leads</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="txtBulkAssignNumOfLeads" class="form-label">Leads Selected</label>
+                        <input type="text" class="form-control" readonly="readonly" id="txtBulkAssignNumOfLeads" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="SalesRepresentativeID" class="form-label">Sales Representative</label>
+                        <%SalesRepresentativesAdmin.GetDropDown Name SalesRepresentativeID SalesRepresentativeID '<option value="">None</option>'%>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="OnBulkAssignLeadsComplete()">Assign Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%})
+}%>
+
+
+
+<%redefinefunction LeadsAdmin.GetDetailsTabs Active
+{
+
+
+	(returnex{%>
+		<ul class="nav nav-tabs">
+			<li <%ifeq (Active) Lead{%>class="active"<%}%>><a href="lead?LeadID=<%ObjectID%>">Lead</a></li>
+			<li <%ifeq (Active) Emails{%>class="active"<%}%>><a href="lead-emails?LeadID=<%ObjectID%>">Emails</a></li>
+		</ul>
+
+	<%})	
+}%>
+
+<%redefinefunction LeadsAdmin.GetInsertTagModal
+{
+	(returnex{%>
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.Tags.ashx.js?v=<%JsVersion%>"></script>
+
+<div class="modal fade" id="divInsertTag" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title">Create a Tag</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+
+			<div class="modal-body">
+
+				<div class="form-group">
+					<p>Create a new custom tag that will be visible only to you. You can use this tag to organize your leads.</p>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label InputLabel mb-2">
+						Tag Name
+					</label>
+					<input type="text" class="form-control" id="txtTagName" kcs:FieldName="TagName" />
+
+				</div>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" id="btnTextReply" class="btn btn-primary" onclick="OnInsertCustomTag()">Save</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function OnStartInsertCustomTag() {
+		jQuery("#divInsertTag").modal('show');
+	}
+
+	function OnInsertCustomTag() {
+		jQuery("#divInsertTag").modal('hide');
+
+		let oTag = BlindUnbind("divInsertTag");
+		oTag.SalesRepresentativeID = iSalesRepresentativeID;
+		Tags.InsertTagObject(oTag, function (iTagID) {
+			OnAddLeadTag(iLeadID, oTag.TagName);
+		});
+	}
+</script>
+	<%})
+}%>

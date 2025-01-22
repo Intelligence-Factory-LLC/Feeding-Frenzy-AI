@@ -1,0 +1,169 @@
+﻿<%class SimplePage
+{
+	(function Title 
+	{
+		(returnex{%><%Application.Title%> - 
+
+		<%})
+	})
+	
+	(function DetailsPanel
+	{
+		(return "")
+	})
+
+	(function DetailsTabs
+	{
+		(return "")
+	})
+
+	(function Head
+	{
+		(return "")
+	})
+
+	(function QuickHelp
+	{
+		(return "")
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			Details
+		<%})
+	})
+
+	(function MainPanelTitleOptions
+	{
+		(returnex{%>
+           
+                <div class="btn-toolbar">
+                    <%CommandButtons%>
+                </div>
+          
+        <%})
+	})
+	
+	(function Breadcrumbs
+	{
+		(returnex{%>
+			<ol class="breadcrumb m-0">
+				<li  class="breadcrumb-item"><a href="/">Main</a></li>
+				<li  class="breadcrumb-item"><%MainPanelTitle%></li>
+			</ol>
+		<%})
+	})	
+	
+	(function MainPanelTabs
+	{
+		(returnex{%>
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a href="#" class="nav-link active"><%MainPanelTitle%></a></li>
+		</ul>	
+		<%})
+	})
+	
+	(function MainPanelColor
+	{
+		(return "panel-midnightblue")
+	})
+
+	(function MainPanelContent
+	{
+		(returnex{%>
+		
+<div class="row">
+    <div class="col-12">
+        <div class="card <%MainPanelColor%>">
+            <%ifneq (MainPanelTabs) ""{%>
+                <div class="card-header">
+                    <div class="options">
+                        <%MainPanelTabs%>
+                    </div>
+                </div>
+            <%}%>
+        
+            <div class="card-body">
+				<%ifneq (MainPanelTitleOptions) ""{%>
+				<div class="row">
+                   <div class="col-md-6 offset-md-3">
+                       <div class="btn-toolbar"
+                           <%CommandButtons%>
+                       </div>
+                   </div>
+               </div>
+				<%}%>
+                <div class="row">
+                    <%DetailsPanel%>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="btn-toolbar">
+                            <%CommandButtons%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <%ifneq (DetailsTabs) ""{%>
+            <div class="card <%MainPanelColor%> mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <%DetailsTabs%>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</div>
+
+		<%})
+	})
+
+
+	(function CommandButtons
+	{
+		(return "")
+	})
+	
+	
+	(function BottomScripts
+	{
+		(return "")
+	})
+
+	(function GetTabs oTabs
+	{
+		(ifneq (oTabs.length) 0 {
+			(oTabs.0.set bActive true)
+		})
+
+		(returnex{%>
+<div class="tab-container tab-success">
+    <ul class="nav nav-tabs" role="tablist">
+        <%oTabs.each oTab{%>
+        <li class="nav-item" role="tab">
+            <a class="nav-link <%if (oTab.contains bActive) active%>" id="<%oTab.ControlID%>-tab" data-bs-toggle="tab" href="#<%oTab.ControlID%>" role="tab" aria-controls="<%oTab.ControlID%>" aria-selected="<%if (oTab.contains bActive) true else false%>">
+                <%oTab.Title%>
+            </a>
+        </li>
+        <%}%>
+    </ul>
+    <div class="tab-content">
+        <%oTabs.each oTab{%>
+        <div class="tab-pane fade <%if (_first) 'show active'%>" id="<%oTab.ControlID%>" role="tabpanel" aria-labelledby="<%oTab.ControlID%>-tab">
+            <%oTab.Content%>
+        </div>
+        <%}%>
+    </div>
+</div>
+		<%})
+	})
+}%>
+	
+

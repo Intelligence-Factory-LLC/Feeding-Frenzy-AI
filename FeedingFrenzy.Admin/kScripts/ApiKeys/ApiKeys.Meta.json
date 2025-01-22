@@ -1,0 +1,19 @@
+{
+	"ObjectName": "Authorization",
+	"ObjectsName": "Authorizations",
+
+
+	"NaturalKey": "AuthorizationToken",
+
+
+	"FriendlyObjectName": "API Key",
+	"FriendlyObjectsName": "API Keys",
+
+	"ObjectsUrl": "authorizations",
+	"DetailsUrl": "authorization",
+	"EditUrl": "authorization-edit",
+	"InsertUrl": "authorization-insert",
+
+	"UINamespace": "FeedingFrenzy.Admin.UI",
+	"BusinessNamespace": "FeedingFrenzy.Admin.Business"
+}

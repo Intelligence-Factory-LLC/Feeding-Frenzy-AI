@@ -1,0 +1,19 @@
+{
+	ObjectName : "Content",
+	ObjectsName : "Contents",
+
+	
+	NaturalKey : "ContentName",
+	
+	
+	FriendlyObjectName : "Call Script",
+	FriendlyObjectsName : "Call Scripts",
+	
+	ObjectsUrl : "call-scripts",
+	DetailsUrl : "call-script",
+	EditUrl : "call-script-edit",
+	InsertUrl : "call-script-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

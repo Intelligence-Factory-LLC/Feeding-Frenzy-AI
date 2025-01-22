@@ -1,0 +1,23 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using LeadNotesAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile LeadNotes.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(returnex{%>
+		<%LeadNotesAdmin.GetTranscriptionJavascript%>
+	<%})
+}%>

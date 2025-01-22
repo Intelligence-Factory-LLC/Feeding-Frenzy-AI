@@ -1,0 +1,233 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using EmailTemplatesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile EmailTemplates.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (EmailTemplates.GetEmailTemplate (ObjectID)))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.EditPanel
+{
+	(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="EmailTemplate">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Template ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="EmailTemplateID" class="InputString form-control" readonly="readonly" value="<%ObjectID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+					
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Params
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtEmailParams" kcs:FieldName="EmailParams" class="selectize-close-btn InputString form-control" maxlength="255" />
+				
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						From Address
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtFromAddress" kcs:FieldName="FromAddress" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>						
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Subject
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtEmailSubject" kcs:FieldName="EmailSubject" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email Text
+					</label>
+					<div class="col-sm-6">
+						
+						
+								<a href="javascript:void(0)" onclick="OnEditHTML()">HTML</a>
+								<textarea id="txtEmailText" kcs:FieldName="EmailText" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+						<textarea kcs:FieldName="Data" class="InputData form-control" onblur="OnFormatJson(this)"></textarea>
+							
+						
+						
+					</div>
+				</div>
+				
+									
+			</div>
+
+
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectEditPage.AdditionalCommands
+{
+	(returnex{%>
+
+
+
+
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectEditPage.AdditionalScripts
+{
+	(returnex{%>
+		<script type="text/javascript" src="/js/plugins/tinymce/tinymce.min.js"></script>
+
+		<script type="text/javascript" src="/js/tinymceconfig.js"></script>
+
+
+	<script type="text/javascript">
+
+		var bEditHtml = false; 
+
+		function OnEditHTML()
+		{
+			oTinyMCEAdvanced.selector = "textarea#txtEmailText";
+			tinymce.init(oTinyMCEAdvanced);
+			bEditHtml = true;
+			bEditCode = false;
+		}
+
+		UnbindEmailTemplate = function () {
+			var oObj = BlindUnbind(ControlUtil.GetControl("divEmailTemplate"));
+			oObj.EmailTemplateID = iEmailTemplateID;
+			oEmailTemplate.DataObject = {}; //only merge updated properties
+			oObj = $merge(oEmailTemplate, oObj);
+
+			if (bEditHtml) {
+				oObj.EmailText = tinymce.get('txtEmailText').getContent();
+			}
+
+			if (!StringUtil.StartsWith(oObj.EmailParams, "["))
+				oObj.EmailParams = StringUtil.Split(oObj.EmailParams, ",");
+			return oObj;
+		}
+
+		function OnFormatJson(ctrl) {
+			try {
+				let sJson = ControlUtil.GetValue(ctrl);
+				let oJson = JSON.decode(sJson);
+				ControlUtil.SetValue(ctrl, JSON.stringify(oJson, undefined, 2));
+			}
+			catch (err) {
+				CustomValidationError(ctrl, "This is not valid JSON");
+			}
+		}
+
+		function CustomValidationError(ctrl, sMessage) {
+			ctrl.addClass("formError");
+			ctrl.focus();
+			ctrl.setCustomValidity(sMessage);
+			ctrl.reportValidity();
+		}
+
+	</script>
+
+        <script src="/lib/selectize/js/standalone/selectize.min.js"></script>
+      <link href="/lib/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+	Page.AddOnload(function () {
+
+		let sValue = ControlUtil.GetValue("txtEmailParams");
+		let oValues = eval(sValue);		//I don't know why JSON.decode can't deal with an array
+		ControlUtil.SetValue("txtEmailParams", oValues.join());
+
+		let oSelect = $('.selectize-close-btn').selectize({
+			plugins: ['remove_button'],
+			persist: false,
+			create: true,
+			render: {
+				item: function (data, escape) {
+					return '<div>' + escape(data.text) + '</div>';
+				}
+			},
+			onDelete: function (values) {
+				return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+			}
+		});
+
+
+	});
+
+</script>
+ 
+	<%})	
+}%>

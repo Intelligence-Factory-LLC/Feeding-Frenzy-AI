@@ -1,0 +1,25 @@
+<%using SimpleObjectDetails.ks.html%>
+<%using AgentsAdmin.ks.html%>
+<%SimpleObjectDetailsPage.MetadataFile Agents.Meta.json%>
+
+
+
+
+<%redefinefunction SimpleObjectDetailsPage.DetailsTabs
+{
+	(declare tabs [])
+
+	
+
+	(return (GetTabs (tabs)))		
+}%>
+
+
+<%redefinefunction SimpleObjectDetailsPage.AdditionalScripts
+{
+	(return
+		(concat
+		
+		)
+	)
+}%>

@@ -1,0 +1,1782 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">EmailHistories</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/email-histories" "/JsonWs/FeedingFrenzy.Admin.Business.EmailHistories.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.EmailHistories.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.CopyEmailHistory</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyEmailHistory">
+
+				<h3>EmailHistories.CopyEmailHistory</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/copy-email-history</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyEmailHistory">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/copy-email-history" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyEmailHistory
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/copy-email-history
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyEmailHistoryClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyEmailHistoryClick()
+										{
+											var oObj = BlindUnbind("divCopyEmailHistory");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/copy-email-history")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.CopyEmailHistoryObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyEmailHistory", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyEmailHistory">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyEmailHistory" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.GetEmailHistories</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistories">
+
+				<h3>EmailHistories.GetEmailHistories</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/get-email-histories</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailHistories">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/get-email-histories" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailHistoriesRow.ks.html&Class=SimpleApiHarnessPage">EmailHistoriesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailHistories
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/get-email-histories
+
+## Returns
+EmailHistoriesRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailHistoriesClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailHistoriesClick()
+										{
+											var oObj = BlindUnbind("divGetEmailHistories");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/get-email-histories")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.GetEmailHistoriesObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailHistories", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistories">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailHistories" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.GetEmailHistoriesByEmailTemplateID</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistoriesByEmailTemplateID">
+
+				<h3>EmailHistories.GetEmailHistoriesByEmailTemplateID</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/get-email-histories-by-email-template-id</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailHistoriesByEmailTemplateID">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/get-email-histories-by-email-template-id" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailHistoriesRow.ks.html&Class=SimpleApiHarnessPage">EmailHistoriesRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailHistoriesByEmailTemplateID
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/get-email-histories-by-email-template-id
+
+## Returns
+EmailHistoriesRow[]
+
+## Parameters 
+
+	Name: EmailTemplateID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailHistoriesByEmailTemplateIDClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailHistoriesByEmailTemplateIDClick()
+										{
+											var oObj = BlindUnbind("divGetEmailHistoriesByEmailTemplateID");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/get-email-histories-by-email-template-id")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.GetEmailHistoriesByEmailTemplateIDObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailHistoriesByEmailTemplateID", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistoriesByEmailTemplateID">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailHistoriesByEmailTemplateID" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.GetEmailHistory</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistory">
+
+				<h3>EmailHistories.GetEmailHistory</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/get-email-history</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetEmailHistory">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/get-email-history" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.EmailHistoriesRow.ks.html&Class=SimpleApiHarnessPage">EmailHistoriesRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetEmailHistory
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/get-email-history
+
+## Returns
+EmailHistoriesRow
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetEmailHistoryClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetEmailHistoryClick()
+										{
+											var oObj = BlindUnbind("divGetEmailHistory");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/get-email-history")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.GetEmailHistoryObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetEmailHistory", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetEmailHistory">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetEmailHistory" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.InsertEmailHistory</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertEmailHistory">
+
+				<h3>EmailHistories.InsertEmailHistory</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/insert-email-history</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertEmailHistory">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/insert-email-history" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			To
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			From
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Subject
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSubject" kcs:FieldName="Subject" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			<textarea id="txtEmail" kcs:FieldName="Email" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Pending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsPending" kcs:FieldName="IsPending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sent
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSent" kcs:FieldName="IsSent"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertEmailHistory
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/insert-email-history
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: To, Type: String
+
+	Name: From, Type: String
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Subject, Type: String
+
+	Name: Email, Type: Text
+
+	Name: IsPending, Type: Boolean
+
+	Name: IsSent, Type: Boolean
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertEmailHistoryClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertEmailHistoryClick()
+										{
+											var oObj = BlindUnbind("divInsertEmailHistory");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/insert-email-history")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.InsertEmailHistoryObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertEmailHistory", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertEmailHistory">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertEmailHistory" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.MarkEmailHistoryAsNotPending</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsNotPending">
+
+				<h3>EmailHistories.MarkEmailHistoryAsNotPending</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-pending</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkEmailHistoryAsNotPending">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-pending" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkEmailHistoryAsNotPending
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-pending
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkEmailHistoryAsNotPendingClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkEmailHistoryAsNotPendingClick()
+										{
+											var oObj = BlindUnbind("divMarkEmailHistoryAsNotPending");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-pending")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.MarkEmailHistoryAsNotPendingObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkEmailHistoryAsNotPending", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsNotPending">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkEmailHistoryAsNotPending" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.MarkEmailHistoryAsNotSent</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsNotSent">
+
+				<h3>EmailHistories.MarkEmailHistoryAsNotSent</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-sent</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkEmailHistoryAsNotSent">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-sent" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkEmailHistoryAsNotSent
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-sent
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkEmailHistoryAsNotSentClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkEmailHistoryAsNotSentClick()
+										{
+											var oObj = BlindUnbind("divMarkEmailHistoryAsNotSent");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-not-sent")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.MarkEmailHistoryAsNotSentObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkEmailHistoryAsNotSent", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsNotSent">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkEmailHistoryAsNotSent" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.MarkEmailHistoryAsPending</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsPending">
+
+				<h3>EmailHistories.MarkEmailHistoryAsPending</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-pending</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkEmailHistoryAsPending">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-pending" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkEmailHistoryAsPending
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-pending
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkEmailHistoryAsPendingClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkEmailHistoryAsPendingClick()
+										{
+											var oObj = BlindUnbind("divMarkEmailHistoryAsPending");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-pending")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.MarkEmailHistoryAsPendingObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkEmailHistoryAsPending", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsPending">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkEmailHistoryAsPending" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.MarkEmailHistoryAsSent</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsSent">
+
+				<h3>EmailHistories.MarkEmailHistoryAsSent</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-sent</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkEmailHistoryAsSent">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-sent" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkEmailHistoryAsSent
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-sent
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkEmailHistoryAsSentClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkEmailHistoryAsSentClick()
+										{
+											var oObj = BlindUnbind("divMarkEmailHistoryAsSent");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/mark-email-history-as-sent")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.MarkEmailHistoryAsSentObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkEmailHistoryAsSent", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkEmailHistoryAsSent">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkEmailHistoryAsSent" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.RemoveEmailHistory</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveEmailHistory">
+
+				<h3>EmailHistories.RemoveEmailHistory</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/remove-email-history</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemoveEmailHistory">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/remove-email-history" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemoveEmailHistory
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/remove-email-history
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemoveEmailHistoryClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemoveEmailHistoryClick()
+										{
+											var oObj = BlindUnbind("divRemoveEmailHistory");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/remove-email-history")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.RemoveEmailHistoryObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemoveEmailHistory", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemoveEmailHistory">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemoveEmailHistory" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.UpdateEmailHistory</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailHistory">
+
+				<h3>EmailHistories.UpdateEmailHistory</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/update-email-history</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateEmailHistory">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/update-email-history" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			To
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtTo" kcs:FieldName="To" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			From
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtFrom" kcs:FieldName="From" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email Template ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailTemplateID" kcs:FieldName="EmailTemplateID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Subject
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSubject" kcs:FieldName="Subject" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email
+		</label>
+		<div class="col-6">
+			<textarea id="txtEmail" kcs:FieldName="Email" class="InputText form-control"></textarea>
+		</div>
+		<label class="col-3 control-label">
+			Text
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Pending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsPending" kcs:FieldName="IsPending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Sent
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSent" kcs:FieldName="IsSent"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateEmailHistory
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/update-email-history
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+	Name: To, Type: String
+
+	Name: From, Type: String
+
+	Name: EmailTemplateID, Type: ID
+
+	Name: Subject, Type: String
+
+	Name: Email, Type: Text
+
+	Name: IsPending, Type: Boolean
+
+	Name: IsSent, Type: Boolean
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateEmailHistoryClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateEmailHistoryClick()
+										{
+											var oObj = BlindUnbind("divUpdateEmailHistory");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/update-email-history")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.UpdateEmailHistoryObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateEmailHistory", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailHistory">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateEmailHistory" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>EmailHistories.UpdateEmailHistoryData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailHistoryData">
+
+				<h3>EmailHistories.UpdateEmailHistoryData</h3>
+				<p>/api/feedingfrenzy.admin.business/email-histories/update-email-history-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdateEmailHistoryData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/email-histories/update-email-history-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Email History ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtEmailHistoryID" kcs:FieldName="EmailHistoryID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdateEmailHistoryData
+
+## Url
+/api/feedingfrenzy.admin.business/email-histories/update-email-history-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: EmailHistoryID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdateEmailHistoryDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdateEmailHistoryDataClick()
+										{
+											var oObj = BlindUnbind("divUpdateEmailHistoryData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/email-histories/update-email-history-data")
+																		EmailHistories.Url = oObj.BaseUrl;
+
+																	EmailHistories.UpdateEmailHistoryDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdateEmailHistoryData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdateEmailHistoryData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdateEmailHistoryData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

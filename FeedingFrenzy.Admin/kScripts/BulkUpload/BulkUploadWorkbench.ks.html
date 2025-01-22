@@ -1,0 +1,676 @@
+﻿<%using Simple.ks.html%>
+<%using BulkUpload.Components.ks.html%>
+
+
+<%redefinefunction SimplePage.Title
+{
+	(return "Bulk Upload Workbench")
+}%>
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "Bulk Upload Workbench")
+}%>
+
+<%redefinefunction SimplePage.DetailsPanel 
+{
+	(returnex{%>
+<div class="card m-3"  id="divLoadFile">
+    <div class="card-body">
+		<h3 class="card-title">Step 1: Data Source</h3>
+		<p class="card-text">
+           The first step to importing leads is to identify a file that contains those leads. Use one of the options below 
+			to upload the file. Check out this <a href="#key">key</a> for information on the expected column structure. 
+        </p>
+        <h5 class="card-title">Load File</h5>
+        <p class="card-text">
+            Let's get started by loading a file from your computer or by loading a Google Sheet. Enter the details below to proceed.
+        </p>
+		<div class="mb-3">
+
+			<label for="fileInput" class="form-label">Select File:</label>
+			<input type="file" id="fileInput" class="form-control w-50" />
+			<form action="../Uploader/Uploader.ashx" method="post" id="file_upload" enctype="multipart/form-data">
+				<input id="uploadControl" name="file_upload" style="display:none" type="file" onchange="OnImportPatients();" />
+			</form>
+		</div>
+        <div class="text-end">
+            <button type="button" class="btn btn-primary" onclick="OnLoadFile()">Load File</button>
+            <button type="button" class="btn btn-secondary" onclick="GoToLeads()">Close</button>
+        </div>
+    </div>
+
+
+    <div class="card-body">
+        <h5 class="card-title">Load Google Sheet</h5>
+		<p class="card-text">
+			Alternatively, you can load a Google Sheet by providing the Sheet ID and Tab name below.<br />
+			Make sure you share your spreadsheet with our AI Agent email:
+			<b><span id="AgentEmail">aaron-david@sheets-integration-436118.iam.gserviceaccount.com</span></b>
+			<button type="button" class="btn btn-white ms-2" onclick="copyEmail()">
+				<i class="fas fa-copy"></i>
+			</button>
+		</p>
+        <div class="mb-3">
+            <label for="sheetID" class="form-label">Sheet ID:</label>
+            <input type="text" id="sheetID" kcs:FieldName="SheetID" class="form-control w-50" onblur="OnBlurSheetID(this)"/>
+        </div>
+        <div class="mb-3">
+            <label for="sheetName" class="form-label">Tab:</label>
+            <input type="text" id="sheetName" kcs:FieldName="SheetName" class="form-control w-50" list="dataSheetName"/>
+            <datalist id="dataSheetName"></datalist>
+        </div>
+        <div class="text-end">
+            <button type="button" class="btn btn-primary" onclick="OnLoadSheet2()">Load Sheet</button>
+            <button type="button" class="btn btn-secondary" onclick="GoToLeads()">Close</button>
+        </div>
+    </div>
+	<%BulkUploadComponents.LoadSheetScripts%>
+<a name="key"></a>
+<div class="card-body">
+    <h5 class="card-title">Import Tool - Expected Columns</h5>
+    <p class="card-text">Below is a list of the expected columns in your import sheet, along with a brief description of each column and whether it is required.</p>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Column Name</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Company</td>
+                    <td>Company - The name of the company.</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>FirstName</td>
+                    <td>First Name - The first name of the contact.</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>LastName</td>
+                    <td>Last Name - The last name of the contact.</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>Phone - The contact's phone number.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>Email - The contact's email address.</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>Address - The contact's address.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>Address2</td>
+                    <td>Address2 - Additional address information.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>City - The city of the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td>State - The state or province of the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ZipCode</td>
+                    <td>Zip Code - The postal code of the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>Source</td>
+                    <td>Source - The source of the lead (e.g., Facebook, Google).</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>Campaign</td>
+                    <td>Campaign - The campaign within the source.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>Tag</td>
+                    <td>Tag - An optional tag to apply to these leads.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>Priority</td>
+                    <td>Priority - The priority level (Cold, Normal, Warm, Hot).</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>LeadStatus</td>
+                    <td>Lead Status - The current status of the lead (e.g., Not Contacted, Contacted).</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>OpportunitySize</td>
+                    <td>Opportunity Size - The estimated size of the opportunity.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ImportKey</td>
+                    <td>Import Key - A key used to de-duplicate the lead.</td>
+                    <td><span class="badge bg-success">Yes</span></td>
+                </tr>
+                <tr>
+                    <td>Department</td>
+                    <td>Department - The department the lead belongs to.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ContactLinkedInUrl</td>
+                    <td>Contact LinkedIn URL - The LinkedIn profile URL of the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ContactMobilePhone</td>
+                    <td>Contact Mobile Phone - The mobile phone number of the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ContactExternalLink</td>
+                    <td>Contact External Link - An external link related to the contact.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+                <tr>
+                    <td>ContactImportKey</td>
+                    <td>Contact Import Key - A key used to import multiple contacts for the same lead.</td>
+                    <td><span class="badge bg-warning">No</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<div class="card-body hidden" id="divMapping">
+	<h3 class="card-title">Step 2: Map Columns</h3>
+	<p class="card-text">
+		Feeding Frenzy has automatically mapped the columns in the source file. Double check the columns below and click "Test Import"
+		when you're satisfied with the mappings. Click a mapping to edit it.
+	</p>
+
+	<button type="button" class="btn btn-primary me-2" onclick="OnTestImport()">Test Import</button>
+	<button type="button" class="btn btn-blue" onclick="OnRemapColumns()">Remap Columns</button>
+	<button type="button" class="btn btn-secondary" onclick="CloseImportPanel()">Close</button>
+
+
+</div>
+
+<div class="card-body hidden" id="divImport">
+	<h3 class="card-title">Step 3: Ready to Import</h3>
+	<p class="card-text">
+		The file has been converted based on the mappings.
+	</p>
+
+	<button type="button" class="btn btn-primary me-2" onclick="OnImportNow()">Import Now</button>
+	<button type="button" class="btn btn-secondary me-2" onclick="CloseImportPanel()">Close</button>
+
+</div>
+
+<div class="card-body hidden" id="panelForImport">
+    <h5 class="card-title">Data Preview</h5>
+	<div class="">
+		<div class="d-flex align-items-center mb-3">
+			<select id="ddlTables" onchange="OnSelectedTableChanged()" class="form-select me-2" style="">
+				<option>Choose a table</option>
+			</select>
+
+				
+
+		</div>
+		
+		<progress id="progressBar" value="0" max="100" style="width: 100%;" class="hidden"></progress>
+
+		<div  id="divPreview" class="table-responsive" style="overflow: scroll; height: 85vh">
+
+	
+		</div>
+	</div>
+</div>
+	<%})
+}%>
+
+<%redefinefunction SimplePage.BottomScripts
+{
+	(returnex{%>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.FileTypes.ashx.js"></script>
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Files.ashx.js"></script>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.UI.FilesAdmin.ashx.js"></script>
+
+<script src="js/bulk_upload/bulkuploader.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_filters.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_mappings.js?v=3" type="text/javascript"></script>
+<script src="js/bulk_upload/bulk_ui.js?v=3" type="text/javascript"></script>
+	<%BulkUploadComponents.EditColumn%>
+
+<script language="javascript" type="text/javascript">
+	var oData = [];
+	var sCurrentTable = '';
+</script>
+
+	<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Leads.ashx.js?v=2"></script>
+	<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.BulkUploadWorkbench.ashx.js"></script>
+
+<script type="text/javascript">
+	FilesValidatorsFields.Contents = { Validators: [Validators.Text], InvalidMessage: "Invalid Contents. " + ValidatorDescriptions.Required() };
+	FilesValidators.InsertOrUpdateDatabaseFile.Contents = FilesValidatorsFields.Contents;
+	FilesValidators.InsertOrUpdatePhysicalFile.Contents = FilesValidatorsFields.Contents;
+
+	Page.LocalSettings = {
+		File: null,
+		SelectedSheet: null,
+		DatasetFileID: null,	
+		GoogleSheetID: null,
+		GoogleSheetTab : null,
+		CustomTransforms: [],
+
+		Source: '',
+		CampaignKey: '',
+		Tag : 'RPM'
+	}
+
+	Page.AddOnLoad(function () {
+		var oSettings = Page.LocalStorage.get(document.location.href + "::Settings");
+		if (null != oSettings) {
+			Page.LocalSettings = $merge(Page.LocalSettings, oSettings);
+		}
+	})
+
+	Page.AddOnUnload(function () {
+		Page.LocalStorage.set(document.location.href + "::Settings", Page.LocalSettings);
+	})
+
+	Page.AddOnload(async function () {
+		//document.body.addClass("collapse-leftbar");
+		//_$("sidebar").addClass("hidden");
+		//_$("topbar").addClass("hidden");
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.File))
+			LoadDataSetFromFile(Page.LocalSettings.File);
+
+		else if (!StringUtil.IsEmpty(Page.LocalSettings.DatasetFileID)) {
+			await LoadDatasetFile(Page.LocalSettings.DatasetFileID);
+			if (!StringUtil.IsEmpty(Page.LocalSettings.SelectedSheet)) {
+				SelectSheet(Page.LocalSettings.SelectedSheet);
+				ControlUtil.SetValue("ddlTables", Page.LocalSettings.SelectedSheet);
+			}
+		}
+
+		if (!StringUtil.IsEmpty(Page.LocalSettings.GoogleSheetID)) {
+			BlindBind("divLoadFile", { SheetID: Page.LocalSettings.GoogleSheetID, SheetName: Page.LocalSettings.GoogleSheetTab });
+			OnBlurSheetID(_$("sheetID"))
+		}
+
+		Page.Modals.divLoadFile = {
+			HideContent: function () {
+				_$("divLoadFile").addClass("Hidden");
+			}
+		}
+	})
+
+	
+	async function OnLoadSheet2() {
+
+        if (StringUtil.IsEmpty(ControlUtil.GetValue("sheetID"))) {
+            UserMessages.DisplayNow("Enter a valid spreadsheet", "Error");
+            return;
+        }
+
+        if (StringUtil.IsEmpty(ControlUtil.GetValue("sheetName"))) {
+            UserMessages.DisplayNow("Enter a valid Tab", "Error");
+            return;
+        }
+
+		_$("divMapping").removeClass("hidden");
+
+		await OnLoadSheet();
+
+		await OnRemapColumns();
+	}
+
+	async function OnRemapColumns() {
+		//Change this to the desired mapping 
+		await LoadCurrentMappingsFromDB("ZoomInfo");
+	}
+
+
+	async function OnTestImport() {
+		_$("divMapping").addClass("hidden");
+		_$("divImport").removeClass("hidden");
+
+		await TransformToImports();
+		OnSetImportColumnMappings();
+	}
+
+	async function OnImportNow() {
+		ImportGenericLeads();
+	}
+	
+
+	var oLeadSchema = {
+		"AutomationState": null,
+		"NPI": null,
+		"ExternalKey": null,
+		"FollowUpDate": null,
+		"LeadID": 3,
+		"Company": {Filter : null},
+		"FirstName": {Filter :"CommonFilters.NormalizeCase"},
+		"LastName": {Filter :"CommonFilters.NormalizeCase"},
+		"Title": {Filter : null},
+		"Function": {Filter :null},
+		"Phone": {
+			Filter: "CommonFilters.Phone"
+		},
+		"Email": {
+			Filter: "CommonFilters.Email"
+		},
+		"Address": null,
+		"Address2": null,
+		"City": null,
+		"State": {
+			Filter: "CommonFilters.State"
+		},
+		"ZipCode": {
+			Filter: "CommonFilters.Zip"
+		},
+        "Source": "Google",
+		"Priority": 3,
+		"StatusID": 10,
+		"OpportunitySize": 100,
+		"SalesRepresentativeID": 1,
+		"ImportKey": null,
+		"GeneratedDate": null,
+		"CampaignID": null
+	}
+
+
+	function OnSetDefaultMappings() {
+		SetDefaultMappings(oLeadSchema, true);
+	}
+
+
+	function OnSetImportColumnMappings() {
+		SetImportColumnMappings(oLeadSchema);
+	}
+
+
+	function OnEditColumnMappings(sCol) {
+		EditColumnMappings(sCol, oLeadSchema);
+	}
+
+
+	async function TransformToImports() {
+
+		if (oDatasetEditor.Transforms.length==0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return;
+		}
+
+		if (!ObjectUtil.IsDefined(oDatasetEditor.GetColumn("Source"))) {
+			Page.LocalSettings.Source = prompt("Enter a Source", Page.LocalSettings.Source);
+			Page.LocalSettings.CampaignKey = prompt("Enter a CampaignKey", Page.LocalSettings.CampaignKey);
+			oDatasetEditor.SetTransform({ SourceName: "Source", TargetName: "Source", Filter: "'" + Page.LocalSettings.Source + "'" });
+			oDatasetEditor.SetTransform({ SourceName: "CampaignKey", TargetName: "CampaignKey", Filter: "'" + Page.LocalSettings.CampaignKey + "'" });
+			oDatasetEditor.SetTransform({ SourceName: "TagName", TargetName: "TagName", Filter: "'" + Page.LocalSettings.Tag + "'" });
+		}
+
+		if (!ObjectUtil.IsDefined(oDatasetEditor.GetColumn("Tab"))) {
+			oDatasetEditor.SetTransform({ TargetName: "Tab", Filter: "'" + StringUtil.ReplaceAll(oDatasetEditor.SelectedSheetName, "'", "") + "'"});
+		}
+
+		let oImports={};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned =$clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter=null;
+			else
+				oCloned.Filter=window.eval(x.Filter);
+
+			oImports[x.TargetName]=oCloned;
+		});
+
+		let f = new Promise((resolve) => {
+			BulkUploader2(oDatasetEditor.Sheet, oImports, null, "Imports", function () {
+				resolve();
+			});
+		});
+
+		await f;
+
+		SelectNewestSheet();
+	}
+
+
+
+	function ImportZoomInfoLeads() {
+
+		if (oDatasetEditor.Transforms.length==0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return; 
+		}
+
+		let oImports={};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned=$clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter=null;
+			else
+				oCloned.Filter=window.eval(x.Filter);
+
+			oImports[x.TargetName]=oCloned;
+		});
+		BulkUploader2(oDatasetEditor.Sheet, oImports, new oLeadImportProcessor3());
+	}
+
+	function ImportGenericLeads() {
+
+		if (oDatasetEditor.Transforms.length == 0) {
+			UserMessages.DisplayNow("You haven't set the transforms yet", "Error");
+			return;
+		}
+
+		let oImports = {};
+		oDatasetEditor.Transforms.forEach(x => {
+			let oCloned = $clone(x);
+			if (StringUtil.IsEmpty(x.Filter))
+				oCloned.Filter = null;
+			else
+				oCloned.Filter = window.eval(x.Filter);
+
+			oImports[x.TargetName] = oCloned;
+		});
+		BulkUploader2(oDatasetEditor.Sheet, oImports, new GenericLeadImportProcessor());
+	}
+	
+
+	class oLeadImportProcessor3 {
+
+		Process(oRow) {
+			oRow.DataObject={};
+
+			Object.keys(oRow).forEach(x => {
+				if (StringUtil.StartsWith(x, "DataObject.")) {
+					let sVal=StringUtil.RightOfFirst(x, "DataObject.");
+					if (!StringUtil.InString(sVal, ".")) {
+						oRow.DataObject[StringUtil.RightOfFirst(x, "DataObject.")]=oRow[x];
+					}
+					else {
+						let sObject=StringUtil.LeftOfFirst(sVal, ".");
+						let sProp=StringUtil.RightOfFirst(sVal, ".");
+
+						let oObj=oRow.DataObject[sObject];
+						if (!oObj)
+							oObj={};
+
+						oObj[sProp]=oRow[x];
+						oRow.DataObject[sObject]=oObj;
+					}
+				}
+			})
+
+			oRow.Data=JSON.encode(oRow.DataObject);
+
+			var iID = Leads.ImportZoomInfoLead(oRow, oRow.DataObject.Source, oRow.DataObject.CampaignKey, oRow.DataObject.TagName);
+			return iID;
+		}
+	}
+
+	class GenericLeadImportProcessor {
+
+		Process(oRow) {
+			oRow.DataObject = {};
+
+			Object.keys(oRow).forEach(x => {
+				if (StringUtil.StartsWith(x, "DataObject.")) {
+					let sVal = StringUtil.RightOfFirst(x, "DataObject.");
+					if (!StringUtil.InString(sVal, ".")) {
+						oRow.DataObject[StringUtil.RightOfFirst(x, "DataObject.")] = oRow[x];
+					}
+					else {
+						let sObject = StringUtil.LeftOfFirst(sVal, ".");
+						let sProp = StringUtil.RightOfFirst(sVal, ".");
+
+						let oObj = oRow.DataObject[sObject];
+						if (!oObj)
+							oObj = {};
+
+						oObj[sProp] = oRow[x];
+						oRow.DataObject[sObject] = oObj;
+					}
+				}
+			})
+
+			oRow.Data = JSON.encode(oRow.DataObject);
+
+			const FinalSource = oRow.DataObject.Source == null ? oRow.Source : oRow.DataObject.Source;
+
+            var iID = Leads.ImportGenericLead(oRow, FinalSource, oRow.DataObject.CampaignKey, "");
+			return iID;
+		}
+	}
+
+	function CheckIfLeadExist() {
+	
+		let iRow = 0;
+		oDatasetEditor.Sheet.forEach((row, i) => {
+			Leads.GetPotentialDuplicates(row, function (oRes) {
+				iRow++;
+				UpdateProgress(iRow * 100 / oDatasetEditor.Sheet.length);
+
+				if (oRes.length == 0) {
+					_$("tblData").querySelectorAll("tr")[i + 2].children[0].innerHTML = '<i class="bi bi-file-earmark" title="Not Duplicate"></i>'
+					
+					return;
+				}
+				let oRow = oRes[0];
+				if (null != oRow) {
+					_$("tblData").querySelectorAll("tr")[i + 2].children[0].innerHTML = '<i class="bi bi-files" title="Duplicate"></i>'			
+					_$("tblData").querySelectorAll("tr")[i + 2].style = "background-color:lime;"
+
+					Object.keys(row).forEach(key => {
+						if (row[key] != oRow[key] && !StringUtil.EqualNoCase(row[key], oRow[key])) {
+							let ctrl = oDatasetEditor.GetElementControl(i, key);
+							if (ObjectUtil.HasValue(ctrl)) {
+								ctrl.style = "background-color: lightcoral;"
+								ctrl.title = StringUtil.IsEmpty(oRow[key]) ? "(empty)" : oRow[key];
+							}
+						}
+					})
+				}
+
+			})
+
+
+
+		});
+
+	}
+
+
+
+	function OnSelectedTableChanged() {
+		var sName = ControlUtil.GetValue("ddlTables");
+		if (!StringUtil.IsEmpty(sName)) {
+
+			SelectSheet(sName);
+			Page.LocalSettings.SelectedSheet = sName;
+
+			$$(".ImportControls").forEach(x => x.addClass("Hidden"));
+			$$(".RawControls").forEach(x => x.addClass("Hidden"));
+
+			if (StringUtil.EndsWith(sName, "Imports")) {
+				$$(".ImportControls").forEach(x => x.removeClass("Hidden"));
+			}
+			else {
+				$$(".RawControls").forEach(x => x.removeClass("Hidden"));
+			}
+
+		}
+	}
+
+
+
+	async function OnSetZoomInfoMappings() {
+		await LoadCurrentMappingsFromDB("ZoomInfo");
+		await TransformToImports();
+		//$$(".RawControls").forEach(x => x.addClass("hidden"));
+		//$$(".ImportControls").forEach(x => x.removeClass("hidden"));
+
+	}
+
+	function copyEmail() {
+		var AgentEmail = document.getElementById("AgentEmail").innerText;
+		navigator.clipboard.writeText(AgentEmail);
+	}
+</script>	<%})
+}%>
+
+<%redefinefunction SimplePage.Head
+{
+	(returnex{%>
+<style type="text/css">
+#divPreview .Grid { background-color: White; }
+#divPreview .Grid td { padding: 1px; }
+#divPreview .Grid input { padding: 2px; }
+#divPreview .Grid th input {font-weight: bold; }
+
+#box			{ border:1px solid #ccc; width:100%; height:50px; }
+#perc			{ background:#ccc; height:50px; }
+
+
+	#tblData {
+		border-collapse: collapse;
+	
+	}
+
+		#tblData th, #tblData td {
+			border: 1px solid lightgray;
+			white-space: nowrap;
+		}
+
+		#tblData th {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background-color: #f8f9fa; /* Light background for header */
+		}
+</style>
+	<%})
+}%>

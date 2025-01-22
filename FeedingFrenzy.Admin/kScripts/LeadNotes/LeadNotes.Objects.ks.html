@@ -1,0 +1,199 @@
+<%using SimpleObjects.ks.html%>
+<%SimpleObjectsPage.MetadataFile LeadNotes.Meta.json%>
+
+
+
+<%SimpleObjectsPage.AllowInsert false%>
+
+<%redefinefunction SimpleObjectsPage.MainPanelTabs
+{
+    (declare oTypes (LeadNoteTypes.GetLeadNoteTypes))
+	(declare oType 0)
+
+	(if (Request.ContainsKey LeadNoteTypeID)
+	{
+		(ifneq (Request.LeadNoteTypeID) 0
+		{
+			(oType (LeadNoteTypes.GetLeadNoteType (Request.LeadNoteTypeID)))
+		})
+	})
+
+	(declare ID
+		(if (Request.ContainsKey SalesRepresentativeID)
+		{
+			(Request.SalesRepresentativeID)
+		}
+
+			0
+		)
+	)
+	(returnex{%>
+
+
+
+<ul class="nav nav-tabs hidden">
+	<li class="<%ifneq (oType) 0 active%> dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%ifneq (oType) 0 { (oType.LeadNoteTypeName) } Type %> <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+			<li><a href="/lead-notes<%ifneq (ID) 0{%>?SalesRepresentativeID=<%ID%><%}%>">All Notes</a></li>
+			<%oTypes.each oType{%>
+			<li><a href="/lead-notes?LeadNoteTypeID=<%oType.LeadNoteTypeID%><%ifneq (ID) 0{%>&SalesRepresentativeID=<%ID%><%}%>"><%oType.LeadNoteTypeName%></a></li>
+			<%}%>
+		</ul>
+	</li>
+</ul>
+
+
+
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectsPage.GridInitializer
+{
+	(declare ID
+		(if (Request.ContainsKey SalesRepresentativeID)
+		{
+			(Request.SalesRepresentativeID)
+		}
+
+			0
+		)
+	)
+
+	(declare LeadNoteTypeID
+		(if (Request.ContainsKey LeadNoteTypeID)
+		{
+			(Request.LeadNoteTypeID)
+		}
+
+			0
+		)
+	)
+
+
+	(returnex{%>
+        var searchValue = '', sortColumn = '<%ObjectName%>ID', sortAscending = false;
+
+
+        if(location.href.contains("#search")){
+            var oValues = new LocalStorage().get("<%FriendlyObjectsName%>/<%ObjectsName%>Grid")
+            if(oValues)
+            {
+                if(oValues.Search)
+                   searchValue =  oValues.Search;
+                if(oValues.SortColumn)
+                   sortColumn = oValues.SortColumn;
+                if(oValues.SortAscending)
+                   sortAscending = oValues.SortAscending
+            }
+        }
+
+        _$('txtSearchTerm').value = searchValue;
+
+        var oGrid = new JsonWsGrid3();
+		oGrid.AllowPageSizeEditing = true;
+        Page.<%ObjectsName%>Grid = oGrid;
+        Page.Grids.Insert("<%ObjectsName%>", oGrid);
+
+		<%if (eq (ID) 0){%>
+        oGrid.JsonWsGridMethod = "GetGridHtml";
+        oGrid.JsonWsCountMethod = "GetGridCount";
+		<%}(neq (LeadNoteTypeID) 0){%>
+        oGrid.JsonWsGridMethod = "GetGridByLeadNoteTypeIDSalesRepresentativeIDHtml";
+        oGrid.JsonWsCountMethod = "GetGridByLeadNoteTypeIDSalesRepresentativeIDCount";
+		oGrid.ExtraParams = { SalesRepresentativeID : <%ID%>, LeadNoteTypeID: <%LeadNoteTypeID%> }
+		<%}{%>
+        oGrid.JsonWsGridMethod = "GetGridBySalesRepresentativeIDHtml";
+        oGrid.JsonWsCountMethod = "GetGridBySalesRepresentativeIDCount";
+		oGrid.ExtraParams = { SalesRepresentativeID : <%ID%> }
+		<%}%>
+        oGrid.SortAscending = sortAscending;
+		oGrid.sort = sortColumn;
+        oGrid.ContentControlID = "div<%ObjectsName%>";
+        oGrid.JsonWsUrl = '/JsonWs/<%Metadata.UINamespace%>.<%ObjectsName%>Admin.ashx';
+        oGrid.SearchControlID = 'txtSearchTerm';
+        oGrid.OnRowClick = null; //OnClick<%ObjectName%>;
+
+        oGrid.EmptyDataTemplateID = "div<%ObjectsName%>Empty";
+        oGrid.StartRefreshing();
+		oGrid.OnComplete = function() { OnFormatDate("div<%ObjectsName%>")};
+
+		function onLeadNoteClick(iID) {
+
+			let LeadID = ControlUtil.GetValue("hdnLeadNote" + iID);
+
+			Page.Redirect("lead", { LeadID: LeadID });
+		}
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.CommandButtons
+{
+	(returnex{%>
+
+
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectsPage.AdditionalScripts
+{
+	(returnex{%>
+		<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadNotes.ashx.js?v=<%JsVersion%>"></script>
+		<script src="/js/tinymceconfig.js?v=<%JsVersion%>" type="text/javascript"></script>
+		<script type="text/javascript">
+			Page.AddOnload(function () {
+				oTinyMCESimple.selector="textarea#txtNotes";
+				oTinyMCESimple.file_picker_callback=FilePickerCallback
+				tinymce.init(oTinyMCESimple);
+			});
+
+			function FilePickerCallback (cb, value, meta) {
+					var input = document.createElement('input');
+					input.setAttribute('type', 'file');
+
+					if (meta.filetype == 'image')
+						input.setAttribute('accept', 'image/*');
+
+
+					input.onchange = function () {
+						var file = this.files[0];
+
+						if (meta.filetype == 'image') {
+
+							bucketName = '<%AppSettings.GetStringOrDefault "AWS.Images.s3BucketName" ""%>';
+							bucketRegion = '<%AppSettings.GetStringOrDefault "AWS.Images.s3Region" ""%>';
+
+							UploadImageToS3(this, 'images', 0, function (sFileName) {
+								let sPresigned = "https://" + bucketName + ".s3." + bucketRegion + ".amazonaws.com/" + sFileName;
+
+								cb(sPresigned, { title: file.name });
+							});
+						}
+						else {
+
+							bucketName = '<%AppSettings.GetStringOrDefault "AWS.s3BucketName" ""%>';
+							bucketRegion = '<%AppSettings.GetStringOrDefault "AWS.s3Region" ""%>';
+
+							UploadFileToS3(this, 'lead-files', iLeadID, function (sFileName) {
+								let sPresigned = sFileName;
+								cb(sPresigned, { title: file.name });
+							});
+						}
+
+					};
+
+					input.click();
+
+				}
+
+
+		</script>
+
+   	   <%LeadNotesAdmin.GetAppointmentControls%> 
+		<%LeadNotesAdmin.GetTranscriptionJavascript%>
+
+ 	<%})
+}%>

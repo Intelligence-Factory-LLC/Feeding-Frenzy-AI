@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using PageLayoutsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile PageLayouts.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (PageLayouts.GetPageLayout (ObjectID)))
+}%>
+

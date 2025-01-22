@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using RawEmailAddressesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile RawEmailAddresses.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (RawEmailAddresses.GetRawEmailAddress (ObjectID)))
+}%>
+

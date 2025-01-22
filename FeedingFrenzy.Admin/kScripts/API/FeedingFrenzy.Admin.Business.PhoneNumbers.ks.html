@@ -1,0 +1,2602 @@
+
+
+    <%using SimpleApiHarness.ks.html%>
+    <%redefinefunction SimpleApiHarnessPage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+	<li class="breadcrumb-item"><a href="k?Output=FeedingFrenzy.Admin.Business.Index.ks.html&Class=SimpleApiHarnessPage">FeedingFrenzy.Admin.Business</a></li>
+	<li class="breadcrumb-item">PhoneNumbers</li>
+</ol>
+    <%})
+
+    }%>
+
+    <%redefinefunction SimpleApiHarnessPage.MainPanelContent
+    {
+
+    (returnex{%>
+
+<%ChatWithApiWindow "/api/feedingfrenzy.admin.business/phone-numbers" "/JsonWs/FeedingFrenzy.Admin.Business.PhoneNumbers.ashx.js"%>
+
+<script src="/JsonWs/FeedingFrenzy.Admin.Business.PhoneNumbers.ashx.js"></script>
+    
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.CopyPhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyPhoneNumber">
+
+				<h3>PhoneNumbers.CopyPhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/copy-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="CopyPhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/copy-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: CopyPhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/copy-phone-number
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnCopyPhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnCopyPhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divCopyPhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/copy-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.CopyPhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsCopyPhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divCopyPhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsCopyPhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetLineType</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLineType">
+
+				<h3>PhoneNumbers.GetLineType</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-line-type</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetLineType">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-line-type" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.String.ks.html&Class=SimpleApiHarnessPage">String[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtphone" kcs:FieldName="phone" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetLineType
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-line-type
+
+## Returns
+String[]
+
+## Parameters 
+
+	Name: phone, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetLineTypeClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetLineTypeClick()
+										{
+											var oObj = BlindUnbind("divGetLineType");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-line-type")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetLineTypeObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetLineType", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetLineType">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetLineType" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumber">
+
+				<h3>PhoneNumbers.GetPhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number
+
+## Returns
+PhoneNumbersRow
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumberByPhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberByPhoneNumber">
+
+				<h3>PhoneNumbers.GetPhoneNumberByPhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumberByPhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumberByPhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-phone-number
+
+## Returns
+PhoneNumbersRow
+
+## Parameters 
+
+	Name: PhoneNumber, Type: Phone
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumberByPhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumberByPhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumberByPhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumberByPhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumberByPhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberByPhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumberByPhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumberByVoiceAgent</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberByVoiceAgent">
+
+				<h3>PhoneNumbers.GetPhoneNumberByVoiceAgent</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-voice-agent</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumberByVoiceAgent">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-voice-agent" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			AgentName
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumberByVoiceAgent
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-voice-agent
+
+## Returns
+PhoneNumbersRow
+
+## Parameters 
+
+	Name: AgentName, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumberByVoiceAgentClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumberByVoiceAgentClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumberByVoiceAgent");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-by-voice-agent")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumberByVoiceAgentObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumberByVoiceAgent", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberByVoiceAgent">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumberByVoiceAgent" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumberInfo</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberInfo">
+
+				<h3>PhoneNumbers.GetPhoneNumberInfo</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-info</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumberInfo">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-info" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			phone
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtphone" kcs:FieldName="phone" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumberInfo
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-info
+
+## Returns
+PhoneNumbersRow
+
+## Parameters 
+
+	Name: phone, Type: String
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumberInfoClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumberInfoClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumberInfo");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-number-info")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumberInfoObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumberInfo", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumberInfo">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumberInfo" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumbers</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumbers">
+
+				<h3>PhoneNumbers.GetPhoneNumbers</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumbers">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumbers
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers
+
+## Returns
+PhoneNumbersRow[]
+
+## Parameters 
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumbersClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumbersClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumbers");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumbersObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumbers", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumbers">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumbers" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.GetPhoneNumbersSp_PagingSp</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumbersSp_PagingSp">
+
+				<h3>PhoneNumbers.GetPhoneNumbersSp_PagingSp</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers-sp-_-paging-sp</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="GetPhoneNumbersSp_PagingSp">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers-sp-_-paging-sp" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.PhoneNumbersRow.ks.html&Class=SimpleApiHarnessPage">PhoneNumbersRow[]</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Search
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSearch" kcs:FieldName="Search" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortColumn
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSortColumn" kcs:FieldName="SortColumn" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SortAscending
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkSortAscending" kcs:FieldName="SortAscending"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			SkipRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtSkipRows" kcs:FieldName="SkipRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			NumRows
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtNumRows" kcs:FieldName="NumRows" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			Integer
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: GetPhoneNumbersSp_PagingSp
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers-sp-_-paging-sp
+
+## Returns
+PhoneNumbersRow[]
+
+## Parameters 
+
+	Name: Search, Type: String
+
+	Name: SortColumn, Type: String
+
+	Name: SortAscending, Type: Boolean
+
+	Name: SkipRows, Type: Integer
+
+	Name: NumRows, Type: Integer
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnGetPhoneNumbersSp_PagingSpClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnGetPhoneNumbersSp_PagingSpClick()
+										{
+											var oObj = BlindUnbind("divGetPhoneNumbersSp_PagingSp");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/get-phone-numbers-sp-_-paging-sp")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.GetPhoneNumbersSp_PagingSpObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsGetPhoneNumbersSp_PagingSp", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divGetPhoneNumbersSp_PagingSp">
+				<h3>Results</h3>
+				<textarea id="txtResultsGetPhoneNumbersSp_PagingSp" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.InsertPhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertPhoneNumber">
+
+				<h3>PhoneNumbers.InsertPhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/insert-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="InsertPhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/insert-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Int32.ks.html&Class=SimpleApiHarnessPage">Int32</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Type
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneType" kcs:FieldName="PhoneType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Internal
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsInternal" kcs:FieldName="IsInternal"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Caller Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCallerName" kcs:FieldName="CallerName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Country
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Blocked
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Spam
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSpam" kcs:FieldName="IsSpam"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: InsertPhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/insert-phone-number
+
+## Returns
+Int32
+
+## Parameters 
+
+	Name: PhoneNumber, Type: Phone
+
+	Name: PhoneType, Type: String
+
+	Name: IsInternal, Type: Boolean
+
+	Name: CallerName, Type: String
+
+	Name: Country, Type: String
+
+	Name: Data, Type: Data
+
+	Name: IsBlocked, Type: Boolean
+
+	Name: IsSpam, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnInsertPhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnInsertPhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divInsertPhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/insert-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.InsertPhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsInsertPhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divInsertPhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsInsertPhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsBlocked</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsBlocked">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsBlocked</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-blocked</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsBlocked">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-blocked" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsBlocked
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-blocked
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsBlockedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsBlockedClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsBlocked");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-blocked")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsBlockedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsBlocked", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsBlocked">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsBlocked" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsInternal</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsInternal">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsInternal</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-internal</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsInternal">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-internal" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsInternal
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-internal
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsInternalClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsInternalClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsInternal");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-internal")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsInternalObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsInternal", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsInternal">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsInternal" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsNotBlocked</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotBlocked">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsNotBlocked</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-blocked</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsNotBlocked">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-blocked" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsNotBlocked
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-blocked
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsNotBlockedClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsNotBlockedClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsNotBlocked");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-blocked")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsNotBlockedObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsNotBlocked", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotBlocked">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsNotBlocked" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsNotInternal</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotInternal">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsNotInternal</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-internal</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsNotInternal">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-internal" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsNotInternal
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-internal
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsNotInternalClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsNotInternalClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsNotInternal");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-internal")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsNotInternalObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsNotInternal", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotInternal">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsNotInternal" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsNotSpam</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotSpam">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsNotSpam</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-spam</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsNotSpam">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-spam" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsNotSpam
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-spam
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsNotSpamClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsNotSpamClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsNotSpam");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-not-spam")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsNotSpamObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsNotSpam", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsNotSpam">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsNotSpam" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.MarkPhoneNumberAsSpam</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsSpam">
+
+				<h3>PhoneNumbers.MarkPhoneNumberAsSpam</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-spam</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="MarkPhoneNumberAsSpam">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-spam" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: MarkPhoneNumberAsSpam
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-spam
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnMarkPhoneNumberAsSpamClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnMarkPhoneNumberAsSpamClick()
+										{
+											var oObj = BlindUnbind("divMarkPhoneNumberAsSpam");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/mark-phone-number-as-spam")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.MarkPhoneNumberAsSpamObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsMarkPhoneNumberAsSpam", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divMarkPhoneNumberAsSpam">
+				<h3>Results</h3>
+				<textarea id="txtResultsMarkPhoneNumberAsSpam" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.RemovePhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemovePhoneNumber">
+
+				<h3>PhoneNumbers.RemovePhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/remove-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="RemovePhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/remove-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: RemovePhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/remove-phone-number
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnRemovePhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnRemovePhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divRemovePhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/remove-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.RemovePhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsRemovePhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divRemovePhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsRemovePhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.UpdatePhoneNumber</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePhoneNumber">
+
+				<h3>PhoneNumbers.UpdatePhoneNumber</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdatePhoneNumber">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumber" kcs:FieldName="PhoneNumber" class="InputPhone form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			Phone
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Type
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneType" kcs:FieldName="PhoneType" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Internal
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsInternal" kcs:FieldName="IsInternal"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Caller Name
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCallerName" kcs:FieldName="CallerName" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Country
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtCountry" kcs:FieldName="Country" class="InputString form-control" maxlength="255" />
+		</div>
+		<label class="col-3 control-label">
+			String
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Blocked
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsBlocked" kcs:FieldName="IsBlocked"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Is Spam
+		</label>
+		<div class="col-6">
+			
+<input type="checkbox" id="chkIsSpam" kcs:FieldName="IsSpam"  />
+		</div>
+		<label class="col-3 control-label">
+			Boolean
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdatePhoneNumber
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+	Name: PhoneNumber, Type: Phone
+
+	Name: PhoneType, Type: String
+
+	Name: IsInternal, Type: Boolean
+
+	Name: CallerName, Type: String
+
+	Name: Country, Type: String
+
+	Name: Data, Type: Data
+
+	Name: IsBlocked, Type: Boolean
+
+	Name: IsSpam, Type: Boolean
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdatePhoneNumberClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdatePhoneNumberClick()
+										{
+											var oObj = BlindUnbind("divUpdatePhoneNumber");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.UpdatePhoneNumberObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdatePhoneNumber", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePhoneNumber">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdatePhoneNumber" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card border-primary border">
+			<div class="card-header">
+				<h4>PhoneNumbers.UpdatePhoneNumberData</h4>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePhoneNumberData">
+
+				<h3>PhoneNumbers.UpdatePhoneNumberData</h3>
+				<p>/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number-data</p>
+				<br>
+
+				
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="UpdatePhoneNumberData">
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Url
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtBaseUrl" kcs:FieldName="BaseUrl" class="InputUrl form-control" maxlength="512"  value="/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number-data" />
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Returns
+		</label>
+		<div class="col-6" style="padding-top: 8px;">
+			<a href="k?Output=FeedingFrenzy.Admin.Business.Void.ks.html&Class=SimpleApiHarnessPage">Void</a>
+		</div>
+	</div>
+
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label strong">
+			Authorization
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtAuthorization" kcs:FieldName="Authorization" class="InputString form-control" maxlength="255"  value="Bearer {YOUR KEY HERE}" />
+		</div>
+	</div>
+	
+
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Phone Number ID
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="txtPhoneNumberID" kcs:FieldName="PhoneNumberID" maxlength="10" class="InputInteger form-control" maxlength="14"   />
+		</div>
+		<label class="col-3 control-label">
+			ID
+		</label>
+	</div>
+	
+	
+	
+	<div class="row mb-3">
+		<label class="col-3 control-label">
+			Data
+		</label>
+		<div class="col-6">
+			
+<input type="text" id="Text1" kcs:FieldName="Data" class="InputData" />
+		</div>
+		<label class="col-3 control-label">
+			Data
+		</label>
+	</div>
+	
+	
+</div>
+
+        
+
+				<code class="hidden">
+					
+
+# Method Name: UpdatePhoneNumberData
+
+## Url
+/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number-data
+
+## Returns
+Void
+
+## Parameters 
+
+	Name: PhoneNumberID, Type: ID
+
+	Name: Data, Type: Data
+
+
+        
+				</code>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-6 col-offset-3">
+						<div class="btn-toolbar">
+							<button value="Submit" onclick="OnUpdatePhoneNumberDataClick()" class="Save btn-primary btn">Test</button>
+
+							<script type="text/javascript">
+
+																
+										function OnUpdatePhoneNumberDataClick()
+										{
+											var oObj = BlindUnbind("divUpdatePhoneNumberData");
+
+											if (oObj.BaseUrl != "/api/feedingfrenzy.admin.business/phone-numbers/update-phone-number-data")
+																		PhoneNumbers.Url = oObj.BaseUrl;
+
+																	PhoneNumbers.UpdatePhoneNumberDataObject(oObj, function (oRes) {
+												ControlUtil.SetValue("txtResultsUpdatePhoneNumberData", JSON.encode(oRes));
+											})
+										}
+																
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" id="divUpdatePhoneNumberData">
+				<h3>Results</h3>
+				<textarea id="txtResultsUpdatePhoneNumberData" class="InputData form-control" placeholder="Results"></textarea>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+        
+        <%})
+
+        }%>
+
+        

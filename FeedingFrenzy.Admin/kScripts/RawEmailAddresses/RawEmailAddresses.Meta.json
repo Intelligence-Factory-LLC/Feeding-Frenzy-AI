@@ -1,0 +1,17 @@
+{
+	ObjectName : "RawEmailAddress",
+	ObjectsName : "RawEmailAddresses",
+
+	
+	
+	FriendlyObjectName : "Raw Email Address",
+	FriendlyObjectsName : "Raw Email Addresses",
+	
+	ObjectsUrl : "raw-email-addresses",
+	DetailsUrl : "raw-email-address",
+	EditUrl : "raw-email-address-edit",
+	InsertUrl : "raw-email-address-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

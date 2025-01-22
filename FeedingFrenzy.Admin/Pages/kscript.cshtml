@@ -1,0 +1,354 @@
+﻿@page
+@model kscriptModel
+@{
+	ViewData["Title"] = "kScript Debugger";
+	Layout = "_SimpleLayout";
+}
+
+@section SidebarMenu
+{
+	@Html.Raw(Model.SidebarMenu)
+}
+
+@section MainPanelContent
+{
+	<div class="container-fluid mb-3">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Chat Instructions</h5>
+					</div>
+					<div class="card-body d-flex flex-column">
+						<!-- Instructions Text Area -->
+						<textarea class="form-control mb-2" kcs:FieldName="Directive" id="txtDirective" rows="3" placeholder="Add instructions or messages here..."></textarea>
+
+						<!-- Dropdown and Button in a Row -->
+						<div class="d-flex align-items-center">
+							<select class="form-control me-2" id="ddlModel" style="max-width: 200px;">
+								<option value="gpt-4o-mini">gpt-4o-mini</option>
+								<option value="gpt-4o">gpt-4</option>
+							</select>
+							<button type="button" class="btn btn-primary" onclick="OnExecuteDirective(this)">Execute Directive</button>
+							<button value="" onclick="OnRefineCode(this)" class="btn btn-primary-alt me-2">Refine</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Main Row: Available APIs (left) and kScript Editor (right) -->
+	<div class="container-fluid">
+		<div class="row h-100">
+			<!-- Sidebar Column (Available APIs) -->
+			<div id="AvailableAPIs" class="col-md-3 col-lg-2 border-end bg-light" style="overflow-y: auto; padding-top: 1rem;">
+				<h5 class="px-3 pb-2 border-bottom">Available APIs</h5>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="Artifacts" value="Artifacts" id="chkArtifacts" onchange="if (this.checked) loadJavaScript('Artifacts');">
+						<label class="form-check-label flex-grow-1" for="chkArtifacts">Artifacts</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="ArtifactTypes" value="ArtifactTypes" id="chkArtifactTypes" onchange="if (this.checked) loadJavaScript('ArtifactTypes');">
+						<label class="form-check-label flex-grow-1" for="chkArtifactTypes">ArtifactTypes</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="DataExtractors" value="DataExtractors" id="chkDataExtractors" onchange="if (this.checked) loadJavaScript('DataExtractors');">
+						<label class="form-check-label flex-grow-1" for="chkDataExtractors">DataExtractors</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="Embeddings" value="Embeddings" id="chkEmbeddings" onchange="if (this.checked) loadJavaScript('Embeddings');">
+						<label class="form-check-label flex-grow-1" for="chkEmbeddings">Embeddings</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="Fragments" value="Fragments" id="chkFragments" onchange="if (this.checked) loadJavaScript('Fragments');">
+						<label class="form-check-label flex-grow-1" for="chkFragments">Fragments</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="FragmentTags" value="FragmentTags" id="chkFragmentTags" onchange="if (this.checked) loadJavaScript('FragmentTags');">
+						<label class="form-check-label flex-grow-1" for="chkFragmentTags">FragmentTags</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="Tags" value="Tags" id="chkTags" onchange="if (this.checked) loadJavaScript('Tags');">
+						<label class="form-check-label flex-grow-1" for="chkTags">Tags</label>
+					</li>
+					<li class="list-group-item d-flex align-items-center">
+						<input class="form-check-input me-2" type="checkbox" kcs:FieldName="Vectors" value="Vectors" id="chkVectors" onchange="if (this.checked) loadJavaScript('Vectors');">
+						<label class="form-check-label flex-grow-1" for="chkVectors">Vectors</label>
+					</li>
+				</ul>
+			</div>
+
+
+			<!-- Main Content Column (kScript Editor) -->
+			<div class="col-md-9 col-lg-10 py-3" style="display: flex; flex-direction: column;">
+				<div class="card" style="flex: 1; display: flex; flex-direction: column;">
+					<div class="card-header">
+						<h5 class="mb-0">kScript Editor</h5>
+					</div>
+					<div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+						<textarea id="txtkScript" class="form-control InputJavaScript" style="flex:1; resize: none;" rows="15" kcs:FieldName="kScriptCode"></textarea>
+						<div class="row mt-3">
+							<div class="col-md-2 mb-2">
+								<button type="button" class="btn btn-primary w-100" onclick="OnExecutekScript()">Eval</button>
+							</div>
+							<div class="col-md-2 mb-2 d-none">
+								<select id="ddlHandler" class="form-select">
+									<option value="RPM.Portal.UI">RPM.Portal.UI</option>
+									<option value="RPM.Leads.Portal.UI">RPM.Leads.Portal.UI</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-secondary w-100" onclick="ResetkScript()">Reset kScript</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Full-Width Tabs and Results -->
+	<div class="container-fluid mt-3">
+		<div class="card">
+			<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs">
+					<li class="nav-item">
+						<a class="nav-link" href="#html" data-bs-toggle="tab" onclick="SaveTab('html')">HTML</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#raw" data-bs-toggle="tab" onclick="SaveTab('raw')">Raw</a>
+					</li>
+				</ul>
+			</div>
+			<div class="card-body tab-content">
+				<div class="tab-pane" id="html">
+					<div id="divResults" style="width: 100%;"></div>
+				</div>
+				<div class="tab-pane" id="raw">
+					<textarea id="txtResults" rows="15" class="form-control" style="width: 100%;"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="/JsonWs/FeedingFrenzy.Admin.Business.Tools.kScriptWorkbench.ashx.js"></script>
+	<script type="text/javascript" src="/js/kcs/JsonMethod.js"></script>
+	<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Services.FragmentsHelper.ashx.js"></script>
+	<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.Business.Tools.APIWorkbench.ashx.js"></script>
+
+	<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+	<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+	<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+	<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+	<style>
+		.CodeMirror {
+			border: 1px solid #eee;
+			height: auto;
+		}
+	</style>
+	<script>
+		Page.LocalSettings = {
+			Handler: "FeedingFrenzy.Admin.UI"
+		}
+
+		function OnExecutekScript() {
+			kScriptWorkbench.Evaluate(ControlUtil.GetValue("txtkScript"), Page.LocalSettings.Handler, function (sRes) {
+				ControlUtil.SetValue("txtResults", sRes);
+				ControlUtil.SetValue("divResults", sRes);
+			});
+		}
+
+		function ResetkScript() {
+			kScriptWorkbench.Reset(Page.LocalSettings.Handler);
+		}
+
+		function OnEditCode() {
+			window.editor = CodeMirror.fromTextArea(document.getElementById('txtkScript'), {
+				mode: "javascript",
+				indentWithTabs: true,
+				lineNumbers: true,
+				matchBrackets: true,
+				autofocus: true
+			});
+
+			// Keep the textarea updated on every change
+			window.editor.on('change', function (cm) {
+				cm.save(); // Synchronizes CodeMirror content with the textarea
+			});
+
+			// Listen for keydown events in the editor
+			window.editor.on('keydown', function (cm, event) {
+				// Check if Alt+Space is pressed
+				if (event.ctrlKey && event.code === 'Space') {
+					event.preventDefault();
+					OnContinueCode();
+				}
+			});
+		}
+
+		function SaveTab(id) {
+			// Add logic to save the current active tab
+			localStorage.setItem('activeTab', id);
+		}
+		Page.PreserveViewState();
+
+		Page.AddOnload(() => {
+			const activeTab = localStorage.getItem('activeTab');
+			if (activeTab) {
+				document.querySelector(`a[href="#${activeTab}"]`).classList.add('active');
+				document.getElementById(activeTab).classList.add('active');
+			} else {
+				// Default to the first tab if none is saved
+				const firstTabLink = document.querySelector('.nav-tabs a');
+				const firstPane = document.querySelector('.tab-content .tab-pane');
+				if (firstTabLink && firstPane) {
+					firstTabLink.classList.add('active');
+					firstPane.classList.add('active');
+				}
+			}
+
+			OnEditCode();
+		});
+	</script>
+
+	<script type="text/javascript">
+
+		async function getFileContents(sFile) {
+			try {
+				const response = await fetch(sFile);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const text = await response.text();
+				return text;
+			} catch (error) {
+				console.error("Error fetching file:", error);
+				return null;
+			}
+		}
+
+		async function OnExecuteDirective(sender) {
+			let iFragmentID = await RebuildApiFragment();
+
+			APIWorkbench.InterpretDirective(iFragmentID,
+				ControlUtil.GetValue('txtDirective'),
+				ControlUtil.GetValue("ddlModel"),
+				null,
+				function (oResult) {
+					if (!StringUtil.IsEmpty(oResult.Javascript)) {
+						// Append the new JavaScript to the current content in CodeMirror
+						const currentContent = window.editor.getValue();
+						const newContent = currentContent + "\n" + oResult.Javascript;
+						window.editor.setValue(newContent);
+					}
+
+					if (!StringUtil.IsEmpty(oResult.Message)) {
+						UserMessages.DisplayNow(oResult.Message, "Info");
+					}
+				});
+		}
+
+		async function OnRefineCode(sender) {
+			let iFragmentID = await RebuildApiFragment();
+
+			APIWorkbench.RefineCode(iFragmentID,
+				ControlUtil.GetValue('txtDirective'),
+				ControlUtil.GetValue("txtkScript"),
+				ControlUtil.GetValue("ddlModel"),
+				null,
+				function (oResult) {
+					window.editor.setValue(oResult.Javascript);
+					if (!StringUtil.IsEmpty(oResult.Message)) {
+						UserMessages.DisplayNow(oResult.Message, "Info");
+					}
+				});
+		}
+
+		async function OnContinueCode(sender) {
+			let iFragmentID = await RebuildApiFragment();
+
+			// Get the entire content and cursor position
+			const doc = window.editor.getDoc();
+			const cursorPos = doc.getCursor();
+			const beforeCursor = doc.getRange({ line: 0, ch: 0 }, cursorPos);
+			const afterCursor = doc.getRange(cursorPos, { line: Infinity, ch: Infinity });
+
+			APIWorkbench.ContinueCode(
+				iFragmentID,
+				beforeCursor, // Send only the code up to the cursor position
+				ControlUtil.GetValue("ddlModel"),
+				null,
+				function (oResult) {
+					if (!StringUtil.IsEmpty(oResult.Javascript)) {
+						// Construct new content: code before + generated code + code after
+						const newContent = beforeCursor + "\n" + oResult.Javascript + "\n" + afterCursor;
+						window.editor.setValue(newContent);
+					}
+
+					if (!StringUtil.IsEmpty(oResult.Message)) {
+						UserMessages.DisplayNow(oResult.Message, "Info");
+					}
+				}
+			);
+		}
+
+		async function RebuildApiFragment() {
+			// Get all checked APIs
+			const checkedBoxes = document.querySelectorAll('#AvailableAPIs input[type=checkbox]:checked');
+			let sFileContents = "";
+
+			if (checkedBoxes.length > 0) {
+				// Build an array of Promises to fetch each selected API file
+				const fetchPromises = Array.from(checkedBoxes).map(chk => {
+					let apiName = chk.value;
+					let sFile = `/JsonWs/APIs/Buffaly.SemanticDB.${apiName}.ashx.js`;
+					return getFileContents(sFile);
+				});
+
+				// Wait for all fetches to complete
+				const allContents = await Promise.all(fetchPromises);
+
+				// Concatenate all file contents
+				sFileContents = allContents.filter(Boolean).join("\n\n");
+			} else {
+				// If no APIs are checked, sFileContents can be empty or handle accordingly
+				sFileContents = "// No APIs selected.\n";
+			}
+
+			// Append the API files to sCode
+			let sCode = "\n## Helper File\n" + sFileContents;
+
+			let f = new Promise((resolve) => {
+				Fragments.InsertOrUpdateFragment("<%sApi%>", sCode, function (oRes) {
+					iFragmentID = oRes;
+					resolve();
+				});
+			});
+
+			await f;
+
+			return iFragmentID;
+		}
+
+		function OnThumbsUp(sender) {
+			let sCode = ControlUtil.GetValue('txtkScript');
+			let sDirective = ControlUtil.GetValue('txtDirective');
+
+			APIWorkbench.SaveDirectiveAndImplementation(sDirective, sCode, function (oResult) {
+				UserMessages.DisplayNow("Saved", "Success");
+			});
+		}
+
+		function loadJavaScript(apiName) {
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = '/JsonWs/APIs/Buffaly.SemanticDB.' + apiName + '.ashx.js';
+			document.head.appendChild(script);
+		}
+
+	</script>
+}

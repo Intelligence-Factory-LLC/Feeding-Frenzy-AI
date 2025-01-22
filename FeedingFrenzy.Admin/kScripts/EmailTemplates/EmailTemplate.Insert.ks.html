@@ -1,0 +1,53 @@
+<%using SimpleObjectInsert.ks.html%>
+<%using EmailTemplatesAdmin.ks.html%>
+
+<%SimpleObjectInsertPage.MetadataFile EmailTemplates.Meta.json%>
+
+
+
+<%redefinefunction SimpleObjectInsertPage.AdditionalScripts
+{
+	(returnex{%>
+
+      <script src="/lib/selectize/js/standalone/selectize.min.js"></script>
+      <link href="/lib/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript">
+			Page.AddOnload(function () {
+				console.log('test');
+
+				let sValue = ControlUtil.GetValue("txtEmailParams");
+				let oValues = eval(sValue);		//I don't know why JSON.decode can't deal with an array
+				if (oValues) {
+					ControlUtil.SetValue("txtEmailParams", oValues.join());
+				} else {
+					if (Array.isArray(oValues)) {
+						// Join the array into a comma-separated string
+						var joinedValues = oValues.join(', ');
+						// Set the value using ControlUtil
+						ControlUtil.SetValue("txtEmailParams", joinedValues);
+					}
+				}
+
+
+				let oSelect = $('.selectize-close-btn').selectize({
+					plugins: ['remove_button'],
+					persist: false,
+					create: true,
+					render: {
+						item: function (data, escape) {
+							return '<div>' + escape(data.text) + '</div>';
+						}
+					},
+					onDelete: function (values) {
+						return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+					}
+				});
+
+
+			});
+
+		</script>
+ 
+	<%})	
+}%>

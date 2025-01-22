@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>UBold - ASP.net Core 6 Responsive Admin Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+
+                <!-- Topbar Start -->
+                <div class="navbar-custom">
+                    <a href="index.html" class="logo text-center d-none d-md-inline-block mr-2">
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-light.png" alt="" height="16">
+                        </span>
+                    </a>
+
+                    <button type="button"
+                        class="btn btn-sm btn-dark d-inline-block d-lg-none button-menu-mobile">Menu</button>
+
+                    <span class="badge badge-danger float-right">v1.0</span>
+                </div>
+                <!-- end Topbar -->
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <div class="page-wrapper">
+                        <div class="left-sidebar">
+                            <div class="slimscroll-menu">
+                                <div class="list-group list-group-transparent mb-0">
+
+                                    <span class="list-group-item disabled">
+                                        Getting Started
+                                    </span>
+
+                                    <a href="index.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-flag-variant-outline"></i>
+                                        </span>Introduction
+                                    </a>
+
+                                    <a href="setup.html" class="list-group-item list-group-item-action active">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-apps"></i>
+                                        </span>Setup
+                                    </a>
+
+                                    <span class="list-group-item disabled">
+                                        Customization
+                                    </span>
+
+                                    <a href="customization.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-square-edit-outline"></i>
+                                        </span>Layout & Themes
+                                    </a>
+
+
+                                    <span class="list-group-item disabled">
+                                        Other
+                                    </span>
+
+                                    <a href="plugins-uses.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-widgets"></i>
+                                        </span>How to use plugins
+                                    </a>
+
+                                    <a href="changelog.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-book-open-page-variant"></i>
+                                        </span>Changelog
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end left-sidebar-->
+
+                        <div class="page-content">
+                            <div class="card ">
+                                <div class="card-body">
+
+                                    <h4 class="mt-0 mb-2 font-weight-bold">Setup</h4>
+
+
+                                    <p class="mt-3">UBold is build with ASP.net Core web app using Visual Studio 2022. We are using <a href="https://gulpjs.com/" target="_blank">gulp</a>
+                                        which allows to have complete automatation for
+                                        build flow. In case if you don't know - Gulp is a toolkit for automating
+                                        painful or time-consuming tasks in development workflow, so you can stop
+                                        messing around and build something. You can read it more about it <a
+                                            href="https://gulpjs.com/" target="_blank">here</a>. Please follow below
+                                        steps to install and setup all prerequisites:</p>
+
+                                    <h4 class="mt-4">Prerequisites</h4>
+
+                                    <p>Please follow below steps to install and setup all prerequisites:</p>
+
+                                    <ul>
+                                        <li>
+                                            <h5>Node.js</h5>
+                                            <p class="mb-2">In order to use build tools you will need to download
+                                                and install Node.js. If you do not have Node.js installed already,
+                                                you can get it by downloading the package installer from the
+                                                official website. Please download the stable version of Node.js
+                                                (LTS).</p><a href="https://nodejs.org/" target="_blank">Download
+                                                Node.js</a>
+                                        </li>
+                                        <li class="pt-2">
+                                            <h5>Gulp &amp; Gulp CLI</h5>
+                                            <p>Make sure to have the <a href="https://gulpjs.com/"
+                                                    target="_blank">Gulp</a> installed &amp; running in your
+                                                computer. If you already have installed gulp on your computer, you
+                                                can skip this step. In order to install, just run command <code>npm
+                                                    install -g gulp@4.0.1</code> from your terminal.</p>
+                                        </li>
+                                        <li>
+                                            <h5>Yarn</h5>
+                                            <p>Make sure to have the <a href="https://yarnpkg.com/lang/en/"
+                                                    target="_blank">Yarn</a> installed &amp; running in your
+                                                computer. If you already have installed yarn on your computer, you
+                                                can skip this step.</p>
+                                        </li>
+                                        <li>
+                                            <h5>Git</h5>
+                                            <p>Make sure to have the <a href="https://git-scm.com/"
+                                                    target="_blank">Git</a> installed &amp; running in your
+                                                computer. If you already have installed git on your computer, you
+                                                can skip this step</p>
+                                        </li>
+                                    </ul>
+                                    <h4 class="mt-4">Installation</h4>
+                                    <!-- <p>Open your terminal, go to your folder and enter the command <code>yarn
+                                            install</code>. This would install all required dependencies in
+                                        <code>node_modules</code> folder. And now, you are ready to run the Ubold
+                                        for the first time.
+                                    </p> -->
+                                    <p class="mt-1">You can run the following commands to run project locally or
+                                        build for production use:</p>
+                                    <table class="table table-bordered m-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20%"><i class="ti-file"></i> Command</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>yarn install</code></td>
+                                                <td>This would install all the required dependencies in the <code>node_modules</code> folder.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>gulp</code></td>
+                                                <td>Runs the project locally, starts the development server and watches for any changes in your code, 
+                                                    including your HTML, Javascript, sass, etc. The development server is accessible at 
+                                                    <a href="http://localhost:3000/">http://localhost:3000/</a>.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>Open Solution file</code></td>
+                                                <td>Open folder with Visual studio
+                                                     and make sure to check <code>dist/{demo}/wwwroot/assets</code> folder contain libs folder which is created by above gulp command.
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="mt-3">
+                                        <h5 class="mt-0 mb-2 font-weight-bold">Troubleshooting</h5>
+                                        <ul>
+                                            <li>I am getting error "<code>Error: ENOENT: no such file or directory,
+                                                    scandir '/root/website/node_modules/node-sass/vendor'</code>"
+                                                while running npm install, what should I do?<p>If you are getting
+                                                    this error, there could be multiple root causes, please try
+                                                    following workarounds:</p>
+                                                <ul>
+                                                    <li>1. Run <code>npm rebuild node-sass</code> to re-install
+                                                        node-sass</li>
+                                                    <li>2. Delete node_modules folder and re run <code>npm
+                                                            install</code></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <div class="alert alert-info mt-5">If you are having any question or
+                                            difficulty during setup, don't hesitate to contact us. We would be glad
+                                            to assist you.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end page-wrapper-->
+
+
+                    </div>
+
+                </div>
+                <!-- content -->
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <script>document.write(new Date().getFullYear())</script> © UBold - by Coderthemes
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-right footer-links d-none d-sm-block">
+                                    <a href="http://coderthemes.com/" target="_blank">About</a>
+                                    <a href="http://coderthemes.com/#contact" target="_blank">Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- END wrapper -->
+
+        <script src="assets/js/app.min.js"></script>
+
+</body>
+
+</html>

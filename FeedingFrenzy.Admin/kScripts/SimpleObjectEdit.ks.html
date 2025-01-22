@@ -1,0 +1,337 @@
+<%class SimpleObjectEditPage
+{
+	(declare Metadata
+		{
+			ObjectName : "",
+			ObjectsName : "",
+			
+			FriendlyObjectName : "",
+			FriendlyObjectsName : "",
+			
+			ObjectsUrl : "",
+			DetailsUrl : "",
+			EditUrl : "",
+			InsertUrl : "",
+
+			UINamespace : "",
+			BusinessNamespace: ""
+		}
+	)
+
+	(declare UseShortButtonNames true)
+
+	
+	(function MetadataFile File
+	{
+		(Metadata (json (include (File))))
+	})
+		
+	(function ObjectName
+	{
+		(return (Metadata.ObjectName))
+	})
+	
+	(function ObjectsName
+	{
+		(return (Metadata.ObjectsName))
+	})
+	
+	(function FriendlyObjectName
+	{
+		(return (Metadata.FriendlyObjectName))
+	})
+	
+	(function FriendlyObjectsName
+	{
+		(return (Metadata.FriendlyObjectsName))
+	})
+	
+	(function ObjectsUrl 
+	{
+		(return (Metadata.ObjectsUrl))
+	})
+
+	(function DetailsUrl 
+	{
+		(return (Metadata.DetailsUrl))
+	})
+
+	(function InsertUrl 
+	{
+		(return (Metadata.InsertUrl))
+	})
+	
+	(function EditUrl 
+	{
+		(return (Metadata.EditUrl))
+	})
+	
+	(function ObjectID
+	{
+		(return (Request.get (concat (ObjectName) ID)))
+	})
+	
+	(function Object
+	{
+		(declare oObj ((concat (ObjectsName) .Get (ObjectName)) (ObjectID)))	
+		(ifeq (oObj) "" {(env.log (concat "Could not find " (ObjectName) " with ID of " (ObjectID)))})
+		(return (oObj))
+	})
+
+	(function Title 
+	{
+		(returnex{%><%Application.Title%> - Edit <%FriendlyObjectName%><%})
+	})
+	
+	(function EditPanel
+	{
+		(return ((concat (ObjectsName) Admin.GetEdit) (ObjectID)))
+	})
+
+	(function QuickHelp
+	{
+		(returnex{%>
+			Edit the <%FriendlyObjectName%> and click "Save" to commit the changes. 
+		<%})
+	})
+	
+	(function MainPanelTitle
+	{
+		(returnex{%>
+			<%FriendlyObjectsName%>
+		<%})
+	})
+	
+	(function Breadcrumbs
+	{
+		(returnex{%>
+			<ol class="breadcrumb m-0">
+				<li  class="breadcrumb-item"><a href="Default.aspx">Main</a></li>
+				<li  class="breadcrumb-item"><a href="<%ObjectsUrl%>"><%FriendlyObjectsName%></a></li>
+				<li  class="breadcrumb-item">
+					<%if (Metadata.contains NaturalKey){%>
+						<%declare oObj (Object)%>
+						<%oObj.get (Metadata.NaturalKey)%>
+					<%}{%>
+						<%FriendlyObjectName%> # <%ObjectID%>
+					<%}%>
+				</li>
+			</ol>
+		<%})
+	})
+	
+	(function MainPanelTabs
+	{
+		(returnex{%>
+			
+		<%})
+	})
+	
+	(function MainPanelContent
+	{
+		(returnex{%>
+			<div class="hidden" id="divInlineWarning"></div>	
+			<div class="row">
+				<div class="col-12">
+				  <div class="card">
+				      <div class="card-body" id="div<%ObjectName%>">
+
+					   <%ifneq (MainPanelTabs) ""{%>
+							<div class="float-sm-end mb-2 mb-sm-0">
+								<div class="row g-2">
+									<div class="col-auto">
+										<a href="tickets-list.html" class="btn btn-sm btn-link"><i class="mdi mdi-keyboard-backspace"></i> Back</a>
+									</div>
+									<div class="col-auto">
+   										<%MainPanelTabs%>
+									</div>
+								</div>
+							</div> 
+						<%}%>
+
+						<h3 class="mb-3 mt-0 font-18">Edit <%FriendlyObjectName%></h3>
+
+						<div class="clerfix"></div>
+						
+			
+						
+						<p>Edit the <%FriendlyObjectName%> below and click "Save" when done making changes.</p>
+						<br>
+						
+						<%EditPanel%>
+				      
+				      	<div class="row mt-3">
+				      		<div class="col-12 text-center">
+			      				<%CommandButtons%>
+				      		</div>
+				      	</div>
+				      
+				      </div>
+				  </div>
+				</div>
+			
+				<%GetQuickHelpControls (QuickHelp) (AllowEditQuickHelp)%>
+				
+			</div>
+			
+		<%})
+	})
+
+	
+	(function AllowEditQuickHelp { (return (UserState.Permission.AllowEditQuickHelp)) })
+
+	(function CommandButtons
+	{
+		(returnex{%>
+			<button id="btnUpdate" class="btn btn-success m-1 waves-effect waves-light"><i class="fa fa-check"></i> Save <%ifnot (UseShortButtonNames) (FriendlyObjectName)%></button>
+			<button id="btnCancel" onclick="OnCancel()" class="btn btn-light waves-effect waves-light m-1"><i class="fa fa-times"></i> Cancel</button>
+			
+			<%AdditionalCommands%>
+
+			
+		<%})
+	})
+	(function AdditionalCommands
+	{
+		(return "")
+	})
+	
+	
+	(function AdditionalScripts
+	{
+		(return "")
+	})
+
+	(function UpdateMethodName 
+	{
+		(return (concat (ObjectsName) . Update (ObjectName) Object))
+	})
+	
+	(function BottomScripts
+	{
+		(returnex{%>
+			<script type="text/javascript" src="/JsonWs/<%Metadata.BusinessNamespace%>.<%ObjectsName%>.ashx.js?v=<%JsVersion%>"></script>
+
+			<script language="javascript" type="text/javascript">
+			var i<%ObjectName%>ID = <%ObjectID%>;
+			var o<%ObjectName%> = <%ToJSON (Object) {DataObject:true}%>;
+			var iObjectID = i<%ObjectName%>ID;
+			var ObjectName = "<%ObjectName%>";
+			var ObjectsName = "<%ObjectsName%>";
+			var strUserName = "<%UserState.get_UserName%>";
+			</script>
+			<script language="javascript" type="text/javascript">
+				Page.AddOnload(function() {
+					ControlUtil.AddClick("btnUpdate", Update<%ObjectName%>);
+
+					Bind<%ObjectName%>(o<%ObjectName%>);
+				});
+
+				function OnCancel() {
+					Page.Redirect("<%DetailsUrl%>", { <%ObjectName%>ID: i<%ObjectName%>ID });
+				}
+
+
+				function Unbind<%ObjectName%>()
+				{
+				    var oObj = BlindUnbind(ControlUtil.GetControl("div<%ObjectName%>"));
+				    oObj.<%ObjectName%>ID = i<%ObjectName%>ID;	
+				    o<%ObjectName%>.DataObject = {}; //only merge updated properties
+				    oObj = $merge(o<%ObjectName%>, oObj);
+					return oObj;
+				}
+				
+				function Bind<%ObjectName%>(oObj)
+				{
+					BlindBind(ControlUtil.GetControl("div<%ObjectName%>"), oObj);	
+				}
+
+				function Update<%ObjectName%>() {
+				    try {
+				    	var oArgs = Unbind<%ObjectName%>();
+
+				    	if (ObjectUtil.HasValue(oArgs.DataObject))
+				    	{
+				    		var oDataObject = {};
+							
+				    		if (!StringUtil.IsEmpty(oArgs.Data))
+				    		{
+				    			if (!Json.IsValid(oArgs.Data))
+				    			{
+				    				UserMessages.DisplayNow("Invalid JSON in Data", "Error");
+				    				return;
+				    			}
+
+								oDataObject = JSON.decode(oArgs.Data);
+							}
+
+							
+							for (var prop in oArgs.DataObject)
+							{
+								oDataObject[prop] = oArgs.DataObject[prop];
+							}
+						  
+							oArgs.Data = JSON.encode(oDataObject);
+						}
+
+						<%UpdateMethodName%>(oArgs, function() {
+						    UserMessages.Display('The <%FriendlyObjectName%> was successfully updated', "Success");
+						    Page.Redirect("<%DetailsUrl%>", { <%ObjectName%>ID: i<%ObjectName%>ID });
+						});
+					}
+					catch (err) {
+						Page.HandleUnexpectedError(err);
+					}
+				}
+				
+				function ShowQuickHelp()
+				{
+					let oDiv = _$("divQuickHelp");
+					oDiv.removeClass("hidden");
+					oDiv.parentElement.children[0].className = "col-8";
+				}
+			</script>
+		
+              <script type="text/javascript" src="/JsonWs/FeedingFrenzy.Messaging.Leases.ashx.js?v=<%JsVersion%>"></script>
+              <script type="text/javascript">
+				  Page.AddOnload(function () {
+
+					  Leases.AquireLease2(strUserName, GetSessionID(), ObjectName, iObjectID, "Edit", function (leases) {
+						  leases.forEach(x => { DisplayLease(x) });
+					  });
+				  });
+
+				  function DisplayLease(lease) {
+
+					  if (lease.User == strUserName)
+						  return;
+
+					  let bEditing = (lease.LeaseType == "Edit");
+					  let sDescription=lease.User+" is "+(bEditing? "editing":"viewing")+" this same "+lease.ObjectName;
+
+					  if (!StringUtil.InString(_$("divInlineWarning").innerHTML, sDescription)) {
+						  let oDiv=$$$(["div", { "class": "alert "+(bEditing? "alert-danger":"alert-info") }, [
+							  ["strong", "Another User is "+(bEditing? "Editing":"Viewing")],
+							  ["p", sDescription]
+						  ]]);
+
+						  _$("divInlineWarning").appendChild(oDiv);
+					  }
+
+					  _$("divInlineWarning").removeClass("hidden");
+				  }
+
+				 function RemoveLease(lease) {
+
+					Leases.GetActiveLeases(ObjectName, iObjectID, function (leases) {
+						_$("divInlineWarning").innerHTML = "";
+						leases.forEach(x => { DisplayLease(x) });
+					});							
+				}
+                </script>
+
+			<%AdditionalScripts%>	
+		<%})
+	})
+}%>
+	

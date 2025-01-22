@@ -1,0 +1,17 @@
+{
+	ObjectName : "UserRole",
+	ObjectsName : "UserRoles",
+
+	
+	
+	FriendlyObjectName : "User Role",
+	FriendlyObjectsName : "User Roles",
+	
+	ObjectsUrl : "user-roles",
+	DetailsUrl : "user-role",
+	EditUrl : "user-role-edit",
+	InsertUrl : "user-role-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

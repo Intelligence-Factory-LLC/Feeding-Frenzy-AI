@@ -1,0 +1,789 @@
+<%
+class MessagesAdmin
+{
+			
+	(function GetDetails MessageID
+	{
+		(declare Message (Messages.GetMessage (MessageID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Message ID
+							</td>
+							<td>
+								
+									<%Message.MessageID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Message Text
+							</td>
+							<td>
+								
+									<%Message.MessageText%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Sent By Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Message.SentByPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Received By Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (Message.ReceivedByPhone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Message.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Message.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Message.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Message.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Delivered
+							</td>
+							<td>
+								
+									<%if (Message.IsDelivered) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Received
+							</td>
+							<td>
+								
+									<%if (Message.IsReceived) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Is Dismissed
+							</td>
+							<td>
+								
+									<%if (Message.IsDismissed) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown MessageName MessageID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown MessageName MessageID  MessageID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetMessagesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit MessageID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Message">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Message ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="MessageID" class="InputString form-control" readonly="readonly" value="<%MessageID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Message Text
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea id="txtMessageText" kcs:FieldName="MessageText" class="InputText form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sent By Phone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtSentByPhone" kcs:FieldName="SentByPhone" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Received By Phone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtReceivedByPhone" kcs:FieldName="ReceivedByPhone" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Delivered
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsDelivered" kcs:FieldName="IsDelivered"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Received
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsReceived" kcs:FieldName="IsReceived"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Dismissed
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsDismissed" kcs:FieldName="IsDismissed"  />
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view Messages GetMessagesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="MessageID">
+						Message ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="MessageText">
+						Message Text
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SentByPhone">
+						Sent By Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ReceivedByPhone">
+						Received By Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsDelivered">
+						Is Delivered
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsReceived">
+						Is Received
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsDismissed">
+						Is Dismissed
+					</th>
+					
+				
+									
+				</tr>
+			<%Messages.each Message{%> 
+				<tr kcs:RowKey="<%Message.get MessageID%>" >
+							
+			
+					
+					<td>
+						<%Message.MessageID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Message.MessageText%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (Message.SentByPhone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (Message.ReceivedByPhone)%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Message.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Message.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (Message.IsDelivered) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Message.IsReceived) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Message.IsDismissed) Yes No%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 9%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Messages GetMessagesSp_CountSp  (Search))
+		(return (Messages.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal Messages
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="MessageID">
+						Message ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="MessageText">
+						Message Text
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SentByPhone">
+						Sent By Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="ReceivedByPhone">
+						Received By Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="IsDelivered">
+						Is Delivered
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsReceived">
+						Is Received
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsDismissed">
+						Is Dismissed
+					</th>
+					
+				
+									
+				</tr>
+			<%Messages.each Message{%> 
+				<tr kcs:RowKey="<%Message.get MessageID%>" >
+							
+			
+					
+					<td>
+						<%Message.MessageID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Message.MessageText%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (Message.SentByPhone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (Message.ReceivedByPhone)%>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Message.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Message.LastUpdated%></span>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<%if (Message.IsDelivered) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Message.IsReceived) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Message.IsDismissed) Yes No%>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 9%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Message">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Message Text
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea id="txtMessageText" kcs:FieldName="MessageText" class="InputText form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Sent By Phone
+					</label>
+					<div class="col-sm-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtSentByPhone" kcs:FieldName="SentByPhone" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Received By Phone
+					</label>
+					<div class="col-sm-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtReceivedByPhone" kcs:FieldName="ReceivedByPhone" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Delivered
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsDelivered" kcs:FieldName="IsDelivered"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Received
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsReceived" kcs:FieldName="IsReceived"  />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Is Dismissed
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsDismissed" kcs:FieldName="IsDismissed"  />
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

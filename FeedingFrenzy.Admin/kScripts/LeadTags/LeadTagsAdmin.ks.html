@@ -1,0 +1,635 @@
+<%
+class LeadTagsAdmin
+{
+			
+	(function GetDetails LeadTagID
+	{
+		(declare LeadTag (LeadTags.GetLeadTag (LeadTagID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Tag ID
+							</td>
+							<td>
+								
+									<%LeadTag.LeadTagID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead ID
+							</td>
+							<td>
+								
+									<%LeadTag.LeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Tag ID
+							</td>
+							<td>
+								
+									<%LeadTag.TagID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadTag.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%o%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadTag.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadTag.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadTag.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown LeadTagName LeadTagID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadTagsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadTagID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadTag">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Tag ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadTagID" class="InputString form-control" readonly="readonly" value="<%LeadTagID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnLeadID" kcs:FieldName="LeadID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Tag ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="hdnTagID" kcs:FieldName="TagID" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadTags GetLeadTagsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadTagID">
+						Lead Tag ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="TagID">
+						Tag ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadTags.each LeadTag{%> 
+				<tr kcs:RowKey="<%LeadTag.get LeadTagID%>" >
+							
+			
+					
+					<td>
+						<%LeadTag.LeadTagID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.TagID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadTags GetLeadTagsSp_CountSp  (Search))
+		(return (LeadTags.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadID LeadID 
+	{
+		(return (GetGridByLeadID (LeadID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadID LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadIDHtml (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadIDCount (LeadID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadIDHtml LeadID 
+	{
+		(return (GetGridByLeadIDHtml (LeadID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadIDHtml LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadTags GetLeadTagsByLeadIDSp_PagingSp (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadTagID">
+						Lead Tag ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="TagID">
+						Tag ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadTags.each LeadTag{%> 
+				<tr kcs:RowKey="<%LeadTag.get LeadTagID%>" >
+							
+			
+					
+					<td>
+						<%LeadTag.LeadTagID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.TagID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadIDCount LeadID  Search
+	
+	{
+		(ado.row LeadTags GetLeadTagsByLeadIDSp_CountSp (LeadID) (Search))
+		(return (LeadTags.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByTagID TagID 
+	{
+		(return (GetGridByTagID (TagID) '' '' true 0 20))
+	})
+
+	(function GetGridByTagID TagID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByTagIDHtml (TagID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByTagIDCount (TagID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByTagIDHtml TagID 
+	{
+		(return (GetGridByTagIDHtml (TagID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByTagIDHtml TagID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadTags GetLeadTagsByTagIDSp_PagingSp (TagID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadTagID">
+						Lead Tag ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="TagID">
+						Tag ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadTags.each LeadTag{%> 
+				<tr kcs:RowKey="<%LeadTag.get LeadTagID%>" >
+							
+			
+					
+					<td>
+						<%LeadTag.LeadTagID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadTag.TagID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadTag.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 5%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByTagIDCount TagID  Search
+	
+	{
+		(ado.row LeadTags GetLeadTagsByTagIDSp_CountSp (TagID) (Search))
+		(return (LeadTags.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadTag">
+
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Lead ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnLeadID" kcs:FieldName="LeadID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Tag ID
+					</label>
+					<div class="col-6">
+						
+							<input type="text" id="hdnTagID" kcs:FieldName="TagID" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-3 control-label">
+						Data
+					</label>
+					<div class="col-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

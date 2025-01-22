@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>UBold - ASP.net Core 6 Responsive Admin Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+
+                <!-- Topbar Start -->
+                <div class="navbar-custom">
+                    <a href="index.html" class="logo text-center d-none d-md-inline-block mr-2">
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-light.png" alt="" height="16">
+                        </span>
+                    </a>
+
+                    <button type="button" class="btn btn-sm btn-dark d-inline-block d-lg-none button-menu-mobile">Menu</button>
+
+                    <span class="badge badge-danger float-right">v1.0</span>
+                </div>
+                <!-- end Topbar -->
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <div class="page-wrapper">
+                        <div class="left-sidebar">
+                            <div class="slimscroll-menu">
+                                <div class="list-group list-group-transparent mb-0">
+
+                                    <span class="list-group-item disabled">
+                                        Getting Started
+                                    </span>
+
+                                    <a href="index.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-flag-variant-outline"></i>
+                                        </span>Introduction
+                                    </a>
+
+                                    <a href="setup.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-apps"></i>
+                                        </span>Setup
+                                    </a>
+
+                                    <span class="list-group-item disabled">
+                                        Customization
+                                    </span>
+
+                                    <a href="customization.html" class="list-group-item list-group-item-action active">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-square-edit-outline"></i>
+                                        </span>Layout & Themes
+                                    </a>
+
+
+                                    <span class="list-group-item disabled">
+                                        Other
+                                    </span>
+
+                                    <a href="plugins-uses.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-widgets"></i>
+                                        </span>How to use plugins
+                                    </a>
+
+                                    <a href="changelog.html" class="list-group-item list-group-item-action ">
+                                        <span class="mr-2">
+                                            <i class="mdi mdi-book-open-page-variant"></i>
+                                        </span>Changelog
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end left-sidebar-->
+
+                        <div class="page-content">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="p-lg-1">
+                                        <h4 class="mb-2 mt-0 font-weight-semibold">In-built Demos (Skins)</h4>
+
+                                        <p>Ubold comes with multiple demos (skins). I.e. 'creative', 'default', 'material', 'modern', 'purple', 'saas'.
+                                            Each of these skins are having respective dark mode available as well. You can easily use any of them by simply
+                                            changing the css file reference in your html file.</p>
+
+                                        <p class="mb-4">In your html file, simply change the reference of
+                                            <code>app.min.css</code> with
+                                            respective demo (skin) css file and you would have it activated.
+                                        </p>
+                                        <div class="mt-2">
+                                            <h4 class="mt-0 mb-2 font-weight-semibold">Customizing Color Palette
+                                            </h4>
+                                            <p>You can change the color palatte of any demo very easily by
+                                                simply changing the few scss variables value.</p>
+                                            <p class="mb-0">In order to modify the colors in existing
+                                                themes, open the <code>_variables.scss</code> file from
+                                                <code>src/assets/scss/config/&lt;DEMO_NAME&gt;</code> and
+                                                change any variable in it. Your changes would get reflected
+                                                automatically in any bootstrap based components or elements.
+                                                Note that, this requires you to setup and run gulp flow
+                                                provided in installation steps earlier.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="p-lg-1">
+                                        <h4 class="mb-2 mt-0 font-weight-semibold">Customizing Color Mode, Left Sidebar, Topbar, Layout Width and
+                                            Right Sidebar</h4>
+                                        <p>Ubold allows you to have customized left sidebar, overall layout
+                                            width or right sidebar. You could turn the left sidebar to
+                                            different size, theme (look) and size. </p>
+                                            <p>
+
+                                            Please do the below change in the html element at <code>dist/{demo}/Views/Shared/_Layout.cshtml</code> file. You can customize it by
+                                            specifying the layout data attribute (<code>data-layout={}</code>) on <code>body</code>
+                                            element in your html. The config object properties accept the
+                                            following values:</p>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Options</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-layout-mode</code></td>
+                                                    <td>String</td>
+                                                    <td>"default" | "horizontal" | "detached" | "two-column" </td>
+                                                    <td>Changes overall layout mode</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-theme</code></td>
+                                                    <td>String</td>
+                                                    <td>"dark" | "light"</td>
+                                                    <td>Changes overall color scheme to dark</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-layout-width</code></td>
+                                                    <td>String</td>
+                                                    <td>"fluid" | "boxed"</td>
+                                                    <td>Changes the width of overall layout</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-leftbar-color</code></td>
+                                                    <td>String</td>
+                                                    <td>"light" | "dark" | "brand" | "gradient"</td>
+                                                    <td>the left sidebar color scheme. By default, it would be set to default
+                                                        (light)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-leftbar-size</code></td>
+                                                    <td>String</td>
+                                                    <td>"fixed" | "condensed" | "scrollable"</td>
+                                                    <td>If set to true, the left sidebar size changes to small (condensed)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-leftbar-user</code></td>
+                                                    <td>Boolean</td>
+                                                    <td>true | false</td>
+                                                    <td>Indicates whether to show right sidebar on opening up the page</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code class="text-nowrap">data-topbar-color</code></td>
+                                                    <td>String</td>
+                                                    <td>"dark" | "light"</td>
+                                                    <td>Changes topbar color scheme to dark or light</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <p>Following are few examples:</p>
+                                        <ul>
+                                            <li><h5>Changes the left sidebar theme to "dark"</h5><code>&lt;body
+                                                data-leftbar-color="dark"&gt;&lt;/body&gt;</code></li>
+                                            <li><h5>Changes the left sidebar theme to "light"</h5><code>&lt;body
+                                                data-leftbar-color="light"&gt;&lt;/body&gt;</code>
+                                            </li>
+                                            <li><h5>Changes the left sidebar to scrollable</h5><code>&lt;body
+                                                data-leftbar-compact-mode="scrollable"&gt;&lt;/body&gt;</code>
+                                            </li>
+                                            <li><h5>Changes the left sidebar size to small</h5><code>&lt;body
+                                                data-leftbar-compact-mode="condensed"&gt;&lt;/body&gt;</code></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="p-lg-1">
+                                        <h4 class="mb-3 mt-0">RTL Version</h4>
+                                        <p>
+                                            
+                                            In order to have RTL enabled with light version,
+                                            Update the below css file links in the <code>dist/{demo}/Views/Shared/_Layout.cshtml</code> file. replace the reference of 
+                                            <code>bootstrap.min.css</code> and <code>app.min.css</code> to <code>bootstrap-rtl.min.css</code> and <code>app-rtl.min.css</code>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end page-wrapper-->
+                </div>
+
+            </div>
+            <!-- content -->
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <script>document.write(new Date().getFullYear())</script> © UBold - by Coderthemes
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-right footer-links d-none d-sm-block">
+                                <a href="http://coderthemes.com/" target="_blank">About</a>
+                                <a href="http://coderthemes.com/#contact" target="_blank">Support</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <!-- bundle -->
+    <script src="assets/js/app.min.js"></script>
+</body>
+
+</html>

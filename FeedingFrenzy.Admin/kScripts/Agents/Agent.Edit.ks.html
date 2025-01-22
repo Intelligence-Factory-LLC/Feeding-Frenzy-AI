@@ -1,0 +1,131 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using AgentsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Agents.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Agents.GetAgent (ObjectID)))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.EditPanel
+{
+	(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent">
+
+	<div class="form-group Hidden">
+		<label class="col-sm-3 control-label">
+			Agent
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtAgentID" kcs:FieldName="AgentID" class="InputString form-control" maxlength="255" readonly />
+			This is the name you will see on the list of available TIMs.
+
+		</div>
+	</div>
+	<br />
+	<div class="form-group d-flex gap-2 custom-checkboxes">
+		<div class="form-check">
+			<input type="radio" id="customRadio1" name="customRadio" class="form-check-input d-none" checked="checked" kcs:FieldName="DataObject.Role" kcs:FieldValue="1">
+			<label class="form-check-label" for="customRadio1">
+				All calls
+			</label>
+		</div>
+		<div class="form-check">
+			<input type="radio" id="customRadio2" name="customRadio" class="form-check-input d-none" kcs:FieldName="DataObject.Role" kcs:FieldValue="2">
+			<label class="form-check-label" for="customRadio2">
+				Outbound calls
+			</label>
+		</div>
+		<div class="form-check">
+			<input type="radio" id="customRadio3" name="customRadio" class="form-check-input d-none" kcs:FieldName="DataObject.Role" kcs:FieldValue="3">
+			<label class="form-check-label" for="customRadio3">
+				Inbound calls
+			</label>
+		</div>
+	</div>
+	<br />
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Name
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" />
+			This is the name you will see on the list of available TIMs.
+
+		</div>
+	</div>
+	<br />
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Description
+		</label>
+		<div class="col-sm-6">
+
+			<textarea class="form-control" id="txtDescription" kcs:FieldName="Description" rows="5" spellcheck="false"></textarea>
+			This description will help generate more accuarate data extractors.
+		</div>
+	</div>
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Caller Label
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtCallerLabel" kcs:FieldName="DataObject.CallerLabel" class="InputString form-control" maxlength="255" />
+			This is how I will refer to the caller in the rules.
+
+		</div>
+	</div>
+	<br />
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Caller Description
+		</label>
+		<div class="col-sm-6">
+
+			<textarea class="form-control" id="txtCallerDescription" kcs:FieldName="DataObject.CallerDescription" rows="5" spellcheck="false"></textarea>
+			This description will help generate more accuarate data extractors.
+		</div>
+	</div>
+	<br />
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Responder Label
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtResponderLabel" kcs:FieldName="DataObject.ResponderLabel" class="InputString form-control" maxlength="255" />
+			This is how I will refer to the responder in the rules.
+
+		</div>
+	</div>
+	<br />
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Responder Description
+		</label>
+		<div class="col-sm-6">
+
+			<textarea class="form-control" id="txtResponderDescription" kcs:FieldName="DataObject.ResponderDescription" rows="5" spellcheck="false"></textarea>
+			This description will help generate more accuarate data extractors.
+		</div>
+	</div>
+
+
+
+
+
+
+</div>
+	<%})
+}%>
+

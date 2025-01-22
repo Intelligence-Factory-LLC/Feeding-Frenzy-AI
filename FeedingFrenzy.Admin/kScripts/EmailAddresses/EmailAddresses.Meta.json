@@ -1,0 +1,19 @@
+{
+	ObjectName : "EmailAddress",
+	ObjectsName : "EmailAddresses",
+
+	
+	NaturalKey : "Email",
+	
+	
+	FriendlyObjectName : "Email Address",
+	FriendlyObjectsName : "Email Addresses",
+	
+	ObjectsUrl : "email-addresses",
+	DetailsUrl : "email-address",
+	EditUrl : "email-address-edit",
+	InsertUrl : "email-address-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

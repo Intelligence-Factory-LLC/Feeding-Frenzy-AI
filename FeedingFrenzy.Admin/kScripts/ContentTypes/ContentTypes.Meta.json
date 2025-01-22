@@ -1,0 +1,19 @@
+{
+	ObjectName : "ContentType",
+	ObjectsName : "ContentTypes",
+
+	
+	NaturalKey : "ContentTypeName",
+	
+	
+	FriendlyObjectName : "Content Type",
+	FriendlyObjectsName : "Content Types",
+	
+	ObjectsUrl : "content-types",
+	DetailsUrl : "content-type",
+	EditUrl : "content-type-edit",
+	InsertUrl : "content-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

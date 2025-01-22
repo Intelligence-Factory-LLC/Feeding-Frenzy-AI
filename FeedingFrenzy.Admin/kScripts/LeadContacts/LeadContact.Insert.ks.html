@@ -1,0 +1,186 @@
+<%using SimpleObjectInsert.ks.html%>
+<%using LeadContactsAdmin.ks.html%>
+
+<%SimpleObjectInsertPage.MetadataFile LeadContacts.Meta.json%>
+
+<%redefinefunction SimpleObjectInsertPage.Breadcrumbs
+{
+	(returnex{%>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/default.aspx">Main</a></li>
+    <li class="breadcrumb-item"><a href="/lead?LeadID=<%Request.GetStringOrNull LeadID%>">Lead #<%Request.GetStringOrNull LeadID%></a></li>
+    <li class="breadcrumb-item">
+        New Contact
+    </li>
+</ol>
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectInsertPage.InsertPanel
+{
+	(returnex{%>
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadContact">
+
+
+
+    <div class="form-group hidden">
+        <label class="col-sm-3 control-label">
+            Lead
+        </label>
+        <div class="col-sm-6">
+
+
+            <input type="text" kcs:FieldName="LeadID" class="InputString form-control" maxlength="255" value="<%Request.GetStringOrNull LeadID%>" />
+
+
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Name
+        </label>
+        <div class="col-sm-6">
+
+            <input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Position
+        </label>
+        <div class="col-sm-6">
+
+            <input type="text" id="txtTitle" kcs:FieldName="Title" class="InputString form-control" maxlength="255" />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-sm-6">
+            <div class="row justify-content-between">
+                <div class="col-sm-6">
+                    <label class="col-sm-12 control-label">
+                        Phone
+                    </label>
+                    <div class="col-sm-12">
+                        <input type="text" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-12 control-label">
+                        Ext.
+                    </label>
+                    <div class="col-sm-12">
+                        <input type="text" id="txtPhoneExtension" kcs:FieldName="DataObject.PhoneExtension" class="InputPhone form-control" maxlength="255" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                Email
+            </label>
+            <div class="col-sm-6">
+
+                <input type="text" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+
+            </div>
+        </div>
+
+
+
+    </div>
+	<%})
+}%>
+
+
+
+<%redefinefunction SimpleObjectInsertPage.AdditionalScripts
+{
+	(returnex{%>
+
+<script language="javascript" type="text/javascript">
+
+    function validateEmail(email) {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    OnUpdateLeadContact = function() {
+        try {
+
+            let txtEmail = ControlUtil.GetValue("txtEmail")
+            let txtName = ControlUtil.GetValue("txtName")
+            let txtPhone = ControlUtil.GetValue("txtPhone")
+
+            if (!validateEmail(txtEmail) && StringUtil.IsEmpty(txtName) && StringUtil.IsEmpty(txtPhone)) {
+                UserMessages.DisplayNow("Please enter Email or Name or Phone", "Error");
+                return;
+            }
+
+            var oArgs = UnbindLeadContact();
+
+            if (ObjectUtil.HasValue(oArgs.DataObject)) {
+                var oDataObject = {};
+
+                if (!StringUtil.IsEmpty(oArgs.Data)) {
+                    if (!Json.IsValid(oArgs.Data)) {
+                        UserMessages.DisplayNow("Invalid JSON in Data", "Error");
+                        return;
+                    }
+
+                    oDataObject = JSON.decode(oArgs.Data);
+                }
+
+
+                for (var prop in oArgs.DataObject) {
+                    oDataObject[prop] = oArgs.DataObject[prop];
+                }
+
+                oArgs.Data = JSON.encode(oDataObject);
+            }
+
+			LeadContacts.InsertLeadContactObject(oArgs, function (iID) {
+				UserMessages.Display('The Lead Contact was successfully added', "Success");
+				let iLeadID = Page.QueryString()["LeadID"];
+				if (iLeadID)
+					Page.Redirect("lead", { LeadID: Page.QueryString()["LeadID"] });
+				else
+					Page.Redirect("lead-contact", { LeadContactID: iID });
+            });
+        }
+        catch (err) {
+            Page.HandleUnexpectedError(err);
+        }
+	}
+
+	OnCancelLeadContact = function() {
+			let iLeadID = Page.QueryString()["LeadID"];
+			if (iLeadID)
+				Page.Redirect("lead", { LeadID: Page.QueryString()["LeadID"] });
+			else
+				Page.Redirect("lead-contacts");		
+	}
+</script>
+
+
+	<%})
+}%>
+

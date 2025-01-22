@@ -1,0 +1,191 @@
+<%using SimpleObjectInsert.ks.html%>
+<%using UsersAdmin.ks.html%>
+
+<%SimpleObjectInsertPage.MetadataFile Users.Meta.json%>
+
+
+<%redefinefunction SimpleObjectInsertPage.InsertPanel
+{
+	(returnex{%>
+
+
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="User">
+
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			First Name
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtFirstName" kcs:FieldName="FirstName" class="InputString form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Last Name
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtLastName" kcs:FieldName="LastName" class="InputString form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Email
+		</label>
+		<div class="col-sm-6">
+
+			<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Phone
+		</label>
+		<div class="col-sm-6">
+
+			<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Password
+		</label>
+		<div class="col-sm-6">
+
+			* Password will be set by user during first login
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group d-flex gap-2 custom-checkboxes">
+		<div class="form-check">
+			<input type="checkbox" id="chkIsSalesRepresentative" kcs:FieldName="IsSalesRepresentative" class="form-check-input d-none">
+			<label class="form-check-label" for="chkIsSalesRepresentative">
+				Sales Representative
+			</label>
+		</div>
+		<div class="form-check">
+			<input type="checkbox" id="chkIsAdministrator" kcs:FieldName="IsAdministrator" class="form-check-input d-none">
+			<label class="form-check-label" for="chkIsAdministrator">
+				Administrator
+			</label>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Enabled
+		</label>
+		<div class="col-sm-6  form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+
+		</div>
+	</div>
+
+	<br />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">
+			Locked Out
+		</label>
+		<div class="col-sm-6  form-switch">
+
+			<input type="checkbox" class="form-check-input" id="chkIsLockedOut" kcs:FieldName="IsLockedOut" />
+
+		</div>
+	</div>
+
+
+
+
+
+	<div class="form-group hidden">
+		<label class="col-sm-3 control-label">
+			Data
+		</label>
+		<div class="col-sm-6">
+
+			<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	
+		
+	<%})
+}%>
+
+<%redefinefunction SimpleObjectInsertPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.Admin.API.Authentication.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+
+	OnUpdateUser = function () {
+		try {
+			var oArgs = UnbindUser();
+
+			let IsSalesRepresentative = ControlUtil.GetValue("chkIsSalesRepresentative");
+			let IsAdministrator = ControlUtil.GetValue("chkIsAdministrator");
+
+			if(!IsSalesRepresentative && !IsAdministrator)
+			{
+				UserMessages.DisplayNow('Please select at least one role', "Warninig");
+				return;
+			}
+
+			 Users.CreateAccountObject(oArgs, function (iID) {
+				UserMessages.Display('The User was successfully added', "Success");
+				Page.Redirect("user", { UserID: iID });
+
+			});
+		}
+		catch (err) {
+			Page.HandleUnexpectedError(err);
+		}
+
+	}
+
+
+</script>
+	<%})
+}%>

@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using LeadNoteTypesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile LeadNoteTypes.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (LeadNoteTypes.GetLeadNoteType (ObjectID)))
+}%>
+

@@ -1,0 +1,19 @@
+{
+	ObjectName : "FileType",
+	ObjectsName : "FileTypes",
+
+	
+	NaturalKey : "FileType",
+	
+	
+	FriendlyObjectName : "File Type",
+	FriendlyObjectsName : "File Types",
+	
+	ObjectsUrl : "file-types",
+	DetailsUrl : "file-type",
+	EditUrl : "file-type-edit",
+	InsertUrl : "file-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

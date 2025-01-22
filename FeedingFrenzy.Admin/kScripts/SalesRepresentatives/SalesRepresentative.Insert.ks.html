@@ -1,0 +1,117 @@
+<%using SimpleObjectInsert.ks.html%>
+<%using SalesRepresentativesAdmin.ks.html%>
+
+<%SimpleObjectInsertPage.MetadataFile SalesRepresentatives.Meta.json%>
+
+<%redefinefunction SimpleObjectInsertPage.InsertPanel
+{
+	(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="SalesRepresentative">
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Name
+        </label>
+        <div class="col-sm-6">
+
+            <input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Sales Representative Type
+        </label>
+        <div class="col-sm-6">
+
+            <%using SalesRepresentativeTypesAdmin.ks.html%>
+
+            <%SalesRepresentativeTypesAdmin.GetDropDown SalesRepresentativeTypeName SalesRepresentativeTypeID SalesRepresentativeTypeID%>
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Email
+        </label>
+        <div class="col-sm-6">
+
+            <input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Phone
+        </label>
+        <div class="col-sm-6">
+
+            <input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Enabled
+        </label>
+        <div class="col-sm-6 form-switch">
+
+            <input type="checkbox" class="form-check-input" id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Notes
+        </label>
+        <div class="col-sm-6">
+
+            <textarea id="txtNotes" kcs:FieldName="Notes" class="InputText form-control"></textarea>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Is Shown On Reports
+        </label>
+        <div class="col-sm-6 form-switch">
+
+            <input type="checkbox" class="form-check-input" id="chkIsShownOnReports" kcs:FieldName="DataObject.IsShownOnReports" checked=checked />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            Minimum Calls Per Day
+        </label>
+        <div class="col-sm-6">
+
+            <input type="number"  id="txtMinimumCallsPerDay" kcs:FieldName="DataObject.MinimumCallsPerDay" class="form-control" maxlength="2" min="0" max="99" value="0" />
+
+        </div>
+    </div>
+
+</div>
+	<%})
+}%>
+}%>
+

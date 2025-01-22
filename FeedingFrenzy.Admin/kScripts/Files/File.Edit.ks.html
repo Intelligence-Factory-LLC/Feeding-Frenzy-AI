@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using FilesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile Files.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Files.GetFile (ObjectID)))
+}%>
+

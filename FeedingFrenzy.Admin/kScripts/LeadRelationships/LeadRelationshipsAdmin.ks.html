@@ -1,0 +1,860 @@
+<%
+class LeadRelationshipsAdmin
+{
+			
+	(function GetDetails LeadRelationshipID
+	{
+		(declare LeadRelationship (LeadRelationships.GetLeadRelationship (LeadRelationshipID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Relationship ID
+							</td>
+							<td>
+								
+									<%LeadRelationship.LeadRelationshipID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Relationship Type ID
+							</td>
+							<td>
+								
+									<%LeadRelationship.LeadRelationshipTypeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead ID
+							</td>
+							<td>
+								
+									<%LeadRelationship.LeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Related Lead ID
+							</td>
+							<td>
+								
+									<%LeadRelationship.RelatedLeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadRelationship.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadRelationship.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadRelationship.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadRelationship.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown LeadRelationshipName LeadRelationshipID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadRelationshipsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadRelationshipID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadRelationship">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Relationship ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadRelationshipID" class="InputString form-control" readonly="readonly" value="<%LeadRelationshipID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Relationship Type
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using LeadRelationshipTypesAdmin.ks.html%>
+							    
+								    <%LeadRelationshipTypesAdmin.GetDropDown LeadRelationshipTypeName LeadRelationshipTypeID LeadRelationshipTypeID %>							
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using Leads\LeadsAdmin.ks.html%>
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						      						                   
+								    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadRelationships GetLeadRelationshipsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadRelationshipID">
+						Lead Relationship ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadRelationshipTypeID">
+						Lead Relationship Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RelatedLeadID">
+						Related Lead ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadRelationships.each LeadRelationship{%> 
+				<tr kcs:RowKey="<%LeadRelationship.get LeadRelationshipID%>" >
+							
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.RelatedLeadID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadRelationships GetLeadRelationshipsSp_CountSp  (Search))
+		(return (LeadRelationships.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadID LeadID 
+	{
+		(return (GetGridByLeadID (LeadID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadID LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadIDHtml (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadIDCount (LeadID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadIDHtml LeadID 
+	{
+		(return (GetGridByLeadIDHtml (LeadID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadIDHtml LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadRelationships GetLeadRelationshipsByLeadIDSp_PagingSp (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadRelationshipID">
+						Lead Relationship ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadRelationshipTypeID">
+						Lead Relationship Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RelatedLeadID">
+						Related Lead ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadRelationships.each LeadRelationship{%> 
+				<tr kcs:RowKey="<%LeadRelationship.get LeadRelationshipID%>" >
+							
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.RelatedLeadID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadIDCount LeadID  Search
+	
+	{
+		(ado.row LeadRelationships GetLeadRelationshipsByLeadIDSp_CountSp (LeadID) (Search))
+		(return (LeadRelationships.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadRelationshipTypeID LeadRelationshipTypeID 
+	{
+		(return (GetGridByLeadRelationshipTypeID (LeadRelationshipTypeID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadRelationshipTypeID LeadRelationshipTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadRelationshipTypeIDHtml (LeadRelationshipTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadRelationshipTypeIDCount (LeadRelationshipTypeID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadRelationshipTypeIDHtml LeadRelationshipTypeID 
+	{
+		(return (GetGridByLeadRelationshipTypeIDHtml (LeadRelationshipTypeID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadRelationshipTypeIDHtml LeadRelationshipTypeID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadRelationships GetLeadRelationshipsByLeadRelationshipTypeIDSp_PagingSp (LeadRelationshipTypeID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadRelationshipID">
+						Lead Relationship ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadRelationshipTypeID">
+						Lead Relationship Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RelatedLeadID">
+						Related Lead ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadRelationships.each LeadRelationship{%> 
+				<tr kcs:RowKey="<%LeadRelationship.get LeadRelationshipID%>" >
+							
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.RelatedLeadID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadRelationshipTypeIDCount LeadRelationshipTypeID  Search
+	
+	{
+		(ado.row LeadRelationships GetLeadRelationshipsByLeadRelationshipTypeIDSp_CountSp (LeadRelationshipTypeID) (Search))
+		(return (LeadRelationships.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByRelatedLeadID RelatedLeadID 
+	{
+		(return (GetGridByRelatedLeadID (RelatedLeadID) '' '' true 0 20))
+	})
+
+	(function GetGridByRelatedLeadID RelatedLeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByRelatedLeadIDHtml (RelatedLeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByRelatedLeadIDCount (RelatedLeadID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByRelatedLeadIDHtml RelatedLeadID 
+	{
+		(return (GetGridByRelatedLeadIDHtml (RelatedLeadID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByRelatedLeadIDHtml RelatedLeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadRelationships GetLeadRelationshipsByRelatedLeadIDSp_PagingSp (RelatedLeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadRelationshipID">
+						Lead Relationship ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadRelationshipTypeID">
+						Lead Relationship Type ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						Lead ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="RelatedLeadID">
+						Related Lead ID
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadRelationships.each LeadRelationship{%> 
+				<tr kcs:RowKey="<%LeadRelationship.get LeadRelationshipID%>" >
+							
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadRelationshipTypeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadRelationship.RelatedLeadID%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadRelationship.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByRelatedLeadIDCount RelatedLeadID  Search
+	
+	{
+		(ado.row LeadRelationships GetLeadRelationshipsByRelatedLeadIDSp_CountSp (RelatedLeadID) (Search))
+		(return (LeadRelationships.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadRelationship">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Relationship Type
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using LeadRelationshipTypes\LeadRelationshipTypesAdmin.ks.html%>
+							
+								<%LeadRelationshipTypesAdmin.GetDropDown LeadRelationshipTypeName LeadRelationshipTypeID LeadRelationshipTypeID %>							
+					
+                            
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using Leads\LeadsAdmin.ks.html%>
+							
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						
+							
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

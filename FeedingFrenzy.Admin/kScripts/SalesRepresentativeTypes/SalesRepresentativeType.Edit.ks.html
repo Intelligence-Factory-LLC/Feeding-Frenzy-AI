@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using SalesRepresentativeTypesAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile SalesRepresentativeTypes.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (SalesRepresentativeTypes.GetSalesRepresentativeType (ObjectID)))
+}%>
+

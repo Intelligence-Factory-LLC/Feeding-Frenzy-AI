@@ -1,0 +1,130 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using AgentsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile VoiceAgents.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (Agents.GetAgent (ObjectID)))
+}%>
+
+<%redefinefunction SimpleObjectEditPage.EditPanel
+{
+	(returnex{%>
+<div class="form-horizontal row-border Inputs" kcs:ObjectName="Agent">
+
+	<div class="form-group Hidden">
+		<label class="col-sm-3 control-label">
+			Agent
+		</label>
+		<div class="col-sm-6">
+
+			<input type="text" id="txtAgentID" kcs:FieldName="AgentID" class="InputString form-control" maxlength="255" readonly />
+			This is the name you will see on the list of available TIMs.
+
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label mb-2">
+			Name
+		</label>
+		<div class="col-sm-6 mb-2">
+			<input type="text" id="txtAgentName" kcs:FieldName="AgentName" class="InputString form-control" maxlength="255" placeholder="This is the name you will see on the list of available Voice Agents." />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label mb-2">
+			Voice
+		</label>
+		<div class="col-sm-6 mb-2">
+			<select kcs:FieldName="DataObject.Voice" class="form-control">
+				<option value="alloy">Alloy</option>
+				<option value="shimmer">Shimmer</option>
+				<option value="echo">Echo</option>
+			</select>
+		</div>
+	</div>
+
+
+<div class="form-group">
+    <label class="col-sm-3 control-label mb-2">
+        Introduction
+    </label>
+    <div class="col-sm-6 mb-2">
+	    <div class="fw-semibold text-dark">How should the agent start the conversation?</div>
+		<textarea class="form-control" id="txtIntro" kcs:FieldName="DataObject.IntroInstructions" rows="5" spellcheck="false"></textarea>       
+    </div>
+</div>
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label mb-2">
+			Instructions
+		</label>
+		<div class="col-sm-6 mb-2">
+			<div class="fw-semibold text-dark">Provide detailed instructions on how you want the agent to behave</div>
+			<textarea class="form-control" id="txtInstructions" kcs:FieldName="DataObject.Instructions" rows="5" spellcheck="false"></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label mb-2">
+			Background Information
+		</label>
+		<div class="col-sm-6">
+			<div class="fw-semibold text-dark">Provide any information the agent should know about your company, product or services.</div>
+			<textarea class="form-control" id="txtInformation" kcs:FieldName="DataObject.Information" rows="5" spellcheck="false"></textarea>
+		</div>
+	</div>
+
+
+	<input type="hidden" kcs:FieldName="DataObject.SchemaVersion" value="2" />
+
+
+
+</div>
+	<%})
+}%>
+<%redefinefunction SimpleObjectEditPage.AdditionalScripts
+{
+	(returnex{%>
+<script type="text/javascript" src="/js/tinymceconfig.js?v=2"></script>
+<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+<script src="/js/plugins/codemirror/mode/xml/xml.js"></script>
+<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+<script src="/js/plugins/codemirror/mode/css/css.js"></script>
+<script src="/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+</style>
+<script type="text/javascript">
+    
+    function OnEditHTML() {
+        oTinyMCEAdvanced.selector = "textarea#txtInformation, textarea#txtInstructions, textarea#txtIntro";
+        tinymce.init({
+            ...oTinyMCEAdvanced,
+            setup: function (editor) {
+                editor.on('init', function () {
+                    if (editor.id === 'txtIntro') {
+                        editor.getContainer().style.height = "200px"; // Set moderate height for txtIntro in TinyMCE
+                    }
+                });
+                editor.on('change', function () {
+                    editor.save(); // Save content on every change
+                });
+            }
+        });
+       
+    }
+
+    Page.AddOnload(function () {
+        OnEditHTML();
+    });
+</script>
+<%})	
+}%>

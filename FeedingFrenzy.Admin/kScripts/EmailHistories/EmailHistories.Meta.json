@@ -1,0 +1,17 @@
+{
+	ObjectName : "EmailHistory",
+	ObjectsName : "EmailHistories",
+
+	
+	
+	FriendlyObjectName : "Email History",
+	FriendlyObjectsName : "Email Histories",
+	
+	ObjectsUrl : "email-histories",
+	DetailsUrl : "email-history",
+	EditUrl : "",
+	InsertUrl : "",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}

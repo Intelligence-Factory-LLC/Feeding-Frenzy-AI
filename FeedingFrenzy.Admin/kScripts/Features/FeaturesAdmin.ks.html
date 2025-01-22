@@ -1,0 +1,777 @@
+<%
+class FeaturesAdmin
+{
+			
+	(function GetDetails FeatureID
+	{
+		(declare Feature (Features.GetFeature (FeatureID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Feature ID
+							</td>
+							<td>
+								
+									<%Feature.FeatureID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Feature Name
+							</td>
+							<td>
+								
+									<%Feature.FeatureName%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Version
+							</td>
+							<td>
+								
+									<%Feature.Version%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Enabled
+							</td>
+							<td>
+								
+									<%if (Feature.IsEnabled) Yes No%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Settings Assembly
+							</td>
+							<td>
+								
+									<%Feature.SettingsAssembly%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Settings Class
+							</td>
+							<td>
+								
+									<%Feature.SettingsClass%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Settings
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Feature.SettingsObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Feature.SettingsObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Feature.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%Feature.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%Feature.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%Feature.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown FeatureName FeatureID))
+	})
+
+	(function GetDropDownWithNull
+	{
+		(return (GetDropDown FeatureName FeatureID  FeatureID "<option value=''>None</option>"))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetFeaturesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit FeatureID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Feature">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Feature ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="FeatureID" class="InputString form-control" readonly="readonly" value="<%FeatureID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Feature Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtFeatureName" kcs:FieldName="FeatureName" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Version
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtVersion" kcs:FieldName="Version" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Enabled
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+						
+							
+								<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled"  />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings Assembly
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtSettingsAssembly" kcs:FieldName="SettingsAssembly" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings Class
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtSettingsClass" kcs:FieldName="SettingsClass" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Settings" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})
+
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		
+		(returnex{%>
+			
+			<%ado.view Features GetFeaturesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FeatureID">
+						Feature ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FeatureName">
+						Feature Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Version">
+						Version
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsEnabled">
+						Enabled
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SettingsAssembly">
+						Settings Assembly
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SettingsClass">
+						Settings Class
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+									
+				</tr>
+			<%Features.each Feature{%> 
+				<tr kcs:RowKey="<%Feature.get FeatureID%>" >
+							
+			
+					
+					<td>
+						<%Feature.FeatureID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.FeatureName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.Version%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Feature.IsEnabled) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.SettingsAssembly%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.SettingsClass%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Feature.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Feature.LastUpdated%></span>
+					</td>
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+		
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row Features GetFeaturesSp_CountSp  (Search))
+		(return (Features.get Total))
+	})
+
+
+	
+
+	(function GetGridHtmlInternal Features
+	{
+		(returnex{%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="FeatureID">
+						Feature ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="FeatureName">
+						Feature Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Version">
+						Version
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="IsEnabled">
+						Enabled
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SettingsAssembly">
+						Settings Assembly
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="SettingsClass">
+						Settings Class
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+			
+				
+									
+				</tr>
+			<%Features.each Feature{%> 
+				<tr kcs:RowKey="<%Feature.get FeatureID%>" >
+							
+			
+					
+					<td>
+						<%Feature.FeatureID%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.FeatureName%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.Version%>
+					</td>
+					
+			
+					
+					<td>
+						<%if (Feature.IsEnabled) Yes No%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.SettingsAssembly%>
+					</td>
+					
+			
+					
+					<td>
+						<%Feature.SettingsClass%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Feature.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%Feature.LastUpdated%></span>
+					</td>
+					
+			
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		<%})
+	})
+
+
+		
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="Feature">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Feature Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtFeatureName" kcs:FieldName="FeatureName" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Version
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtVersion" kcs:FieldName="Version" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Enabled
+					</label>
+					<div class="col-sm-6 form-switch">
+						
+							<input type="checkbox" class="form-check-input"
+id="chkIsEnabled" kcs:FieldName="IsEnabled" checked=checked />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings Assembly
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtSettingsAssembly" kcs:FieldName="SettingsAssembly" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings Class
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtSettingsClass" kcs:FieldName="SettingsClass" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Settings
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Settings" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+}%>

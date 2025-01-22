@@ -1,0 +1,44 @@
+﻿<div class="progress">
+    <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+</div>
+
+<script>
+    function UpdateProgressBar() {
+        fetch('/onboarding/provision-progress', { // No need for handler, just the page URL
+            method: 'GET',
+            headers: {
+                'Cache-Control': 'no-cache' // Disable caching
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Log raw text response for debugging
+                return response.text().then(text => {
+                    // Try to parse the text as JSON
+                    return text ? JSON.parse(text) : {}; // Fallback to empty object if response is empty
+                });
+            })
+            .then(data => {
+                const progress = data.progress || 0; // Ensure progress is defined
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.width = progress + '%';
+                progressBar.setAttribute('aria-valuenow', progress);
+                progressBar.textContent = progress + '%';
+
+                if (progress < 100) {
+                    setTimeout(UpdateProgressBar, 1000); // Check progress every second
+                }
+            })
+            .catch(error => {
+                console.error('There was an error with the progress update:', error);
+            });
+    }
+
+    // Automatically trigger progress updates when the page loads
+    document.addEventListener("DOMContentLoaded", function () {
+        UpdateProgressBar();
+    });
+</script>

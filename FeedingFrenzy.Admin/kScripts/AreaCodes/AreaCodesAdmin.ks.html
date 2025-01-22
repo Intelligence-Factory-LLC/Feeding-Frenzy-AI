@@ -1,0 +1,455 @@
+<%
+class AreaCodesAdmin
+{
+			
+	(function GetDetails AreaCodeID
+	{
+		(declare AreaCode (AreaCodes.GetAreaCode (AreaCodeID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Area Code ID
+							</td>
+							<td>
+								
+									<%AreaCode.AreaCodeID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Area Code
+							</td>
+							<td>
+								
+									<%AreaCode.AreaCode%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Time Zone
+							</td>
+							<td>
+								
+									<%AreaCode.TimeZone%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Region
+							</td>
+							<td>
+								
+									<%AreaCode.Region%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%AreaCode.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%AreaCode.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%AreaCode.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%AreaCode.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown AreaCode AreaCodeID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetAreaCodesSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit AreaCodeID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="AreaCode">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Area Code ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="AreaCodeID" class="InputString form-control" readonly="readonly" value="<%AreaCodeID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Area Code
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtAreaCode" kcs:FieldName="AreaCode" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Time Zone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtTimeZone" kcs:FieldName="TimeZone" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Region
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtRegion" kcs:FieldName="Region" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view AreaCodes GetAreaCodesSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="AreaCodeID">
+						Area Code ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="AreaCode">
+						Area Code
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="TimeZone">
+						Time Zone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Region">
+						Region
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%AreaCodes.each AreaCode{%> 
+				<tr kcs:RowKey="<%AreaCode.get AreaCodeID%>" >
+							
+			
+					
+					<td>
+						<%AreaCode.AreaCodeID%>
+					</td>
+					
+			
+					
+					<td>
+						<%AreaCode.AreaCode%>
+					</td>
+					
+			
+					
+					<td>
+						<%AreaCode.TimeZone%>
+					</td>
+					
+			
+					
+					<td>
+						<%AreaCode.Region%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AreaCode.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%AreaCode.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 6%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row AreaCodes GetAreaCodesSp_CountSp  (Search))
+		(return (AreaCodes.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="AreaCode">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Area Code
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtAreaCode" kcs:FieldName="AreaCode" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Time Zone
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtTimeZone" kcs:FieldName="TimeZone" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Region
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtRegion" kcs:FieldName="Region" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

@@ -1,0 +1,198 @@
+<%using Simple.ks.html%>
+
+
+<%redefinefunction SimplePage.MainPanelTabs
+{
+	(returnex{%>
+	<%})
+}%>
+
+
+<%redefinefunction SimplePage.MainPanelTitle
+{
+	(return "Contact Progress Report")
+}%>
+
+    <%redefinefunction SimplePage.Breadcrumbs
+    {
+    (returnex{%>
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item"><a href="/default.aspx">Main</a></li><li class="breadcrumb-item">Lead Report</li>
+</ol>
+    <%})
+
+    }%>
+
+
+<%redefinefunction SimplePage.MainPanelTabs
+{
+	(declare TagID
+		(if (Request.ContainsKey TagID)
+		{
+			(Request.TagID)
+		}
+
+			0
+		)
+	)
+
+	(declare oTags (Tags.GetTags))
+	(declare oTag 0)
+	(ifneq (TagID) 0
+	{
+		(oTag (Tags.GetTag (TagID)))
+	})
+
+	(returnex{%>
+
+
+<ul class="nav nav-tabs btns-t d-flex justify-content-end border-0">
+	<li class="nav-item dropdown">
+		<button class="btn btn-primary-alt dropdown-toggle" id="daterangepicker2" style="height: 40px; margin-right:12px; background:#fff;">
+			<i class="far fa-calendar me-2"></i>
+			<span class="hidden-xs hidden-sm">October 28, 2013 - November 27, 2013</span> <b class="caret"></b>
+		</button>
+	</li>
+
+	<li class="nav-item dropdown">
+		<div class="dropdown" style="display: inline;">
+			<button class="btn btn-primary-alt dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 40px; background: #fff;">
+				<%ifneq (oTag) 0 { (oTag.TagName) } "All Leads" %> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" style="max-height: 60vh; overflow-y: scroll;">
+				<li><a class="dropdown-item" href="/lead-reports">All Leads</a></li>
+				<%oTags.each oTag{%>
+				<li><a class="dropdown-item" href="/lead-reports?TagID=<%oTag.TagID%>"><%oTag.TagName%></a></li>
+				<%}%>
+			</ul>
+		</div>
+	</li>
+</ul>
+	<%})
+
+	}%>
+
+	<%redefinefunction SimplePage.DetailsPanel
+	{
+	(returnex{%>
+<div id="divReport">
+	Loading Report ...
+	
+
+	<%})
+	}%>
+
+	<%redefinefunction SimplePage.DetailsTabs{
+	(returnex{%>
+
+
+
+	<%})
+
+	}%>
+
+	<%redefinefunction SimplePage.GridInitializer
+	{
+	(returnex{%>
+
+	<%})
+	}%>
+
+	<%redefinefunction SimplePage.BottomScripts
+	{
+	(return{%>
+
+<script type="text/javascript" src="JsonWs/FeedingFrenzy.Admin.UI.SalesRepresentativeReports.ashx.js?v=<%JsVersion%>"></script>
+
+<script type="text/javascript">
+
+	   Page.LocalSettings = {
+		   StartDate: null,
+		   StopDate: null,
+		   TagID: null
+	   }
+
+	   	Page.AddOnLoad(function () {
+			var oSettings = Page.LocalStorage.get(document.location.href + "::Settings");
+			if (null != oSettings) {
+				Page.LocalSettings = $merge(Page.LocalSettings, oSettings);
+			}
+		})
+
+		Page.AddOnUnload(function () {
+			Page.LocalStorage.set(document.location.href + "::Settings", Page.LocalSettings);
+		})
+
+
+        Page.AddOnload(function () {
+			(function ($) {
+
+				if (!ObjectUtil.HasValue(Page.LocalSettings.StartDate)) {
+					Page.LocalSettings.StartDate = moment().subtract('days', 7).format("MM/DD/YYYY") + " 12:00 AM";
+					Page.LocalSettings.StopDate = moment().format("MM/DD/YYYY") + " 11:59:59 PM";
+				}
+
+				if (ObjectUtil.HasValue(Page.QueryString()["t"])) {
+					if (Page.QueryString()["t"]=="Today") {
+						Page.LocalSettings.StartDate = moment().format("MM/DD/YYYY") + " 12:00 AM";
+						Page.LocalSettings.StopDate = moment().format("MM/DD/YYYY") + " 11:59:59 PM";
+					}
+				}
+
+
+				if (ObjectUtil.HasValue(Page.QueryString()["TagID"]))
+					Page.LocalSettings.TagID = Page.QueryString()["TagID"];
+
+
+				jQuery('#daterangepicker2').daterangepicker(
+					{
+						ranges: {
+							'Today': [moment(), moment()],
+							'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+							'Last 7 Days': [moment().subtract('days', 6), moment()],
+							'Last 30 Days': [moment().subtract('days', 29), moment()],
+							'This Month': [moment().startOf('month'), moment().endOf('month')],
+							'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+						},
+						opens: 'left',
+						startDate: Page.LocalSettings.StartDate,
+						endDate: Page.LocalSettings.StopDate
+					},
+					function (start, end) {
+						jQuery('#daterangepicker2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+						Page.LocalSettings.StartDate = start.format("MM/DD/YYYY") + " 12:00 AM";
+						Page.LocalSettings.StopDate = end.format("MM/DD/YYYY") + " 11:59:59 PM";
+						OnRefreshReport();
+					}
+				);
+
+
+                jQuery("#daterangepicker2").data("daterangepicker").notify();
+
+			})(jQuery);
+
+			OnRefreshReport();
+		});
+
+	   function OnRefreshReport() {
+			$("#divReport").html("Loading Report")
+			console.log('OnRefreshReport method');
+
+
+		   if (ObjectUtil.HasValue(Page.LocalSettings.TagID)) {
+			   SalesRepresentativeReports.GetCallSummaryOverallByTagID(Page.LocalSettings.TagID, Page.LocalSettings.StartDate, Page.LocalSettings.StopDate, function (res, iRequestID) {
+						$("#divReport").html(res)
+					  OnFormatDate("divReport");
+			   });
+		   }
+		   else {
+			   SalesRepresentativeReports.GetCallSummaryOverall(Page.LocalSettings.StartDate, Page.LocalSettings.StopDate, function (res, iRequestID) {
+					 $("#divReport").html(res)
+					  OnFormatDate("divReport");
+			   });
+		   }
+	   }
+</script>
+
+	<%})
+	}%>

@@ -1,0 +1,174 @@
+﻿@{
+    var vmodel = new FeedingFrenzy.Admin.Pages.Shared._TopBarModel();
+}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>@ViewContext.ViewData["Title"]</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Feeding Frenzy CRM" name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="~/images/favicon.ico">
+
+        @RenderSection("Styles", false)
+
+        <link href="~/lib/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- Bootstrap css -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- App css -->
+        <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+        <!-- icons -->
+        <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Head js -->
+        <script src="~/js/head.js"></script>
+
+    
+
+	<link href="~/css/styles.css" rel="stylesheet" type="text/css" />
+
+
+        <!--kcs js-->
+    <script src="//static.buffa.ly/js/global.js"></script>
+	<script src="//static.buffa.ly/js/LocalStorage2.js"></script>
+	<script src="//static.buffa.ly/js/moremoo3.js?v=2"></script>
+	<script src="//static.buffa.ly/js/validators.js?v=2"></script>
+	<script src="//static.buffa.ly/js/UserMessages.js"></script>
+	<script src="//static.buffa.ly/js/grid4.js"></script>
+	<script src="//static.buffa.ly/js/stl.js?v=2"></script>
+	<script src="//static.buffa.ly/js/gridselector.js"></script>
+	<script src="//static.buffa.ly/js/moment.min.js"></script>
+	<script src="//static.buffa.ly/js/DateUtil.js"></script>
+	<script src="//static.buffa.ly/js/form_validation.js"></script>
+	<script src="~/js/kcs/MasterPage.js"></script>
+
+
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+
+	<script src="~/js/plugins/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/codemirror/lib/codemirror.js"></script>
+
+	<link rel="stylesheet" href="/js/plugins/codemirror/lib/codemirror.css">
+	<script src="/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+    
+
+	<style>
+		.CodeMirror {
+			border: 1px solid #eee;
+			height: auto;
+		}
+	</style>
+
+	<script src="~/js/signalr.min.js"></script>
+	<script src="~/js/signalrconnection.js?v=2"></script>
+
+
+	@RenderSection("Head", false)
+
+    
+
+    </head>
+
+    <!-- body start -->
+    <body data-layout-mode="default" data-theme="light" data-layout-width="fluid" data-topbar-color="light" data-menu-position="fixed" data-leftbar-color="light" data-leftbar-size='default' data-sidebar-user='false'>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+
+        <partial model="vmodel" name="_TopBar"></partial>
+
+<div class="left-side-menu" id="sidebar">
+
+    <div class="h-100" data-simplebar>
+
+        <!-- User box -->
+        
+
+        <div id="sidebar-menu">
+		@RenderSection("SidebarMenu", false)
+		@if (!IsSectionDefined("SidebarMenu"))
+		{
+			<p>Default content for sidebar menu</p>
+		}
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>
+
+
+            <div class="content-page">
+ 
+            <div class="content">
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    @RenderSection("Breadcrumbs", false)
+								</div>
+                                <h4 class="page-title">@RenderSection("MainPanelTitle", false)</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+					@RenderSection("ErrorMessage", false)
+                    <div class="row">
+                        <div class="col-12">
+                            @RenderSection("MainPanelContent", false)
+                        </div> <!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+
+                <partial name="_Footer"></partial>
+
+            </div>
+
+
+        </div>
+        <!-- END wrapper -->
+
+         <partial name="_RightSidebarEmpty"></partial>
+
+
+        <!-- Vendor js -->
+        <script src="~/js/vendor.min.js"></script>
+
+
+        @RenderSection("scripts", false)
+        <!-- App js-->
+        <script src="~/js/app.min.js"></script>
+        <script src="~/lib/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+
+        @RenderSection("BottomScripts", false)
+
+    <link rel='stylesheet' type='text/css' href='/assets/form-daterangepicker/daterangepicker-bs3.css' />
+    <script type='text/javascript' src='/assets/form-daterangepicker/daterangepicker.js?v=2'></script>
+    <script type='text/javascript' src='/assets/form-daterangepicker/moment.min.js?v=2'></script>
+
+    <link href="~/lib/fullcalendar/main.min.css" rel="stylesheet" type="text/css" />   
+    <script src="~/lib/fullcalendar/main.min.js"></script>
+    <script src="~/lib/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <!-- Range slider init js-->
+    <script src="~/js/pages/range-sliders.init.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,82 @@
+﻿<%function GetSalesRepresentativeLeftMenu UserState
+{
+	(returnex{%>
+<ul id="side-menu">
+
+
+	<li>
+		<a href="/"><i data-feather="airplay"></i> Dashboard</a>
+		
+	</li>
+
+	<li class="menu-title mt-2">Lead Management</li>
+	<li>
+		<ul class="nav-second-level">
+			<li>
+				<a href="/leads"><i class=" far fa-money-bill-alt"></i> All Leads</a>
+			</li>
+							<li>
+					<a href="/my-leads">My Leads</a>
+				</li>
+
+				<li>
+					<a href="/lead-notes">My Notes</a>
+				</li>
+							<li>
+					<a href="/lead-insert">Create Lead</a>
+				</li>
+		</ul>
+	</li>
+			
+	
+	<li class="menu-title mt-2">Calls</li>
+
+	<li>
+		<ul class="nav-second-level">
+				<li>
+					<a href="/calls"><i class=" fas fa-phone-alt"></i> Calls</a></a>
+				</li>
+				<li>
+					<a href="/call-scripts">Call Scripts</a>
+				</li>
+			</ul>
+	</li>
+
+	
+	<li class="menu-title mt-2">Sales Representatives</li>
+
+
+	<li>
+			<ul class="nav-second-level">
+
+				<li>
+					<a href="/sales-representatives"><i class=" fas fa-users"></i> Sales Reps</a>
+				</li>
+				<li>
+					<a href="/agents">Trainable Intelligent Managers</a>
+				</li>
+
+			</ul>
+	</li>
+
+
+	<li class="menu-title mt-2">Marketing</li>
+	<li>
+		
+		<ul class="nav-second-level">
+				<li>
+					<a href="/sources">Sources</a>
+				</li>
+				<li>
+					<a href="/campaigns">Campaigns</a>
+				</li>
+
+
+			</ul>
+	</li>
+	
+
+</ul>
+
+	<%})
+}%>

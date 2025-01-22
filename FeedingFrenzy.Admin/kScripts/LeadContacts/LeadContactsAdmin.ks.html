@@ -1,0 +1,732 @@
+<%
+class LeadContactsAdmin
+{
+			
+	(function GetDetails LeadContactID
+	{
+		(declare LeadContact (LeadContacts.GetLeadContact (LeadContactID)))
+		
+		(returnex{%>
+
+			<table class="Inputs table table-condensed">
+				<colgroup>
+					<col class="col-md-2">
+					<col class="col-md-10">
+				</colgroup>
+			
+			
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Lead Contact ID
+							</td>
+							<td>
+								
+									<%LeadContact.LeadContactID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								LeadID
+							</td>
+							<td>
+								
+									<%LeadContact.LeadID%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Name
+							</td>
+							<td>
+								
+									<%LeadContact.Name%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Title
+							</td>
+							<td>
+								
+									<%LeadContact.Title%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Phone
+							</td>
+							<td>
+								
+									<%StringToPhone (LeadContact.Phone)%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Email
+							</td>
+							<td>
+								
+									<%LeadContact.Email%>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+						<tr>
+							<td class="InputLabel">
+								Data
+							</td>
+							<td>	
+										
+							</td>
+						</tr>
+					
+	 						<%LeadContact.DataObject.each o{%>
+							<tr>
+								<td class="InputLabel">
+									&nbsp;&nbsp;<%FormatUtil.InsertSpacesInWords (o)%>
+								</td>
+								<td>
+									<div style="max-width: 600px;">
+										<%LeadContact.DataObject.get (o)%>
+									</div>
+									
+								</td>
+							</tr>
+							<%}%>
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Date Created
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadContact.DateCreated%></span>
+								
+							</td>
+						</tr>
+	
+						
+					
+
+						
+	
+						<tr>
+							<td class="InputLabel">
+								Last Updated
+							</td>
+							<td>
+								
+									<span class="DateOnly"><%LeadContact.LastUpdated%></span>
+								
+							</td>
+						</tr>
+	
+						
+											
+			</table>
+		<%})
+	})		
+			
+		
+	(function GetDropDown
+	{
+		(return (GetDropDown LeadContactName LeadContactID))
+	})
+	
+	(function GetDropDown Name Value
+	{
+		(return (GetDropDown (Name) (Value) (Value)))
+	})			
+	
+	(function GetDropDown Name Value FieldName
+	{
+		(return (GetDropDown (Name) (Value) (FieldName) ''))
+	})			
+	
+	(function GetDropDown Name Value FieldName PreOptions
+	{
+		(ado.view Options GetLeadContactsSp)
+		(returnex {%>
+			<select kcs:FieldName="<%FieldName%>" class="form-select">
+				<%PreOptions%>
+				<%Options.each Option{%>
+				<option value="<%Option.get (Value)%>"><%Option.get (Name)%></option>
+				<%}%>
+			</select>
+		<%})
+	})	
+		
+	(function GetEdit LeadContactID
+	{
+		(returnex{%>
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadContact">
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead Contact ID
+					</label>
+					<div class="col-sm-6">
+						
+						
+								
+								<input type="text" kcs:FieldName="LeadContactID" class="InputString form-control" readonly="readonly" value="<%LeadContactID%>"/>							
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						      						                   
+							
+                            
+							    <%using LeadsAdmin.ks.html%>
+							    
+                            
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Name
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Title
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="text" id="txtTitle" kcs:FieldName="Title" class="InputString form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+							
+						
+					</div>
+				</div>
+				
+							
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+						
+							
+								<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+							
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		
+		
+		
+	(function GetGrid 
+	{
+		(return (GetGrid  '' '' true 0 20))
+	})
+
+	(function GetGrid  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridHtml  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridCount  (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridHtml 
+	{
+		(return (GetGridHtml  '' '' true 0 20))	
+	})	
+	
+	(function GetGridHtml  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadContacts GetLeadContactsSp_PagingSp  (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadContactID">
+						Lead Contact ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						LeadID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Name">
+						Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Title">
+						Title
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadContacts.each LeadContact{%> 
+				<tr kcs:RowKey="<%LeadContact.get LeadContactID%>" >
+							
+			
+					
+					<td>
+						<%LeadContact.LeadContactID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Name%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Title%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (LeadContact.Phone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Email%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadContact.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadContact.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridCount  Search
+	
+	{
+		(ado.row LeadContacts GetLeadContactsSp_CountSp  (Search))
+		(return (LeadContacts.get Total))
+	})
+	
+		
+		
+		
+	(function GetGridByLeadID LeadID 
+	{
+		(return (GetGridByLeadID (LeadID) '' '' true 0 20))
+	})
+
+	(function GetGridByLeadID LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(declare Grid {Grid: '', Count: 0})		
+		(Grid.Grid (GetGridByLeadIDHtml (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)))		
+		(Grid.Count (GetGridByLeadIDCount (LeadID) (Search)))
+		(return (Grid.ToJSON))
+	})
+	
+	(function GetGridByLeadIDHtml LeadID 
+	{
+		(return (GetGridByLeadIDHtml (LeadID) '' '' true 0 20))	
+	})	
+	
+	(function GetGridByLeadIDHtml LeadID  Search SortColumn SortAscending SkipRows NumRows
+	{
+		(returnex{%>
+			
+			<%ado.view LeadContacts GetLeadContactsByLeadIDSp_PagingSp (LeadID) (Search) (SortColumn) (SortAscending) (SkipRows) (NumRows)%>
+			<table class="Grid">
+				<tr>
+			
+			
+				
+					<th kcs:SortColumn="LeadContactID">
+						Lead Contact ID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LeadID">
+						LeadID
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Name">
+						Name
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Title">
+						Title
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Phone">
+						Phone
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="Email">
+						Email
+					</th>
+					
+				
+			
+				
+			
+				
+					<th kcs:SortColumn="DateCreated">
+						Date Created
+					</th>
+					
+				
+			
+				
+					<th kcs:SortColumn="LastUpdated">
+						Last Updated
+					</th>
+					
+				
+									
+				</tr>
+			<%LeadContacts.each LeadContact{%> 
+				<tr kcs:RowKey="<%LeadContact.get LeadContactID%>" >
+							
+			
+					
+					<td>
+						<%LeadContact.LeadContactID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.LeadID%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Name%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Title%>
+					</td>
+					
+			
+					
+					<td>
+						<%StringToPhone (LeadContact.Phone)%>
+					</td>
+					
+			
+					
+					<td>
+						<%LeadContact.Email%>
+					</td>
+					
+			
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadContact.DateCreated%></span>
+					</td>
+					
+			
+					
+					<td>
+						<span class="DateOnly"><%LeadContact.LastUpdated%></span>
+					</td>
+					
+									
+				</tr>
+			<%}%>
+				<%GridFooter 8%>
+			</table>
+		
+		<%})
+	})
+		
+	(function GetGridByLeadIDCount LeadID  Search
+	
+	{
+		(ado.row LeadContacts GetLeadContactsByLeadIDSp_CountSp (LeadID) (Search))
+		(return (LeadContacts.get Total))
+	})
+	
+		
+	(function GetInsert
+	{
+		(returnex{%> 
+			<div class="form-horizontal row-border Inputs" kcs:ObjectName="LeadContact">
+
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Lead
+					</label>
+					<div class="col-sm-6">
+						
+							
+							<%using LeadsAdmin.ks.html%>
+							
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Name
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtName" kcs:FieldName="Name" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Title
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="text" id="txtTitle" kcs:FieldName="Title" class="InputString form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Phone
+					</label>
+					<div class="col-sm-6">
+						
+							<input autocomplete="tel" type="tel" pattern="^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$" id="txtPhone" kcs:FieldName="Phone" class="InputPhone form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Email
+					</label>
+					<div class="col-sm-6">
+						
+							<input type="email" id="txtEmail" kcs:FieldName="Email" class="InputEmail form-control" maxlength="255" />
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						Data
+					</label>
+					<div class="col-sm-6">
+						
+							<textarea kcs:FieldName="Data" class="InputData form-control"></textarea>
+						
+					</div>
+				</div>
+				
+									
+			</div>
+		<%})
+	})			
+		}%>

@@ -1,0 +1,10 @@
+<%using SimpleObjectEdit.ks.html%>
+<%using LeadRelationshipsAdmin.ks.html%>
+
+<%SimpleObjectEditPage.MetadataFile LeadRelationships.Meta.json%>
+
+<%redefinefunction SimpleObjectEditPage.Object
+{
+	(return (LeadRelationships.GetLeadRelationship (ObjectID)))
+}%>
+

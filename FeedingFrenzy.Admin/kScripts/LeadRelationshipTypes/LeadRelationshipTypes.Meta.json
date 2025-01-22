@@ -1,0 +1,19 @@
+{
+	ObjectName : "LeadRelationshipType",
+	ObjectsName : "LeadRelationshipTypes",
+
+	
+	NaturalKey : "LeadRelationshipTypeName",
+	
+	
+	FriendlyObjectName : "Lead Relationship Type",
+	FriendlyObjectsName : "Lead Relationship Types",
+	
+	ObjectsUrl : "lead-relationship-types",
+	DetailsUrl : "lead-relationship-type",
+	EditUrl : "lead-relationship-type-edit",
+	InsertUrl : "lead-relationship-type-insert",
+
+	UINamespace : "FeedingFrenzy.Admin.UI",
+	BusinessNamespace: "FeedingFrenzy.Admin.Business"
+}
