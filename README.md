@@ -1,4 +1,4 @@
-# FeedingFrenzy
+# Feeding Frenzy AI
 
 ![Logo or Banner](https://cdn.prod.website-files.com/66425af53f665d3f446fda38/66425e1668f56a9c05250780_feeding-frenzy-logo-p-500.png)
 
@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-Green?style=flat-square)](LICENSE)
 
 ## About
-Feeding Frenzy is an AI-powered sales optimization platform developed by **Intelligence Factory**. It enhances sales strategies by leveraging artificial intelligence to:
+Feeding Frenzy AI is an AI-powered sales optimization platform developed by **Intelligence Factory**. It enhances sales strategies by leveraging artificial intelligence to:
 
 - Distribute leads intelligently  
 - Schedule timely follow-ups  
@@ -316,6 +316,38 @@ Leverage **Feeding Frenzy’s Voice Agents** to revolutionize how you handle cus
 ### Voice Agent Overview
 
 [![Voice Agents Overview](https://img.youtube.com/vi/s1yyFEe3nMM/0.jpg)](https://www.youtube.com/watch?v=s1yyFEe3nMM "Voice Agents Overview")
+
+---
+
+🏆 Technology Partners
+Feeding Frenzy AI is built on a robust technology stack provided by industry-leading partners. These providers empower our platform with AI-driven voice capabilities, cloud scalability, and enterprise-grade security.
+
+📞 Twilio – AI-Powered Communication
+Twilio enables Feeding Frenzy AI to handle inbound and outbound calls seamlessly. Our AI Voice Agents utilize Twilio’s programmable voice API to:
+
+✅ Make and receive phone calls directly from the web application.
+✅ Automate call handling using AI-powered virtual agents.
+✅ Integrate with SMS & WhatsApp for multi-channel engagement.
+
+[Learn more about Twilio](https://www.twilio.com/en-us/voice)
+
+🔷 Microsoft – Development & Cloud Platform
+Microsoft provides the foundation for Feeding Frenzy AI with its powerful development and cloud infrastructure:
+
+✅ .NET 8 Framework – Ensuring a scalable and performant backend.
+✅ Azure Cloud Services – Supporting authentication, AI workloads, and cloud storage.
+✅ SQL Server – High-performance relational database management for lead and call data.
+
+[Learn more about Microsoft Azure](https://dotnet.microsoft.com/en-us/apps/cloud/azure)
+
+☁️ AWS – Hosting & Infrastructure
+Amazon Web Services (AWS) provides the global infrastructure to scale Feeding Frenzy AI:
+
+✅ EC2 Instances – Web hosting and backend processing.
+✅ RDS & MySQL Databases – Managing structured data with high availability.
+✅ Elastic Load Balancing & Routing – Ensuring seamless application performance.
+
+[Learn more about AWS](https://aws.amazon.com/ec2/)
 
 ---
 
