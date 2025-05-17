@@ -63,8 +63,8 @@
 
 		(returnex{%>
 <script type="text/javascript">
-	var iOrganizationID = <% iOrganizationID %>;
-	var bRecordCalls = <%if (bRecordCalls) true false %>;
+	let iOrganizationID = <% iOrganizationID %>;
+	let bRecordCalls = <%if (bRecordCalls) true false %>;
 </script>
 
 <div class="col-md-6">
@@ -284,7 +284,7 @@
 	</div>
 
 	<script type="text/javascript">
-var bRequiresReload = false;
+let bRequiresReload = false;
 		function OnGrowDuplicates() {
 			_$("divPotentialDuplicates").addClass("modalLeads");
 			_$("divPotentialDuplicates").style["display"] = "block";
@@ -1100,7 +1100,6 @@ var bRequiresReload = false;
 			Page.Tabs['tab-Messages<%sPhone%>']={};
 
 			Page.Tabs['tab-Messages<%sPhone%>'].OnLoad=function () {
-				console.log('<%sPhone%> loaded');
 				OnRefreshMessages2('<%sPhone%>');
 			}
 </script>
@@ -1166,7 +1165,7 @@ var bRequiresReload = false;
 
 				Page.AddOnload(function () {
 
-					var oGrid=new JsonWsGrid3();
+					let oGrid=new JsonWsGrid3();
 					Page.Grids.Insert("LeadNotesGrid", oGrid);
 					oGrid.ContentControlID="divLeadNotes";
 					oGrid.ExtraParams={ LeadID: <%ObjectID%> };
@@ -1221,7 +1220,7 @@ var bRequiresReload = false;
 	}
 
 	Page.AddOnLoad(function () {
-		var oSettings = Page.LocalStorage.GetValue("LocalSettings");
+		let oSettings = Page.LocalStorage.GetValue("LocalSettings");
 		if (null != oSettings)
 		{
 			Page.LocalSettings = $merge(Page.LocalSettings, oSettings);
@@ -1244,14 +1243,14 @@ var bRequiresReload = false;
 	}
 
 
-	var iSalesRepresentativeID = <% UserState.get_SalesRepresentativeID %>;
-	var oLead = <% ToJSON(CachedObject) { DataObject:true, LeadStatus: true, LeadSubStatus: true, TestKitOrganization: true}%>;
+	let iSalesRepresentativeID = <% UserState.get_SalesRepresentativeID %>;
+	let oLead = <% ToJSON(CachedObject) { DataObject:true, LeadStatus: true, LeadSubStatus: true, TestKitOrganization: true}%>;
 	LeadsValidators.MessageLead.Message = { Validators: [Validators.Text, Validators.Required], InvalidMessage: "Invalid Message. " + ValidatorDescriptions.Required() + ' ' + ValidatorDescriptions.Length(1, 2000) };
 	function OnInsertLeadNote() {
-		var oLeadNote = BlindUnbind(_$("divLeadNote"));
+		let oLeadNote = BlindUnbind(_$("divLeadNote"));
 
 		if (!StringUtil.IsEmpty(oLeadNote.FollowUpDate)) {
-			var date = new Date(oLeadNote.FollowUpDate);
+			let date = new Date(oLeadNote.FollowUpDate);
 			if (date.getHours() != 0)
 				oLeadNote.FollowUpDate = DateUtil.ToShortDateTime(DateUtil.AddHours(date, new Date().getTimezoneOffset() / 60));
 		}
@@ -1320,7 +1319,7 @@ var bRequiresReload = false;
 	}
 
 	function OnUpdatePriority() {
-		var iPriority = ControlUtil.GetValue("ddlPriority");
+		let iPriority = ControlUtil.GetValue("ddlPriority");
 		Leads.UpdatePriority(iLeadID, iPriority, function () {
 			UserMessages.Display("Priority Updated", "Success");
 			Page.Reload();
@@ -1328,7 +1327,7 @@ var bRequiresReload = false;
 	}
 
 	function OnBindQuickStatus() {
-		var sStatus = oLead.LeadStatus.StatusName;
+		let sStatus = oLead.LeadStatus.StatusName;
 
 		if (ObjectUtil.HasValue(oLead.LeadSubStatus))
 			sStatus += "|" + oLead.LeadSubStatus.SubStatusName;
@@ -1336,7 +1335,6 @@ var bRequiresReload = false;
 		else if (StringUtil.EqualNoCase(sStatus, "Sold"))
 			sStatus += "|Sold";
 
-		console.log(sStatus);
 		ControlUtil.SetValue("ddlQuickStatus", sStatus);
 	}
 
@@ -1350,12 +1348,11 @@ var bRequiresReload = false;
 	}
 
 	function OnUpdateQuickStatus() {
-		var sStatus = ControlUtil.GetValue("ddlQuickStatus");
-		console.log(sStatus);
+		let sStatus = ControlUtil.GetValue("ddlQuickStatus");
 
 		LeadsValidatorsFields.LeadSubStatusID.Validators = [];
 
-		var sStatuses = StringUtil.Split(sStatus, "|");
+		let sStatuses = StringUtil.Split(sStatus, "|");
 		if (sStatuses.length == 1)
 			OnUpdateLeadStatus2(sStatuses[0], null);
 		else
@@ -1393,7 +1390,7 @@ var bRequiresReload = false;
 
 
 	OnObjectsTitleClick = function () {
-		var sHref = new LocalStorage().get("LeadsPage");
+		let sHref = new LocalStorage().get("LeadsPage");
 
 		if (!StringUtil.IsEmpty(sHref))
 			Page.Redirect(sHref);
@@ -1402,7 +1399,7 @@ var bRequiresReload = false;
 	};
 
 	function OnSendMessage() {
-		var sMessage = ControlUtil.GetValue("txtMessage");
+		let sMessage = ControlUtil.GetValue("txtMessage");
 		if (!StringUtil.IsEmpty(sMessage)) {
 			ControlUtil.SetValue("txtMessage", "");
 
@@ -1414,7 +1411,7 @@ var bRequiresReload = false;
 	}
 
 	function OnSendMessage2(sPhone) {
-		var sMessage = ControlUtil.GetValue("txtMessage_" + sPhone);
+		let sMessage = ControlUtil.GetValue("txtMessage_" + sPhone);
 		if (!StringUtil.IsEmpty(sMessage)) {
 			ControlUtil.SetValue("txtMessage_" + sPhone, "");
 
@@ -1432,7 +1429,6 @@ var bRequiresReload = false;
 			LeadsAdmin.GetMessages(iLeadID, function (oRes) {
 				_$("chathistory").innerHTML = oRes;
 				OnFormatDate("chathistory");
-				console.log("messages refreshed");
 				resolve();
 			})
 		});
@@ -1447,7 +1443,6 @@ var bRequiresReload = false;
 			LeadsAdmin.GetMessagesByPhone(sPhone, function (oRes) {
 				_$("chathistory_"+sPhone).innerHTML=oRes;
 				OnFormatDate("chathistory_"+sPhone);
-				console.log("messages refreshed");
 				resolve();
 			})
 		});
@@ -1516,15 +1511,15 @@ var bRequiresReload = false;
 
 <script>
 	<%if (oSalesRep.DataObject.GetBooleanOrFalse IsCallerIDVerified) {%>
-	var sCurrentSalesRepPhone="<%oSalesRep.Phone%>";
+	let sCurrentSalesRepPhone="<%oSalesRep.Phone%>";
 	<%} {%>
-	var sCurrentSalesRepPhone="";
+	let sCurrentSalesRepPhone="";
 	<%}%>
 
 	function OnCallLead(sPhone, sFriendly) {
 		let iUserID= <%UserState.UserID%>;
 		let sCallerID = "<%TwilioFeature.Feature.FromNumber%>";
-		var sUrl="/tw_call2.html?"+toQueryString(
+		let sUrl="/tw_call2.html?"+toQueryString(
 		{
 			phone: sPhone,
 			name: sFriendly,
@@ -1545,7 +1540,7 @@ var bRequiresReload = false;
 			let iLeadNoteID = oObj.LeadNoteID;
 			let sCallerID = oObj.CallerID;
 
-			var sUrl="/tw_call2.html?"+toQueryString(
+			let sUrl="/tw_call2.html?"+toQueryString(
 			{
 				jwt: sTok,
 				phone: sPhone,
@@ -1562,7 +1557,7 @@ var bRequiresReload = false;
 
 	function OnJoinConference(sPhone) {
 		Leads.CallLead(iLeadID, iSalesRepresentativeID, function (sTok) {
-			var sUrl = "/tw_call.html?" + toQueryString({ jwt: sTok, phone: sPhone, t: oLead.LeadType, join: true });
+			let sUrl = "/tw_call.html?" + toQueryString({ jwt: sTok, phone: sPhone, t: oLead.LeadType, join: true });
 
 			if (bRecordCalls)
 				sUrl += "&r=1&lead_id=" + iLeadID;
@@ -1588,11 +1583,11 @@ var bRequiresReload = false;
 <script type="text/javascript" src="JsonWs/<%BusinessNamespace%>.BlockedEmails.ashx.js?v=<%JsVersion%>"></script>
 
 <script type="text/javascript">
-	var bIsEmailIntegrated = <%if (oSalesRep.IsEmailIntegrated) true false %>;
-	var sEmail = "<%oSalesRep.Email%>";
-	var sSalesRepName = "<%oSalesRep.Name%>";
+	let bIsEmailIntegrated = <%if (oSalesRep.IsEmailIntegrated) true false %>;
+	let sEmail = "<%oSalesRep.Email%>";
+	let sSalesRepName = "<%oSalesRep.Name%>";
 
-	var sActiveID = null;
+	let sActiveID = null;
 	function OnOpenRawEmailInGmail(sID) {
 		if (!ObjectUtil.HasValue(sID))
 			sID = sActiveID;
@@ -1610,7 +1605,7 @@ var bRequiresReload = false;
 		}
 
 		if (bIsEmailIntegrated) {
-			var oBtn = _$("btnSendEmailTemplate");
+			let oBtn = _$("btnSendEmailTemplate");
 			if (ObjectUtil.HasValue(oBtn))
 				oBtn.removeClass("hidden");
 		}
@@ -1662,8 +1657,8 @@ var bRequiresReload = false;
 		//sHtml = StringUtil.ReplaceAll(sHtml, '<img border="0" width="1"', '<noimag ');
 		//sHtml = StringUtil.ReplaceAll(sHtml, '<img alt="" width="1"', '<noimag ');
 
-		var fragment = document.createDocumentFragment();
-		var div = document.createElement('div');
+		let fragment = document.createDocumentFragment();
+		let div = document.createElement('div');
 		fragment.appendChild(div);
 		div.innerHTML = sHtml;
 
@@ -1696,7 +1691,7 @@ var bRequiresReload = false;
 
 	async function OnReplyHere() {
 		let f = new Promise((resolve) => {
-			var iRawEmailID = ControlUtil.GetValue("hdnRawEmailID");
+			let iRawEmailID = ControlUtil.GetValue("hdnRawEmailID");
 			RawEmails.GetRawEmail(iRawEmailID, async function (oRawEmail) {
 				oRawEmail.DataObject = JSON.decode(oRawEmail.Data);
 				jQuery("#divEmailPreview").modal('hide');
@@ -1707,8 +1702,8 @@ var bRequiresReload = false;
 		});
 	}
 
-	var sEmailTemplate = null;
-	var sSignature = '';
+	let sEmailTemplate = null;
+	let sSignature = '';
 
 	async function FillInReply(to, sName, subject, message_id, thread_id) {
 		let f = new Promise(function (resolve) {
@@ -1745,7 +1740,7 @@ var bRequiresReload = false;
 			sEmailTemplate = null;
 
 			ControlUtil.AddChange("ddlTemplates", function () {
-				var sContentName = ControlUtil.GetValue("ddlTemplates");
+				let sContentName = ControlUtil.GetValue("ddlTemplates");
 
 				if (!StringUtil.IsEmpty(sContentName)) {
 					SelectEmailTemplate(sContentName);
@@ -1758,7 +1753,7 @@ var bRequiresReload = false;
 		});
 
 		ControlUtil.AddChange("ddlEmailTemplatesEdit", function () {
-			var sContentName = ControlUtil.GetValue("ddlEmailTemplatesEdit");
+			let sContentName = ControlUtil.GetValue("ddlEmailTemplatesEdit");
 			_$("btnDeleteEmailTemplate").addClass("Hidden");
 			if (!StringUtil.IsEmpty(sContentName)) {
 				if (StringUtil.EqualNoCase(sContentName, "Signature")) {
@@ -1795,7 +1790,7 @@ var bRequiresReload = false;
 				if (ObjectUtil.HasValue(oContent)) {
 					oContent.Content = ReplaceBraces(oContent.Content);
 
-					var sContent = oContent.Content + sSignature;
+					let sContent = oContent.Content + sSignature;
 
 					ControlUtil.SetValue("reply-message", sContent);
 					tinymce.get('reply-message').setContent(sContent);
@@ -1813,7 +1808,7 @@ var bRequiresReload = false;
 						if (ObjectUtil.HasValue(oContent)) {
 							oContent.Content = ReplaceBraces(oContent.Content);
 
-							var sContent = oContent.Content + sSignature;
+							let sContent = oContent.Content + sSignature;
 
 							ControlUtil.SetValue("reply-message", sContent);
 							tinymce.get('reply-message').setContent(sContent);
@@ -1847,7 +1842,7 @@ var bRequiresReload = false;
 
 		let f = new Promise(function (resolve) {
 
-			var oMessage = BlindUnbind("divEmailReplyBody");
+			let oMessage = BlindUnbind("divEmailReplyBody");
 			oMessage.Message = ReplaceBraces(oMessage.Message);
 
 			if (StringUtil.InString(oMessage.Message, "NO QUOTE EXISTS FOR USER")) {
@@ -1867,7 +1862,7 @@ var bRequiresReload = false;
 				return;
 			}
 
-			var sMessage = oMessage.Message;
+			let sMessage = oMessage.Message;
 			sMessage = StringUtil.ReplaceAll(sMessage, "�", '"');
 			sMessage = StringUtil.ReplaceAll(sMessage, "�", '"');
 			sMessage = StringUtil.ReplaceAll(sMessage, "�", "'");
@@ -1921,7 +1916,7 @@ var bRequiresReload = false;
 	}
 
 	async function replyTidy(res) {
-		var fs = [];
+		let fs = [];
 
 		jQuery('#divEmailReply').modal('hide');
 
@@ -1929,8 +1924,8 @@ var bRequiresReload = false;
 
 		_$('reply-button').removeClass('disabled');
 
-		var oData = JSON.encode({ IsSentEmailTemplate: true, ThreadID: res.threadId, MessageID: res.id, EmailTrackingID: sEmailTrackingID });
-		var dtFollowUp = ControlUtil.GetValue("txtEmailFollowUp")
+		let oData = JSON.encode({ IsSentEmailTemplate: true, ThreadID: res.threadId, MessageID: res.id, EmailTrackingID: sEmailTrackingID });
+		let dtFollowUp = ControlUtil.GetValue("txtEmailFollowUp")
 
 		if (StringUtil.IsEmpty(sEmailTemplate)) {
 			fs.push(new Promise(function (resolve) {
@@ -1969,12 +1964,12 @@ var bRequiresReload = false;
 
 	}
 
-	var sEmailTrackingID = null;
+	let sEmailTrackingID = null;
 
 	function SendMessage(headers_obj, message, callback) {
-		var email = '';
+		let email = '';
 
-		for (var header in headers_obj)
+		for (let header in headers_obj)
 			email += header += ": " + headers_obj[header] + "\r\n";
 
 		let sID = iLeadID + "_" + Date.now().toString();
@@ -1982,7 +1977,7 @@ var bRequiresReload = false;
 
 		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
 		email = unescape(encodeURIComponent(email));	//added because of non-latin characters
-		var sendRequest = gapi.client.gmail.users.messages.send({
+		let sendRequest = gapi.client.gmail.users.messages.send({
 			'userId': 'me',
 			'resource': {
 				'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_')
@@ -1993,9 +1988,9 @@ var bRequiresReload = false;
 	}
 
 	function SendMessageReply(headers_obj, message, threadID, messageID, callback) {
-		var email = '';
+		let email = '';
 
-		for (var header in headers_obj)
+		for (let header in headers_obj)
 			email += header += ": " + headers_obj[header] + "\r\n";
 
 		let sID = iLeadID + "_" + Date.now().toString();
@@ -2004,7 +1999,7 @@ var bRequiresReload = false;
 		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
 		email = unescape(encodeURIComponent(email));
 
-		var sendRequest = gapi.client.gmail.users.messages.send({
+		let sendRequest = gapi.client.gmail.users.messages.send({
 			'userId': 'me',
 			'resource': {
 				'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_'),
@@ -2029,7 +2024,7 @@ var bRequiresReload = false;
 		}
 	}
 
-	var sendWhatsApp = false;
+	let sendWhatsApp = false;
 
 	function OnSendWhatsAppTextTemplate() {
 		jQuery("#divTextReply").modal('show');
@@ -2043,11 +2038,11 @@ var bRequiresReload = false;
 		FillInTextReply();
 	}
 
-	var sSMSTemplate = null;
-	var sSMSSignature = '';
+	let sSMSTemplate = null;
+	let sSMSSignature = '';
 
 	function GetLeadName() {
-		var sName = StringUtil.UppercaseFirstLetter(StringUtil.LeftOfFirst(oLead.FirstName, " "));
+		let sName = StringUtil.UppercaseFirstLetter(StringUtil.LeftOfFirst(oLead.FirstName, " "));
 
 		return sName;
 	}
@@ -2077,14 +2072,14 @@ var bRequiresReload = false;
 		});
 
 		ControlUtil.AddChange("ddlTextTemplates", function () {
-			var sContentName = ControlUtil.GetValue("ddlTextTemplates");
+			let sContentName = ControlUtil.GetValue("ddlTextTemplates");
 			if (!StringUtil.IsEmpty(sContentName)) {
 				SelectSMSTemplate(sContentName);
 			}
 		})
 
 		ControlUtil.AddChange("ddlTextTemplatesEdit", function () {
-			var sContentName = ControlUtil.GetValue("ddlTextTemplatesEdit");
+			let sContentName = ControlUtil.GetValue("ddlTextTemplatesEdit");
 			if (!StringUtil.IsEmpty(sContentName)) {
 				Contents.GetUserContent(sEmail, sContentName, function (oContent) {
 					ControlUtil.SetValue("txtSMSTemplateName", oContent.ContentName);
@@ -2094,7 +2089,7 @@ var bRequiresReload = false;
 		})
 
 		ControlUtil.AddEvent('txtSMSTemplateContent', 'blur', function () {
-			var sContent = ControlUtil.GetValue("txtSMSTemplateContent")
+			let sContent = ControlUtil.GetValue("txtSMSTemplateContent")
 			ControlUtil.SetValue("divEditSMSTemplatePreview", ReplaceBraces(sContent, true) + sSMSSignature);
 		})
 
@@ -2136,7 +2131,7 @@ var bRequiresReload = false;
 	async function SendTextTemplate() {
 		let fs = [];
 
-		var oMessage = BlindUnbind("divTextReplyBody");
+		let oMessage = BlindUnbind("divTextReplyBody");
 		jQuery("#divTextReply").modal('hide');
 
 		let sPhone=Clean(ControlUtil.GetValue("txtTextTo"), "0123456789");
@@ -2161,7 +2156,7 @@ var bRequiresReload = false;
 		}
 
 
-		var sDate = ControlUtil.GetValue("txtSMSFollowUp");
+		let sDate = ControlUtil.GetValue("txtSMSFollowUp");
 		fs.push(new Promise((resolve) => {
 			LeadNotes.InsertLeadNote(oLead.LeadID, iSalesRepresentativeID, sSMSTemplate + " (SMS Template)", sDate, null, null, function () {
 				Page.Grids.LeadNotesGrid.Refresh(true);
@@ -2189,7 +2184,7 @@ var bRequiresReload = false;
 
 	function SaveSMSTemplate() {
 
-		var oContent = BlindUnbind("divEditSMSTemplate");
+		let oContent = BlindUnbind("divEditSMSTemplate");
 
 		Contents.InsertOrUpdateUserContent(sEmail, oContent, function () {
 			UserMessages.Display("SMS template saved", "Success");
@@ -2202,7 +2197,7 @@ var bRequiresReload = false;
 
 	function SaveEmailTemplate() {
 
-		var oContent = BlindUnbind("divEditEmailTemplate");
+		let oContent = BlindUnbind("divEditEmailTemplate");
 		oContent.DataObject = { IsEmailTemplate: true, Subject: oContent.Subject };
 		oContent.Data = JSON.encode(oContent.DataObject);
 
@@ -2225,7 +2220,7 @@ var bRequiresReload = false;
 
 	function DeleteEmailTemplate() {
 
-		var oContent = BlindUnbind("divEditEmailTemplate");
+		let oContent = BlindUnbind("divEditEmailTemplate");
 		oContent.DataObject = { IsEmailTemplate: true, Subject: oContent.Subject };
 		oContent.Data = JSON.encode(oContent.DataObject);
 
@@ -2380,7 +2375,7 @@ var bRequiresReload = false;
 
 
 							function OnFollowUpDate2(val, sID) {
-								var sDate = GetDateFromShortCut(val);
+								let sDate = GetDateFromShortCut(val);
 								ControlUtil.SetValue(sID, sDate);
 							}
 						</script>
@@ -2461,7 +2456,7 @@ var bRequiresReload = false;
 
 <script src="/js/tinymceconfig.js?v=<%JsVersion%>" type="text/javascript"></script>
 <script type="text/javascript">
-	var oQuote = null;
+	let oQuote = null;
 
 	function GetCurrentQuote() {
 
@@ -2511,7 +2506,7 @@ var bRequiresReload = false;
 		oTinyMCEAdvanced.setup = function (editor) {
 			editor.on('change', function () {
 				editor.save();
-				var sContent = editor.getContent() + sSignature;
+				let sContent = editor.getContent() + sSignature;
 				sContent = ReplaceBraces(sContent);
 				_$("divEditEmailTemplatePreview").innerHTML = sContent;
 			});
@@ -2537,7 +2532,7 @@ var bRequiresReload = false;
 			if (null == oQuote || oQuote.Basket.TotalQuantity == 0)
 				sContent = StringUtil.ReplaceAll(sContent, "{Quote}", "<strong>NO QUOTE EXISTS FOR USER</strong>");
 			else {
-				var sQuoteKey = CustomerQuotes.GetOrCreateCustomerQuote(oQuote.Basket.BasketID);
+				let sQuoteKey = CustomerQuotes.GetOrCreateCustomerQuote(oQuote.Basket.BasketID);
 				if (bSMS)
 					sContent = StringUtil.ReplaceAll(sContent, "{Quote}", "https://cart.medekhealth.com/invoice-checkout?QuoteID=" + sQuoteKey);
 				else
@@ -2565,7 +2560,7 @@ var bRequiresReload = false;
 	});
 
 	function FilePickerCallback (cb, value, meta) {
-			var input = document.createElement('input');
+			let input = document.createElement('input');
 			input.setAttribute('type', 'file');
 
 			if (meta.filetype == 'image')
@@ -2573,7 +2568,7 @@ var bRequiresReload = false;
 
 
 			input.onchange = function () {
-				var file = this.files[0];
+				let file = this.files[0];
 
 				if (meta.filetype == 'image') {
 
@@ -3259,7 +3254,7 @@ var bRequiresReload = false;
 		}
 
 	function copyEmail() {
-		var AgentEmail = document.getElementById("AgentEmail").innerText;
+		let AgentEmail = document.getElementById("AgentEmail").innerText;
 		navigator.clipboard.writeText(AgentEmail);
 	}
 
