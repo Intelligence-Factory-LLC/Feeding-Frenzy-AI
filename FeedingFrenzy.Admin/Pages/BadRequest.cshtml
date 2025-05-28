@@ -1,0 +1,12 @@
+@page
+@model FeedingFrenzy.Admin.Pages.BadRequestModel
+@{
+    ViewData["Title"] = "400 - Bad Request";
+    Layout = "_SimpleLayout";
+}
+
+@section MainPanelContent {
+    <h1 class="text-danger">400 – Bad Request</h1>
+    <p>Your request could not be processed.</p>
+    <p><a asp-page="/Index">Return to Home</a></p>
+}
