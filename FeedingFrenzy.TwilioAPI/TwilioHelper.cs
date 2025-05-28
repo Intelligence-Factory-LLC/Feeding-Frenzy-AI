@@ -27,25 +27,25 @@ namespace FeedingFrenzy.TwilioAPI
 			TwilioClient.Init(twilioAccountSid, strToken);
 		}
 
-		static public bool SendSMSViaTwilio(string strMobileNumber, string strSMSText)
-		{
-			try
-			{
-				SendSMSViaTwilioNewVersion(strMobileNumber, strSMSText);
-			}
-			catch (Exception err)
-			{
-				Logs.LogError(err);
-				Logs.DebugLog.WriteEvent("Sent to Number", strMobileNumber);
-				Logs.DebugLog.WriteEvent("Sent Messages", strSMSText);
-			}
-			return true;
-		}
+                static public bool SendSMSViaTwilio(string strMobileNumber, string strSMSText)
+                {
+                        try
+                        {
+                                return SendSMSViaTwilioNewVersion(strMobileNumber, strSMSText);
+                        }
+                        catch (Exception err)
+                        {
+                                Logs.LogError(err);
+                                Logs.DebugLog.WriteEvent("Sent to Number", strMobileNumber);
+                                Logs.DebugLog.WriteEvent("Sent Messages", strSMSText);
+                                return false;
+                        }
+                }
 
-		static public bool SendSMSViaTwilioNewVersion(string strMobileNumber, string strSMSText)
-		{
-			try
-			{
+                static public bool SendSMSViaTwilioNewVersion(string strMobileNumber, string strSMSText)
+                {
+                        try
+                        {
 				if (StringUtil.IsEmpty(strMobileNumber))
 				{
 					Logs.DebugLog.WriteEvent("SendSMSViaTwilioNewVersion", "Sending to empty phone number");
@@ -66,27 +66,28 @@ namespace FeedingFrenzy.TwilioAPI
 				 to: new Twilio.Types.PhoneNumber(strMobileNumber)
 				 );
 
-				Logs.DebugLog.WriteEvent("Twilio Message Sent", string.Format("Phone: {0}, SMS: {1}", strMobileNumber, strSMSText));
+                                Logs.DebugLog.WriteEvent("Twilio Message Sent", string.Format("Phone: {0}, SMS: {1}", strMobileNumber, strSMSText));
+                                return true;
 
-			}
-			catch (Exception err)
-			{
+                        }
+                        catch (Exception err)
+                        {
 
-				if (err.Message.Contains("Attempt to send to unsubscribed recipient"))
-				{
-					Logs.DebugLog.WriteEvent("Unsubscribed Phone", strMobileNumber);
-				}
-				else
-				{
-					Logs.LogError(err);
-					Logs.DebugLog.WriteEvent("Sent to Number", strMobileNumber);
-					Logs.DebugLog.WriteEvent("Sent Messages", strSMSText);
-				}
+                                if (err.Message.Contains("Attempt to send to unsubscribed recipient"))
+                                {
+                                        Logs.DebugLog.WriteEvent("Unsubscribed Phone", strMobileNumber);
+                                }
+                                else
+                                {
+                                        Logs.LogError(err);
+                                        Logs.DebugLog.WriteEvent("Sent to Number", strMobileNumber);
+                                        Logs.DebugLog.WriteEvent("Sent Messages", strSMSText);
+                                }
 
-			}
+                                return false;
+                        }
 
-			return true;
-		}
+                }
 
 
 		static public string GetJwtToken()
