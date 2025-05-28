@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Http;
 using RooTrax.Common;
 using System.Reflection;
 using WebAppUtilities;
@@ -136,6 +137,13 @@ public class Program
 
         app.UseExceptionHandler("/Error");
 
+        app.UseStatusCodePages(async context =>
+        {
+            if (context.HttpContext.Response.StatusCode == StatusCodes.Status400BadRequest)
+            {
+                context.HttpContext.Response.Redirect("/BadRequest");
+            }
+        });
 
         try
         {
