@@ -1151,12 +1151,19 @@ var bRequiresReload = false;
 
 <script type="text/javascript" language="javascript">
 
-				function OpenWebsite(sUrl) {
-					if (!StringUtil.InString(sUrl, "//"))
-						sUrl = "//" + sUrl;
+                                function OpenWebsite(sUrl) {
+                                        if (StringUtil.IsEmpty(sUrl))
+                                                return;
 
-					Page.Redirect(sUrl, {}, "_blank");
-				}
+                                        sUrl = sUrl.trim();
+
+                                        if (!/^https?:\/\//i.test(sUrl)) {
+                                                sUrl = sUrl.replace(/^[^\/]+:\/\//i, '');
+                                                sUrl = 'https://' + sUrl;
+                                        }
+
+                                        Page.Redirect(sUrl, {}, "_blank");
+                                }
 
 
 
@@ -1980,7 +1987,7 @@ var bRequiresReload = false;
 		let sID = iLeadID + "_" + Date.now().toString();
 		sEmailTrackingID = sID;
 
-		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
+		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='Email tracking pixel' width='1' height='1' /><" + "/body></html>";
 		email = unescape(encodeURIComponent(email));	//added because of non-latin characters
 		var sendRequest = gapi.client.gmail.users.messages.send({
 			'userId': 'me',
@@ -2001,7 +2008,7 @@ var bRequiresReload = false;
 		let sID = iLeadID + "_" + Date.now().toString();
 		sEmailTrackingID = sID;
 
-		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='' width='1' height='1' /><" + "/body></html>";
+		email += "\r\n<html><body>" + message + "<img src='https://admin.medekrpm.com/tr/le/" + sID + ".gif' alt='Email tracking pixel' width='1' height='1' /><" + "/body></html>";
 		email = unescape(encodeURIComponent(email));
 
 		var sendRequest = gapi.client.gmail.users.messages.send({
