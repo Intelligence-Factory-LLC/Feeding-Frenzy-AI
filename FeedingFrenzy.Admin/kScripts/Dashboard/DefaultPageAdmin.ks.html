@@ -37,6 +37,11 @@ Summarize the day and pull out key facts into JSON
                                     <div class="row">
                                         <div class="col-lg-12">
                                              <div id="summarizeDay"></div>
+                                             <div id="summaryLoading" class="text-center my-2 d-none">
+                                                 <div class="spinner-border text-primary" role="status">
+                                                     <span class="visually-hidden">Loading...</span>
+                                                 </div>
+                                             </div>
                                         </div>
                                     </div>  <!-- end row -->
                                 </div> <!-- end card body-->
@@ -114,6 +119,8 @@ Summarize the day and pull out key facts into JSON
 
         <script type="text/javascript" src="/JsonWs/FeedingFrenzy.Admin.Business.LeadNotes.ashx.js"></script>
         <script type="text/javascript">
+            var iSalesRepresentativeID = <% UserState.SalesRepresentativeID %>;
+
 
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -205,7 +212,7 @@ Summarize the day and pull out key facts into JSON
                                 editable: true,
                                 droppable: true,
                                 selectable: true,
-                                dateClick: function (e) { a.onSelect(e); },
+                                dateClick: function (e) { loadSummaryForDate(e.dateStr); },
                                 eventClick: function (e) { a.onEventClick(e); }
                             });
 
@@ -308,6 +315,35 @@ Summarize the day and pull out key facts into JSON
 
     return html;
 }
+
+            function extractSummaryData(raw) {
+                try {
+                    var start = raw.indexOf('```json');
+                    if (start !== -1) {
+                        start += 7;
+                        var end = raw.indexOf('```', start);
+                        if (end !== -1) {
+                            return JSON.parse(raw.substring(start, end));
+                        }
+                    }
+                    return JSON.parse(raw);
+                } catch (e) {
+                    console.error('Failed to parse summary', e);
+                    return null;
+                }
+            }
+
+            function loadSummaryForDate(dateStr) {
+                var spinner = document.getElementById('summaryLoading');
+                spinner.classList.remove('d-none');
+                LeadAutomation.ChatWithSalesRepresentativesDay(iSalesRepresentativeID, dateStr, '', function(res) {
+                    spinner.classList.add('d-none');
+                    var data = extractSummaryData(res);
+                    if (data) {
+                        document.getElementById('summarizeDay').innerHTML = ParseSummaryToHTML(data);
+                    }
+                });
+            }
 
         </script>
 
